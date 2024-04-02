@@ -4,10 +4,143 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=, initial-scale=1.0">
     <title>Document</title>
+
+
+    <style>
+        *{
+          border: border-box;
+            
+        }
+
+        #wrapper{
+            width:1000px;
+            height:100%;
+            margin: auto;
+            display :flex; 
+            justify-content: space-between;
+            border: solid black;
+            
+        }
+        #section_1{
+            height: 100%;
+            border:solid salmon;
+        }
+        #section_2{
+            border: solid gray;
+        }
+
+        .space{
+            display:grid;
+            grid-template-rows: repeat(2, 100px);
+            /* grid-template-columns: repeat(3, 1fr); */
+            column-gap:50px;
+            border: solid blueviolet;
+            margin:10px;
+        }
+        .title{
+            border:solid red;
+            margin:10px;
+        }
+
+        #list > ul{
+            display:flex;
+            list-style: none;
+            justify-content:  space-between;
+            border: solid green;
+            margin: auto;
+         }
+
+         #list li{
+         
+            border: solid rosybrown;
+            padding: 10px;
+          
+         }
+
+
+
+
+    </style>
 </head>
+
+
 <body>
+
+    <div id="wrapper">
+
+        <div id="section_1">
+            
+            
+            <div id="space_id" class="title">르씨엘 2호점</div>
+            <div id="space_comment" class="space">
+                <div><img src="#"></div>
+                <div>공간소개글
+                    adsfdsa
+                </div>     
+            </div>
+             
+            <div id="list" class="space">
+                <ul>
+                    <li>공간소개</li>
+                    <li>시설안내</li>
+                    <li>유의사항</li>
+                    <li>환불정책</li>
+                    <li>Q&A</li>
+                    <li>이용후기</li>
+                </ul>
+            </div>
+            <div id="space_intro" class="title" >공간소개</div>
+            <div id="space_intro_comment" class="space">공간소개글</div>
+
+            <div id="space_guide" class="title">시설안내</div>
+            <div id="space_guide_comment" class="space">시설안내글</div>
+
+
+            <div id="reservation_warn" class="title">예약시 주의사항</div>
+            <div id="reservation_warn_comment" class="space">예약시 주의사항글</div>
+
+
+            <div id="space_road" class="title">길찾기</div>
+            <div id="space_road_comment"class="space">길찾기로드</div>
+
+            <div id="space_qa" class="title">Q&A</div>
+            <div id="space_qa_comment" class="space">Q&A글</div>
+
+            <div id="space_review"class="title">리뷰</div>
+            <div id="space_review_comment" class="space">review</div>
+
+        </div>
+        <div id="section_2">
+            <div id="title">
+                <h2>강남역 스터디_파티 공튜디오</h2>
+                <p>오프기념특가 할인& 이벤트 진행중!</p>
+                <div id="tags">
+                    <span class="tag"># 강남역 스터디카페</span>
+                    <span class="tag"># 스터디룸</span>
+                    <span class="tag"># 파티룸</span>
+                    <span class="tag"># 강남 파티룸</span>
+                    <span class="tag"># 회의실</span>
+               </div>
+
+            </div>
+            <div id="detail_space" class="title">세부공간 선택</div>
+            <div id="detail_space_choice">
+
+
+
+
+
+            </div>
+          
     
+        </div>
+
+
+
+    </div>
     
+   
+   
 
     
 </body>
