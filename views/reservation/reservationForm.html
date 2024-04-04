@@ -2,11 +2,29 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 
 
     <style>
+
+    @media (max-width: 1200px) {
+        #wrapper, #temp {
+            width: 100%;
+        }
+        #section_1, #section_2 {
+            width: 100%;
+        }
+    }
+
+    @media (max-width: 768px) {
+        #wrapper {
+            flex-direction: column;
+        }
+        #section_1, #section_2 {
+            width: auto;
+        }
+    }
         *{
           border: border-box;
             
@@ -510,9 +528,9 @@
                    </div>
 
                    <div id="date" class="title">날짜 선택</div>
-                   <div id="date_choice" >
-                       캘린더 추가
-                       
+                    <div id="date_choice">
+                      
+                    </div>
 
                    </div>
 
