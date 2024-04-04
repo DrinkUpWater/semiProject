@@ -200,6 +200,11 @@
             border: 1px solid grey;
         }
 
+        #detail_space{
+            
+            display: flex;
+            justify-content: space-between;
+        }
 
         #detail_space_choice {
 
@@ -629,8 +634,10 @@
 
         <div id="section_2">
 
+            <!-- 유저가 게스트면-->
             <div id="detail_space" class="title">
                 <div class="text2"> 세부공간선택</div>
+                <div id ="icon">아이콘 아이콘</div>
             </div>
             <form action="#" method="post">
                 <div id="detail_space_choice">
@@ -900,23 +907,105 @@
                     </div>
                 </div>
 
-                <div align="right" style="margin-top:0px;">
-                    <button type="submit" class="button">예약하기</button>
+                <div align="center" style="margin-top:0px;">
+                    <button type="submit" class="button" >예약하기</button>
+                    <button type="button" class="button">목록으로</button>
                 </div>
 
             </form>
 
+           
+
+            <!--유저가 호스트면-->
 
 
+            <div style="display: none;">
 
+                <div id="space_detail_select">
+                    <div class="text2">  공간유형</div>
+                   
+                </div>
+
+                <div id="space_detail_comment">
+                    <div class="img_div"><img src="../../resources/space_img/test.png">세부공간이미지</div>
+                    <p>
+                        <span>서울대 입구..스터디룸 카페 예약
+                            서울대 입구..스터디룸 카페 예약
+                            서울대 입구..스터디룸 카페 예약
+                            서울대 입구..스터디룸 카페 예약
+                            서울대 입구..스터디룸 카페 예약
+                        </span>
+                    </p>
+
+                </div>
+
+                <div id="space_option" class="title">
+                    <div class="text2">가구 설명란</div>
+                    <hr class="line2" style="background:#704DE4">
+                </div>
+                <div id="space_option_comment">
+                    <table align="center">
+                        <tr>
+                            <th>공간유형:</th>
+                            <td>xxxxxx</td>
+                        </tr>
+
+                        <tr>
+                            <th>공간면적:</th>
+                            <td>xxxxxx</td>
+                        </tr>
+
+
+                        <tr>
+                            <th>예약유형:</th>
+                            <td>xxxxx</td>
+                        </tr>
+
+                        <tr>
+                            <th>최소1명~N명:</th>
+                            <td>xxxxx</td>
+                        </tr>
+
+                    </table>
+                </div>
+                <div>
+
+                    <div id=option_kind class="title"></div>
+                    <div class="text2">시설물 옵션종류</div>
+                    <hr class="line2" style="background:#704DE4">
+                </div>
+
+                <div id="space_option_kind">
+                    <div class="option_kind">1</div>
+                    <div class="option_kind">2</div>
+                    <div class="option_kind">3</div>
+                    <div class="option_kind">4</div>
+                    <div class="option_kind">5</div>
+                    <div class="option_kind">6</div>
+                    <div class="option_kind">7</div>
+                    <div class="option_kind">8</div>
+                    <div class="option_kind">9</div>
+                    <div class="option_kind">10</div>
+                    <div class="option_kind">11</div>
+                    <div class="option_kind">12</div>
+                </div>
+
+                <div align="center">
+                    <form action="#" method="post" style="display: inline;">
+                        <button type="submit" class="button">취소하기</button>
+                    </form>
+                        <button type="button" class="button" onclick="location.href=history.back();">목록으로</button>
+                </div>
+
+            </div>
+         
+          
+         
+          
 
         </div>
 
-
-
-    </div>
-
-
+  </div>
 
 
 
