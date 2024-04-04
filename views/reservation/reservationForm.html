@@ -79,7 +79,7 @@
             height: 100%;
             width: 800px;
             /* border: solid salmon; */
-            margin-right:20px;
+            margin-right: 20px;
         }
 
 
@@ -88,7 +88,7 @@
             grid-template-rows: repeat(2, 250px);
             /* grid-template-columns: repeat(3, 1fr); */
             column-gap: 50px;
-             /* border: solid 1px gray;  */
+            /* border: solid 1px gray;  */
             margin: 10px;
             font-size: 20px;
         }
@@ -103,17 +103,18 @@
         }
 
         .title {
-         
+
             margin-top: 50px;
         }
 
-        .text{
+        .text {
             font-size: 30px;
         }
-        .text2{
+
+        .text2 {
             font-size: 20px;
         }
-        
+
 
 
 
@@ -126,7 +127,7 @@
             display: flex;
             list-style: none;
             justify-content: space-between;
-            border: solid  1px  #7A36E9;
+            border: solid 1px #7A36E9;
             margin: auto;
         }
 
@@ -136,12 +137,13 @@
             padding: 10px;
 
 
-         }
-         #list a{
-            text-decoration: none;
-            
+        }
 
-         }
+        #list a {
+            text-decoration: none;
+
+
+        }
 
         #space_comment>div {
             height: 100%;
@@ -202,13 +204,14 @@
         #detail_space_choice {
 
             border: solid 1px #704DE4;
-            padding:15px;
+            padding: 15px;
         }
 
         #time_choice>ul {
             display: flex;
             justify-content: space-between;
             list-style: none;
+            overflow: auto;
         }
 
         .price {
@@ -221,7 +224,7 @@
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 10px;
-            margin :15px;
+            margin: 15px;
             padding: 15px;
 
         }
@@ -239,161 +242,122 @@
             background-color: #704DE4;
             color: #FFFFFF;
             border: solid #FFFFFF;
-          
+
 
         }
-       
+
+        /*================================================================*/
+
+
+        * {
+            box-sizing: border-box;
+        }
+
+        ul {
+            list-style-type: none;
+        }
+
+        body {
+            font-family: Verdana, sans-serif;
+        }
+
+        .month {
+            padding: 70px 25px;
+            width: 100%;
+            background: #1abc9c;
+            text-align: center;
+        }
+
+        .month ul {
+            margin: 0;
+            padding: 0;
+        }
+
+        .month ul li {
+            color: white;
+            font-size: 20px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        .month .prev {
+            float: left;
+            padding-top: 10px;
+        }
+
+        .month .next {
+            float: right;
+            padding-top: 10px;
+        }
+
+        .weekdays {
+            margin: 0;
+            padding: 10px 0;
+            background-color: #ddd;
+        }
+
+        .weekdays li {
+            display: inline-block;
+            width: 13.6%;
+            color: #666;
+            text-align: center;
+        }
+
+        .days {
+            padding: 10px 0;
+            background: #eee;
+            margin: 0;
+        }
+
+        .days li {
+            list-style-type: none;
+            display: inline-block;
+            width: 13.6%;
+            text-align: center;
+            margin-bottom: 5px;
+            font-size: 12px;
+            color: #777;
+        }
+
+        .days li .active {
+            padding: 5px;
+            background: #1abc9c;
+            color: white !important
+        }
+
+        /* Add media queries for smaller screens */
+        @media screen and (max-width:720px) {
+
+            .weekdays li,
+            .days li {
+                width: 13.1%;
+            }
+        }
+
+        @media screen and (max-width: 420px) {
+
+            .weekdays li,
+            .days li {
+                width: 12.5%;
+            }
+
+            .days li .active {
+                padding: 2px;
+            }
+        }
+
+        @media screen and (max-width: 290px) {
+
+            .weekdays li,
+            .days li {
+                width: 12.2%;
+            }
+        }
+
     </style>
 
-    <script src='./fullcalendar/main.js'></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            let calendarEl = document.getElementById('calendar');
-            let calendar = new FullCalendar.Calendar(calendarEl, {
-
-                headerToolbar: {
-                    left: 'prevYear,prev,next,nextYear today',
-                    center: 'title',
-                    right: 'dayGridMonth,dayGridWeek,dayGridDay'
-                },
-
-                selectable: true,
-                selectMirror: true,
-
-                navLinks: true,
-                editable: true,
-
-                select: function (arg) {
-                    Swal.fire({
-                        html: "<div class='mb-7'>Create new event?</div><div class='fw-bold mb-5'>Event Name:</div><input type='text' class='form-control' name='event_name' />",
-                        icon: "info",
-                        showCancelButton: true,
-                        buttonsStyling: false,
-                        confirmButtonText: "Yes, create it!",
-                        cancelButtonText: "No, return",
-                        customClass: {
-                            confirmButton: "btn btn-primary",
-                            cancelButton: "btn btn-active-light"
-                        }
-                    }).then(function (result) {
-                        if (result.value) {
-                            var title = document.querySelector("input[name=;event_name']").value;
-                            if (title) {
-                                calendar.addEvent({
-                                    title: title,
-                                    start: arg.start,
-                                    end: arg.end,
-                                    allDay: arg.allDay
-                                })
-                            }
-                            calendar.unselect()
-                        } else if (result.dismiss === "cancel") {
-                            Swal.fire({
-                                text: "Event creation was declined!.",
-                                icon: "error",
-                                buttonsStyling: false,
-                                confirmButtonText: "Ok, got it!",
-                                customClass: {
-                                    confirmButton: "btn btn-primary",
-                                }
-                            });
-                        }
-                    });
-                },
-
-                // Delete event
-                eventClick: function (arg) {
-                    Swal.fire({
-                        text: "Are you sure you want to delete this event?",
-                        icon: "warning",
-                        showCancelButton: true,
-                        buttonsStyling: false,
-                        confirmButtonText: "Yes, delete it!",
-                        cancelButtonText: "No, return",
-                        customClass: {
-                            confirmButton: "btn btn-primary",
-                            cancelButton: "btn btn-active-light"
-                        }
-                    }).then(function (result) {
-                        if (result.value) {
-                            arg.event.remove()
-                        } else if (result.dismiss === "cancel") {
-                            Swal.fire({
-                                text: "Event was not deleted!.",
-                                icon: "error",
-                                buttonsStyling: false,
-                                confirmButtonText: "Ok, got it!",
-                                customClass: {
-                                    confirmButton: "btn btn-primary",
-                                }
-                            });
-                        }
-                    });
-                },
-                dayMaxEvents: true,
-                events: [
-                    {
-                        title: 'All Day Event',
-                        start: '2022-07-01'
-                    },
-                    {
-                        title: 'Long Event',
-                        start: '2022-07-07',
-                        end: '2022-07-10'
-                    },
-                    {
-                        groupId: 999,
-                        title: 'Repeating Event',
-                        start: '2022-07-09T16:00:00'
-                    },
-                    {
-                        groupId: 999,
-                        title: 'Repeating Event',
-                        start: '2022-07-16T16:00:00'
-                    },
-                    {
-                        title: 'Conference',
-                        start: '2022-07-11',
-                        end: '2022-07-13'
-                    },
-                    {
-                        title: 'Meeting',
-                        start: '2022-07-12T10:30:00',
-                        end: '2022-07-12T12:30:00'
-                    },
-                    {
-                        title: 'Lunch',
-                        start: '2022-07-12T12:00:00'
-                    },
-                    {
-                        title: 'Meeting',
-                        start: '2022-07-12T14:30:00'
-                    },
-                    {
-                        title: 'Happy Hour',
-                        start: '2022-07-12T17:30:00'
-                    },
-                    {
-                        title: 'Dinner',
-                        start: '2022-07-12T20:00:00'
-                    },
-                    {
-                        title: 'Birthday Party',
-                        start: '2022-07-13T07:00:00'
-                    },
-                    {
-                        title: 'Click for Google',
-                        url: 'http://google.com/',
-                        start: '2022-07-28'
-                    }
-                ]
-            });
-
-            calendar.render();
-        });
 
 
-    </script>
 </head>
 
 
@@ -414,7 +378,7 @@
             <div id="space_comment" class="space">
                 <div align="left" class="img_div">
                     <img src="../../resources/space_img/test.png">
-               </div>
+                </div>
                 <div style=" padding-top:20px; ">
                     <span>
                         sdfgsfdg sdfg
@@ -445,7 +409,7 @@
             </div>
             <div id="space_intro" name="space_intro" class="title">
                 <div class="text">공간소개</div>
-                <hr class="line2"   style="background:rgb(235, 229, 229) ">
+                <hr class="line2" style="background:rgb(235, 229, 229) ">
             </div>
             <div id="space_intro_comment" class="space">
                 [강남역 10번출구 1분거리]
@@ -464,7 +428,7 @@
 
             <div id="space_guide" name="intro" class="title">
                 <div class="text">시설안내</div>
-                <hr class="line2"   style="background:rgb(235, 229, 229) ">
+                <hr class="line2" style="background:rgb(235, 229, 229) ">
             </div>
 
             <div id="space_guide_comment" class="space">
@@ -509,7 +473,7 @@
 
             <div id="reservation_warn" name="warn" class="title">
                 <div class="text">예약시 주의사항</div>
-                <hr class="line2"   style="background:rgb(235, 229, 229) ">
+                <hr class="line2" style="background:rgb(235, 229, 229) ">
             </div>
             <div id="reservation_warn_comment" class="space">
                 <table>
@@ -554,7 +518,7 @@
 
             <div id="space_road" class="title">
                 <div class="text">길찾기</div>
-                <hr class="line2"   style="background:rgb(235, 229, 229) ">
+                <hr class="line2" style="background:rgb(235, 229, 229) ">
             </div>
             <div id="space_road_comment" class="space">
 
@@ -764,7 +728,68 @@
                     <div id="date" class="title">날짜 선택</div>
                     <hr class="line2" style="background:#704DE4">
 
-                    <div id="calendar"></div>
+                    <div id="calendar">
+                        <div class="month">      
+                            <ul>
+                              <li class="prev">&#10094;</li>
+                              <li class="next">&#10095;</li>
+                              <li>
+                                August<br>
+                                <span style="font-size:18px">2024</span>
+                              </li>
+                            </ul>
+                          </div>
+                          
+                          <ul class="weekdays">
+                            <li>Mo</li>
+                            <li>Tu</li>
+                            <li>We</li>
+                            <li>Th</li>
+                            <li>Fr</li>
+                            <li>Sa</li>
+                            <li>Su</li>
+                          </ul>
+                          
+                          <ul class="days">  
+                            <li>1</li>
+                            <li>2</li>
+                            <li>3</li>
+                            <li>4</li>
+                            <li>5</li>
+                            <li>6</li>
+                            <li>7</li>
+                            <li>8</li>
+                            <li>9</li>
+                            <li><span class="active">10</span></li>
+                            <li>11</li>
+                            <li>12</li>
+                            <li>13</li>
+                            <li>14</li>
+                            <li>15</li>
+                            <li>16</li>
+                            <li>17</li>
+                            <li>18</li>
+                            <li>19</li>
+                            <li>20</li>
+                            <li>21</li>
+                            <li>22</li>
+                            <li>23</li>
+                            <li>24</li>
+                            <li>25</li>
+                            <li>26</li>
+                            <li>27</li>
+                            <li>28</li>
+                            <li>29</li>
+                            <li>30</li>
+                            <li>31</li>
+                          </ul>
+                          
+
+
+
+
+
+                    </div>
 
 
                     <div id="time" class="title">시간선택</div>
@@ -875,7 +900,7 @@
                     </div>
                 </div>
 
-                <div align="right" style="margin-top:0px;" >
+                <div align="right" style="margin-top:0px;">
                     <button type="submit" class="button">예약하기</button>
                 </div>
 
