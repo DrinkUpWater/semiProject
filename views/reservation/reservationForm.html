@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=, initial-scale=1.0">
+    <title>Document</title>
+
+
+    <style>
+        *{
+          border: border-box;
+            
+        }
+        #temp{
+            width:1200px;
+            height:60px;
+            border:solid goldenrod;
+            margin:auto;
+        }
+
+        #wrapper{
+            width:1200px;
+            height:100%;
+            margin: auto;
+            display :flex; 
+            justify-content: space-between;
+            border: solid black;
+            margin-top :50px;
+            
+        }
+        #section_1{
+            height: 100%;
+            width:800px;
+            border:solid salmon;
+        }
+      
+
+        .space{
+            display:grid;
+            grid-template-rows: repeat(2, 250px);
+            /* grid-template-columns: repeat(3, 1fr); */
+            column-gap:50px;
+            border: solid blueviolet;
+            margin:10px;
+          
+        }
+      
+
+        .space p >span{
+            display: inline-block;
+            width:300px;
+            text-overflow: ellipsis;
+            white-space:nowrap;
+           
+        }
+        .title{
+          
+            margin-top:50px;
+        }
+        .line{
+            background-color: yellow;
+            
+        }
+
+        #list > ul{
+            display:flex;
+            list-style: none;
+            justify-content:  space-between;
+            border: solid green;
+            margin: auto;
+         }
+
+         #list li{
+         
+            border: solid rosybrown;
+            padding: 10px;
+          
+         }
+         #space_comment>div{
+            height:100%;
+            display: inline-block;
+         }
+         .img_div{
+            height:100%;
+            border: solid brown;
+         }
+
+         .img_div >img{
+            max-width:100%; 
+            height: 100%;
+         }
+
+         .quest{
+            display :flex;
+            justify-content: space-evenly;
+            list-style: none;
+         }
+         .qa_table {
+           display: flex;
+           justify-content: space-evenly;
+           border-bottom: 1px solid grey;
+           
+            
+         }
+         .qa_table div{
+           margin-bottom: 30px;
+         }
+
+         .qa_table span{
+            border: 1px solid rgb(224, 216, 216);
+          
+         }
+
+        /*------------*/
+         #section_2{
+            border: solid gray;
+            width:400px;
+           
+        }
+        #section_2 div{
+             margin-top:20px; 
+         
+        }
+        #space_option_comment{
+            border: 1px solid grey;
+        }
+      
+
+        #detail_space_choice{
+
+            border:  solid purple;
+        }
+        #time_choice > ul{
+            display:flex;
+            justify-content: space-between;
+            list-style: none;
+        }
+
+        .price{
+            border: solid rgb(215, 213, 213);
+            
+            background-color: yellow;
+        }
+
+        #space_option_kind{
+            display:grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap:20px;
+        }
+        .option_kind{
+          
+            padding:10px;
+            text-align: center;
+            border: solid blueviolet;
+            border: 1px solid gray;
+           
+        }
+
+
+    </style>
+</head>
+
+
+<body>
+    <header id="temp">
+        headers
+
+    </header>
+
+    <div id="wrapper">
+
+        <div id="section_1">
+            
+            
+            <div id="space_id" name="space_name" class="title">르씨엘 2호점</div>
+            <div id="space_comment" class="space">
+                <div  align="center" class="img_div"><img src="../../resources/space_img/test.png"></div>
+                 <p>
+                    <span>
+                      sdfgsfdg sdfg
+                    </span>
+                    
+                </p>     
+            </div>
+             
+            <div id="list">
+                <ul>
+                    <li><a href="#space_intro">공간소개</a></li>
+                    <li><a href="#intro">시설안내</a></li>
+                    <li><a href="#warn">유의사항</a></li>
+                    <li><a href="#QanA">Q&A</a></li>
+                    <li><a href="#space_review">이용후기</a></li>
+                </ul>
+            </div>
+            <div id="space_intro" name="space_intro" class="title" >
+                <div class="text">공간소개</div>
+                <span class="line">---------</span>
+            </div>
+            <div id="space_intro_comment" class="space">
+                [강남역 10번출구 1분거리]
+                <br><br>
+                어떤 만남도 대충하지 않는 사람들을 위한 감성공간,공튜디오입니다.
+                <br><br>
+                #스터디룸
+                #회의실
+                #생일파티
+                #브라이덜샤워
+                <br>
+                등 다양한 모임공간으로 활용할 수 있습니다.
+
+
+            </div>
+
+            <div id="space_guide" name="intro" class="title">
+                <div class="text">시설안내</div>
+                <span class="line">---------</span>
+            </div>
+
+            <div id="space_guide_comment" class="space">
+                     <table>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>초고속 와이파이+전기종 가능한 충전기</td>
+                            </tr>
+    
+                            <tr>
+                                <td>2</td>
+                                <td>정수기+산딸기 티+ 복숭아티+사과티+아메리카노+간식</td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>정수기+산딸기 티+ 복숭아티+사과티+아메리카노+간식</td>
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td>정수기+산딸기 티+ 복숭아티+사과티+아메리카노+간식</td>
+                            </tr>
+
+                            <tr>
+                                <td>5</td>
+                                <td>정수기+산딸기 티+ 복숭아티+사과티+아메리카노+간식</td>
+                            </tr>
+
+                            <tr>
+                                <td>6</td>
+                                <td>정수기+산딸기 티+ 복숭아티+사과티+아메리카노+간식</td>
+                            </tr>
+
+                        </tbody>
+                       
+                     </table>
+
+
+               
+            </div>
+
+
+            <div id="reservation_warn" name="warn" class="title">
+                <div class="text">예약시 주의사항</div>
+                <span class="line">---------</span>
+            </div>
+            <div id="reservation_warn_comment" class="space">
+                <table>
+                    <tbody>
+                        <tr>
+                            <td>1.</td>
+                            <td>최소 1인,최대 12인까지 이용 가능합니다.</td>
+                        </tr>
+
+                        <tr>
+                            <td>2.</td>
+                            <td>3인부터 최소 2시간부터 이용 가능합니다.</td>
+                        </tr>
+                        <tr>
+                            <td>3.</td>
+                            <td>예약은 선입금 제로 만 가능하며,예약된 사용시간 전에 퇴실하여도 잔여 시간은 환불이 불가합니다.</td>
+                        </tr>
+                        <tr>
+                            <td>4.</td>
+                            <td>추가인원은 연락주시면 안내 도와드리고 있으며 인원 변동 가능성 있을시 최소 인원으로 예약후 인원 확정이 
+                                되면 연락후, 계좌이체로 추가금액 지불해주시면 됩니다.
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>5.</td>
+                            <td>지나친 소음은 삼가해주세요</td>
+                        </tr>
+
+                        <tr>
+                            <td>6.</td>
+                            <td>음식물 취식은 가능하나,구비된 음식물 쓰레기 봉투에 담은후 1층 
+                                후문 쓰레기장에 직접 배출해주셔야합니다.
+                            </td>
+                        </tr>
+
+                    </tbody>
+                   
+                 </table>
+            </div>
+
+
+            <div id="space_road" class="title">
+                <div class="text">길찾기</div>
+                <span class="line">---------</span>
+            </div>
+            <div id="space_road_comment"class="space">
+
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3165.378379236162!2d127.03290899999996!3d37.49899300000002!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357c9ec255555555%3A0x3565475c3365c5bb!2zS0jsoJXrs7TqtZDsnKHsm5A!5e0!3m2!1sko!2skr!4v1712133003105!5m2!1sko!2skr"  style="border:0; width:100%; height:200%;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+
+            </div>
+
+            <div id="space_qa"  name="QanA" class="title">
+                <div class="text">Q&A</div>
+                <span class="line">
+                    ---------
+                </span>
+            </div>
+            <div id="space_qa_comment" class="space">
+                <div class="qa_table">
+
+                    <div><img src="#">사진1</div>
+                    <div>
+                        <div>닉네임</div>
+                        <div>내용내용내용asdfadsfasdf</div>
+                        <div>호스트답글</div>
+                        <div>시간시간</div>
+
+                    </div>
+
+               </div>
+
+               <div class="qa_table">
+
+                <div><img src="#">사진2</div>
+                    <div>
+                        <div>닉네임</div>
+                        <div>내용내용내용asdfadsfasdf</div>
+                        <div>호스트답글</div>
+                        <div>시간시간</div>
+
+                    </div>
+                </div>
+
+                <div class="qa_table">
+
+                    <div><img src="#">사진3</div>
+                    <div>
+                        <div>닉네임</div>
+                        <div>내용내용내용asdfadsfasdf</div>
+                        <div>호스트답글</div>
+                        <div>시간시간</div>
+
+                    </div>
+               
+                </div>
+
+         
+
+             </div>
+            
+            <div id="space_review" name ="space_review" class="title">
+                <div class="text" >리뷰</div>
+                <span class="line">---------</span>
+            </div>
+            <div id="space_review_comment" class="space">
+
+
+                <div class="qa_table">
+
+                    <div><img src="#">사진1</div>
+                    <div>
+                        <div>닉네임</div>
+                        <div>리뷰리뷰리뷰</div>
+                        <div>시간시간</div>
+
+                    </div>
+
+               </div>
+
+               <div class="qa_table">
+
+                <div><img src="#">사진2</div>
+                    <div>
+                        <div>닉네임</div>
+                        <div>리뷰리뷰리뷰</div>
+                        <div>시간시간</div>
+
+                    </div>
+                </div>
+
+                <div class="qa_table">
+
+                    <div><img src="#">사진3</div>
+                    <div>
+                        <div>닉네임</div>
+                        <div>리뷰리뷰리뷰</div>
+                        <div>시간시간</div>
+
+                    </div>
+               
+                </div>
+
+
+
+
+
+            </div>
+
+        </div>
+
+
+
+
+        <div id="section_2">
+         
+            <div id="detail_space" class="title">세부공간 선택</div>
+            <div id="detail_space_choice">
+
+                <div class="space2">결제후 바로 예약확정</div>
+                <div>빠르고 확실한 예약을 위한 KH룸모아 방문에 감사해요</div>
+                <div></div>
+             <form action="#" method="post">
+
+                <div id="space_detail_select">
+                      <input type="radio" id="type" name="space_type" value="공간유형">
+                      <label for="type">공간유형</label>  
+                </div>
+
+                <div id="space_detail_comment">
+                    <div class="img_div" ><img src="../../resources/space_img/test.png">세부공간이미지</div>
+                    <p>
+                      <span>서울대 입구..스터디룸 카페 예약
+                        서울대 입구..스터디룸 카페 예약
+                        서울대 입구..스터디룸 카페 예약
+                        서울대 입구..스터디룸 카페 예약
+                        서울대 입구..스터디룸 카페 예약
+                      </span>
+                    </p>
+
+                </div>
+
+                <div id="space_option" class="title">
+                    <div class="text">가구 설명란</div>
+                    <span class="line">---</span>
+                </div>
+                <div id="space_option_comment">
+                    <table align="center">
+                        <tr>
+                            <th>공간유형:</th>
+                            <td>xxxxxx</td>
+                        </tr>
+
+                        <tr>
+                            <th>공간면적:</th>
+                            <td>xxxxxx</td>
+                        </tr>
+
+                        
+                        <tr>
+                            <th>예약유형:</th>
+                            <td>xxxxx</td>
+                        </tr>
+
+                        <tr>
+                            <th>최소1명~N명:</th>
+                            <td>xxxxx</td>
+                        </tr>
+
+                    </table>
+                   </div>
+                   <div > 
+
+                    <div id=option_kind class="title"></div>
+                        <div class="text">시설물 옵션종류</div>
+                        <span class="line">---</span>
+                    </div>
+
+                   <div id="space_option_kind">
+                        <div class="option_kind">1</div>
+                        <div class="option_kind">2</div>
+                        <div class="option_kind">3</div>
+                        <div class="option_kind">4</div>
+                        <div class="option_kind">5</div>
+                        <div class="option_kind">6</div>
+                        <div class="option_kind">7</div>
+                        <div class="option_kind">8</div>
+                        <div class="option_kind">9</div>
+                        <div class="option_kind">10</div>
+                        <div class="option_kind">11</div>
+                        <div class="option_kind">12</div>
+
+
+                 </div>
+
+
+                   <div id="reservation" class="title">예약선택</div>
+                   <div id="reservation_choice">
+                        <div>
+                            <input type="radio" name="reservation" id="time" value="time">
+                            <label for="time">시간단위 예약하기</label>
+                        </div>
+
+                        <div>
+                            <input type="radio" name="reservation" id="pack" value="pack">
+                            <label for="pack">패키지로 예약하기</label>
+                        </div>
+
+                   </div>
+
+                   <div id="date" class="title">날짜 선택</div>
+                   <div id="date_choice" >
+                       캘린더 추가
+                       
+
+                   </div>
+
+                   <div id="time" class="title">시간선택</div>
+                   <div id="time_choice">
+                        <ul>
+                            <li>
+                                <a class="time_box">
+                                    <span class="time">9</span>
+                                    <span class="price">1000</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="time_box">
+                                    <span  class="time">10</span>
+                                    <span class="price">1000</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="time_box">
+                                    <span  class="time">11</span>
+                                    <span class="price">1000</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="time_box">
+                                    <span  class="time">12</span>
+                                    <span class="price">1000</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="time_box">
+                                    <span  class="time">13</span>
+                                    <span class="price">1000</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="time_box">
+                                    <span  class="time">14</span>
+                                    <span class="price">1000</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="time_box">
+                                    <span  class="time">15</span>
+                                    <span class="price">1000</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="time_box">
+                                    <span  class="time">16</span>
+                                    <span class="price">1000</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="time_box">
+                                    <span  class="time">17</span>
+                                    <span class="price">1000</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="time_box">
+                                    <span  class="time">18</span>
+                                    <span class="price">1000</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="time_box">
+                                    <span  class="time">19</span>
+                                    <span class="price">1000</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="time_box">
+                                    <span  class="time">20</span>
+                                    <span class="price">1000</span>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a class="time_box">
+                                    <span  class="time">21</span>
+                                    <span class="price">1000</span>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a class="time_box">
+                                    <span class="time">22</span>
+                                    <span class="price">1000</span>
+                                </a>
+                            </li>
+
+
+                        </ul>
+
+
+                   </div>
+
+
+                   <div id="count" class="title">총 예약인원</div>
+                   <div id="count_select" align="center">
+                        <span id="minus"><button >-</button></span>
+                        <input type="number" name="number" min="3" max="12" style="width:60%">
+                        <span id="plus"><button >+</button></span>
+                    </div>
+                    
+                    <div id="buttons" align="center">
+                        <input type="submit" value="예약하기">
+                        <input type="reset" value="취소하기">
+                    </div>
+                   
+                </form>    
+
+
+
+            </div>
+          
+    
+        </div>
+
+
+
+    </div>
+    
+   
+  
+
+    
+</body>
+</html>
