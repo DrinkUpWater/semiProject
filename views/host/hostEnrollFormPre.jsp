@@ -142,10 +142,6 @@
             </div>
         </form>
     </div>
-    <table class="detail-area">
-        <tr>
-
-        </tr>
-    </table>
+    
 </body>
 </html>
