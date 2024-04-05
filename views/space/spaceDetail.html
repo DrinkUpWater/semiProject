@@ -2,9 +2,10 @@
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href='./fullcalendar/main.css' rel='stylesheet' />
+    <link href='./fullcalendar/custommain.css' rel='stylesheet' />
     <title>Document</title>
 
     <!-- Latest compiled and minified CSS -->
@@ -251,114 +252,27 @@
 
         }
 
-        /*================================================================*/
+       /* 달력*/
+       /* fc-daygrid-day-number -->a태그*/
+       /* .fc-daygrid-day-top{
+         border: solid 3px black;
+       } */
+
+       .fc-daygrid-day fc-day fc-day-sun fc-day-past fc-day-other{
+        /*전달의 정보가 담겨있는  td태그*/
+        border: solid saddlebrown;
+       }
+
+     .fc-daygrid-day fc-day fc-day-mon fc-day-past{
+        border:solid #7A36E9;
 
 
-        * {
-            box-sizing: border-box;
-        }
-
-        ul {
-            list-style-type: none;
-        }
-
-        body {
-            font-family: Verdana, sans-serif;
-        }
-
-        .month {
-            padding: 70px 25px;
-            width: 100%;
-            background: #1abc9c;
-            text-align: center;
-        }
-
-        .month ul {
-            margin: 0;
-            padding: 0;
-        }
-
-        .month ul li {
-            color: white;
-            font-size: 20px;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-        }
-
-        .month .prev {
-            float: left;
-            padding-top: 10px;
-        }
-
-        .month .next {
-            float: right;
-            padding-top: 10px;
-        }
-
-        .weekdays {
-            margin: 0;
-            padding: 10px 0;
-            background-color: #ddd;
-        }
-
-        .weekdays li {
-            display: inline-block;
-            width: 13.6%;
-            color: #666;
-            text-align: center;
-        }
-
-        .days {
-            padding: 10px 0;
-            background: #eee;
-            margin: 0;
-        }
-
-        .days li {
-            list-style-type: none;
-            display: inline-block;
-            width: 13.6%;
-            text-align: center;
-            margin-bottom: 5px;
-            font-size: 12px;
-            color: #777;
-        }
-
-        .days li .active {
-            padding: 5px;
-            background: #1abc9c;
-            color: white !important
-        }
-
-        /* Add media queries for smaller screens */
-        @media screen and (max-width:720px) {
-
-            .weekdays li,
-            .days li {
-                width: 13.1%;
-            }
-        }
-
-        @media screen and (max-width: 420px) {
-
-            .weekdays li,
-            .days li {
-                width: 12.5%;
-            }
-
-            .days li .active {
-                padding: 2px;
-            }
-        }
-
-        @media screen and (max-width: 290px) {
-
-            .weekdays li,
-            .days li {
-                width: 12.2%;
-            }
-        }
-
+     }
+      .fc-daygrid-day-number{
+        /* border: solid 3px black; */
+        
+      }
+      
     </style>
 
 
@@ -736,71 +650,64 @@
                     <hr class="line2" style="background:#704DE4">
 
                     <div id="calendar">
-                        <div class="month">      
-                            <ul>
-                              <li class="prev">&#10094;</li>
-                              <li class="next">&#10095;</li>
-                              <li>
-                                August<br>
-                                <span style="font-size:18px">2024</span>
-                              </li>
-                            </ul>
-                          </div>
-                          
-                          <ul class="weekdays">
-                            <li>Mo</li>
-                            <li>Tu</li>
-                            <li>We</li>
-                            <li>Th</li>
-                            <li>Fr</li>
-                            <li>Sa</li>
-                            <li>Su</li>
-                          </ul>
-                          
-                          <ul class="days">  
-                            <li>1</li>
-                            <li>2</li>
-                            <li>3</li>
-                            <li>4</li>
-                            <li>5</li>
-                            <li>6</li>
-                            <li>7</li>
-                            <li>8</li>
-                            <li>9</li>
-                            <li><span class="active">10</span></li>
-                            <li>11</li>
-                            <li>12</li>
-                            <li>13</li>
-                            <li>14</li>
-                            <li>15</li>
-                            <li>16</li>
-                            <li>17</li>
-                            <li>18</li>
-                            <li>19</li>
-                            <li>20</li>
-                            <li>21</li>
-                            <li>22</li>
-                            <li>23</li>
-                            <li>24</li>
-                            <li>25</li>
-                            <li>26</li>
-                            <li>27</li>
-                            <li>28</li>
-                            <li>29</li>
-                            <li>30</li>
-                            <li>31</li>
-                          </ul>
-                          
-
-
-
-
+                        <!--fc-daygrid-day-number-->
 
                     </div>
 
 
+              
+                <script src='./fullcalendar/main.min.js'></script>
+                 <script>
+                     //달력 만들기
+                     let date =new Date();
+                     let currentDate=null;
+
+                     document.addEventListener('DOMContentLoaded', function() {
+                        var calendarEl = document.getElementById('calendar');
+                        var calendar = new FullCalendar.Calendar(calendarEl, {
+                        height:'1000px',
+                        initialView: 'dayGridMonth',
+                        aspectRatio:1.35,
+                        dateClick: function(info){
+                            alert(info.dateStr);
+                            currentDate=info.dateStr;
+                            console.log(currentDate);
+                            console.log(typeof(currentDate));
+                           
+                            /// 필요한 로직
+                            //예약번호와 날짜값 넘겨
+                            //예약 확인
+                          
+                        }
+                      
+                    });
+                  
+
+                    calendar.render();
+
+                   
+                 });
+
+                //   //값 가져오기
+                //   jQuery("button.fc-prev-button").click(function() {
+                //     let date = jQuery("#calendar").fullCalendar("getDate");
+                //     convertDate(date);
+                //     console.log(  convertDate(date));
+
+                    
+                  
+
+
+
+
+
+                 </script>
+
+
                     <div id="time" class="title">시간선택</div>
                     <hr class="line2" style="background:#704DE4">
+
+                  
 
                     <div id="time_choice">
                         <ul>
@@ -896,7 +803,11 @@
 
 
                     </div>
-
+                    <div id="reservation_checked">예약여부
+                        <hr class="line2">
+                        <div>예약가능합니다.</div>
+                        <div>예약불가합니다.</div>
+                    </div>
 
                     <div id="count" class="title">총 예약인원</div>
                     <hr class="line2">
@@ -919,7 +830,7 @@
             <!--유저가 호스트면-->
 
 
-            <div style="display: none;">
+            <div style="display: block;">
 
                 <div id="space_detail_select">
                     <div class="text2">  공간유형</div>
