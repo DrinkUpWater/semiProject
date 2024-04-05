@@ -48,6 +48,7 @@
     }
     #left-bar{
         margin-left: 10px;
+        cursor: pointer;
     }
     #right-bar{
         margin-right: 10px;
