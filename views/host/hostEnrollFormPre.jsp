@@ -45,9 +45,96 @@
         }
         .buttons{
             display: flex;
-            justify-content: center;
-            gap: 20px;
+            justify-content: space-around;
         }
+        .buttons button{
+            width: 280px;
+            height: 50px;
+            border-radius: 15px;
+            border: none;
+            color: white;
+            font-size: 26px; 
+        }
+        .back-btn{
+            background-color: rgb(70, 70, 70);
+        }
+        .save-btn{
+            background-color: rgb(230, 61, 61);
+        }
+        ul {
+            margin-left: 50px;
+        }
+
+        /* 체크박스 커스텀 */
+        /* The container */
+        .container {
+        display: block;
+        position: relative;
+        padding-left: 35px;
+        margin-bottom: 12px;
+        cursor: pointer;
+        font-size: 22px;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        line-height: 23px;
+        }
+
+        /* Hide the browser's default checkbox */
+        .container input {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+        height: 0;
+        width: 0;
+        }
+
+        /* Create a custom checkbox */
+        .checkmark {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 25px;
+        width: 25px;
+        background-color: #eee;
+        }
+
+        /* On mouse-over, add a grey background color */
+        .container:hover input ~ .checkmark {
+        background-color: #ccc;
+        }
+
+        /* When the checkbox is checked, add a blue background */
+        .container input:checked ~ .checkmark {
+        background-color: #704DE4;
+        }
+
+        /* Create the checkmark/indicator (hidden when not checked) */
+        .checkmark:after {
+        content: "";
+        position: absolute;
+        display: none;
+        }
+
+        /* Show the checkmark when checked */
+        .container input:checked ~ .checkmark:after {
+        display: block;
+        }
+
+        /* Style the checkmark/indicator */
+        .container .checkmark:after {
+        left: 9px;
+        top: 5px;
+        width: 5px;
+        height: 10px;
+        border: solid white;
+        border-width: 0 3px 3px 0;
+        -webkit-transform: rotate(45deg);
+        -ms-transform: rotate(45deg);
+        transform: rotate(45deg);
+        }
+        
         
     </style>
 </head>
@@ -72,8 +159,11 @@
         <form action="">
             <table class="select-area">
                 <tr>
-                    <td> <input type="checkbox" id="party" name="">
-                        <label for="party">파티룸</label>
+                    <td> 
+                        <label class="container">파티룸
+                            <input type="checkbox" id="party" name="" >
+                            <span class="checkmark"></span>
+                        </label>
                     </td>
                     <td></td>
                 </tr>
@@ -82,8 +172,11 @@
                     <td><p>최소 2인 이상 수용가능한 독립적인 공간으로 파티가 가능한 공간</p></td>
                 </tr>
                 <tr>
-                    <td> <input type="checkbox" id="cafe" name="">
-                        <label for="cafe">카페</label>
+                    <td> 
+                        <label class="container">카페
+                            <input type="checkbox"  id="cafe" name="" >
+                            <span class="checkmark"></span>
+                        </label>
                     </td>
                     <td></td>
                 </tr>
@@ -92,8 +185,11 @@
                     <td><p>카페 전체를 대관하여 모임에 독립적으로 제공이 가능한 공간</p></td>
                 </tr>
                 <tr>
-                    <td> <input type="checkbox" id="lecture " name="">
-                        <label for="lecture ">강의실</label>
+                    <td>
+                        <label class="container">강의실
+                            <input type="checkbox"  id="lecture" name="" >
+                            <span class="checkmark"></span>
+                        </label>
                     </td>
                     <td></td>
                 </tr>
@@ -102,8 +198,11 @@
                     <td><p>학습 및 교육 목적으로 강의, 수업, 세미나로 활용할 수 있는 공간</p></td>
                 </tr>
                 <tr>
-                    <td> <input type="checkbox" id="meeting" name="">
-                        <label for="meeting">회의실</label>
+                    <td>
+                        <label class="container">회의실
+                            <input type="checkbox"  id="meeting" name="" >
+                            <span class="checkmark"></span>
+                        </label>
                     </td>
                     <td></td>
                 </tr>
@@ -112,8 +211,11 @@
                     <td><p>비지니스 목적으로 진행되는 회의, 워크숍 관련한 시설이 제공되는 공간</p></td>
                 </tr>
                 <tr>
-                    <td> <input type="checkbox" id="seminar" name="">
-                        <label for="seminar">세미나실</label>
+                    <td>
+                        <label class="container">세미나실
+                            <input type="checkbox"  id="seminar" name="" >
+                            <span class="checkmark"></span>
+                        </label>
                     </td>
                     <td></td>
                 </tr>
@@ -122,8 +224,11 @@
                     <td><p>여럿이 함께 토론, 발표, 강연, 워크숍, 연수 등을 진행할 수 있는 시설이 제공되는 공간</p></td>
                 </tr>
                 <tr>
-                    <td> <input type="checkbox" id="study" name="">
-                        <label for="study">스터디룸</label>
+                    <td> 
+                        <label class="container">스터디룸
+                            <input type="checkbox"  id="study" name="" >
+                            <span class="checkmark"></span>
+                        </label>
                     </td>
                     <td></td>
                 </tr>
@@ -137,8 +242,8 @@
             </table>
             <br><br>
             <div class="buttons">
-                <button>이전</button>
-                <button type="submit">다음</button>
+                <button class="back-btn">이전</button>
+                <button class="save-btn" type="submit">다음</button>
             </div>
         </form>
     </div>
