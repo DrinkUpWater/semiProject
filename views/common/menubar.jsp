@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -24,14 +26,14 @@
     <link href="https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
     
 <style>
-    *{
+    * {
         font-family: "Noto Sans KR", sans-serif;
         font-optical-sizing: auto;
         font-weight: weight;
         font-style: normal;
     }
     #wrapper{
-        width: 1000px;
+        width: 1200px;
         margin: 10px auto;
         
     }
@@ -46,9 +48,17 @@
         text-decoration: none;
         color: black;
     }
+    #right-bar a:hover{
+        text-decoration: none;
+        color: black;
+        font-weight: bold;
+    }
     #left-bar{
         margin-left: 10px;
         cursor: pointer;
+    }
+    #left-bar i:hover{
+        
     }
     #right-bar{
         margin-right: 10px;
@@ -57,6 +67,67 @@
         font-family:'ZCOOL KuaiLe';
         font-weight: bold;
     }
+    .side-menu, .side-menu-host{
+        
+        width: 300px;
+        background-color: rgb(233, 233, 233);
+    }
+    .side-profile {
+        width: 100%;
+        height: 130px;
+        background-color: #fed636;
+        display: flex;
+        align-items: center;
+        padding-left: 25px;
+    }
+    .side-profile-picture{
+        width : 100px;
+        height : 100px;
+        border-radius: 50%;
+        background-color: rgb(199, 199, 199);
+    }
+    .side-profile-nickname{
+        margin-left: 20px;
+    }
+    .side-logo, .side-tohost {
+        background-color: #704DE4;
+        color: white;
+        height: 70px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .side-logo>h3 {
+        font-family:'ZCOOL KuaiLe';
+    }
+    .side-list table {
+        width: 100%;
+        background-color: white;
+    }
+    .side-list table th{
+        border: 1px solid rgb(204, 204, 204);
+        border-left: none;
+        border-right: none;
+        border-collapse: collapse;
+        height: 70px;
+    }
+    .side-tohost>p {
+        margin: 0;
+        padding: 0;
+        font-size: 20px;
+    } 
+    .side-menu{
+        display: none;
+    }
+    .login-area{
+        margin-bottom: 30px;
+    }
+
+    .side-menu, .side-menu-host{
+        display: none;
+    }
+   
+    
 </style>
 </head>
 <body>
@@ -65,14 +136,15 @@
         <!-- 로그인 전 -->
         <div class="login-area">
             <div id="left-bar">
-                <i class="fa-solid fa-bars fa-xl" fa-sm></i>
+                <i class="fa-solid fa-bars fa-xl"></i>
             </div>
             <h2>kH ROOMMOAH</h2>
             <div id="right-bar">
                 <a href="">회원가입</a> | <a href="">로그인</a>
             </div>
         </div>
-
+        
+        
         <!-- 로그인 후 -->
         <!-- <div class="login-area">
             <div id="left-bar">
@@ -83,8 +155,100 @@
                 <a href="">닉네임</a> | <a href="">로그아웃</a>
             </div>
         </div> -->
-    </div>
-
     
+        <!-- 사이드 메뉴 왼쪽위 클릭시 나오게 -->
+        <!-- 일반 -->
+        <div class="side-menu" align="center">
+            <div class="side-profile">
+                <div class="side-profile-picture"></div>
+                <div class="side-profile-nickname">
+                    <br>
+                    <b>닉네임</b>
+                    <p>프로필관리 ></p>
+                </div>
+            </div>
+
+            <div class="side-logo">
+                <h3>kH ROOMMOAH</h3>
+            </div>
+
+            <br><br><br>
+            
+            <div class="side-list">
+                <table>
+                    
+                    <tr align="center">
+                        <th >홈</th>
+                    </tr>
+                    <tr align="center">
+                        <th>예약 리스트</th>
+                    </tr>
+                    <tr align="center">
+                        <th>찜한 공간</th>
+                    </tr>
+                    <tr align="center">
+                        <th>공지사항</th>
+                    </tr>
+                </table>
+            </div>
+
+            <br><br><br><br>
+            
+            <a href="">로그아웃</a>
+            <br>
+            <br>
+            <div class="side-tohost">
+                <p>호스트센터로 이동 > </p>
+            </div>
+        </div>
+
+
+        <!-- 사이드 메뉴 왼쪽위 클릭시 나오게 -->
+        <!-- 호스트메뉴 -->
+        <div class="side-menu-host" align="center">
+            <div class="side-profile">
+                <div class="side-profile-picture"></div>
+                <div class="side-profile-nickname">
+                    <br>
+                    <b>닉네임</b>
+                    <p>프로필관리 ></p>
+                </div>
+            </div>
+
+            <div class="side-logo">
+                <h3>kH ROOMMOAH</h3>
+            </div>
+
+            <br><br><br>
+            
+            <div class="side-list">
+                <table>
+                    
+                    <tr align="center">
+                        <th >홈</th>
+                    </tr>
+                    <tr align="center">
+                        <th>내 공간</th>
+                    </tr>
+                    <tr align="center">
+                        <th>정산</th>
+                    </tr>
+                    <tr align="center">
+                        <th>공지사항</th>
+                    </tr>
+                </table>
+            </div>
+
+            <br><br><br><br>
+            
+            <a href="">로그아웃</a>
+            <br>
+            <br>
+            <div class="side-tohost">
+                <p >스페이스클라우드로 이동 > </p>
+            </div>
+        </div>
+
+    </div>
 </body>
 </html>
