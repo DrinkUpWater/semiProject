@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -60,7 +62,7 @@
         }
 
         .user-id td {
-            display: none;
+            /* display: none; */
             font-size: 13px;
         }
 
@@ -344,7 +346,7 @@
             let phone = document.getElementById("phone");
             let birth = document.getElementById("birth");
             let email = document.getElementById("email");
-
+            let select_email=document.querySelector(".select-email");
 
             function joinUser() {
                 let cantid =document.querySelector(".cantid");
@@ -361,11 +363,11 @@
                     userId.focus();
                     return false;
                 }
-                else if (cantid.style.display !== "none") {
-                    alert("적절한 아이디가 아닙니다. 다시 입력해주세요.");
-                    userId.focus();
-                    return false;
-                }
+                // else if (cantid.style.display !== "none") {
+                //     alert("적절한 아이디가 아닙니다. 다시 입력해주세요.");
+                //     userId.focus();
+                //     return false;
+                // }
                 //---------------------------------------------------------------
 
 
@@ -410,31 +412,36 @@
                 }
                 //-----------------------------------------------------------
 
-
+                
+                // 생년월일 조건 부분-------------------------------------------
                 else if (birth.value === "") {
                     alert("생년월일을 입력해주세요.");
                     birth.focus();
                     return false;
                 }
-
-                else if (email.value === "") {
+                else if(!isValidBirth(birth.value)){
+                    alert("숫자 및 8자 이내로 입력해주세요.");
+                    birth.focus();
+                    return false;
+                }
+                //-----------------------------------------------------------
+                
+                
+                else if (email.value === "" ) {
                     alert("이메일을 입력해주세요.");
                     email.focus();
                     return false;
                 }
+                else if(elect_email.value==="" || !isVailidEmail(email.value)){
+                    alert("이메일을 도메인 및 ")
+                }
+            
 
                
             }
         
+      
 
-            function obrid() {
-                if (!isValidUsername()) {
-                    return;
-                }
-            }
-            function isValidUsername(){
-                
-            }
 
             // 비밀번호 동일 여부 확인 + 유효가능 확인
             function onb() {
@@ -488,6 +495,23 @@
 
                 return true;
             }
+
+            //유효한 주민번호인지 확인
+            function isValidBirth(birth){
+                if(!/^\d{6}$/.test(birth)){
+                    return false;
+                }
+                return true;
+            }
+
+            //유효한 이메일인지 확인
+            function isVailidEmail(email){
+                if(/^[^@]*$/.test(email)){
+                    return false;
+                }
+                return true;
+            }
+
 
         </script>
 </body>
