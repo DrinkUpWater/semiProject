@@ -1,3 +1,6 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+    
 <!DOCTYPE html>
 <html lang="en">
 
@@ -367,10 +370,8 @@
 
 
 <body>
-    <header id="temp">
-        headers
-
-    </header>
+    
+    <%@ include file="../common/menubar.jsp" %>
 
     <div id="wrapper">
 
@@ -378,7 +379,7 @@
 
 
             <div id="space_id" name="space_name" class="title">
-                <div class="text">예약공간</div>
+                <div class="text">ìì½ê³µê°</div>
             </div>
 
             <div id="space_comment" class="space">
@@ -395,26 +396,26 @@
 
          
             <div id="space_intro" name="space_intro" class="title">
-                <div class="text">공간소개</div>
+                <div class="text">ê³µê°ìê°</div>
                 <hr class="line2" style="background:rgb(235, 229, 229) ">
             </div>
             <div id="space_intro_comment" class="space">
-                [강남역 10번출구 1분거리]
+                [ê°ë¨ì­ 10ë²ì¶êµ¬ 1ë¶ê±°ë¦¬]
                 <br><br>
-                어떤 만남도 대충하지 않는 사람들을 위한 감성공간,공튜디오입니다.
+                ì´ë¤ ë§ë¨ë ëì¶©íì§ ìë ì¬ëë¤ì ìí ê°ì±ê³µê°,ê³µíëì¤ìëë¤.
                 <br><br>
-                #스터디룸
-                #회의실
-                #생일파티
-                #브라이덜샤워
+                #ì¤í°ëë£¸
+                #íìì¤
+                #ìì¼íí°
+                #ë¸ë¼ì´ëì¤ì
                 <br>
-                등 다양한 모임공간으로 활용할 수 있습니다.
+                ë± ë¤ìí ëª¨ìê³µê°ì¼ë¡ íì©í  ì ììµëë¤.
 
 
             </div>
 
             <div id="space_guide" name="intro" class="title">
-                <div class="text">시설안내</div>
+                <div class="text">ìì¤ìë´</div>
                 <hr class="line2" style="background:rgb(235, 229, 229) ">
             </div>
 
@@ -423,30 +424,30 @@
                     <tbody>
                         <tr>
                             <td>1</td>
-                            <td>초고속 와이파이+전기종 가능한 충전기</td>
+                            <td>ì´ê³ ì ìì´íì´+ì ê¸°ì¢ ê°ë¥í ì¶©ì ê¸°</td>
                         </tr>
 
                         <tr>
                             <td>2</td>
-                            <td>정수기+산딸기 티+ 복숭아티+사과티+아메리카노+간식</td>
+                            <td>ì ìê¸°+ì°ë¸ê¸° í°+ ë³µì­ìí°+ì¬ê³¼í°+ìë©ë¦¬ì¹´ë¸+ê°ì</td>
                         </tr>
                         <tr>
                             <td>3</td>
-                            <td>정수기+산딸기 티+ 복숭아티+사과티+아메리카노+간식</td>
+                            <td>ì ìê¸°+ì°ë¸ê¸° í°+ ë³µì­ìí°+ì¬ê³¼í°+ìë©ë¦¬ì¹´ë¸+ê°ì</td>
                         </tr>
                         <tr>
                             <td>4</td>
-                            <td>정수기+산딸기 티+ 복숭아티+사과티+아메리카노+간식</td>
+                            <td>ì ìê¸°+ì°ë¸ê¸° í°+ ë³µì­ìí°+ì¬ê³¼í°+ìë©ë¦¬ì¹´ë¸+ê°ì</td>
                         </tr>
 
                         <tr>
                             <td>5</td>
-                            <td>정수기+산딸기 티+ 복숭아티+사과티+아메리카노+간식</td>
+                            <td>ì ìê¸°+ì°ë¸ê¸° í°+ ë³µì­ìí°+ì¬ê³¼í°+ìë©ë¦¬ì¹´ë¸+ê°ì</td>
                         </tr>
 
                         <tr>
                             <td>6</td>
-                            <td>정수기+산딸기 티+ 복숭아티+사과티+아메리카노+간식</td>
+                            <td>ì ìê¸°+ì°ë¸ê¸° í°+ ë³µì­ìí°+ì¬ê³¼í°+ìë©ë¦¬ì¹´ë¸+ê°ì</td>
                         </tr>
 
                     </tbody>
@@ -459,7 +460,7 @@
 
 
             <div id="reservation_warn" name="warn" class="title">
-                <div class="text">예약시 주의사항</div>
+                <div class="text">ìì½ì ì£¼ìì¬í­</div>
                 <hr class="line2" style="background:rgb(235, 229, 229) ">
             </div>
             <div id="reservation_warn_comment" class="space">
@@ -467,33 +468,33 @@
                     <tbody>
                         <tr>
                             <td>1.</td>
-                            <td>최소 1인,최대 12인까지 이용 가능합니다.</td>
+                            <td>ìµì 1ì¸,ìµë 12ì¸ê¹ì§ ì´ì© ê°ë¥í©ëë¤.</td>
                         </tr>
 
                         <tr>
                             <td>2.</td>
-                            <td>3인부터 최소 2시간부터 이용 가능합니다.</td>
+                            <td>3ì¸ë¶í° ìµì 2ìê°ë¶í° ì´ì© ê°ë¥í©ëë¤.</td>
                         </tr>
                         <tr>
                             <td>3.</td>
-                            <td>예약은 선입금 제로 만 가능하며,예약된 사용시간 전에 퇴실하여도 잔여 시간은 환불이 불가합니다.</td>
+                            <td>ìì½ì ì ìê¸ ì ë¡ ë§ ê°ë¥íë©°,ìì½ë ì¬ì©ìê° ì ì í´ì¤íì¬ë ìì¬ ìê°ì íë¶ì´ ë¶ê°í©ëë¤.</td>
                         </tr>
                         <tr>
                             <td>4.</td>
-                            <td>추가인원은 연락주시면 안내 도와드리고 있으며 인원 변동 가능성 있을시 최소 인원으로 예약후 인원 확정이
-                                되면 연락후, 계좌이체로 추가금액 지불해주시면 됩니다.
+                            <td>ì¶ê°ì¸ìì ì°ë½ì£¼ìë©´ ìë´ ëìëë¦¬ê³  ìì¼ë©° ì¸ì ë³ë ê°ë¥ì± ììì ìµì ì¸ìì¼ë¡ ìì½í ì¸ì íì ì´
+                                ëë©´ ì°ë½í, ê³ì¢ì´ì²´ë¡ ì¶ê°ê¸ì¡ ì§ë¶í´ì£¼ìë©´ ë©ëë¤.
                             </td>
                         </tr>
 
                         <tr>
                             <td>5.</td>
-                            <td>지나친 소음은 삼가해주세요</td>
+                            <td>ì§ëì¹ ììì ì¼ê°í´ì£¼ì¸ì</td>
                         </tr>
 
                         <tr>
                             <td>6.</td>
-                            <td>음식물 취식은 가능하나,구비된 음식물 쓰레기 봉투에 담은후 1층
-                                후문 쓰레기장에 직접 배출해주셔야합니다.
+                            <td>ììë¬¼ ì·¨ìì ê°ë¥íë,êµ¬ë¹ë ììë¬¼ ì°ë ê¸° ë´í¬ì ë´ìí 1ì¸µ
+                                íë¬¸ ì°ë ê¸°ì¥ì ì§ì  ë°°ì¶í´ì£¼ìì¼í©ëë¤.
                             </td>
                         </tr>
 
@@ -504,7 +505,7 @@
 
 
             <div id="space_road" class="title">
-                <div class="text">길찾기</div>
+                <div class="text">ê¸¸ì°¾ê¸°</div>
                 <hr class="line2" style="background:rgb(235, 229, 229) ">
             </div>
             <div id="space_road_comment" class="space">
@@ -523,12 +524,12 @@
             <div id="space_qa_comment" class="space">
                 <div class="qa_table">
 
-                    <div><img src="#">사진1</div>
+                    <div><img src="#">ì¬ì§1</div>
                     <div>
-                        <div>닉네임</div>
-                        <div>내용내용내용asdfadsfasdf</div>
-                        <div>호스트답글</div>
-                        <div>시간시간</div>
+                        <div>ëë¤ì</div>
+                        <div>ë´ì©ë´ì©ë´ì©asdfadsfasdf</div>
+                        <div>í¸ì¤í¸ëµê¸</div>
+                        <div>ìê°ìê°</div>
 
                     </div>
 
@@ -536,24 +537,24 @@
 
                 <div class="qa_table">
 
-                    <div><img src="#">사진2</div>
+                    <div><img src="#">ì¬ì§2</div>
                     <div>
-                        <div>닉네임</div>
-                        <div>내용내용내용asdfadsfasdf</div>
-                        <div>호스트답글</div>
-                        <div>시간시간</div>
+                        <div>ëë¤ì</div>
+                        <div>ë´ì©ë´ì©ë´ì©asdfadsfasdf</div>
+                        <div>í¸ì¤í¸ëµê¸</div>
+                        <div>ìê°ìê°</div>
 
                     </div>
                 </div>
 
                 <div class="qa_table">
 
-                    <div><img src="#">사진3</div>
+                    <div><img src="#">ì¬ì§3</div>
                     <div>
-                        <div>닉네임</div>
-                        <div>내용내용내용asdfadsfasdf</div>
-                        <div>호스트답글</div>
-                        <div>시간시간</div>
+                        <div>ëë¤ì</div>
+                        <div>ë´ì©ë´ì©ë´ì©asdfadsfasdf</div>
+                        <div>í¸ì¤í¸ëµê¸</div>
+                        <div>ìê°ìê°</div>
 
                     </div>
 
@@ -564,7 +565,7 @@
             </div>
 
             <div id="space_review" name="space_review" class="title">
-                <div class="text">리뷰</div>
+                <div class="text">ë¦¬ë·°</div>
                 <hr>
             </div>
             <div id="space_review_comment" class="space">
@@ -572,11 +573,11 @@
 
                 <div class="qa_table">
 
-                    <div><img src="#">사진1</div>
+                    <div><img src="#">ì¬ì§1</div>
                     <div>
-                        <div>닉네임</div>
-                        <div>리뷰리뷰리뷰</div>
-                        <div>시간시간</div>
+                        <div>ëë¤ì</div>
+                        <div>ë¦¬ë·°ë¦¬ë·°ë¦¬ë·°</div>
+                        <div>ìê°ìê°</div>
 
                     </div>
 
@@ -584,22 +585,22 @@
 
                 <div class="qa_table">
 
-                    <div><img src="#">사진2</div>
+                    <div><img src="#">ì¬ì§2</div>
                     <div>
-                        <div>닉네임</div>
-                        <div>리뷰리뷰리뷰</div>
-                        <div>시간시간</div>
+                        <div>ëë¤ì</div>
+                        <div>ë¦¬ë·°ë¦¬ë·°ë¦¬ë·°</div>
+                        <div>ìê°ìê°</div>
 
                     </div>
                 </div>
 
                 <div class="qa_table">
 
-                    <div><img src="#">사진3</div>
+                    <div><img src="#">ì¬ì§3</div>
                     <div>
-                        <div>닉네임</div>
-                        <div>리뷰리뷰리뷰</div>
-                        <div>시간시간</div>
+                        <div>ëë¤ì</div>
+                        <div>ë¦¬ë·°ë¦¬ë·°ë¦¬ë·°</div>
+                        <div>ìê°ìê°</div>
 
                     </div>
 
@@ -619,25 +620,25 @@
            <div id="payMent_div">
                 <table>
                     <tr>
-                        <th>예약날짜</th>
-                        <td>2024년 04 05일</td>
+                        <th>ìì½ë ì§</th>
+                        <td>2024ë 04 05ì¼</td>
                     </tr>
 
                     <tr>
-                        <th>금액</th>
+                        <th>ê¸ì¡</th>
                         <td>3000</td>
                     </tr>
 
                     <tr>
-                        <th>예약인원</th>
-                        <td>3명</td>
+                        <th>ìì½ì¸ì</th>
+                        <td>3ëª</td>
                     </tr>
 
                 </table>
                 <hr class="line2" style="background-color: #704DE4;">
-                <div align="right">15000원</div>
+                <div align="right">15000ì</div>
 
-                <button  style="width:100%">결제하기</button>
+                <button  style="width:100%">ê²°ì íê¸°</button>
 
            </div>
 
