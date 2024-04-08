@@ -115,10 +115,14 @@
         }
         .space-picture{
             height: 200px;
-            margin-bottom: 0px;
+            padding: 0;
+            margin: 0;
         }
         .space-info{
-            padding: 0 5px
+
+            padding : 0 5px;
+            margin-top: 12px;
+        
         }
         /* .space-info p span {
             text-overflow: ellipsis;
@@ -223,7 +227,7 @@
     <div id="wrapper">
         <div class="search-bar" align="center">
             <input type="search" name="search">
-            <i class="fa-solid fa-magnifying-glass">d</i>
+            <i class="fa-solid fa-magnifying-glass"></i>
         </div>
 
         <div class="search-option">
@@ -276,7 +280,6 @@
                     <img src="" alt="썸네일" width="100%" height="100%">
                 </div>
                 <div class="space-info">
-                    <br>
                     <b>
                         [오픈이벤트] 르씨엘 2호점
                     </b>

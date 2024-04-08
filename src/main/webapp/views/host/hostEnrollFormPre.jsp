@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -65,7 +67,7 @@
             margin-left: 50px;
         }
 
-        /* 체크박스 커스텀 */
+        /* ì²´í¬ë°ì¤ ì»¤ì¤í */
         /* The container */
         .container {
         display: block;
@@ -139,6 +141,7 @@
     </style>
 </head>
 <body>
+    <%@ include file="../common/menubar.jsp"%>
     <div id="wrapper">
         <div class="login-top">
             <h2>시설물 등록</h2>
