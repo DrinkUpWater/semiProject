@@ -6,7 +6,7 @@
 
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href='./fullcalendar/custommain.css' rel='stylesheet' />
+        <link href='<%=request.getContextPath()%>/views/space/fullcalendar/custommain.css' rel='stylesheet' />
         <title>Document</title>
 
         <!-- Latest compiled and minified CSS -->
@@ -27,10 +27,10 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
-        <script src="js/calenderClick.js"></script>
-        <script src="js/modal.js"></script>
-        <script src="js/reservationNum.js"></script>
-
+        <script src=" <%=request.getContextPath()%>/views/space/js/calenderClick.js"></script>
+        <script src="<%=request.getContextPath()%>/views/space/js/modal.js"></script>
+        <script src="<%=request.getContextPath()%>/views/space/js/reservationNum.js"></script>
+        <script src='<%=request.getContextPath()%>/views/space/fullcalendar/main.min.js'></script>
         <style>
             @media (max-width: 1200px) {
 
@@ -92,7 +92,7 @@
                 grid-template-rows: repeat(2, 250px);
                 /* grid-template-columns: repeat(3, 1fr); */
                 column-gap: 50px;
-                /* border: solid 1px gray;  */
+                /* border: solid 1px red;  */
                 margin: 10px;
                 font-size: 20px;
             }
@@ -161,7 +161,7 @@
             }
 
             .img_div>img {
-                max-width: 100%;
+                 max-width: 100%;
                 height: 100%;
             }
 
@@ -172,11 +172,70 @@
             }
 
             .qa_table {
+
                 display: flex;
+                /* grid-template-rows: repeat(2, 250px); */
                 justify-content: space-evenly;
-                border-bottom: 1px solid grey;
+                border:solid 1px green ;
+                height:100%;
+              
+               
+              
+               /* overflow: hidden; */
 
 
+            }
+            .qa_table div{
+                /* height:100%; */
+                /* border:solid 1px green ; */
+              
+            }
+   
+
+            #content_info{
+               
+                width:90%;
+                margin-left:10%;
+                word-break: break-all;
+                border: solid 1px blue; 
+                overflow:auto;
+                height:100%;
+              
+            }
+
+            #content{
+               
+               /* overflow:auto; */
+           }
+
+            #comment_list{
+               /* display:none; */
+                
+               width:90%;
+            margin-left:10%;
+               border: solid 1px salmon;
+               
+              
+            }
+            #comment_list>ul{
+                text-align: center;
+                border: solid 1px rgb(216, 80, 65);
+            }
+            #comment_list li{
+                
+                list-style: none;
+            }
+
+            .qa_table ul{
+                
+                height:100%;
+                overflow:auto;
+              
+            }
+
+            .qa_table ul>li{
+                list-style: none;
+                margin:15px;
             }
 
             .qa_table div {
@@ -187,6 +246,18 @@
                 border: 1px solid rgb(224, 216, 216);
 
             }
+            #space_review_comment{
+                /* display :grid;
+                grid-template-rows: repeat(2, 250px);
+                border:solid 1px green ; */
+            }
+
+            /* #space_qa_comment{
+                display :grid;
+                grid-template-rows: repeat(2, 250px);
+                border:solid 1px red ;
+            } */
+
 
             /*------------*/
             #section_2 {
@@ -301,7 +372,7 @@
                     </div>
                     <div id="space_comment" class="space">
                         <div align="left" class="img_div">
-                            <img src="../../resources/space_img/test.png">
+                            <img src="<%=request.getContextPath()%>/resources/space_img/test.png">
                         </div>
                         <div style=" padding-top:20px; ">
                             <span>
@@ -446,10 +517,10 @@
                     </div>
                     <div id="space_road_comment" class="space">
 
-                        <iframe
+                    <iframe
                             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3165.378379236162!2d127.03290899999996!3d37.49899300000002!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357c9ec255555555%3A0x3565475c3365c5bb!2zS0jsoJXrs7TqtZDsnKHsm5A!5e0!3m2!1sko!2skr!4v1712133003105!5m2!1sko!2skr"
                             style="border:0; width:100%; height:200%;" allowfullscreen="" loading="lazy"
-                            referrerpolicy="no-referrer-when-downgrade"></iframe>
+                            referrerpolicy="no-referrer-when-downgrade" > </iframe>
 
                     </div>
 
@@ -458,43 +529,38 @@
                         <hr>
                     </div>
                     <div id="space_qa_comment" class="space">
-                        <div class="qa_table">
+                        
+                        <% for(int i=0; i<4; i++){ %>
+                            <div class="qa_table">
 
-                            <div><img src="#">사진1</div>
-                            <div>
-                                <div>닉네임</div>
-                                <div>내용내용내용asdfadsfasdf</div>
-                                <div>호스트답글</div>
-                                <div>시간시간</div>
-
+                                <div><img src="#">사진1</div>
+                                <div id="content_info">
+                                    <div id="nickname">닉네임</div>
+                                    <div id="content">내용내용내용asdfadsfasdfㅁㄴㅇㄻㄴㅇㄹㅇㄹ
+                                        내용내용내용asdfadsfasdfㅁㄴㅇㄻㄴㅇㄹㅇㄹ
+                                        내용내용내용asdfadsfasdfㅁㄴㅇㄻㄴㅇㄹㅇㄹ
+                                        내용내용내용asdfadsfasdfㅁㄴㅇㄻㄴㅇㄹㅇㄹ
+                                        내용내용내용asdfadsfasdfㅁㄴㅇㄻㄴㅇㄹㅇㄹ
+                                        asdfasdfasdfasdfasdfsdfasdf
+                                        asdfasdfasdfasdfasdfsdfasdffasdf
+    
+                                        asdfasdf
+    
+                                    </div>
+                                    <div id="time">시간시간</div>
+                                    
+                                    <div id="host_comment"> 
+                                        <h2>호스트답글</h2>
+                                        <div>호스트가 답합니다.</div>
+                                   </div>
+                               </div>
+                                
                             </div>
+    
 
-                        </div>
-
-                        <div class="qa_table">
-
-                            <div><img src="#">사진2</div>
-                            <div>
-                                <div>닉네임</div>
-                                <div>내용내용내용asdfadsfasdf</div>
-                                <div>호스트답글</div>
-                                <div>시간시간</div>
-
-                            </div>
-                        </div>
-
-                        <div class="qa_table">
-
-                            <div><img src="#">사진3</div>
-                            <div>
-                                <div>닉네임</div>
-                                <div>내용내용내용asdfadsfasdf</div>
-                                <div>호스트답글</div>
-                                <div>시간시간</div>
-
-                            </div>
-
-                        </div>
+                        <%} %>
+                        
+                      
 
 
 
@@ -505,7 +571,7 @@
                         <hr>
                     </div>
                     <div id="space_review_comment" class="space">
-
+                  
 
                         <div class="qa_table">
 
@@ -572,7 +638,7 @@
                         </div>
 
                         <div id="space_detail_comment">
-                            <div class="img_div"><img src="../../resources/space_img/test.png">세부공간이미지</div>
+                            <div class="img_div"><img src="<%=request.getContextPath()%>/resources/space_img/test.png" >세부공간이미지</div>
                             <p>
                                 <span>서울대 입구..스터디룸 카페 예약
                                     서울대 입구..스터디룸 카페 예약
@@ -660,7 +726,7 @@
                         </div>
 
 
-                        <script src='./fullcalendar/main.min.js'></script>
+                      
                         <script>
 
                             //캘린더 이벤트
@@ -892,7 +958,7 @@
                         </div>
 
                         <div id="space_detail_comment">
-                            <div class="img_div"><img src="../../resources/space_img/test.png">세부공간이미지</div>
+                            <div class="img_div"><img src="<%=request.getContextPath()%>/resources/space_img/test.png">세부공간이미지</div>
                             <p>
                                 <span>서울대 입구..스터디룸 카페 예약
                                     서울대 입구..스터디룸 카페 예약

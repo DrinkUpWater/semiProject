@@ -34,7 +34,8 @@ document.addEventListener('DOMContentLoaded', function () {
             function fetchBookedTimes(currentDate){
 
                 $.ajax({
-                    url:'test.sp',
+                   // url:'test.sp',
+                   url:'test.sp',
                     type:'GET',
                   
                     data:{date:currentDate},
