@@ -429,10 +429,12 @@
 
             function obrid() {
                 if (!isValidUsername()) {
-
+                    return;
                 }
             }
-
+            function isValidUsername(){
+                
+            }
 
             // 비밀번호 동일 여부 확인 + 유효가능 확인
             function onb() {
