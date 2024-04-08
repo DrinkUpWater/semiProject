@@ -24,7 +24,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
-
+    
 <style>
     * {
         font-family: "Noto Sans KR", sans-serif;
@@ -55,6 +55,7 @@
     }
     #left-bar{
         margin-left: 10px;
+        cursor: pointer;
     }
     #left-bar i:hover{
         
