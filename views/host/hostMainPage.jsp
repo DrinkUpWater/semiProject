@@ -14,17 +14,16 @@
         }
         .host-main{
             width: 1100px;
-            height: 500px;
+            height: 750px;
             display: flex;
             
             border: 1px solid black;
         }
         .left-side{
             margin: auto;
-            margin-left : 50px;
+            margin-left : 10px;
             padding: auto;
-            width: 50% - 50px;
-            
+            width: 50% ;
         }
         .right-side{
             width: 50%;
@@ -40,7 +39,19 @@
             border: 1px solid black;
         }
         .left-side > div > h1{
-            font-size: 35px;
+            font-size: 40px;
+        }
+        .margin-left-30px{
+            margin-left: 30px;
+        }
+        .left-side button {
+            width: 150px;
+            height: 50px;
+            border: none;
+            color: #FFFFFF;
+            background-color: #704DE4;
+            border-radius: 15px;
+            font-size: 18px;
         }
     </style>
 <body>
@@ -55,9 +66,9 @@
                     </h1>
                 </div>
                 <br>
-                <div><button>공간등록하기</button></div>
+                <div class="margin-left-30px"><button>공간등록하기</button></div>
                 <br>
-                <div>
+                <div class="margin-left-30px">
                     <p>|등록 가능 공간| 모임&#183;파티룸&#183;스터디&#183;카페&#183;회의실&#183;세미나실까지 </p>
                 </div>
             </div>

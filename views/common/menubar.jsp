@@ -122,8 +122,11 @@
         margin-bottom: 30px;
     }
 
-    .side-menu, .side-menu-host{
+    .side-menu {
         display: none;
+    }
+    .side-menu-host{
+        display:none;
     }
    
     
