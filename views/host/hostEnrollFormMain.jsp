@@ -105,6 +105,7 @@
             border: none;
             color: white;
             font-size: 26px; 
+            
         }
         .back-btn{
             background-color: rgb(70, 70, 70);

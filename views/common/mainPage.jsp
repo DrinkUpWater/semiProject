@@ -44,7 +44,7 @@
             justify-content: space-around;
             align-items: center;
         }
-        .option1 select{
+        .option1 select, .option1 input{
             width: 25%;
             height: 38px;
         }
@@ -245,9 +245,7 @@
                     <option value="">9명</option>
                     <option value="">10명 이상</option>
                 </select>
-                <select name="" id="">
-                    <option value="">날짜</option>
-                </select>
+                <input type="date" value="날짜">
             </section>
             <div class="option2">
                 <div>필터</div>
@@ -299,7 +297,7 @@
             <div class="info-preview"></div>
         </section>
 
-        <!-- 달력 -->
+        <!-- 달력
         <div class="calender">
             <div class="month">      
                 <ul>
@@ -355,7 +353,7 @@
                 <li>30</li>
                 <li>31</li>
             </ul>
-        </div>
+        </div> -->
     </div>
 </body>
 </html>
