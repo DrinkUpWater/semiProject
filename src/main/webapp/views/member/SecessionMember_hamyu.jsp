@@ -258,7 +258,7 @@
 </head>
 
 <body>
-    <%@ include file="..common/menubar.jsp" %>
+    <%@ include file="../common/menubar.jsp" %>
     <form>
         <div class="secss-member">
             <p class="head-text1">서비스 탈퇴전에 꼭 확인하세요!</p>

@@ -145,7 +145,7 @@
 
 <body>
 
-    <%@ include file="..common/menubar.jsp" %>
+    <%@ include file="../common/menubar.jsp" %>
         <div class="login-top">
             <h2>로그인</h2>
         </div>

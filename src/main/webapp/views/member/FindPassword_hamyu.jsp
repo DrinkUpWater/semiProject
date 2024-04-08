@@ -164,7 +164,7 @@
 
 <body>
 
-<%@ include file="..common/menubar.jsp" %>
+<%@ include file="../common/menubar.jsp" %>
     <div class="pwd-top">
         <h2>비밀번호 찾기</h2>
     </div>

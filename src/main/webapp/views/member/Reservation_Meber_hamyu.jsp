@@ -137,7 +137,7 @@
     </style>
 </head>
 <body>
-    <%@ include file="..common/menubar.jsp" %>
+    <%@ include file="../common/menubar.jsp" %>
     <div class="reservation-header">
         예약 내역
     </div>

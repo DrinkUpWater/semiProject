@@ -203,7 +203,7 @@
 </head>
 
 <body>
-    <%@ include file="..common/menubar.jsp" %>
+    <%@ include file="../common/menubar.jsp" %>
         <div class="join-user">
             <form action="" id="login-form" method="post">
                 <h4 class="text-header">회원가입</h4>
@@ -232,7 +232,7 @@
                     <tr>
                         <td colspan="2" class="input-id">
                             <input type="text" name="userId" id="userId" minlength="6" maxlength="15" onblur="obrid()"
-                                placeholder=" 아이디입력 6~15자" required>
+                                placeholder=" 아이디입력 6~15자(한글 3~8자)" required>
                         </td>
                         <td>
                             <button type="button" class="idCheck">중복 확인</button>
@@ -440,7 +440,13 @@
                
             }
         
-      
+            function isValidId(userId){
+                //한글은 3~8글자이내 영어는 3~15자이내 ,만약 한글,영어 섞여있을 시 15자이내로
+                if(!/^(?:(?=[\uAC00-\uD7A3a-zA-Z]*[a-zA-Z])[\uAC00-\uD7A3a-zA-Z]{3,15}|(?=[\uAC00-\uD7A3a-zA-Z]*[\uAC00-\uD7A3])[a-zA-Z]{6,15})$/.test(userId)){
+                    return false;
+                }
+                return true;
+            }
 
 
             // 비밀번호 동일 여부 확인 + 유효가능 확인
