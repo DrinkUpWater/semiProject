@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>공지사항 상세페이지</title>
+    <title>일반게시판 상세페이지</title>
     <style>
         #wrapper{
             width: 1200px;
@@ -106,12 +106,12 @@
 </head>
 <body>
     <div id="wrapper">
-        <h1 style="color: #927f69">공지사항</h1>
+        <h1 style="color: #927f69">일반게시판</h1>
         <div id="main">
             <div id="notice-view">
                 <div id="title-area">
                     <div id="title">
-                        <h3>관리자가 입력한 제목</h3>
+                        <h3>회원이 입력한 제목</h3>
                     </div>
                     <div id="span1">
                         <span>관리자</span>
@@ -120,11 +120,11 @@
                 </div>
                 <div id="content-area">
                     <div id="txt">
-                        <p>관리자가 입력한 내용</p>
+                        <p>회원이 입력한 내용</p>
 
-                        <p>관리자가 입력한내용2</p>
+                        <p>회원이 입력한내용2</p>
 
-                        <p>관리자가 입력한내용3</p>
+                        <p>회원이 입력한내용3</p>
                     </div>
                 </div>
             </div>

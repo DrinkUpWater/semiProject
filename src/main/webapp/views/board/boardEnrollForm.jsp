@@ -6,9 +6,9 @@
     <title>게시글작성</title>
     <style>
         #wrapper{
-            
+
             width: 1200px;
-            height: 700px;
+            height: 800px;
             margin-top: 100px;  /*preview에서 예쁘게 볼려고 넣은거*/
             margin-left: 100px; /*preview에서 예쁘게 볼려고 넣은거*/
         }
@@ -16,9 +16,35 @@
             height: 90%;
             box-sizing: border-box;
         }
-        #title-wrapper{
-            height: 50px;
+        #name-wrapper{
+
+            height: 40px;
             display: flex;
+        }
+        #name{
+            width: 10%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            font-size: 20px;
+            font-weight: 600;
+        }
+        #member-id{
+            /* border: 1px solid rgb(196, 194, 194); */
+            width: 100%;
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            font-size: 20px;
+            font-weight: 600;
+            box-sizing: border-box;
+        }
+
+        #title-wrapper{
+
+            height: 40px;
+            display: flex;
+            margin-top: 20px;
         }
         h1{
             border-bottom: 1px solid;
@@ -42,8 +68,9 @@
             
         }
         #content-wrapper{
+
             margin-top: 20px;
-            height: 53%;
+            height: 52%;
             display: flex;
             
         }
@@ -64,7 +91,7 @@
             box-sizing: border-box;
         }
         #img-wrapper{
-            height: 25%;
+            height: 22%;
             display: flex;
         }
         #img{  
@@ -123,17 +150,17 @@
 <body>
     <div id="wrapper">
         <div id="h1">
-            <h1 style="color: #927f69">공지사항</h1>
+            <h1 style="color: #927f69">일반게시판</h1>
         </div>
         <div id="main">
-            <!-- <div id="name-wrapper">
+            <div id="name-wrapper">
                 <div  id="name">
                     이름
                 </div>
-                <div id="admin-id">
-                    admin
+                <div id="member-id">
+                    user01 <!-- id의 앞4자리만 표기하고 뒷자리는 별표4개로 표시해야함-->
                 </div>
-            </div> -->
+            </div>
             <div id="title-wrapper">
                 <div id="title">
                     제목
