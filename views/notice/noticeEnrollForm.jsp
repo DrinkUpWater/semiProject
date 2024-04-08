@@ -111,7 +111,7 @@
             align-items: center;
         }
 
-        a{
+        #a1{
             border: 1px solid rebeccapurple;
             width: 100px;
             height: 100px;
@@ -121,7 +121,38 @@
             align-items: center;
             margin-left: 30px;
         }
+        #a2, #a3{
+            border: 1px solid black;
+            width: 100px;
+            height: 100%;
+            text-decoration: none;
+            font-size: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
 
+            
+        }
+        #regist, #cancle{
+            border: 1px solid red;
+            width: 100px;
+            height: 40px;
+            
+            display: flex;
+            align-items: center;
+            box-sizing: border-box;
+        }
+        #regist-area{
+            border: 3px solid green;
+            margin-left: 100px; /*preview에서 예쁘게 볼려고 넣은거*/
+            width: 1200px;
+            height: 60px;
+            display: flex;
+            flex-direction: row;
+            justify-content: end;
+            align-items: center;
+            margin-top: 10px;
+        }
 
     </style>
 </head>
@@ -155,19 +186,21 @@
                     이미지
                 </div>
                 <div id="img-input">
-                    <a href="" >@</a>
+                    <a href="" id="a1">@</a>
                 </div>
                 
             </div>
         </div>
     </div>
-    <div id="regist" style="font-size: 20px;">
-        <a href="">등록</a>
-        
+    <div id="regist-area">
+        <div id="regist" >
+            <a href="" id="a2">취소</a>
+        </div>
+        <div id="cancle" >
+            <a href="" id="a3">등록</a>
+        </div>
     </div>
-    <div id="cancle" style="font-size: 20px;">
-        <a href="">취소</a>
-    </div>
+
 
 </body>
 </html>
