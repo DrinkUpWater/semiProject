@@ -74,6 +74,11 @@
             width: 90px;
             height: 30px;
         }
+        /* .searchbar{
+            display: flex;
+            align-content: center;
+            border: 1px solid;
+        } */
 
     </style>
 </head>
