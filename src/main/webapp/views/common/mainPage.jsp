@@ -73,6 +73,7 @@
             border-bottom: 1px solid rgb(138, 138, 138);
             height: 30px;
             margin-bottom: 20px;
+            padding-bottom: 5px;
         }
         .option3 div{
             display: flex;
@@ -109,21 +110,21 @@
         
         .info-preview {
             border: 1px solid black;
-            width: 300px;
-            height: 300px;
+            width: 360px;
+            height: 340px;
         }
         .space-picture{
-            height: 190px;
+            height: 200px;
             margin-bottom: 0px;
         }
         .space-info{
             padding: 0 5px
         }
-        .space-info p span {
+        /* .space-info p span {
             text-overflow: ellipsis;
             white-space: nowrap;
             overflow: hidden;
-        }
+        } */
         .price-info{
             display: flex;
             justify-content: space-between;
