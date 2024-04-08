@@ -37,6 +37,9 @@
         margin: 10px auto;
         
     }
+    .login-area div{
+        width: 200px;
+    }
     .login-area{
         display: flex;
         justify-content: space-between;
@@ -142,7 +145,7 @@
                 <i class="fa-solid fa-bars fa-xl"></i>
             </div>
             <h2>kH ROOMMOAH</h2>
-            <div id="right-bar">
+            <div align="end" id="right-bar">
                 <a href="">회원가입</a> | <a href="">로그인</a>
             </div>
         </div>
