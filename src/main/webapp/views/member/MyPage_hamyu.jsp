@@ -149,7 +149,7 @@
     </style>
 </head>
 <body>
-    <%@ include file="..common/menubar.jsp" %>
+    <%@ include file="../common/menubar.jsp" %>
     <div class="login-top" align="center">
         <h2 class="mypage-header">마이페이지</h2>
     </div>

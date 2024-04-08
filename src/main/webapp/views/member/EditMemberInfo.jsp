@@ -189,7 +189,7 @@
 </head>
 
 <body>
-    <%@ include file="..common/menubar.jsp" %>
+    <%@ include file="../common/menubar.jsp" %>
         <div class="join-user">
             <form action="" id="login-form" method="post" >
               
