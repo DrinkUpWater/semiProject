@@ -176,15 +176,20 @@
             #space_qa_comment{
                 overflow: auto;
                 border:solid blue;
+               
             }
            
             #comment_table{
                 height:100%;
               
             }
+            #comment_info{
+                width:100%;
+            }
 
             .comment_list{
-            
+                margin-bottom: 100px;
+                /* border:  solid pink; */
             }
             
 
@@ -198,18 +203,9 @@
                 height:100%;
               
             }
-          
+        
            
 
-            #comment_list{
-               /* display:none; */
-                
-               width:90%;
-               margin-left:10%;
-               border: solid 1px salmon;
-               
-              
-            }
             #comment_list>ul{
                 text-align: center;
                 border: solid 1px rgb(216, 80, 65);
@@ -220,7 +216,10 @@
             }
 
         
-
+            #comment_margin{
+                margin: 10px;
+                height:100%;
+            }
             #space_review_comment{
                 /* display :grid;
                 grid-template-rows: repeat(2, 250px);
@@ -306,27 +305,20 @@
 
             }
 
-            /* 달력*/
-            /* fc-daygrid-day-number -->a태그*/
-            /* .fc-daygrid-day-top{
-         border: solid 3px black;
-       } */
+       
 
-            .fc-daygrid-day fc-day fc-day-sun fc-day-past fc-day-other {
-                /*전달의 정보가 담겨있는  td태그*/
-                border: solid saddlebrown;
-            }
+          /*답글 hover처리*/
 
-            .fc-daygrid-day fc-day fc-day-mon fc-day-past {
-                border: solid #7A36E9;
+             .host_replay{
+                display: none;
+            } 
 
+            /* #host_replay_title:hover+#host_replay{
+                display: block;
+            } */ 
 
-            }
+          
 
-            .fc-daygrid-day-number {
-                /* border: solid 3px black; */
-
-            }
         </style>
 
 
@@ -517,8 +509,8 @@
                                 <tbody>
                                  <tr class="comment_list">    
 
-                                    <th id="nickName">닉네임</th>
-                                    <td class="comment_list">내용내용내용내용내용내용내용내용내용내용내용내용내용내용
+                                    <th class="nickName" style="width:20%">닉네임</th>
+                                    <td >내용내용내용내용내용내용내용내용내용내용내용내용내용내용
                                             내용내용내용내용내용내용내용내용내용내용내용내용내용내용
                                             내용내용내용내용내용내용내용내용내용내용내용내용내용내용
                                     </td>
@@ -530,12 +522,14 @@
                                         <td>시간</td>
                                  </tr>
         
-                                <tr class="comment_list">
+
+                                 <!--호스트 답글창-->
+                                <tr class="host_replay_title"+<%=i%>>
                                         <th></th>
                                         <td><p>호스트답글</p></td>
                                 </tr>
         
-                                <tr class="comment_list">
+                                <tr class="host_replay">
                                         <th></th>
                                         <td>호스트 답글내용</td>
 
@@ -545,7 +539,7 @@
                        
 
                                 <!--로그인이 되어있고 호스트일때만 보이게 한다.-->
-                                <tr id="reply_info">
+                                <tr id="reply_info" class="comment_list">
                                         <th></th>
                                         <td>
                                             <div>답글</div>
@@ -564,12 +558,51 @@
                                         </td>
                                 </tr>
 
+                                <tr id="comment_margin">
+                                   <td colspan="2" id="comment_line"><hr></td>
+                                </tr>
                             </tbody>
+
+                             
+                           
                         <%} %>
                        
 
                         </table>
                     </div>
+                    <script>
+
+                      
+    
+
+
+
+                      
+
+                    </script>
+
+                  
+                        <div id="comment_info">
+                            <th></th>
+                            <td>
+                                <div>QA등록하기</div>
+
+                                <div id="comment div" style="width:100%; display:flex; justify-content: space-between;">
+
+                                
+                                    <div style="width:100%;">
+                                        <textarea placeholder="입력하세요" style="width:100%"></textarea>
+                                    </div>
+
+                                    <div><button type="button">등록하기</button></div>
+
+                                </div>
+
+                            </td>
+                        </div>
+
+
+                      
 
 
 
