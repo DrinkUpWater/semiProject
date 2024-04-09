@@ -88,6 +88,7 @@
 
 
             .space {
+            
                 display: grid;
                 grid-template-rows: repeat(2, 250px);
                 /* grid-template-columns: repeat(3, 1fr); */
@@ -131,7 +132,7 @@
                 display: flex;
                 list-style: none;
                 justify-content: space-between;
-                border: solid 1px #7A36E9;
+                /* border: solid 1px #7A36E9; */
                 margin: auto;
             }
 
@@ -176,7 +177,7 @@
                 display: flex;
                 /* grid-template-rows: repeat(2, 250px); */
                 justify-content: space-evenly;
-                border:solid 1px green ;
+                border:solid 1px peru ;
                 height:100%;
               
                
@@ -185,6 +186,12 @@
 
 
             }
+            .qa_list{
+              
+            }
+
+
+
             .qa_table div{
                 /* height:100%; */
                 /* border:solid 1px green ; */
@@ -196,23 +203,23 @@
                
                 width:90%;
                 margin-left:10%;
-                word-break: break-all;
+              
                 border: solid 1px blue; 
-                overflow:auto;
+              
                 height:100%;
               
             }
 
             #content{
                
-               /* overflow:auto; */
-           }
+             
+             }
 
             #comment_list{
                /* display:none; */
                 
                width:90%;
-            margin-left:10%;
+               margin-left:10%;
                border: solid 1px salmon;
                
               
@@ -534,8 +541,8 @@
 
 
                     <div id="space_qa_comment" class="space">
-                       <% for(int i=0; i<4; i++){ %>
-                            <div class="qa_table" >
+                       <% for(int i=0; i<10; i++) { %>
+                            <div class="qa_table qa_list" >
 
                                 <div id="user_info" style=" width: 10%; align-items: center;">
                                     <tr>
@@ -544,10 +551,10 @@
                                 </div>
                              
                                 <div id="content_info">
-                                    <table>
+                                    <table >
                                        
                                         <tr>
-                                            <th class="clear"></th>
+                                            <th ></th>
                                             <td id="content">
                                                 내용내용sadfasdfd
                                                 asdfasdfasdfasdfdsafdsafsadfdsfasdfasdfasdfad
@@ -556,20 +563,31 @@
                                                 ddddd
                                                 asdfasdfasdfsdafadsfasdfasdfasdasdfasdf
                                                 asdfasdf
+                                                asdfasdfasdfasdfdsafdsafsadfdsfasdfasdfasdfad
+
+                                                asdfasdfasdfasdfdsafdsafsadfdsfasdfasdfasdfasd
+                                                asdf
+                                                가가각
+                                                ㅏ각가가
+                                                가가가
+                                                ㄱ각
+                                                가가가가가ㅏ
                                             </td>
                                         </tr>
 
+                                        <tr class="clear"></tr>
+
                                         <tr>
-                                            <th class="clear"></th>
+                                            <th></th>
                                             <td id="time">2024-01-01</td>
                                     
                                         </tr>
 
-                                        <tr></tr>
+                                        <tr class="clear"></tr>
                                         <tr id="host_comment">
                                             <th class="clear"></th>
                                             <td id="comment">
-                                                <span>호스트 답글</span>
+                                                <div >호스트 답글</div>
                                                 <div style="width:50%">asdfasdfasdfsdafadsfasdfasdfasd
                                                     asdfasdfasdfasdfdsafdsafsadfdsfasdfasdf
                                                     asdfasdf
@@ -577,11 +595,14 @@
                                             </td>       
                                         </tr>
 
+                                        <tr class="clear"></tr>
+
                                         <tr>
                                             <!-- 호스트만 답글-->
-                                            <div style="width:100%;">
+                                            <div style="width:80%;">
                                                 <textarea placeholder="답글을입력하세요" style="width:100%"></textarea>
                                             </div>
+                                            <div><button type="button" style="width:20%;">등록하기</button></div>
                                         </tr>
 
                                     
