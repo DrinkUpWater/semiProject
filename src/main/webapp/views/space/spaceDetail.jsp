@@ -654,6 +654,7 @@
 
                         </table>
                     </div>
+
                     <script>
 
                       
@@ -700,7 +701,7 @@
                             <div class="text">리뷰</div>
                             <hr>
                         </div>
-
+                    </div>
 
 
 
