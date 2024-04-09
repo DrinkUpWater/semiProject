@@ -93,7 +93,7 @@
                 grid-template-rows: repeat(2, 250px);
                 /* grid-template-columns: repeat(3, 1fr); */
                 column-gap: 50px;
-                /* border: solid 1px red;  */
+                border: solid 1px red; 
                 margin: 10px;
                 font-size: 20px;
             }
@@ -132,7 +132,7 @@
                 display: flex;
                 list-style: none;
                 justify-content: space-between;
-                /* border: solid 1px #7A36E9; */
+                border: solid 1px #7A36E9; /*필수*/
                 margin: auto;
             }
 
@@ -172,32 +172,21 @@
                 list-style: none;
             }
 
-            .qa_table {
 
-                display: flex;
-                /* grid-template-rows: repeat(2, 250px); */
-                justify-content: space-evenly;
-                border:solid 1px peru ;
+            #space_qa_comment{
+                overflow: auto;
+                border:solid blue;
+            }
+           
+            #comment_table{
                 height:100%;
               
-               
-              
-               /* overflow: hidden; */
-
-
-            }
-            .qa_list{
-              
             }
 
-
-
-            .qa_table div{
-                /* height:100%; */
-                /* border:solid 1px green ; */
-              
+            .comment_list{
+            
             }
-   
+            
 
             #content_info{
                
@@ -209,11 +198,8 @@
                 height:100%;
               
             }
-
-            #content{
-               
-             
-             }
+          
+           
 
             #comment_list{
                /* display:none; */
@@ -233,26 +219,8 @@
                 list-style: none;
             }
 
-            .qa_table ul{
-                
-                height:100%;
-                overflow:auto;
-              
-            }
+        
 
-            .qa_table ul>li{
-                list-style: none;
-                margin:15px;
-            }
-
-            .qa_table div {
-                margin-bottom: 30px;
-            }
-
-            .qa_table span {
-                border: 1px solid rgb(224, 216, 216);
-
-            }
             #space_review_comment{
                 /* display :grid;
                 grid-template-rows: repeat(2, 250px);
@@ -541,143 +509,88 @@
 
 
                     <div id="space_qa_comment" class="space">
-                       <% for(int i=0; i<10; i++) { %>
-                            <div class="qa_table qa_list" >
 
-                                <div id="user_info" style=" width: 10%; align-items: center;">
-                                    <tr>
-                                       <th id="nickname">닉네임</th>
-                                    </tr>
-                                </div>
-                             
-                                <div id="content_info">
-                                    <table >
-                                       
-                                        <tr>
-                                            <th ></th>
-                                            <td id="content">
-                                                내용내용sadfasdfd
-                                                asdfasdfasdfasdfdsafdsafsadfdsfasdfasdfasdfad
-                                                asdfasdf
-                                                asdfasdfasdfasdfdsafa
-                                                ddddd
-                                                asdfasdfasdfsdafadsfasdfasdfasdasdfasdf
-                                                asdfasdf
-                                                asdfasdfasdfasdfdsafdsafsadfdsfasdfasdfasdfad
+                      
+                        <table id="comment_table" >
+                            <% for(int i=0; i<5; i++){ %>
 
-                                                asdfasdfasdfasdfdsafdsafsadfdsfasdfasdfasdfasd
-                                                asdf
-                                                가가각
-                                                ㅏ각가가
-                                                가가가
-                                                ㄱ각
-                                                가가가가가ㅏ
-                                            </td>
-                                        </tr>
+                                <tbody>
+                                 <tr class="comment_list">    
 
-                                        <tr class="clear"></tr>
-
-                                        <tr>
-                                            <th></th>
-                                            <td id="time">2024-01-01</td>
-                                    
-                                        </tr>
-
-                                        <tr class="clear"></tr>
-                                        <tr id="host_comment">
-                                            <th class="clear"></th>
-                                            <td id="comment">
-                                                <div >호스트 답글</div>
-                                                <div style="width:50%">asdfasdfasdfsdafadsfasdfasdfasd
-                                                    asdfasdfasdfasdfdsafdsafsadfdsfasdfasdf
-                                                    asdfasdf
-                                                </div>
-                                            </td>       
-                                        </tr>
-
-                                        <tr class="clear"></tr>
-
-                                        <tr>
-                                            <!-- 호스트만 답글-->
-                                            <div style="width:80%;">
-                                                <textarea placeholder="답글을입력하세요" style="width:100%"></textarea>
-                                            </div>
-                                            <div><button type="button" style="width:20%;">등록하기</button></div>
-                                        </tr>
-
-                                    
-            
-                                    </table>
-                                </div>
-
-                            </div>
-                        <%} %>
-
-
-                            <!--로그인이 되어있고 게스트일때만 보이게 한다.-->
-                            <div id="qa_info">
-
-                                <div>QA입력</div>
-    
-                                <div id="qa_input div" style="width:100%; display:flex; justify-content: space-between;">
-    
-                                
-                                    <div style="width:100%;">
-                                        <textarea placeholder="입력하세요" style="width:100%"></textarea>
-                                    </div>
-    
-                                    <div><button type="button">등록하기</button></div>
-    
-                                </div>
-                            
-                           </div>
-                        </div>
-
-
-                 
-
-                    <div id="space_review" name="space_review" class="title">
-                        <div class="text">리뷰</div>
-                        <hr>
-                    </div>
-
-                    <div id="space_review_comment" class="space">
-                       
-                        <% for(int i=1; i<=3; i++){%>
-
-                            <table>
-                                <tr>
-                                    <th><img src="#">사진1</th>
-                                    <td>닉네임</td>
-                                </tr>
-                                <tr >
-                                    <th></th>
-                                    <td>리뷰답니다~~~
-                     
+                                    <th id="nickName">닉네임</th>
+                                    <td class="comment_list">내용내용내용내용내용내용내용내용내용내용내용내용내용내용
+                                            내용내용내용내용내용내용내용내용내용내용내용내용내용내용
+                                            내용내용내용내용내용내용내용내용내용내용내용내용내용내용
                                     </td>
+        
+                                 </tr>
+        
+                                 <tr class="comment_list" >
+                                        <th class="clear"></th>
+                                        <td>시간</td>
+                                 </tr>
+        
+                                <tr class="comment_list">
+                                        <th></th>
+                                        <td><p>호스트답글</p></td>
                                 </tr>
-                                <tr >
-                                    <th></th>
-                                    <td>시간</td>
-                              
+        
+                                <tr class="comment_list">
+                                        <th></th>
+                                        <td>호스트 답글내용</td>
+
                                 </tr>
+                               
                           
-    
-                            </table>
-    
+                       
 
+                                <!--로그인이 되어있고 호스트일때만 보이게 한다.-->
+                                <tr id="reply_info">
+                                        <th></th>
+                                        <td>
+                                            <div>답글</div>
+
+                                            <div id="reply div" style="width:100%; display:flex; justify-content: space-between;">
+
+                                            
+                                                <div style="width:100%;">
+                                                    <textarea placeholder="입력하세요" style="width:100%"></textarea>
+                                                </div>
+
+                                                <div><button type="button">등록하기</button></div>
+
+                                            </div>
+
+                                        </td>
+                                </tr>
+
+                            </tbody>
                         <%} %>
+                       
+
+                        </table>
+                    </div>
 
 
-                     
-                    
 
 
+                    <div id="space_qa_review" class="space">
+
+                        <div id="space_review" name="space_review" class="title">
+                            <div class="text">리뷰</div>
+                            <hr>
+                        </div>
+   
 
                     </div>
+
+
+
+
+
 
                 </div>
-
+              
 
 
 
