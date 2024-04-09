@@ -16,9 +16,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
     <style>
-        body {
+        #wrapper {
             width: 1200px;
-            margin:auto;
+            margin: auto;
+
         }
 
         .login-top {
@@ -31,6 +32,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            margin-top: 100px;
 
         }
 
@@ -69,7 +71,9 @@
             margin-right: 50px;
 
         }
-
+        .member-login input{
+            margin-bottom: 10px;
+        }
         input {
             height: 70px;
             width: 100%;
@@ -113,16 +117,16 @@
             font-weight: 900;
         }
         .find-user-info > .find-pwd{
-            padding-left: 150px;
+            padding-left: 180px;
             margin: 5px;
         }
 
 
-        a{
+        /* .find-user-info .atext{
             text-decoration: none;
             font-size: 20px;
             color: #7B7676;
-        }
+        } */
         .find-pwd:hover{
             color: rgb(150, 159, 243);
             text-decoration: none;
@@ -146,6 +150,7 @@
 <body>
 
     <%@ include file="../common/menubar.jsp" %>
+    <div id="wrapper">
         <div class="login-top">
             <h2>로그인</h2>
         </div>
@@ -155,12 +160,12 @@
                 <h1>KH ROOMMOAH</h1>
             </div>
 
-            <form action="">
+            <form action="" method="post">
                 <div class="member-login">
-                    <input type="text" name="userId" placeholder="아이디"><br>
-                    <input type="password" naem="userPwd" placeholder="비밀번호">
+                    <input type="text" id="userId" name="userId" placeholder="아이디"><br>
+                    <input type="password"  id="userPwd" naem="userPwd" placeholder="비밀번호">
                 </div>
-                <input type="submit" class="userlogin" value="로 그 인">
+                <input type="submit" class="userlogin" value="로 그 인" onclick="return loginuser();">
             </form>
 
             <div class="two-line">
@@ -170,14 +175,30 @@
             </div>
 
             <div class="find-user-info">
-                <a href="" class="find-pwd">비밀번호를 잊으셨나요?</a><br>
-                <h7>계정이 없으신가요?</h7> <a href="" class="join-user">회원가입</a>
+                <a href="FindPassword_hamyu.jsp" class="find-pwd">비밀번호를 잊으셨나요?</a><br>
+                <h7>계정이 없으신가요?</h7> <a href="JoinMember_hamyu.jsp" class="join-user">회원가입</a>
             </div>
 
 
         </div>
-
-
+    </div>
+    <script>
+        let userId =document.getElementById("userId");
+        let userPwd =document.getElementById("userPwd");
+        function loginuser(){
+            if(userId.value===""){
+                alert("아이디를 입력해주세요.");
+                userId.focus();
+                return false;
+            }
+            
+            else if(userPwd.value===""){
+                alert("비밀번호를 입력해주세요,");
+                userPwd.focus();
+                return false;
+            }
+        }
+    </script>
 </body>
 
 </html>
