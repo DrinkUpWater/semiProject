@@ -6,7 +6,9 @@
 
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
         <link href='<%=request.getContextPath()%>/views/space/fullcalendar/custommain.css' rel='stylesheet' />
+
         <title>Document</title>
 
         <!-- Latest compiled and minified CSS -->
@@ -27,10 +29,12 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
+
         <script src=" <%=request.getContextPath()%>/views/space/js/calenderClick.js"></script>
         <script src="<%=request.getContextPath()%>/views/space/js/modal.js"></script>
         <script src="<%=request.getContextPath()%>/views/space/js/reservationNum.js"></script>
         <script src='<%=request.getContextPath()%>/views/space/fullcalendar/main.min.js'></script>
+
         <style>
             @media (max-width: 1200px) {
 
@@ -92,7 +96,9 @@
                 grid-template-rows: repeat(2, 250px);
                 /* grid-template-columns: repeat(3, 1fr); */
                 column-gap: 50px;
+
                 /* border: solid 1px red;  */
+
                 margin: 10px;
                 font-size: 20px;
             }
@@ -161,8 +167,9 @@
             }
 
             .img_div>img {
+
                  max-width: 100%;
-                height: 100%;
+
             }
 
             .quest {
@@ -172,6 +179,7 @@
             }
 
             .qa_table {
+
 
                 display: flex;
                 /* grid-template-rows: repeat(2, 250px); */
@@ -238,6 +246,7 @@
                 margin:15px;
             }
 
+
             .qa_table div {
                 margin-bottom: 30px;
             }
@@ -246,6 +255,7 @@
                 border: 1px solid rgb(224, 216, 216);
 
             }
+
             #space_review_comment{
                 /* display :grid;
                 grid-template-rows: repeat(2, 250px);
@@ -257,6 +267,7 @@
                 grid-template-rows: repeat(2, 250px);
                 border:solid 1px red ;
             } */
+
 
 
             /*------------*/
@@ -372,7 +383,9 @@
                     </div>
                     <div id="space_comment" class="space">
                         <div align="left" class="img_div">
+
                             <img src="<%=request.getContextPath()%>/resources/space_img/test.png">
+
                         </div>
                         <div style=" padding-top:20px; ">
                             <span>
@@ -465,6 +478,7 @@
 
 
 
+
                     </div>
 
 
@@ -472,6 +486,8 @@
                         <div class="text">예약시 주의사항</div>
                         <hr class="line2" style="background:rgb(235, 229, 229) ">
                     </div>
+
+
 
                     <div id="reservation_warn_comment" class="space">
                         <table>
@@ -524,6 +540,7 @@
                             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3165.378379236162!2d127.03290899999996!3d37.49899300000002!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357c9ec255555555%3A0x3565475c3365c5bb!2zS0jsoJXrs7TqtZDsnKHsm5A!5e0!3m2!1sko!2skr!4v1712133003105!5m2!1sko!2skr"
                             style="border:0; width:100%; height:200%;" allowfullscreen="" loading="lazy"
                             referrerpolicy="no-referrer-when-downgrade" > </iframe>
+                
 
                     </div>
 
@@ -531,6 +548,7 @@
                         <div class="text">Q&A</div>
                         <hr>
                     </div>
+
 
 
                     <div id="space_qa_comment" class="space">
@@ -615,10 +633,12 @@
 
                  
 
+
                     <div id="space_review" name="space_review" class="title">
                         <div class="text">리뷰</div>
                         <hr>
                     </div>
+
 
                     <div id="space_review_comment" class="space">
                        
@@ -651,6 +671,8 @@
                      
                     
 
+ 
+
 
 
                     </div>
@@ -681,7 +703,9 @@
                         </div>
 
                         <div id="space_detail_comment">
+
                             <div class="img_div"><img src="<%=request.getContextPath()%>/resources/space_img/test.png" >세부공간이미지</div>
+
                             <p>
                                 <span>서울대 입구..스터디룸 카페 예약
                                     서울대 입구..스터디룸 카페 예약
@@ -769,8 +793,9 @@
                         </div>
 
 
+
                       
-                        <script>
+
 
                             //캘린더 이벤트
                           
@@ -1001,7 +1026,11 @@
                         </div>
 
                         <div id="space_detail_comment">
+<<<<<<< HEAD
                             <div class="img_div"><img src="<%=request.getContextPath()%>/resources/space_img/test.png">세부공간이미지</div>
+=======
+                            <div class="img_div"><img src="../../resources/space_img/test.png">세부공간이미지</div>
+>>>>>>> 9879220976082016045c261fe6c634183ef0137f
                             <p>
                                 <span>서울대 입구..스터디룸 카페 예약
                                     서울대 입구..스터디룸 카페 예약
