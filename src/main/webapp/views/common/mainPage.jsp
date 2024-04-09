@@ -73,6 +73,7 @@
             border-bottom: 1px solid rgb(138, 138, 138);
             height: 30px;
             margin-bottom: 20px;
+            padding-bottom: 5px;
         }
         .option3 div{
             display: flex;
@@ -109,21 +110,25 @@
         
         .info-preview {
             border: 1px solid black;
-            width: 300px;
-            height: 300px;
+            width: 360px;
+            height: 340px;
         }
         .space-picture{
-            height: 190px;
-            margin-bottom: 0px;
+            height: 200px;
+            padding: 0;
+            margin: 0;
         }
         .space-info{
-            padding: 0 5px
+
+            padding : 0 5px;
+            margin-top: 12px;
+        
         }
-        .space-info p span {
+        /* .space-info p span {
             text-overflow: ellipsis;
             white-space: nowrap;
             overflow: hidden;
-        }
+        } */
         .price-info{
             display: flex;
             justify-content: space-between;
@@ -222,7 +227,7 @@
     <div id="wrapper">
         <div class="search-bar" align="center">
             <input type="search" name="search">
-            <i class="fa-solid fa-magnifying-glass">d</i>
+            <i class="fa-solid fa-magnifying-glass"></i>
         </div>
 
         <div class="search-option">
@@ -275,7 +280,6 @@
                     <img src="" alt="썸네일" width="100%" height="100%">
                 </div>
                 <div class="space-info">
-                    <br>
                     <b>
                         [오픈이벤트] 르씨엘 2호점
                     </b>

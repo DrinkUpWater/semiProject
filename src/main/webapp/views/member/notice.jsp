@@ -1,11 +1,14 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>일반게시판</title>
     <style>
         #wrapper{
+            
             width: 1200px;
             height: 700px;
             /* border: 1px solid; */
@@ -27,7 +30,7 @@
         .btnList{
             /* border: 1px solid; */
         }
-        a{
+        .btnList > a{
             text-decoration: none;
             border: 1px solid gray;
             display: inline-block;
@@ -52,18 +55,20 @@
             font-size: 15px;
         }
         .searchbar{
-            /* border: 1px solid; */
+            margin-top: 20px;
+            display: flex;
+            height: 30px;
+            gap:20px;
+            justify-content: center;
+            padding-right: 90px;
 
         }
         .ipt{
             width: 300px;
             height: 25px;
-            margin-left: 5px;
         }
-        #a5{
-            width: 60px;
-            height: 30px;
-        }
+
+       
         form{
             /* border: 1px solid; */
         }
@@ -73,13 +78,26 @@
         #selectbar{
             width: 90px;
             height: 30px;
-        }
 
+        }
+    
+        #a5{
+             height: 100%;
+            width: 60px;
+            text-decoration: none;
+            line-height: 30px;
+            border: 1px solid rgb(116, 116, 116);
+            color: black;
+        }
+        #a5:hover{
+            opacity: 0.66;
+          
+        }
     </style>
 </head>
 <body>
     <div id="wrapper" >
-        <h1 style="color: #927f69">일반게시판</h1>
+        <h1 style="color: #927f69">공지사항</h1>
         <table class="table">
             <thead align="center">
                 <th width="70">번호</th>
@@ -90,50 +108,50 @@
             <tbody>
                 <tr>
                     <td>8</td>
-                    <td class="title">안녕하세요 반갑습니다(8)</td>
-                    <td>user08</td>
+                    <td class="title">공지사항입니다(8)</td>
+                    <td>관리자</td>
                     <td>2024.01.08</td>
                 </tr>
                 <tr>
                     <td>7</td>
-                    <td class="title">안녕하세요 반갑습니다(7)</td>
-                    <td>user07</td>
+                    <td class="title">공지사항입니다(7)</td>
+                    <td>관리자</td>
                     <td>2024.01.07</td>
                 </tr>
                 <tr>
                     <td>6</td>
-                    <td class="title">안녕하세요 반갑습니다(6)</td>
-                    <td>user06</td>
+                    <td class="title">공지사항입니다(6)</td>
+                    <td>관리자</td>
                     <td>2024.01.06</td>
                 </tr>
                 <tr>
                     <td>5</td>
-                    <td class="title">안녕하세요 반갑습니다(5)</td>
-                    <td>user05</td>
+                    <td class="title">공지사항입니다(5)</td>
+                    <td>관리자</td>
                     <td>2024.01.05</td>
                 </tr>
                 <tr>
                     <td>4</td>
-                    <td class="title">안녕하세요 반갑습니다(4)</td>
-                    <td>user04</td>
+                    <td class="title">공지사항입니다(4)</td>
+                    <td>관리자</td>
                     <td>2024.01.04</td>
                 </tr>
                 <tr>
                     <td>3</td>
-                    <td class="title">안녕하세요 반갑습니다(3)</td>
-                    <td>user03</td>
+                    <td class="title">공지사항입니다(3)</td>
+                    <td>관리자</td>
                     <td>2024.01.03</td>
                 </tr>
                 <tr>
                     <td>2</td>
-                    <td class="title">안녕하세요 반갑습니다(2)</td>
-                    <td>user02</td>
+                    <td class="title">공지사항입니다(2)</td>
+                    <td>관리자</td>
                     <td>2024.01.02</td>
                 </tr>
                 <tr>
                     <td>1</td>
-                    <td class="title">안녕하세요 반갑습니다(1)</td>
-                    <td>user01</td>
+                    <td class="title">공지사항입니다</td>
+                    <td>관리자</td>
                     <td>2024.01.01</td>
                 </tr>
             </tbody>
@@ -154,15 +172,12 @@
                 </select>
                 <!-- <span class="sp">제목</span > -->
                 <input type="text" class="ipt">
-                <a href="" id="a5">검색</a>
+            
+                    <a href="" id="a5">검색</a>
+       
             </div>
 
         </form>
 
 
     </div>
-
-
-
-</body>
-</html>

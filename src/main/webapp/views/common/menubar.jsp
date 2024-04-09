@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
+<%
+	String contextPath = request.getContextPath();
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -24,7 +28,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
-
+    
 <style>
     * {
         font-family: "Noto Sans KR", sans-serif;
@@ -36,6 +40,9 @@
         width: 1200px;
         margin: 10px auto;
         
+    }
+    .login-area div{
+        width: 200px;
     }
     .login-area{
         display: flex;
@@ -55,6 +62,7 @@
     }
     #left-bar{
         margin-left: 10px;
+        cursor: pointer;
     }
     #left-bar i:hover{
         
@@ -141,7 +149,7 @@
                 <i class="fa-solid fa-bars fa-xl"></i>
             </div>
             <h2>kH ROOMMOAH</h2>
-            <div id="right-bar">
+            <div align="end" id="right-bar">
                 <a href="">회원가입</a> | <a href="">로그인</a>
             </div>
         </div>
