@@ -16,8 +16,6 @@
             width: 1100px;
             height: 750px;
             display: flex;
-            
-            border: 1px solid black;
         }
         .left-side{
             margin: auto;
@@ -35,8 +33,8 @@
             align-items: center;
             margin-left: 30px;
             width: 500px;
-            height: 400px;
-            border: 1px solid black;
+            height: 500px;
+            
         }
         .left-side > div > h1{
             font-size: 40px;
@@ -56,7 +54,7 @@
     </style>
 <body>
     <%@ include file="../common/menubar.jsp"%>
-    <div id="wrapper">
+    <div align="center" id="wrapper">
         <div class="host-main">
             <div class="left-side">
                 <div>
@@ -65,7 +63,7 @@
                         공간 비지니스를 시작해보세요
                     </h1>
                 </div>
-                <br>
+                <br><br><br>
                 <div class="margin-left-30px"><button>공간등록하기</button></div>
                 <br>
                 <div class="margin-left-30px">
@@ -73,7 +71,7 @@
                 </div>
             </div>
             <div class="right-side">
-                <img src="" alt="">
+                <img src="<%=contextPath%>/resources/teo/hostMainImg.jpg" alt="호스팅 메인 이미지">
             </div>
         </div>
     </div>

@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -118,6 +120,7 @@
     </style>
 </head>
 <body>
+    <%@ include file="../common/menubar.jsp"%>
     <div id="wrapper">
         <div class="login-top">
             <h2>시설물 등록</h2>
