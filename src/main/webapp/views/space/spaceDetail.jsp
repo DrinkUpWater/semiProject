@@ -463,6 +463,8 @@
 
 
 
+
+
                     </div>
 
 
@@ -470,6 +472,7 @@
                         <div class="text">예약시 주의사항</div>
                         <hr class="line2" style="background:rgb(235, 229, 229) ">
                     </div>
+
                     <div id="reservation_warn_comment" class="space">
                         <table>
                             <tbody>
@@ -528,85 +531,125 @@
                         <div class="text">Q&A</div>
                         <hr>
                     </div>
+
+
                     <div id="space_qa_comment" class="space">
-                        
-                        <% for(int i=0; i<4; i++){ %>
-                            <div class="qa_table">
+                       <% for(int i=0; i<4; i++){ %>
+                            <div class="qa_table" >
 
-                                <div><img src="#">사진1</div>
+                                <div id="user_info" style=" width: 10%; align-items: center;">
+                                    <tr>
+                                       <th id="nickname">닉네임</th>
+                                    </tr>
+                                </div>
+                             
                                 <div id="content_info">
-                                    <div id="nickname">닉네임</div>
-                                    <div id="content">내용내용내용asdfadsfasdfㅁㄴㅇㄻㄴㅇㄹㅇㄹ
-                                        내용내용내용asdfadsfasdfㅁㄴㅇㄻㄴㅇㄹㅇㄹ
-                                        내용내용내용asdfadsfasdfㅁㄴㅇㄻㄴㅇㄹㅇㄹ
-                                        내용내용내용asdfadsfasdfㅁㄴㅇㄻㄴㅇㄹㅇㄹ
-                                        내용내용내용asdfadsfasdfㅁㄴㅇㄻㄴㅇㄹㅇㄹ
-                                        asdfasdfasdfasdfasdfsdfasdf
-                                        asdfasdfasdfasdfasdfsdfasdffasdf
-    
-                                        asdfasdf
-    
-                                    </div>
-                                    <div id="time">시간시간</div>
+                                    <table>
+                                       
+                                        <tr>
+                                            <th class="clear"></th>
+                                            <td id="content">
+                                                내용내용sadfasdfd
+                                                asdfasdfasdfasdfdsafdsafsadfdsfasdfasdfasdfad
+                                                asdfasdf
+                                                asdfasdfasdfasdfdsafa
+                                                ddddd
+                                                asdfasdfasdfsdafadsfasdfasdfasdasdfasdf
+                                                asdfasdf
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <th class="clear"></th>
+                                            <td id="time">2024-01-01</td>
                                     
-                                    <div id="host_comment"> 
-                                        <h2>호스트답글</h2>
-                                        <div>호스트가 답합니다.</div>
-                                   </div>
-                               </div>
-                                
+                                        </tr>
+
+                                        <tr></tr>
+                                        <tr id="host_comment">
+                                            <th class="clear"></th>
+                                            <td id="comment">
+                                                <span>호스트 답글</span>
+                                                <div style="width:50%">asdfasdfasdfsdafadsfasdfasdfasd
+                                                    asdfasdfasdfasdfdsafdsafsadfdsfasdfasdf
+                                                    asdfasdf
+                                                </div>
+                                            </td>       
+                                        </tr>
+
+                                        <tr>
+                                            <!-- 호스트만 답글-->
+                                            <div style="width:100%;">
+                                                <textarea placeholder="답글을입력하세요" style="width:100%"></textarea>
+                                            </div>
+                                        </tr>
+
+                                    
+            
+                                    </table>
+                                </div>
+
                             </div>
-    
-
                         <%} %>
-                        
-                      
 
 
+                            <!--로그인이 되어있고 게스트일때만 보이게 한다.-->
+                            <div id="qa_info">
 
-                    </div>
+                                <div>QA입력</div>
+    
+                                <div id="qa_input div" style="width:100%; display:flex; justify-content: space-between;">
+    
+                                
+                                    <div style="width:100%;">
+                                        <textarea placeholder="입력하세요" style="width:100%"></textarea>
+                                    </div>
+    
+                                    <div><button type="button">등록하기</button></div>
+    
+                                </div>
+                            
+                           </div>
+                        </div>
+
+
+                 
 
                     <div id="space_review" name="space_review" class="title">
                         <div class="text">리뷰</div>
                         <hr>
                     </div>
+
                     <div id="space_review_comment" class="space">
-                  
+                       
+                        <% for(int i=1; i<=3; i++){%>
 
-                        <div class="qa_table">
+                            <table>
+                                <tr>
+                                    <th><img src="#">사진1</th>
+                                    <td>닉네임</td>
+                                </tr>
+                                <tr >
+                                    <th></th>
+                                    <td>리뷰답니다~~~
+                     
+                                    </td>
+                                </tr>
+                                <tr >
+                                    <th></th>
+                                    <td>시간</td>
+                              
+                                </tr>
+                          
+    
+                            </table>
+    
 
-                            <div><img src="#">사진1</div>
-                            <div>
-                                <div>닉네임</div>
-                                <div>리뷰리뷰리뷰</div>
-                                <div>시간시간</div>
+                        <%} %>
 
-                            </div>
 
-                        </div>
-
-                        <div class="qa_table">
-
-                            <div><img src="#">사진2</div>
-                            <div>
-                                <div>닉네임</div>
-                                <div>리뷰리뷰리뷰</div>
-                                <div>시간시간</div>
-
-                            </div>
-                        </div>
-
-                        <div class="qa_table">
-
-                            <div><img src="#">사진3</div>
-                            <div>
-                                <div>닉네임</div>
-                                <div>리뷰리뷰리뷰</div>
-                                <div>시간시간</div>
-
-                            </div>
-
-                        </div>
+                     
+                    
 
 
 
