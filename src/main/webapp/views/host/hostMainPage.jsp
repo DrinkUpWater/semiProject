@@ -60,11 +60,11 @@
                 <div>
                     <h1>
                         지금 MZ세대들을 위한 <br>
-                        공간 비지니스를 시작해보세요
+                        공간 비지니스를 시작해보세요!
                     </h1>
                 </div>
                 <br><br><br>
-                <div class="margin-left-30px"><button>공간등록하기</button></div>
+                <div class="margin-left-30px" onclick="movePage()"><button>공간등록하기</button></div>
                 <br>
                 <div class="margin-left-30px">
                     <p>|등록 가능 공간| 모임&#183;파티룸&#183;스터디&#183;카페&#183;회의실&#183;세미나실까지 </p>
@@ -76,4 +76,10 @@
         </div>
     </div>
 </body>
+
+<script>
+	function movePage(){
+        location.href="hostEnrollFormPre.jsp";
+    }
+</script>
 </html>
