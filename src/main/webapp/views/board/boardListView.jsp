@@ -8,24 +8,29 @@
         #wrapper{
             width: 1200px;
             height: 700px;
-            /* border: 1px solid; */
             margin-top: 100px;  /*preview에서 예쁘게 볼려고 넣은거*/
             margin-left: 100px; /*preview에서 예쁘게 볼려고 넣은거*/
         }
         .table{
-            border-top: 4px solid rgb(218, 218, 218);;
-            border-bottom: 3px solid rgb(218, 218, 218);
+            border-top: 1px solid #927f69;
             width: 100%;
             text-align: center;
             border-collapse: collapse;
-
         }
-        th, td{
-            border-bottom: 1px solid rgb(180, 180, 180);
+        th{
+            border-bottom: 1px solid rgb(212, 212, 212);
             padding: 20px;
+            padding-right: 0px;
+            padding-left: 0px;
         }
-        .btnList{
-            /* border: 1px solid; */
+        td{
+            border-bottom: 1px solid #ebebeb;
+            padding: 20px;
+            padding-right: 0px;
+            padding-left: 0px;
+        }
+        #btnList-area{
+             margin-top: 30px;
         }
         a{
             text-decoration: none;
@@ -36,61 +41,53 @@
             font-size: 15px;
             line-height: 35px;
             color: black;
-            margin-top: 10px;
             margin-left: 10px;
+            text-align: center;
+            box-sizing: border-box;
         }
-        #a4{
-            width: 50px;
+        #write-btn{
+            width: 80px;
             float: right;
         }
-        .write-btn{
-
-            border: 1px solid;
-            height: 50px;
-        }
-        span{
-            font-size: 15px;
-        }
-        .searchbar{
-            /* border: 1px solid; */
-
-        }
-        .ipt{
-            width: 300px;
-            height: 25px;
-            margin-left: 5px;
-        }
-        #a5{
-            width: 60px;
-            height: 30px;
-        }
-        form{
-            /* border: 1px solid; */
+        #search-area{
+            border: px solid red; 
+            display: flex;
+            justify-content: center;
+            align-items: end;
+            margin-top: 23px; 
         }
         .title{
             text-align: left;
         }
-        #selectbar{
+        #select-menu{
+            border: 1px solid;
             width: 90px;
             height: 30px;
         }
-        /* .searchbar{
-            display: flex;
-            align-content: center;
+        #text-input{
             border: 1px solid;
-        } */
+            width: 300px;
+            height: 26px;
+            margin-left: 10px;
+        }
+        #search-btn{
+            width: 60px;
+            height: 30px;
+            line-height: 30px;
+            background-color: #fafafa;
+        }
 
     </style>
 </head>
 <body>
     <div id="wrapper" >
-        <h1 style="color: #927f69">일반게시판</h1>
+        <h2 style="color: #927f69">일반게시판</h2>
         <table class="table">
             <thead align="center">
-                <th width="70">번호</th>
+                <th width="40">번호</th>
                 <th width="400">제목</th>
-                <th width="70">작성자</th>
-                <th width="80">작성일</th>
+                <th width="60">작성자</th>
+                <th width="70">작성일</th>
             </thead>
             <tbody>
                 <tr>
@@ -137,29 +134,30 @@
                 </tr>
                 <tr>
                     <td>1</td>
-                    <td class="title">안녕하세요 반갑습니다(1)</td>
+                    <td class="title">안녕하세요 반갑습니다</td>
                     <td>user01</td>
                     <td>2024.01.01</td>
                 </tr>
             </tbody>
         </table>
-        <div class="d1">
+        <div id="btnList-area">
             <div class="btnList" align="center">
                 <a href="">&lt;</a>
                 <a href="">1</a>
                 <a href="">&gt;</a>
-                <a href="" id="a4">글쓰기</a>
+                <a href="" id="write-btn">글쓰기</a>
             </div> 
         </div>
         <form action="">
-            <div class="searchbar" align="center">
-                <select name="selectbar" id="selectbar">
-                    <option value="">제목</option>
-                    <option value="">내용</option>
-                </select>
-                <!-- <span class="sp">제목</span > -->
-                <input type="text" class="ipt">
-                <a href="" id="a5">검색</a>
+            <div id="search-area" >
+                <span>
+                    <select name="select-menu" id="select-menu">
+                        <option value="">제목</option>
+                        <option value="">내용</option>
+                    </select>
+                </span>
+                <input type="text" id="text-input">
+                <a href="" id="search-btn">검색</a>
             </div>
 
         </form>

@@ -7,25 +7,25 @@
     <style>
         #wrapper{
             width: 1200px;
-            height: 700px;
-            border: 1px solid; 
-            margin-top: 100px;  /*preview에서 예쁘게 볼려고 넣은거*/
-            margin-left: 100px; /*preview에서 예쁘게 볼려고 넣은거*/
+            height: 780px;
+            margin-top: 100px;
+
         }
-        #main{
-            border: 3px solid red;
+        #table-main{
+            border: 2px solid red;
             height: 630px;
             box-sizing: border-box;
         }
-        #name-wrapper{
-            border: 1px solid;
+
+        #name-area{
+
             height: 50px;
             display: flex;
+            
         }
         #name{
             border: 1px solid;
-            width: 10%;
-            height: 100%;
+            width: 80px;
             display: flex;
             align-items: center;
             font-size: 20px;
@@ -35,7 +35,7 @@
         }
         #admin-id{
             border: 1px solid;
-            width: 90%;
+            width: 1000px;
             height: 100%;
             display: flex;
             align-items: center;
@@ -43,13 +43,11 @@
             font-weight: 600;
             box-sizing: border-box;
         }
-        #title-wrapper{
-            border: 1px solid;
+        /* #title-wrapper{
             height: 50px;
             display: flex;
         }
         #title{
-            border: 1px solid;
             width: 10%;
             height: 100%;
             display: flex;
@@ -59,9 +57,11 @@
             box-sizing: border-box;
         }
         #title-input{
+            border: 1px solid;
             width: 100%;
             padding: 10px;
             font-size: 15px;
+            box-sizing: border-box;
             
         }
         #content-wrapper{
@@ -109,7 +109,7 @@
             height: 100%;
             display: flex;
             align-items: center;
-        }
+        } */
 
         #a1{
             border: 1px solid rebeccapurple;
@@ -122,36 +122,33 @@
             margin-left: 30px;
         }
         #a2, #a3{
-            border: 1px solid black;
+            border: 1px solid #ddd;
             width: 100px;
             height: 100%;
             text-decoration: none;
-            font-size: 20px;
+            font-size: 15px;
+            font-weight: 550;
             display: flex;
             justify-content: center;
             align-items: center;
-
-            
+            color: #666;
+            box-sizing: border-box;
         }
         #regist, #cancle{
-            border: 1px solid red;
-            width: 100px;
+
+            width: 80px;
             height: 40px;
-            
+            margin-left: 8px;
             display: flex;
             align-items: center;
             box-sizing: border-box;
         }
         #regist-area{
-            border: 3px solid green;
-            margin-left: 100px; /*preview에서 예쁘게 볼려고 넣은거*/
-            width: 1200px;
-            height: 60px;
+            margin-top: 39px;
             display: flex;
             flex-direction: row;
             justify-content: end;
-            align-items: center;
-            margin-top: 10px;
+            box-sizing: border-box;
         }
 
     </style>
@@ -159,8 +156,39 @@
 <body>
     <div id="wrapper">
         <h1 style="color: #927f69">공지사항</h1>
-        <div id="main">
-            <div id="name-wrapper">
+        <div id="table-main">
+            <table>
+                <tbody>
+                    <tr id="name-area">
+                        <th id="name">이름</th>
+                        <td id="admin-id"></td>
+                    </tr>
+                    <tr>
+                        <th>제목</th>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <th>내용</th>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <th>사진</th>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+            <!-- <div id="regist-area">
+                <div id="regist" >
+                    <a href="" id="a2">취소</a>
+                </div>
+                <div id="cancle" >
+                    <a href="" id="a3">등록</a>
+                </div>
+            </div> -->
+
+            <!---------------------------------------------->
+
+            <!-- <div id="name-wrapper">
                 <div  id="name">
                     이름
                 </div>
@@ -170,7 +198,7 @@
             </div>
             <div id="title-wrapper">
                 <div id="title">
-                    제목
+                    제목 *
                 </div>
                 <input id="title-input" type="text" placeholder="제목을 입력해주세요">
 
@@ -190,15 +218,8 @@
                 </div>
                 
             </div>
-        </div>
-    </div>
-    <div id="regist-area">
-        <div id="regist" >
-            <a href="" id="a2">취소</a>
-        </div>
-        <div id="cancle" >
-            <a href="" id="a3">등록</a>
-        </div>
+        </div> -->
+
     </div>
 
 
