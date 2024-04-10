@@ -100,7 +100,7 @@
                 /* grid-template-columns: repeat(3, 1fr); */
                 column-gap: 50px;
 
-                border: solid 1px red; 
+                /* border: solid 1px red;  */
 
                 margin: 10px;
                 font-size: 20px;
@@ -185,45 +185,95 @@
 
             #space_qa_comment{
                 overflow: auto;
-                border:solid blue;
+                /* border:solid blue; */
                
             }
            
+            /*----------QA--------------*/
             #comment_table{
                 height:100%;
-              
-            }
-            #comment_info{
                 width:100%;
-            }
-            .qa_table div{
-                /* height:100%; */
-                /* border:solid 1px green ; */
-              
-            }
-   
-
-            #content_info{
-               
-                width:90%;
-                margin-left:10%;
-                word-break: break-all;
-                border: solid 1px blue; 
-                overflow:auto;
-                height:100%;
               
             }
 
-            #content{
-               
-               /* overflow:auto; */
+            #comment_table td {
+                padding-top: 8px;
+                padding-bottom: 8px;
+            }
+
+             #comment_table th, #comment_table td {
+                vertical-align: top;
+            }
+
+            #comment_table .time {
+                font-size: 0.8rem;
+                color: #666;
+            }
+
+            
+            .comment_list{
+             
+             padding: 8px;
            }
+
+            .clear {
+                width: 20%;
+            }
+            .mb-1 {
+                margin-bottom: .25rem;
+            }
+            textarea {
+              resize: vertical;
+              height: 100%;
+            }
+
+            .comment_list:last-child {
+               border-bottom: none;
+             }
+         
+
+
+             .nickName {
+                 font-weight: bold;
+             }
+
+             #comment_info{
+                width:100%;
+             }
+           
+            .host-reply-content {
+                background-color: #f9f9f9;
+                padding: 8px;
+                margin-top: 5px;
+                border-left: 3px solid #007bff;
+            }
+
+            .host-reply-toggle {
+                font-size: 0.9rem;
+                color: #007bff;
+                cursor: pointer;
+                padding: 0;
+                border: none;
+                background: none;
+             }
+
+             button[type="button"] {
+                background-color: #6623da;
+                color: white;
+                border: none;
+                padding: 6px 12px;
+                cursor: pointer;
+            }
+            button[type="button"]:hover {
+             background-color: #0056b3;
+            }
+
 
             #comment_list{
                /* display:none; */
                 
                width:90%;
-            margin-left:10%;
+                margin-left:10%;
                border: solid 1px salmon;
                
               
@@ -237,76 +287,22 @@
                 list-style: none;
             }
 
-            .qa_table ul{
-                
-                height:100%;
-                overflow:auto;
-              
-            }
-
-            .qa_table ul>li{
-                list-style: none;
-                margin:15px;
-            }
-
 
             .comment_list{
                 margin-bottom: 100px;
-                /* border:  solid pink; */
+              
             }
             
-
-            #content_info{
-               
-                width:90%;
-                margin-left:10%;
-              
-                border: solid 1px blue; 
-              
-                height:100%;
-              
-            }
-        
            
-
-            #comment_list>ul{
-                text-align: center;
-                border: solid 1px rgb(216, 80, 65);
-            }
             #comment_list li{
                 
                 list-style: none;
             }
 
         
-            #comment_margin{
-                margin: 10px;
-                height:100%;
-            }
-            #space_review_comment{
-                /* display :grid;
-                grid-template-rows: repeat(2, 250px);
-                border:solid 1px green ; */
-            }
+           
+          
 
-            /* #space_qa_comment{
-                display :grid;
-                grid-template-rows: repeat(2, 250px);
-                border:solid 1px red ;
-            } */
-
-
-            #space_review_comment{
-                /* display :grid;
-                grid-template-rows: repeat(2, 250px);
-                border:solid 1px green ; */
-            }
-
-            /* #space_qa_comment{
-                display :grid;
-                grid-template-rows: repeat(2, 250px);
-                border:solid 1px red ;
-            } */
 
 
 
@@ -383,17 +379,6 @@
             }
 
        
-
-          /*답글 hover처리*/
-
-             .host_replay{
-                display: none;
-            } 
-
-            /* #host_replay_title:hover+#host_replay{
-                display: block;
-            } */ 
-
           
 
         </style>
@@ -406,7 +391,7 @@
     <body>
         <%@ include file="../common/menubar.jsp" %>
 
-            <div id="main">
+            <nav id="main" class="navbar-light bg-light">
 
                 <div id="section_1">
 
@@ -584,17 +569,17 @@
 
 
 
-                    <div id="space_qa_comment" class="space">
+                    <div id="space_qa_comment" class="space  container mt-4">
 
                       
-                        <table id="comment_table" >
+                        <table id="comment_table" class="list-group" >
                             <% for(int i=0; i<5; i++){ %>
 
                                 <tbody>
                                  <tr class="comment_list">    
 
                                     <th class="nickName" style="width:20%">닉네임</th>
-                                    <td >내용내용내용내용내용내용내용내용내용내용내용내용내용내용
+                                    <td class="mb-1" >내용내용내용내용내용내용내용내용내용내용내용내용내용내용
                                             내용내용내용내용내용내용내용내용내용내용내용내용내용내용
                                             내용내용내용내용내용내용내용내용내용내용내용내용내용내용
                                     </td>
@@ -603,19 +588,21 @@
         
                                  <tr class="comment_list" >
                                         <th class="clear"></th>
-                                        <td>시간</td>
+                                        <td class="time">시간</td>
                                  </tr>
         
 
                                  <!--호스트 답글창-->
-                                <tr class="host_replay_title"+<%=i%>>
-                                        <th></th>
-                                        <td><p>호스트답글</p></td>
+                                <tr class="host_replay_title">
+                                        <th class="clear"></th>
+                                        <td><button class="btn btn-link p-0 host-reply-toggle" data-target="#hostReply<%=i%>">호스트 답글 보기</button></td>
                                 </tr>
         
                                 <tr class="host_replay">
-                                        <th></th>
-                                        <td>호스트 답글내용</td>
+                                        <th class="clear"></th>
+                                        <td> <div id="hostReply<%=i%>" class="host-reply-content mt-2" style="display:none;">
+                                            <p>호스트 답글내용</p>
+                                        </div></td>
 
                                 </tr>
                                
@@ -656,33 +643,29 @@
                     </div>
 
                     <script>
-
-                      
-    
-
-
-
-                      
-
+                        $(document).ready(function(){
+                            $(".host-reply-toggle").click(function(){
+                                let targetId = $(this).data("target");
+                                $(targetId).toggle();
+                            });
+                        });
                     </script>
 
                   
-                        <div id="comment_info">
+                        <div id="comment_info" style="height:80px">
                             <th></th>
                             <td>
-                                <div>QA등록하기</div>
+                                <div class="QA" style="  font-size: 1.2rem; margin-top:30px">QA등록하기</div>
 
-                                <div id="comment div" style="width:100%; display:flex; justify-content: space-between;">
-
-
-                                
-                                    <div style="width:100%;">
+                                <div id="comment div" style="width:100%; height:100%; display:flex; justify-content: space-between;">
+                                    
+                                    <div style="width:100%">
                                         <textarea placeholder="입력하세요" style="width:100%"></textarea>
                                     </div>
 
 
 
-                                    <div><button type="button">등록하기</button></div>
+                                    <div style="height:100%"><button type="button"  style="height:100%">등록하기</button></div>
 
                                 </div>
 
@@ -693,15 +676,15 @@
                       
 
 
+                        <div id="space_qa_review" class="space">
 
-
-                    <div id="space_qa_review" class="space">
-
-                        <div id="space_review" name="space_review" class="title">
-                            <div class="text">리뷰</div>
-                            <hr>
+                            <div id="space_review" name="space_review" class="title">
+                                <div class="text">리뷰</div>
+                                <hr>
+                            </div>
                         </div>
-                    </div>
+
+                
 
 
 
@@ -963,9 +946,9 @@
 
 
                     <div align="center" style="margin-top:0px;">
-                        <button type="button" class="button" data-toggle="modal"  data-target="#pay-modal" 
-                            id="reservation_btn">예약하기</button>
-                        <button type="button" class="button">목록으로</button>
+                        <button  class="navbar-toggler" type="button" class="button" data-toggle="modal"  data-target="#pay-modal" 
+                            id="reservation_btn" style="color:white">예약하기</button>
+                        <button class="navbar-toggler" type="button" class="button" style="color:white">목록으로</button>
                     </div>
 
 
@@ -1126,7 +1109,7 @@
 
                         <div align="center">
                             <form action="#" method="post" style="display: inline;">
-                                <button type="submit" class="button">취소하기</button>
+                                <button type="button" class="button">취소하기</button>
                             </form>
                             <button type="button" class="button" onclick="location.href=history.back();">목록으로</button>
                         </div>
@@ -1139,7 +1122,7 @@
 
                 </div>
 
-            </div>
+            </nav>
 
 
 
