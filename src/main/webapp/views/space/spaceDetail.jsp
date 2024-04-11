@@ -35,7 +35,7 @@
         <script src="<%=request.getContextPath()%>/views/space/js/modal.js"></script>
         <script src="<%=request.getContextPath()%>/views/space/js/reservationNum.js"></script>
         <script src='<%=request.getContextPath()%>/views/space/fullcalendar/main.min.js'></script>
-
+        <script src='<%=request.getContextPath()%>/views/space/js/Comment.js'></script>
 
         <style>
             @media (max-width: 1200px) {
@@ -196,6 +196,9 @@
               
             }
 
+            /* #comment_table tr th td{
+                width:100%;
+            } */
             #comment_table td {
                 padding-top: 8px;
                 padding-bottom: 8px;
@@ -571,84 +574,77 @@
 
                     <div id="space_qa_comment" class="space  container mt-4">
 
-                      
-                        <table id="comment_table" class="list-group" >
-                            <% for(int i=0; i<5; i++){ %>
+                    
+                            <table id="comment_table" class="list-group" >
+                                
+                                    
+                                    <tr class="comment_list">    
 
-                                <tbody>
-                                 <tr class="comment_list">    
+                                        <th class="nickName" style="width:20%">ADMIN</th>
+                                        <td class="mb-1" > 데이터
+                                        </td>
+            
+                                    </tr>
+            
+                                    <tr class="comment_list" >
+                                            <th class="clear"></th>
+                                            <td class="time">2024-04-11</td>
+                                    </tr>
+            
 
-                                    <th class="nickName" style="width:20%">닉네임</th>
-                                    <td class="mb-1" >내용내용내용내용내용내용내용내용내용내용내용내용내용내용
-                                            내용내용내용내용내용내용내용내용내용내용내용내용내용내용
-                                            내용내용내용내용내용내용내용내용내용내용내용내용내용내용
-                                    </td>
-        
-                                 </tr>
-        
-                                 <tr class="comment_list" >
-                                        <th class="clear"></th>
-                                        <td class="time">시간</td>
-                                 </tr>
-        
+                                    <!--호스트 답글창-->
+                                    <tr class="host_reply_title">
+                                            <th class="clear"></th>
+                                            <td><button class="btn btn-link p-0 host-reply-toggle" data-target="#hostReply">호스트 답글 보기</button></td>
+                                    </tr>
+            
+                                    <tr class="host_reply">
+                                            <th class="clear"></th>
+                                            <td> <div id="hostReply" class="host-reply-content mt-2" style="display:none;">
+                                                <p>호스트 답글내용</p>
+                                            </div></td>
 
-                                 <!--호스트 답글창-->
-                                <tr class="host_replay_title">
-                                        <th class="clear"></th>
-                                        <td><button class="btn btn-link p-0 host-reply-toggle" data-target="#hostReply<%=i%>">호스트 답글 보기</button></td>
-                                </tr>
-        
-                                <tr class="host_replay">
-                                        <th class="clear"></th>
-                                        <td> <div id="hostReply<%=i%>" class="host-reply-content mt-2" style="display:none;">
-                                            <p>호스트 답글내용</p>
-                                        </div></td>
+                                    </tr>
+                                
+                            
+                        
 
-                                </tr>
-                               
-                          
-                       
+                                    <!--로그인이 되어있고 호스트일때만 보이게 한다.-->
+                                    <tr id="reply_info" class="comment_list">
+                                            <th class="clear"></th>
+                                            <td>
+                                                <div>답글</div>
 
-                                <!--로그인이 되어있고 호스트일때만 보이게 한다.-->
-                                <tr id="reply_info" class="comment_list">
-                                        <th></th>
-                                        <td>
-                                            <div>답글</div>
+                                                <div id="reply div" style="width:100%; display:flex; justify-content: space-between;">
 
-                                            <div id="reply div" style="width:100%; display:flex; justify-content: space-between;">
+                                                
+                                                    <div style="width:100%;">
+                                                        <textarea placeholder="입력하세요" style="width:100%"></textarea>
+                                                    </div>
 
-                                            
-                                                <div style="width:100%;">
-                                                    <textarea placeholder="입력하세요" style="width:100%"></textarea>
+                                                    <div><button type="button">등록하기</button></div>
+
                                                 </div>
 
-                                                <div><button type="button">등록하기</button></div>
+                                            </td>
+                                    </tr>
 
-                                            </div>
+                                    <tr id="comment_margin">
+                                      <td colspan="2" id="comment_line"><hr></td>
+                                    </tr>
+                                    
+                              
+                            </table>
 
-                                        </td>
-                                </tr>
-
-                                <tr id="comment_margin">
-                                   <td colspan="2" id="comment_line"><hr></td>
-                                </tr>
-                            </tbody>
-
-                             
-                           
-                        <%} %>
-                       
-
-                        </table>
                     </div>
 
                     <script>
-                        $(document).ready(function(){
-                            $(".host-reply-toggle").click(function(){
-                                let targetId = $(this).data("target");
-                                $(targetId).toggle();
-                            });
-                        });
+                        // $(document).ready(function(){
+                        //     $(".host-reply-toggle").click(function(){
+                        //         let targetId = $(this).data("target");
+                        //         $(targetId).toggle();
+                        //     });
+                        // });
                     </script>
 
                   

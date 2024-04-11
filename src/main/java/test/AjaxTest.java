@@ -20,7 +20,7 @@ import com.google.gson.Gson;
 /**
  * Servlet implementation class AjaxTest
  */
-@WebServlet( "/test.sp" )
+@WebServlet( "/time.sp" )
 public class AjaxTest extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -36,6 +36,7 @@ public class AjaxTest extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		String date=request.getParameter("date");
 		ArrayList<Integer> list =new ArrayList<>();
 		if(date.equals("2024-04-11")) {

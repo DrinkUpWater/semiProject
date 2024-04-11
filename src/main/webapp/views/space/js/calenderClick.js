@@ -1,16 +1,18 @@
 let date = new Date();
 let currentDate = null;
 document.addEventListener('DOMContentLoaded', function () {
-    var calendarEl = document.getElementById('calendar');
-    var calendar = new FullCalendar.Calendar(calendarEl, {
+    let calendarEl = document.getElementById('calendar');
+    let calendar = new FullCalendar.Calendar(calendarEl, {
         height: '1000px',
         initialView: 'dayGridMonth',
         aspectRatio: 1.35,
         dateClick: function (info) {
+           // alert(info)
             alert(info.dateStr);
             currentDate = info.dateStr;
             console.log(currentDate);
             console.log(typeof (currentDate));
+           // console.log(typeof (info));
             fetchBookedTimes(currentDate);
             //disableBookedTimes1(currentDate,[15,16,20,21]);
             
@@ -35,7 +37,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 $.ajax({
                    // url:'test.sp',
-                   url:'test.sp',
+                    url:'time.sp',
                     type:'GET',
                   
                     data:{date:currentDate},
