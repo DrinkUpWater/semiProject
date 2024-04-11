@@ -159,12 +159,12 @@
             <li>검수 신청 후, 공간 유형은 고객센터를 통해서만 가능하오니, 신중히 선택해주세요!</li>
         </ul>
         <br><br><br>
-        <form action="hostEnrollFormMain.jsp">
+        <form action="<%=contextPath%>/preEnroll.ho" method="POST">
             <table class="select-area">
                 <tr>
                     <td> 
                         <label class="container">&nbsp&nbsp&nbsp파티룸
-                            <input type="checkbox" id="party" name="" >
+                            <input type="checkbox" id="party" name="spaceType" value="party">
                             <span class="checkmark"></span>
                         </label>
                     </td>
@@ -177,7 +177,7 @@
                 <tr>
                     <td> 
                         <label class="container">&nbsp&nbsp&nbsp카페
-                            <input type="checkbox"  id="cafe" name="" >
+                            <input type="checkbox"  id="cafe" name="spaceType" value="cafe">
                             <span class="checkmark"></span>
                         </label>
                     </td>
@@ -190,7 +190,7 @@
                 <tr>
                     <td>
                         <label class="container">&nbsp&nbsp&nbsp강의실
-                            <input type="checkbox"  id="lecture" name="" >
+                            <input type="checkbox"  id="lecture" name="spaceType" value="lecture">
                             <span class="checkmark"></span>
                         </label>
                     </td>
@@ -203,7 +203,7 @@
                 <tr>
                     <td>
                         <label class="container">&nbsp&nbsp&nbsp회의실
-                            <input type="checkbox"  id="meeting" name="" >
+                            <input type="checkbox"  id="meeting" name="spaceType" value="meeting">
                             <span class="checkmark"></span>
                         </label>
                     </td>
@@ -216,7 +216,7 @@
                 <tr>
                     <td>
                         <label class="container">&nbsp&nbsp&nbsp세미나실
-                            <input type="checkbox"  id="seminar" name="" >
+                            <input type="checkbox"  id="seminar" name="spaceType" value="seminar">
                             <span class="checkmark"></span>
                         </label>
                     </td>
@@ -229,7 +229,7 @@
                 <tr>
                     <td> 
                         <label class="container">&nbsp&nbsp&nbsp스터디룸
-                            <input type="checkbox"  id="study" name="" >
+                            <input type="checkbox"  id="study" name="spaceType" value="study" >
                             <span class="checkmark"></span>
                         </label>
                     </td>

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.util.ArrayList" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -178,27 +179,27 @@
                     <td  colspan="3">
                         <div class="space-btns">
                             <div>
-                                <input type="checkbox" id="party" value="party" >
+                                <input type="checkbox" id="party" name="spaceType" value="party" >
                                 <label for="party">&nbsp파티룸</label>
                             </div>
                             <div>
-                                <input type="checkbox" id="cafe" value="cafe">
+                                <input type="checkbox" id="cafe" name="spaceType" value="cafe">
                                 <label for="cafe">&nbsp카페</label>
                             </div>
                             <div>
-                                <input type="checkbox" id="lecture" value="lecture">
+                                <input type="checkbox" id="lecture" name="spaceType" value="lecture">
                                 <label for="lecture">&nbsp강의실</label>
                             </div>
                             <div>
-                                <input type="checkbox" id="meeting" value="meeting">
+                                <input type="checkbox" id="meeting" name="spaceType" value="meeting">
                                 <label for="meeting">회의실</label>
                             </div>
                             <div>
-                                <input type="checkbox" id="seminar" value="seminar">
+                                <input type="checkbox" id="seminar" name="spaceType" value="seminar">
                                 <label for="seminar">&nbsp세미나실</label>
                             </div>
                             <div>
-                                <input type="checkbox" id="study" value="study">
+                                <input type="checkbox" id="study" name="spaceType" value="study">
                                 <label for="study">&nbsp스터디룸</label>
                             </div>
                         </div>
@@ -319,6 +320,16 @@
             content = $(this).val();
             $(".textCount4").text(content.length); 
         });
+        
+       	
+        const spaceType = "${spaceType}";
+       	const inputArr = document.querySelectorAll("input[name=spaceType]");
+       	for (let input of inputArr) {
+       		if (spaceType.includes(input.value)){
+       			input.checked = true;
+       		}
+       	}
+        
 
     </script>
 
