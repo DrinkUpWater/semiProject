@@ -21,13 +21,13 @@ import com.google.gson.Gson;
  * Servlet implementation class AjaxTest
  */
 @WebServlet( "/time.sp" )
-public class AjaxTest extends HttpServlet {
+public class AjaxTimeTest extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AjaxTest() {
+    public AjaxTimeTest() {
         super();
         // TODO Auto-generated constructor stub
     }

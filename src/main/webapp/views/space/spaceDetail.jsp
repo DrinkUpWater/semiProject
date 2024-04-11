@@ -35,7 +35,7 @@
         <script src="<%=request.getContextPath()%>/views/space/js/modal.js"></script>
         <script src="<%=request.getContextPath()%>/views/space/js/reservationNum.js"></script>
         <script src='<%=request.getContextPath()%>/views/space/fullcalendar/main.min.js'></script>
-        <script src='<%=request.getContextPath()%>/views/space/js/Comment.js'></script>
+        <script src='<%=request.getContextPath()%>/views/space/js/comment.js'></script>
 
         <style>
             @media (max-width: 1200px) {
@@ -578,7 +578,7 @@
                             <table id="comment_table" class="list-group" >
                                 
                                     
-                                    <tr class="comment_list">    
+                                    <!-- <tr class="comment_list">    
 
                                         <th class="nickName" style="width:20%">ADMIN</th>
                                         <td class="mb-1" > 데이터
@@ -592,7 +592,7 @@
                                     </tr>
             
 
-                                    <!--호스트 답글창-->
+                                  
                                     <tr class="host_reply_title">
                                             <th class="clear"></th>
                                             <td><button class="btn btn-link p-0 host-reply-toggle" data-target="#hostReply">호스트 답글 보기</button></td>
@@ -609,7 +609,7 @@
                             
                         
 
-                                    <!--로그인이 되어있고 호스트일때만 보이게 한다.-->
+                                    <로그인이 되어있고 호스트일때만 보이게 한다.
                                     <tr id="reply_info" class="comment_list">
                                             <th class="clear"></th>
                                             <td>
@@ -632,9 +632,9 @@
                                     <tr id="comment_margin">
                                       <td colspan="2" id="comment_line"><hr></td>
                                     </tr>
-                                    
+                                -->
                               
-                            </table>
+                            </table> 
 
                     </div>
 
@@ -647,7 +647,7 @@
                         // });
                     </script>
 
-                  
+                        <input id="spaceNum" type="text" value="1" hidden> <!--공간번호--> 
                         <div id="comment_info" style="height:80px">
                             <th></th>
                             <td>
@@ -656,12 +656,12 @@
                                 <div id="comment div" style="width:100%; height:100%; display:flex; justify-content: space-between;">
                                     
                                     <div style="width:100%">
-                                        <textarea placeholder="입력하세요" style="width:100%"></textarea>
+                                        <textarea id="content" placeholder="입력하세요" style="width:100%"></textarea>
                                     </div>
 
 
 
-                                    <div style="height:100%"><button type="button"  style="height:100%">등록하기</button></div>
+                                    <div style="height:100%"><button id="comment_enroll" type="button"  style="height:100%">등록하기</button></div>
 
                                 </div>
 

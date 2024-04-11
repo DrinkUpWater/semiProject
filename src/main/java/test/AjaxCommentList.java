@@ -22,19 +22,23 @@ import com.google.gson.Gson;
 @WebServlet("/comment.bo")
 public class AjaxCommentList extends HttpServlet {
 
+
 	
 	
-	
-	
-	private static final long serialVersionUID = 1L;
-       
     /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public AjaxCommentList() {
-        super();
-        // TODO Auto-generated constructor stub
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+
+	public AjaxCommentList() {
+	 	CommentList.datas.add(new Comment("admin","관리자글입니다.","호스트리플라이1",1,"2024-04-11"));
+    	CommentList.datas.add(new Comment("user1","user1글입니다.","호스트리플라이2",1,"2024-04-12"));
+    	CommentList.datas.add(new Comment("user2","user2글입니다.","호스트리플라이3",1,"2024-04-12"));
+    	CommentList.datas.add(new Comment("user3","user3글입니다.","호스트리플라이4",1,"2024-04-13"));
+    
     }
+   
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -44,44 +48,13 @@ public class AjaxCommentList extends HttpServlet {
        String spaceNo=request.getParameter("spaceNum");
        System.out.println(spaceNo);
        
-       ArrayList<Reply> replys=new ArrayList<>();
-//       SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-//       Date now=new Date(2024);
-		
-		
-       Reply reply =new Reply();
-       reply.setReplyNo(1);
-       reply.setUserId("admin");
-       reply.setUsercontent("관리자글입니다.");
-       reply.setHostReplay("호스트리플라이1");
-       reply.setTime("2024-04-11");
-       
-       Reply reply1 =new Reply();
-       reply1.setReplyNo(2);
-       reply1.setUserId("user1");
-       reply1.setUsercontent("user1의 QandA");
-       reply1.setHostReplay("호스트리플라이2");
-       reply1.setTime("2024-04-11");
-       
-       
-       
-       Reply reply2 =new Reply();
-       reply2.setReplyNo(3);
-       reply2.setUserId("user2");
-       reply2.setUsercontent("user2의 QandA");
-       reply2.setHostReplay("호스트리플라이3");
-       reply2.setTime("2024-04-11");
        
        
        
        
-       
-       replys.add(reply);
-       replys.add(reply1);
-       replys.add(reply2);
-       
+  
 		response.setContentType("application/json; charset=utf-8");
-		new Gson().toJson(replys,response.getWriter());
+		new Gson().toJson(CommentList.datas,response.getWriter());
        
 	}
 

@@ -49,21 +49,24 @@ function test(){
     
        
         }
+
+
+
+        
     
 }
-//생명주기..
+
 document.addEventListener('DOMContentLoaded', function () {
 
- //  selectCommentList();
- 
- //test();
-  console.log(1)
-  // selectCommentList();
   
 
-    selectCommentList();
+    selectCommentList();//QandA 가져오고
 
-    
+    document.querySelector("#comment_enroll").onclick=function(){
+        insertCommentList();//QandA작성
+      
+    }
+
     $(".host-reply-toggle").click(function(){
         let targetId = $(this).data("target");
         console.log(this)
@@ -72,15 +75,44 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
 
+});
+
+
+
 
 
 
 function insertCommentList(){
 
+    let sNo=document.querySelector("#spaceNum");//게시판번호 리퀘스트에서 받아온다.
+    let con=document.querySelector("#content");
+     $.ajax({
+
+            url:'insertco.bo',
+            type:'POST',
+        
+            data:{
+                spaceNum:sNo.value,
+                content:con.value
+            },
+
+            success:function(response){
+            console.log(response);
+            con.value=""
+            document.querySelector("#comment_table").innerHTML=""//한번 밀어줘야된다.
+            selectCommentList();
+            
+                
+                
+            },
+            error:function(error){
+                console.log("error"+error);
+
+            }
 
 
-
-
+        })
+   
 }
 
 
@@ -124,22 +156,22 @@ function commentList(commentTable,response){
         commentTable.innerHTML+=
         "<tr class='comment_list'>"
             +"<th class='nickName'>"+reply['userId']+"</th>"
-            + "<td class='mb-1' >"+reply['content']+"</td>"
+            + "<td class='mb-1' >"+reply['commentContent']+"</td>"
         +"</tr>"
     
         +"<tr class='comment_list'>"
                 +"<th class='clear'></th>"
-                +"<td class='time'>"+reply['time']+"</td>"
+                +"<td class='time'>"+reply['insertDate']+"</td>"
         +"</tr>"
     
         +"<tr class='host_reply_title'>"
             +"<th class='clear'> </th>"
-            +"<td><button class='btn btn-link p-0  host-reply-toggle' data-target='#hostReply"+reply['replyNo']+"' >호스트답글</button></td>"
+            +"<td><button class='btn btn-link p-0  host-reply-toggle' data-target='#hostReply"+reply['hostReply']+"' >호스트답글</button></td>"
         +"</tr>"
     
         +"<tr class='host_reply'>"
             +"<th class='clear'> </th>"
-            +"<td> <div  class='hostReplys' id='hostReply" + reply['replyNo'] + "' class='host-reply-content mt-2' style='display:block;'>"
+            +"<td> <div  class='hostReplys' id='hostReply" + reply['commentNo'] + "' class='host-reply-content mt-2' style='display:block;'>"
                 +"<p>"+reply['hostReply']+"</p>"
             +"</div></td>"
         +"</tr>"
@@ -187,5 +219,5 @@ function commentList(commentTable,response){
 
 }
 
-});
+
 
