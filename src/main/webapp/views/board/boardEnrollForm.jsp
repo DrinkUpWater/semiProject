@@ -9,7 +9,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>공지사항 작성</title>
+    <title>일반게시판 작성</title>
     <style>
         #wrapper{
             width: 1200px;
@@ -27,7 +27,6 @@
         #name-wrapper{
             height: 50px;
             display: flex;
-            display: none;
             margin-bottom: 20px; 
         }
         #name{
@@ -150,7 +149,7 @@
 
     <div id="wrapper">
         <div id="h1">
-            <h1 style="color: #927f69">공지사항</h1>
+            <h1 style="color: #927f69">일반게시판</h1>
         </div>
        	<form action="" id="enroll-form" method="POST" enctype="multipart/form-data">
 	       	<div id="main">       
@@ -187,10 +186,10 @@
 
 	            <div id="regist-area">
 	                <div id="regist" >
-	                    <a href="<%=contextPath%>/list.no" id="a2">취소</a>
+	                    <a href="<%=contextPath%>/list.bo" id="a2">취소</a>
 	                </div>
 	                <div id="cancle" >
-	                    <a href="<%=contextPath%>/insert.no" id="a3">등록</a>
+	                    <a href="<%=contextPath%>/insert.bo" id="a3">등록</a>
 	                </div>
 	            </div>
 	
