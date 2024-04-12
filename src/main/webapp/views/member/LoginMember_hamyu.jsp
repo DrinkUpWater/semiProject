@@ -160,7 +160,7 @@
                 <h1>KH ROOMMOAH</h1>
             </div>
 
-            <form action="" method="post">
+            <form action="login.me" method="post">
                 <div class="member-login">
                     <input type="text" id="userId" name="userId" placeholder="아이디"><br>
                     <input type="password"  id="userPwd" naem="userPwd" placeholder="비밀번호">

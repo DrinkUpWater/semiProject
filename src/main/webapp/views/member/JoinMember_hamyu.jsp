@@ -206,7 +206,7 @@
         <%@ include file="../common/menubar.jsp" %>
             <div id="wrapper">
                 <div class="join-user">
-                    <form action="" id="login-form" method="post">
+                    <form action="${contextPath}/insert.me" id="login-form" method="post">
                         <h4 class="text-header">회원가입</h4>
                         <h7 class="text-header2">회원이 되어 다양한 혜택을 받으세요! </h7>
 
