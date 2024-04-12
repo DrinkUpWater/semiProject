@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
 	String contextPath = request.getContextPath();
 %>
@@ -166,29 +166,34 @@
     <div id="wrapper">
         
         <!-- 로그인 전 -->
-        <div class="login-area">
-            <div id="left-bar" >
-                <i class="fa-solid fa-bars fa-xl" onclick="openNav()"></i>
-            </div>
-          
-            <h2 class="menubar-logo" >kH ROOMMOAH</h2>
-
-            <div align="end" id="right-bar">
-                <a href="">회원가입</a> | <a href="">로그인</a>
-            </div>
-        </div>
+        <c:choose>
+        	<c:when test="${empty loginUser}">
+		        <div class="login-area">
+		            <div id="left-bar" >
+		                <i class="fa-solid fa-bars fa-xl" onclick="openNav()"></i>
+		            </div>
+		          
+		            <h2 class="menubar-logo" >kH ROOMMOAH</h2>
+		
+		            <div align="end" id="right-bar">
+		                <a href="enrollForm.me">회원가입</a> | <a href="login.me">로그인</a>
+		            </div>
+		        </div>
+	        </c:when>
+	        <c:otherwise>
+		        <!-- 로그인 후 -->
+		        <div class="login-area">
+		            <div id="left-bar">
+		                <i class="fa-solid fa-bars fa-xl"></i>
+		            </div>
+		            <h2>kH ROOMMOAH</h2>
+		            <div id="right-bar">
+		                <a href="">닉네임</a> | <a href="">로그아웃</a>
+		            </div>
+		        </div>
+        	</c:otherwise>
+        </c:choose>
         
-        
-        <!-- 로그인 후 -->
-        <!-- <div class="login-area">
-            <div id="left-bar">
-                <i class="fa-solid fa-bars fa-xl"></i>
-            </div>
-            <h2>kH ROOMMOAH</h2>
-            <div id="right-bar">
-                <a href="">닉네임</a> | <a href="">로그아웃</a>
-            </div>
-        </div> -->
     </div>
         <!-- 사이드 메뉴 왼쪽위 클릭시 나오게 -->
         <!-- 일반 -->

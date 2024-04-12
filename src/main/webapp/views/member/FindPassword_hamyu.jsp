@@ -204,7 +204,7 @@
                         </div>
                         <input onclick="return finduser();" type="submit" class="userpwd" value="확 인">
                         <div id="go-login">
-                            <a href="LoginMember_hamyu.jsp" id="go-login-a" class="atext">로그인페이지 이동</a>
+                            <a href="login.me" id="go-login-a" class="atext">로그인페이지 이동</a>
                         </div>
                     </form>
                     <br>
@@ -222,7 +222,7 @@
 
 
                     <div class="find-user-info">
-                        <h7>계정이 없으신가요?</h7> <a href="JoinMember_hamyu.jsp" id="join-user" class="atext">회원가입</a>
+                        <h7>계정이 없으신가요?</h7> <a href="enrollForm.me" id="join-user" class="atext">회원가입</a>
                     </div>
 
 

@@ -20,7 +20,6 @@
             height: 65px;
             border-radius: 20px;
             margin: auto;
-            margin-top: 100px;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -143,11 +142,11 @@
 <body>
     <%@ include file="../common/menubar.jsp"%>
     <div id="wrapper">
+    	<br>
         <div class="login-top">
             <h2>시설물 등록</h2>
         </div>
-        
-        <br>
+       
 
         <div class="top-area"><p>공간 유형을 선택해주세요.</p></div>
         
