@@ -35,7 +35,7 @@
         <script src="<%=request.getContextPath()%>/views/space/js/modal.js"></script>
         <script src="<%=request.getContextPath()%>/views/space/js/reservationNum.js"></script>
         <script src='<%=request.getContextPath()%>/views/space/fullcalendar/main.min.js'></script>
-        <script src='<%=request.getContextPath()%>/views/space/js/comment.js'></script>
+        <script src='<%=request.getContextPath()%>/views/space/js/Comment.js'></script>
 
         <style>
             @media (max-width: 1200px) {

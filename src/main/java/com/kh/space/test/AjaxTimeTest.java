@@ -1,9 +1,7 @@
-package test;
+package com.kh.space.test;
 
 import java.io.IOException;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,17 +9,25 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
+
+
+
+
+
+
+
 /**
- * Servlet implementation class AjaxCommentInser
+ * Servlet implementation class AjaxTest
  */
-@WebServlet("/insertco.bo")
-public class AjaxCommentInsert extends HttpServlet {
+@WebServlet( "/time.sp" )
+public class AjaxTimeTest extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-    private static int us=0;
+       
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AjaxCommentInsert() {
+    public AjaxTimeTest() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,22 +36,29 @@ public class AjaxCommentInsert extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	    
-		request.setCharacterEncoding("utf-8");
-		String userId="insertUserId"+(++us);
 		
+		String date=request.getParameter("date");
+		ArrayList<Integer> list =new ArrayList<>();
+		if(date.equals("2024-04-11")) {
+			list.add(9);
+			list.add(10);
+			list.add(15);
+			list.add(16);
+			
+		}
+		else {
+			list.add(11);
+			list.add(12);
+			list.add(17);
+			list.add(18);
+		}
+		System.out.println(date);
+	
+	
 		
-		int spaceNum=Integer.parseInt(request.getParameter("spaceNum"));  
-		String content=request.getParameter("content");
-		LocalDate now =LocalDate.now();
-	    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-	    String formatedNow = now.format(formatter);
-	  
-		String date=formatedNow;
+		response.setContentType("application/json; charset=utf-8");
+		new Gson().toJson(list,response.getWriter());
 		
-		Comment in=new Comment(userId,content,"",spaceNum,date);
-		CommentList.datas.add(in);
-		response.getWriter().print(in.getCommentNo());
 	}
 
 	/**

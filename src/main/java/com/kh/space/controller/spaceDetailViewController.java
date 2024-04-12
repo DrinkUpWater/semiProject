@@ -1,4 +1,4 @@
-package controller;
+package com.kh.space.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;

@@ -1,4 +1,4 @@
-package test;
+package com.kh.space.test;
 
 public class HostComment {
 	private int hostCommentNo;

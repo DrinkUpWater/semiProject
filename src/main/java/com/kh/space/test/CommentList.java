@@ -1,4 +1,4 @@
-package test;
+package com.kh.space.test;
 
 import java.util.ArrayList;
 
