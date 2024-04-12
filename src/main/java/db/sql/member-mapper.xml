@@ -3,6 +3,7 @@
 <properties>
 <entry key="insertMember">
 	INSERT INTO MEMBER(
+		MEMBER_NO
 		ID
 		PWD
 		NAME
@@ -23,7 +24,23 @@
 		?,
 		?
 	)
-</entry>	
+</entry>
 
+<entry key="loginUser"> <!-- 로그인 -->
+	SELECT
+		MEMBER_NO,
+		ID,
+		PWD,
+		NAME,
+		GENDER,
+		MEMBER_NICKNAME,
+		EMAIL,
+		PHONE,
+		DATE_OF_BIRTH
+	FROM MEMBER
+	WHERE ID = ?
+	AND PWD = ?
+	AND OUTER_STATUS = 'Y'
+</entry>
 	
 </properties>
