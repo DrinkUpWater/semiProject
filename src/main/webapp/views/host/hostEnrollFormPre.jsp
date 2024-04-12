@@ -67,7 +67,7 @@
             margin-left: 50px;
         }
 
-        /* ì²´í¬ë°ì¤ ì»¤ì¤í */
+        /* checkBox */
         /* The container */
         .container {
         display: block;
@@ -159,12 +159,12 @@
             <li>검수 신청 후, 공간 유형은 고객센터를 통해서만 가능하오니, 신중히 선택해주세요!</li>
         </ul>
         <br><br><br>
-        <form action="">
+        <form action="<%=contextPath%>/preEnroll.ho" method="POST">
             <table class="select-area">
                 <tr>
                     <td> 
-                        <label class="container">파티룸
-                            <input type="checkbox" id="party" name="" >
+                        <label class="container">&nbsp&nbsp&nbsp파티룸
+                            <input type="checkbox" id="party" name="spaceType" value="party">
                             <span class="checkmark"></span>
                         </label>
                     </td>
@@ -176,8 +176,8 @@
                 </tr>
                 <tr>
                     <td> 
-                        <label class="container">카페
-                            <input type="checkbox"  id="cafe" name="" >
+                        <label class="container">&nbsp&nbsp&nbsp카페
+                            <input type="checkbox"  id="cafe" name="spaceType" value="cafe">
                             <span class="checkmark"></span>
                         </label>
                     </td>
@@ -189,8 +189,8 @@
                 </tr>
                 <tr>
                     <td>
-                        <label class="container">강의실
-                            <input type="checkbox"  id="lecture" name="" >
+                        <label class="container">&nbsp&nbsp&nbsp강의실
+                            <input type="checkbox"  id="lecture" name="spaceType" value="lecture">
                             <span class="checkmark"></span>
                         </label>
                     </td>
@@ -202,8 +202,8 @@
                 </tr>
                 <tr>
                     <td>
-                        <label class="container">회의실
-                            <input type="checkbox"  id="meeting" name="" >
+                        <label class="container">&nbsp&nbsp&nbsp회의실
+                            <input type="checkbox"  id="meeting" name="spaceType" value="meeting">
                             <span class="checkmark"></span>
                         </label>
                     </td>
@@ -215,8 +215,8 @@
                 </tr>
                 <tr>
                     <td>
-                        <label class="container">세미나실
-                            <input type="checkbox"  id="seminar" name="" >
+                        <label class="container">&nbsp&nbsp&nbsp세미나실
+                            <input type="checkbox"  id="seminar" name="spaceType" value="seminar">
                             <span class="checkmark"></span>
                         </label>
                     </td>
@@ -228,8 +228,8 @@
                 </tr>
                 <tr>
                     <td> 
-                        <label class="container">스터디룸
-                            <input type="checkbox"  id="study" name="" >
+                        <label class="container">&nbsp&nbsp&nbsp스터디룸
+                            <input type="checkbox"  id="study" name="spaceType" value="study" >
                             <span class="checkmark"></span>
                         </label>
                     </td>
@@ -245,11 +245,15 @@
             </table>
             <br><br>
             <div class="buttons">
-                <button class="back-btn">이전</button>
+                <button class="back-btn" type="button" onclick="backPage()">이전</button>
                 <button class="save-btn" type="submit">다음</button>
             </div>
         </form>
     </div>
-    
+    <script>
+        function backPage() {
+            location.href="hostMainPage.jsp";
+        }
+    </script>
 </body>
 </html>
