@@ -26,21 +26,26 @@
 	)
 </entry>
 
-<entry key="loginUser"> <!-- 로그인 -->
+<entry key="loginMember"> <!-- 로그인 -->
 	SELECT
-		MEMBER_NO,
-		ID,
-		PWD,
-		NAME,
+		USER_NO,
+		USER_ID,
+		USER_PWD,
+		USER_NAME,
 		GENDER,
-		MEMBER_NICKNAME,
+		USER_NICKNAME,
 		EMAIL,
 		PHONE,
-		DATE_OF_BIRTH
+		BIRTH,
+		JOIN_DATE,
+		MODIFY_DATE,
+		STATUS,
+		USER_HOST,
+		USER_ADMIN
 	FROM MEMBER
-	WHERE ID = ?
-	AND PWD = ?
-	AND OUTER_STATUS = 'Y'
+	WHERE USER_ID = ?
+	AND USER_PWD = ?
+	AND STATUS = 'N'
 </entry>
 	
 </properties>

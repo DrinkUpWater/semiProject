@@ -69,15 +69,21 @@ public class MemberDao {
 			rset = pstmt.executeQuery();
 			if (rset.next()) {
 				m = new Member(
-						   rset.getInt("member_no"), 
-						   rset.getString("id"), 
-						   rset.getString("pwd"),
-						   rset.getString("name"), 
-						   rset.getString("gender"), 
-						   rset.getString("member_nickname"),
-						   rset.getString("email"), 
-						   rset.getString("phone"), 
-						   rset.getString("date_of_birth"));
+						   rset.getInt("USER_NO"), 
+						   rset.getString("USER_ID"), 
+						   rset.getString("USER_PWD"),
+						   rset.getString("USER_NAME"), 
+						   rset.getString("USER_NICKNAME"),
+						   rset.getString("GENDER"), 
+						   rset.getString("PHONE"), 
+						   rset.getString("EMAIL"), 
+						   rset.getString("BIRTH"),
+						   rset.getString("JOIN_DATE"),
+						   rset.getString("MODIFY_DATE"),
+						   rset.getString("STATUS"),
+						   rset.getString("USER_HOST"),
+						   rset.getString("USER_ADMIN")				   
+						);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
