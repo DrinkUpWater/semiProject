@@ -83,7 +83,7 @@
     .side-profile {
         width: 100%;
         height: 130px;
-        background-color: #fed636;
+        background-color: #9270ff;
         display: flex;
         align-items: center;
         padding-left: 25px;
@@ -98,13 +98,18 @@
         margin-left: 20px;
     }
     .side-logo, .side-tohost {
-        background-color: #704DE4;
-        color: white;
+        background-color: white;
+        color: #704DE4;
         height: 70px;
         display: flex;
         align-items: center;
         justify-content: center;
     }
+    .side-tohost {
+        background-color: #fed636;
+        color: black;
+    }
+
     .side-logo>h3 {
         font-family:'ZCOOL KuaiLe';
         padding-top: 8px;
@@ -156,7 +161,7 @@
     	position: absolute;
     	top: 75px;
     	right: 8px;
-    	color : rgb(126, 126, 126);
+    	color : rgb(0, 0, 0);
         cursor: pointer;
     }
     
@@ -196,61 +201,15 @@
         </c:choose>
         
     </div>
-        <!-- 사이드 메뉴 왼쪽위 클릭시 나오게 -->
-        <!-- 일반 -->
-        <div id="mySidenav" class="side-menu sidenav" align="center">
-            <div class="side-profile">
-	            <div class="x-icon">
-		        	<i class="fa-solid fa-x fa-xl" onclick="closeNav()"></i>
-		        </div>
-                <div class="side-profile-picture"></div>
-                <div class="side-profile-nickname">
-                    <br>
-                    <b>닉네임</b>
-                    <p>프로필관리 ></p>
-                </div>
-            </div>
-			
-            <div class="side-logo">
-                <h3>kH ROOMMOAH</h3>
-            </div>
-
-            <br><br><br>
-            
-            <div class="side-list">
-                <table>
-                    
-                    <tr align="center">
-                        <th class="home" >홈</th>
-                    </tr>
-                    <tr align="center">
-                        <th class="book-list">예약 리스트</th>
-                    </tr>
-                    <tr align="center">
-                        <th>찜한 공간</th>
-                    </tr>
-                    <tr align="center">
-                        <th class="notice">공지사항</th>
-                    </tr>
-                </table>
-            </div>
-
-            <br><br><br><br>
-            
-            <a href="">로그아웃</a>
-            <br>
-            <br>
-            <div class="side-tohost">
-                <p>호스트센터로 이동 > </p>
-            </div>
-        </div>
-    
-
 
         <!-- 사이드 메뉴 왼쪽위 클릭시 나오게 -->
         <!-- 호스트메뉴 -->
-        <div class="side-menu-host" align="center">
+        <div id="mySidenav" class="side-menu sidenav" align="center">
+        	
             <div class="side-profile">
+            	<div class="x-icon">
+			        <i class="fa-solid fa-x fa-xl" onclick="closeNav()"></i>
+			    </div>
                 <div class="side-profile-picture"></div>
                 <div class="side-profile-nickname">
                     <br>
@@ -268,7 +227,7 @@
             <div class="side-list">
                 <table>
                     
-                    <tr align="center">
+                    <tr class="spaceHome" align="center">
                         <th >홈</th>
                     </tr>
                     <tr align="center">
@@ -277,8 +236,8 @@
                     <tr align="center">
                         <th>정산</th>
                     </tr>
-                    <tr align="center">
-                        <th>공지사항</th> 
+                    <tr align="center" class="notice">
+                        <th>공지사항</th>
                     </tr>
                 </table>
             </div>
@@ -298,19 +257,20 @@
         $(".menubar-logo").click(function(){
             location.href="<%=contextPath%>";
         });
-        $(".home").click(function(){
-            location.href="<%=contextPath%>";
+        
+        $(".side-tohost").click(function(){
+            location.href="<%=contextPath%>"
         });
         
-        //호스트페이지로
-        $(".side-tohost").click(function(){
-            location.href="main.ho"
+        $(".spaceHome").click(function(){
+            location.href="main.ho";
         });
 
         //클릭시 공시사항페이지로
         $(".notice").click(function(){
             location.href="list.no"
         });
+
 
         // 사이드 바
         function openNav() {
@@ -319,10 +279,6 @@
         function closeNav() {
         	document.getElementById("mySidenav").style.width = "0px";
         }
-
-
-
-
         
         
         
