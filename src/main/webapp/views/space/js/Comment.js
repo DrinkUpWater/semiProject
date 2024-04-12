@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function () {
       
     }
 
-   // HostComment();
+   // HostCommentInsert();
 
     $(".host-reply-toggle").click(function(){
         let targetId = $(this).data("target");
@@ -96,10 +96,13 @@ function selectCommentList(){
 
 function commentList (commentTable,response){
     let htmlContent=''
-
+    
     for(let reply of response){
+
         htmlContent+=
-        "<tr class='comment_list'>"
+        "<tbody class='comment_body'>"
+
+        +"<tr class='comment_list'>"
             +"<th class='nickName'>"+reply['userId']+"</th>"
             + "<td class='mb-1' >"+reply['commentContent']+"</td>"
         +"</tr>"
@@ -128,7 +131,8 @@ function commentList (commentTable,response){
                 +"<div>답글</div>"
                 +"<div id='reply div' style='width:100%; display:flex; justify-content: space-between;'>"
                     +"<div style='width:100%;'>"
-                         + "<textarea id='hostReplyContent' placeholder='입력하세요' style='width:100%'></textarea>"
+                         + "<textarea id='hostReplyContent' class='hostReplayContents' placeholder='입력하세요' style='width:100%'></textarea>"
+                         + "<input class='hostReplyNo' type='text' value='"+reply['commentNo'] +"' hidden/>"
                     +"</div>"
                     +"<div><button class='submitHostReplyBtn' type='button' '>등록하기</button></div>"
                     
@@ -142,24 +146,63 @@ function commentList (commentTable,response){
             +"<td colspan='2' id='comment_line'><hr></td>"
         +"</tr>"
      
-
+       +"</tbody>"
     
 
     }
     commentTable.innerHTML=htmlContent
-
+    HostCommentInsert();
  
 
 }
 
-function HostComment() {
-    document.addEventListener('click', function(event) {
-        if (event.target.classList.contains('submitHostReplyBtn')) {
-            let replyNo = event.target.closest('tr').previousElementSibling.querySelector('.host-reply-toggle').dataset.target.replace('hostReply', '');
-            let replyContent = event.target.closest('tr').querySelector('.hostReplyContent').value;
-            let url = `/hostreply.re?replyNo=${replyNo}&replyContent=${encodeURIComponent(replyContent)}`;
-            location.href = url;
+function HostCommentInsert() {
+    
+    document.querySelectorAll(".comment_body .submitHostReplyBtn").forEach(
+        button =>{
+            button.addEventListener('click',sendDataToServer);
         }
-    });
+    );
+
+    function sendDataToServer(event){
+        let sN=document.querySelector("#spaceNum").value;
+
+
+        let tbody=event.target.parentNode.parentNode;
+        console.log(tbody);
+        let hR=tbody.querySelector('.hostReplayContents')
+        console.log(hR);
+         let coN=tbody.querySelector('.hostReplyNo').value
+
+
+        $.ajax({
+
+            url:'hostComment.bo',
+            type:'POST',
+        
+            data:{
+                spaceNum:sN,
+                commentNum:coN,
+                hostReply:hR.value
+            },
+
+            success:function(response){
+            console.log(response);
+            hR.value=""
+            document.querySelector("#comment_table").innerHTML=""//한번 밀어줘야된다.
+            selectCommentList();
+            
+                
+                
+            },
+            error:function(error){
+                console.log("error"+error);
+
+            }
+
+
+        })
+   
+    }
 }
 

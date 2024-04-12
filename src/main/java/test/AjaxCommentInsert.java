@@ -1,6 +1,8 @@
 package test;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 import javax.servlet.ServletException;
@@ -35,7 +37,11 @@ public class AjaxCommentInsert extends HttpServlet {
 		
 		int spaceNum=Integer.parseInt(request.getParameter("spaceNum"));  
 		String content=request.getParameter("content");
-		String date="2024-04-12";
+		LocalDate now =LocalDate.now();
+	    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+	    String formatedNow = now.format(formatter);
+	  
+		String date=formatedNow;
 		
 		Comment in=new Comment(userId,content,"",spaceNum,date);
 		CommentList.datas.add(in);
