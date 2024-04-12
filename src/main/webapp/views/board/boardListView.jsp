@@ -1,9 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.ArrayList"%>
-<%
-	String contextPath = request.getContextPath();
-%>
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -11,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>일반게시판</title>
     <style>
-        #wrapper{
+        #board-wrapper{
 
             width: 1200px;
             height: 700px;
@@ -42,7 +40,7 @@
         .title{
             text-align: left;
         }
-        a{
+        #board-wrapper a{
             text-decoration: none;
             border: 1px solid rgb(201, 201, 201);
             display: inline-block;
@@ -98,7 +96,9 @@
     </style>
 </head>
 <body>
-    <div id="wrapper" >
+    <%@ include file="../common/menubar.jsp" %>
+    
+    <div id="board-wrapper" >
         <h1 style="color: #927f69">공지사항</h1>
         <div id="table-wrapper">
 
