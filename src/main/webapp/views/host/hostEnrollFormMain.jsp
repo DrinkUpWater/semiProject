@@ -143,7 +143,7 @@
     </style>
 </head>
 <body>
-    <%@ include file="../common/menubar.jsp"%>
+    <%@ include file="../common/menubarHost.jsp"%>
     <div id="wrapper">
     	<br>
         <form action="">

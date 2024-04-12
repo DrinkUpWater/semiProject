@@ -54,7 +54,7 @@
         }
     </style>
 <body>
-    <%@ include file="../common/menubar.jsp"%>
+    <%@ include file="../common/menubarHost.jsp"%>
     <div align="center" id="wrapper">
         <div class="host-main">
             <div class="left-side">
@@ -80,7 +80,7 @@
 
 <script>
 	function movePage(){
-        location.href="hostEnrollFormPre.jsp";
+        location.href="enrollPre.ho";
     }
 </script>
 </html>
