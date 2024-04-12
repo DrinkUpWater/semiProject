@@ -11,22 +11,21 @@
     <style>
         #notice-wrapper{
             width: 1200px;
-            height: 700px;
             margin: auto;
         }
         #main{
+            border-top: 1px solid #927f69;
             height: 90%;
             box-sizing: border-box;
         }
         h1{
-            border-bottom: 1px solid;
+            border-bottom: 1px solid #927f69;
             padding-bottom: 10px;
         }
         #name-wrapper{
             height: 50px;
             display: flex;
             display: none;
-            margin-bottom: 20px; 
         }
         #name{
             width: 10%;
@@ -47,6 +46,7 @@
         #title-wrapper{
             height: 50px;
             display: flex;
+            margin-top: 20px;
         }
         #title{
             width: 8%;
@@ -66,13 +66,11 @@
         }
         #content-wrapper{
             margin-top: 20px;
-            height: 53%;
             display: flex;
             
         }
         #content{
             width: 8%;
-            height: 100%;
             display: flex;
             font-size: 20px;
             font-weight: 600;
@@ -92,7 +90,6 @@
         }
         #img{  
             width: 8%;
-            height: 100%;
             display: flex;
             font-size: 20px;
             font-weight: 600;
@@ -100,7 +97,6 @@
             box-sizing: border-box;
         }
         #img-input{
-            
             border: 1px solid rgb(196, 194, 194);
             border-top: 0;
             background-color: rgb(233, 233, 233);
@@ -147,9 +143,9 @@
 <body>
     <%@ include file="../common/menubar.jsp" %>
     <div id="notice-wrapper">
-        <div id="h1">
-            <h1 style="color: #927f69">공지사항</h1>
-        </div>
+        <!-- <div id="h1"></div> -->
+        <h3 style="color: #927f69">공지사항</h3>
+
        	<form action="" id="enroll-form" method="POST" enctype="multipart/form-data">
 	       	<div id="main">       
                 <div id="name-wrapper">
@@ -170,7 +166,7 @@
 	                <div id="content">
 	                    내용 *
 	                </div>
-	                <textarea id="content-input" name="content"  rows="25" placeholder="내용을 입력해주세요" required></textarea>  
+	                <textarea id="content-input" name="content" rows="20" placeholder="내용을 입력해주세요" required></textarea>  
 	            </div>
 
 	            <div id="img-wrapper">

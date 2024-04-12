@@ -26,9 +26,12 @@
             flex-direction: row;
             align-items: center;
             justify-content: space-between;
+         
+            padding: 20px 0px;
         }
         #title{
             font-size: 20px;
+            font-weight: 500;
             display: flex;
         }
         #span1{
@@ -109,12 +112,12 @@
     <%@ include file="../common/menubar.jsp" %>
 
     <div id="notice-wrapper">
-        <h1 style="color: #927f69">공지사항</h1>
+        <h2 style="color: #927f69" id="h2">공지사항</h2>
         <div id="main">
             <div id="notice-view">
                 <div id="title-area">
                     <div id="title">
-                        <h3>관리자가 입력한 제목</h3>
+                        관리자가 입력한 제목
                     </div>
                     <div id="span1">
                         <span>관리자</span>
