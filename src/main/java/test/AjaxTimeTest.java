@@ -11,17 +11,23 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 
+
+
+
+
+
+
 /**
  * Servlet implementation class AjaxTest
  */
-@WebServlet( "/test.sp" )
-public class AjaxTest extends HttpServlet {
+@WebServlet( "/time.sp" )
+public class AjaxTimeTest extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AjaxTest() {
+    public AjaxTimeTest() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,6 +36,7 @@ public class AjaxTest extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		String date=request.getParameter("date");
 		ArrayList<Integer> list =new ArrayList<>();
 		if(date.equals("2024-04-11")) {
