@@ -236,7 +236,7 @@
                     <tr align="center">
                         <th>정산</th>
                     </tr>
-                    <tr align="center">
+                    <tr align="center" class="notice">
                         <th>공지사항</th>
                     </tr>
                 </table>
@@ -265,6 +265,12 @@
         $(".spaceHome").click(function(){
             location.href="main.ho";
         });
+
+        //클릭시 공시사항페이지로
+        $(".notice").click(function(){
+            location.href="list.no"
+        });
+
 
         // 사이드 바
         function openNav() {

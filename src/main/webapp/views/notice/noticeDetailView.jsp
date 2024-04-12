@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%
-	String contextPath = request.getContextPath();
-%>
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -10,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>공지사항 상세페이지</title>
     <style>
-        #wrapper{
+        #notice-wrapper{
             width: 1200px;
             height: 735px;
             margin: auto;
@@ -89,7 +87,7 @@
             padding-top: 20px;
             box-sizing: border-box;
         }
-        a{
+        #notice-wrapper a{
             display: inline-block;
             border: 1px solid #ddd;
             height: 40px;
@@ -108,7 +106,9 @@
     </style>
 </head>
 <body>
-    <div id="wrapper">
+    <%@ include file="../common/menubar.jsp" %>
+
+    <div id="notice-wrapper">
         <h1 style="color: #927f69">공지사항</h1>
         <div id="main">
             <div id="notice-view">

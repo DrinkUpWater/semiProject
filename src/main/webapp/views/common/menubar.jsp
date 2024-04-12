@@ -230,7 +230,7 @@
                         <th>찜한 공간</th>
                     </tr>
                     <tr align="center">
-                        <th>공지사항</th>
+                        <th class="notice">공지사항</th>
                     </tr>
                 </table>
             </div>
@@ -278,7 +278,7 @@
                         <th>정산</th>
                     </tr>
                     <tr align="center">
-                        <th>공지사항</th>
+                        <th>공지사항</th> 
                     </tr>
                 </table>
             </div>
@@ -307,6 +307,11 @@
             location.href="main.ho"
         });
 
+        //클릭시 공시사항페이지로
+        $(".notice").click(function(){
+            location.href="list.no"
+        });
+
         // 사이드 바
         function openNav() {
         	document.getElementById("mySidenav").style.width = "320px";
@@ -314,6 +319,10 @@
         function closeNav() {
         	document.getElementById("mySidenav").style.width = "0px";
         }
+
+
+
+
         
         
         

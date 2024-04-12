@@ -3,15 +3,13 @@
 
 <!DOCTYPE html>
 <html lang="ko">
-<%
-	String contextPath = request.getContextPath();
-%>
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>일반게시판 작성</title>
     <style>
-        #wrapper{
+        #board-wrapper{
             width: 1200px;
             height: 700px;
             margin: auto;
@@ -146,8 +144,9 @@
     </style>
 </head>
 <body>
-
-    <div id="wrapper">
+    <%@ include file="../common/menubar.jsp" %>
+    
+    <div id="board-wrapper">
         <div id="h1">
             <h1 style="color: #927f69">일반게시판</h1>
         </div>
