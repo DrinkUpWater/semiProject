@@ -3,15 +3,13 @@
 
 <!DOCTYPE html>
 <html lang="ko">
-<%
-	String contextPath = request.getContextPath();
-%>
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>공지사항 작성</title>
     <style>
-        #wrapper{
+        #notice-wrapper{
             width: 1200px;
             height: 700px;
             margin: auto;
@@ -147,8 +145,8 @@
     </style>
 </head>
 <body>
-
-    <div id="wrapper">
+    <%@ include file="../common/menubar.jsp" %>
+    <div id="notice-wrapper">
         <div id="h1">
             <h1 style="color: #927f69">공지사항</h1>
         </div>
