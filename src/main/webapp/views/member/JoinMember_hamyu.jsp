@@ -277,7 +277,7 @@
                             </tr>
                             <tr>
                                 <td colspan="3" class="input-nickname">
-                                    <input type="text" id="userNickName"
+                                    <input type="text" id="userNickName" name="nickName"
                                         placeholder=" 특수문자 제외(',~,!,@,#,$,%,^...)최대 8글자">
                                 </td>
                             </tr>
@@ -298,7 +298,7 @@
 
                             <tr>
                                 <td colspan="3">
-                                    <input type="text" id="phone" placeholder=" 휴대폰 번호 입력(‘-’제외 11자리 입력)">
+                                    <input type="text" id="phone" name="phone" placeholder=" 휴대폰 번호 입력(‘-’제외 11자리 입력)">
                                 </td>
                             </tr>
 
@@ -309,13 +309,13 @@
 
                             <tr>
                                 <td colspan="3">
-                                    <input type="text" id="birth" placeholder=" 주민번호 앞자리(8글자)">
+                                    <input type="text" id="birth" name="birth" placeholder=" 주민번호 앞자리(8글자)">
                                 </td>
                             </tr>
                         </table>
 
                         <h4 class="email-header">이메일</h4>
-                        <input type="text" id="email" class="u-email" placeholder="">
+                        <input type="text" id="email" name="email" class="u-email" placeholder="">
                         <b>@</b>
                         <select class="select-email">
                             <option value="">-선택-</option>
@@ -439,7 +439,11 @@
                             email.focus();
                             return false;
                         }
-
+						
+                        else{ //빈칸없이 서버에서 보내졌으나 에러 발생시
+                        	alert(request.getAttribute('errorMsg'));
+                        	return false;
+                        }
 
 
                     }
