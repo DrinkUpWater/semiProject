@@ -1,9 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="com.kh.member.model.vo.Member" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
 	String contextPath = request.getContextPath();
-%>
+	Member loginUser = (Member)session.getAttribute("loginUser");
+    // 로그인 시도 전 menubar.jsp로딩시 : null
+    // 로그인 성공 후 menuber.jsp로딩시 : 로기인 성공한 회원의 정보
+
+    String alertMsg = (String)session.getAttribute("alertMsg");
+%>    
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -168,7 +174,14 @@
     
 </style>
 </head>
-<body>
+<body>	
+	<% if(alertMsg != null) {%>
+		<script>
+			alert("<%=alertMsg%>");
+		</script>
+		<% session.removeAttribute("alertMsg"); %>
+	<% } %>
+
     <div id="wrapper">
         
         <!-- 로그인 전 -->

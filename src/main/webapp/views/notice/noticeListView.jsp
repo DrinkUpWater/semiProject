@@ -10,27 +10,23 @@
     <title>공지사항</title>
     <style>
         #notice-wrapper{
-
             width: 1200px;
-            height: 700px;
             margin: auto;
         }
-        .table{
-            border-top: 4px solid rgb(218, 218, 218);;
-            /* border-bottom: 3px solid rgb(218, 218, 218); */
+        #table{
+            border-top: 1px solid #927f69;
             width: 100%;
             text-align: center;
             border-collapse: collapse;
         }
         tr{
             cursor: pointer;
+            padding: 16px;
         }
         th {
             border-bottom: 1px solid rgb(201, 201, 201);
             padding-top: 20px;
             padding-bottom: 20px;
-            padding-left: 0;
-            padding-right: 0;
         }
         td {
             padding-top: 20px;
@@ -40,24 +36,27 @@
         .title{
             text-align: left;
         }
-        #notice-wrapper a{
+        #a1, #a2, #a3{
             text-decoration: none;
             border: 1px solid rgb(201, 201, 201);
             display: inline-block;
             width: 35px;
             height: 35px;
             font-size: 15px;
-            line-height: 35px;
+            line-height: 32px;
             color: black;
             margin-left: 10px;
             text-align: center;
             box-sizing: border-box;
         }
 
-        #write-btn{
-            
-            width: 100px;
+        #write-btn {
+            border: 1px solid rgb(201, 201, 201);
+            width: 70px;
+            height: 35px;
             float: right;
+            line-height: 32px;
+            box-sizing: border-box;
         }
         #btnList-area{
             margin-top: 10px;
@@ -74,25 +73,21 @@
         #selectbar{
             border: 1px solid rgb(201, 201, 201);
             width: 90px;
-            height: 30px
-        }
-        #text-input{
-            border: 1px solid;
-            width: 300px;
-            height: 26px;
-            margin-left: 10px;
+            height: 35px
         }
         #search-input{
             border: 1px solid rgb(201, 201, 201);
             width: 300px;
-            height: 26px;
-            margin-left: 5px;
+            height: 35px;
+            margin-left: 10px;
         }
         #search-btn{
+            border: 1px solid rgb(201, 201, 201);
             width: 60px;
-            height: 30px;
-            line-height: 28px;
+            height: 35px;
+            line-height: 32px;
             background-color: #fafafa;
+            margin-left: 10px;
         }
 
     </style>
@@ -101,10 +96,10 @@
     <%@ include file="../common/menubar.jsp" %>
 
     <div id="notice-wrapper" >
-        <h1 style="color: #927f69">공지사항</h1>
+        <h3 style="color: #927f69">공지사항</h3>
         <div id="table-wrapper">
 
-            <table class="table">
+            <table id="table">
                 <thead align="center">
                     <th width="30">번호</th>
                     <th width="400">제목</th>
@@ -167,9 +162,9 @@
                 <!-- 관리자로 로그인 했을 때 뜨는 버튼 -->
                 <div id="btnList-area">
                     <div class="btnList" align="center">
-                        <a href="">&lt;</a>
-                        <a href="">1</a>
-                        <a href="">&gt;</a>
+                        <a href="" id="a1">&lt;</a>
+                        <a href="" id="a2">1</a>
+                        <a href="" id="a3">&gt;</a>
                         
                         <div id="write-btn><a href="<%=contextPath %>/enroll.no">글쓰기</a></div>
                     </div> 
@@ -179,9 +174,9 @@
 
             <div id="btnList-area">
                 <div class="btnList" align="center">
-                    <a href="">&lt;</a>
-                    <a href="">1</a>
-                    <a href="">&gt;</a>
+                    <a href="" id="a1">&lt;</a>
+                    <a href="" id="a2">1</a>
+                    <a href="" id="a3">&gt;</a>
                     
                     <a href="<%=contextPath %>/enroll.no" id="write-btn">글쓰기</a>
                 </div> 

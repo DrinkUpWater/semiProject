@@ -163,7 +163,7 @@
             <form action="login.me" method="post">
                 <div class="member-login">
                     <input type="text" id="userId" name="userId" placeholder="아이디"><br>
-                    <input type="password"  id="userPwd" naem="userPwd" placeholder="비밀번호">
+                    <input type="password"  id="userPwd" name="userPwd" placeholder="비밀번호">
                 </div>
                 <input type="submit" class="userlogin" value="로 그 인" onclick="return loginuser();">
             </form>
@@ -195,6 +195,10 @@
             else if(userPwd.value===""){
                 alert("비밀번호를 입력해주세요,");
                 userPwd.focus();
+                return false;
+            }
+            else{ //빈칸없이 입력은 했으나 DB에서 계정을 찾지 못했을 경우 
+                 alert(request.getAttribute('errorMsg'));
                 return false;
             }
         }

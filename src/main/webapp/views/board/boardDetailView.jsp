@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>일반게시판 상세페이지</title>
     <style>
-        #board-wrapper{
+        #notice-wrapper{
             width: 1200px;
             height: 735px;
             margin: auto;
@@ -26,9 +26,12 @@
             flex-direction: row;
             align-items: center;
             justify-content: space-between;
+         
+            padding: 20px 0px;
         }
         #title{
             font-size: 20px;
+            font-weight: 500;
             display: flex;
         }
         #span1{
@@ -87,7 +90,7 @@
             padding-top: 20px;
             box-sizing: border-box;
         }
-        #board-wrapper a{
+        #notice-wrapper a{
             display: inline-block;
             border: 1px solid #ddd;
             height: 40px;
@@ -106,19 +109,18 @@
     </style>
 </head>
 <body>
-
     <%@ include file="../common/menubar.jsp" %>
-    
-    <div id="board-wrapper">
-        <h1 style="color: #927f69">일반게시판</h1>
+
+    <div id="notice-wrapper">
+        <h2 style="color: #927f69" id="h2">일반게시판</h2>
         <div id="main">
             <div id="notice-view">
                 <div id="title-area">
                     <div id="title">
-                        <h3>유저가 입력한 제목</h3>
+                        유저가 입력한 제목
                     </div>
                     <div id="span1">
-                        <span>유저아이디</span>
+                        <span>유저ID</span>
                         <span>작성한 날짜</span>
                     </div>
                 </div>
@@ -142,7 +144,7 @@
                 </div>
             </div>
             <div id="btn-area">
-                <a href="<%=contextPath %>/list.bo" id="a1">목록보기</a>
+                <a href="<%=contextPath %>/list.no" id="a1">목록보기</a>
                 <a href="" id="a2">이전 글</a>
                 <a href="" id="a3">다음 글</a>
                 <span>
