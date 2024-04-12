@@ -163,7 +163,7 @@
             <form action="login.me" method="post">
                 <div class="member-login">
                     <input type="text" id="userId" name="userId" placeholder="아이디"><br>
-                    <input type="password"  id="userPwd" naem="userPwd" placeholder="비밀번호">
+                    <input type="password"  id="userPwd" name="userPwd" placeholder="비밀번호">
                 </div>
                 <input type="submit" class="userlogin" value="로 그 인" onclick="return loginuser();">
             </form>
