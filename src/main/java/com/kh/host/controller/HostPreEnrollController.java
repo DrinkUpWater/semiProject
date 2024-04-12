@@ -8,16 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class hostPreEnrollController
+ * Servlet implementation class HostPreEnrollController2
  */
-@WebServlet("/preEnroll.ho")
-public class hostPreEnrollController extends HttpServlet {
+@WebServlet("/enrollPre.ho")
+public class HostPreEnrollController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public hostPreEnrollController() {
+    public HostPreEnrollController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -26,16 +26,7 @@ public class hostPreEnrollController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
-		
-		String[] sArr = request.getParameterValues("spaceType");
-		String spaceType = "";
-		if (sArr != null) {
-			spaceType = String.join(",", sArr);
-		}
-		
-		request.setAttribute("spaceType", spaceType);
-		request.getRequestDispatcher("views/host/hostEnrollFormMain.jsp").forward(request, response);
+		request.getRequestDispatcher("views/host/hostEnrollFormPre.jsp").forward(request, response);
 	}
 
 	/**

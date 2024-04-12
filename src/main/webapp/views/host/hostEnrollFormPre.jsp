@@ -140,7 +140,7 @@
     </style>
 </head>
 <body>
-    <%@ include file="../common/menubar.jsp"%>
+    <%@ include file="../common/menubarHost.jsp"%>
     <div id="wrapper">
     	<br>
         <div class="login-top">
@@ -158,7 +158,7 @@
             <li>검수 신청 후, 공간 유형은 고객센터를 통해서만 가능하오니, 신중히 선택해주세요!</li>
         </ul>
         <br><br><br>
-        <form action="<%=contextPath%>/preEnroll.ho" method="POST">
+        <form action="enroll.ho" method="POST">
             <table class="select-area">
                 <tr>
                     <td> 
