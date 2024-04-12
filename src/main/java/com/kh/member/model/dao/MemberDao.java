@@ -69,7 +69,6 @@ public class MemberDao {
 			rset = pstmt.executeQuery();
 			
 			if (rset.next()) {
-				System.out.println("11");
 				m = new Member(
 						
 						   rset.getInt("USER_NO"), 
