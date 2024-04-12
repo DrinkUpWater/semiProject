@@ -6,7 +6,9 @@
 
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
         <link href='<%=request.getContextPath()%>/views/space/fullcalendar/custommain.css' rel='stylesheet' />
+
         <title>Document</title>
 
         <!-- Latest compiled and minified CSS -->
@@ -27,10 +29,14 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
+
+
         <script src=" <%=request.getContextPath()%>/views/space/js/calenderClick.js"></script>
         <script src="<%=request.getContextPath()%>/views/space/js/modal.js"></script>
         <script src="<%=request.getContextPath()%>/views/space/js/reservationNum.js"></script>
         <script src='<%=request.getContextPath()%>/views/space/fullcalendar/main.min.js'></script>
+        <script src='<%=request.getContextPath()%>/views/space/js/comment.js'></script>
+
         <style>
             @media (max-width: 1200px) {
 
@@ -93,7 +99,9 @@
                 grid-template-rows: repeat(2, 250px);
                 /* grid-template-columns: repeat(3, 1fr); */
                 column-gap: 50px;
+
                 /* border: solid 1px red;  */
+
                 margin: 10px;
                 font-size: 20px;
             }
@@ -132,7 +140,7 @@
                 display: flex;
                 list-style: none;
                 justify-content: space-between;
-                /* border: solid 1px #7A36E9; */
+                border: solid 1px #7A36E9; /*필수*/
                 margin: auto;
             }
 
@@ -164,6 +172,7 @@
             .img_div>img {
                  max-width: 100%;
                 height: 100%;
+
             }
 
             .quest {
@@ -172,54 +181,102 @@
                 list-style: none;
             }
 
-            .qa_table {
 
-                display: flex;
-                /* grid-template-rows: repeat(2, 250px); */
-                justify-content: space-evenly;
-                border:solid 1px peru ;
+
+            #space_qa_comment{
+                overflow: auto;
+                /* border:solid blue; */
+               
+            }
+           
+            /*----------QA--------------*/
+            #comment_table{
                 height:100%;
-              
-               
-              
-               /* overflow: hidden; */
-
-
-            }
-            .qa_list{
+                width:100%;
               
             }
 
-
-
-            .qa_table div{
-                /* height:100%; */
-                /* border:solid 1px green ; */
-              
-            }
-   
-
-            #content_info{
-               
-                width:90%;
-                margin-left:10%;
-              
-                border: solid 1px blue; 
-              
-                height:100%;
-              
+            /* #comment_table tr th td{
+                width:100%;
+            } */
+            #comment_table td {
+                padding-top: 8px;
+                padding-bottom: 8px;
             }
 
-            #content{
-               
+             #comment_table th, #comment_table td {
+                vertical-align: top;
+            }
+
+            #comment_table .time {
+                font-size: 0.8rem;
+                color: #666;
+            }
+
+            
+            .comment_list{
              
+             padding: 8px;
+           }
+
+            .clear {
+                width: 20%;
+            }
+            .mb-1 {
+                margin-bottom: .25rem;
+            }
+            textarea {
+              resize: vertical;
+              height: 100%;
+            }
+
+            .comment_list:last-child {
+               border-bottom: none;
              }
+         
+
+
+             .nickName {
+                 font-weight: bold;
+             }
+
+             #comment_info{
+                width:100%;
+             }
+           
+            .host-reply-content {
+                background-color: #f9f9f9;
+                padding: 8px;
+                margin-top: 5px;
+                border-left: 3px solid #007bff;
+            }
+
+            .host-reply-toggle {
+                font-size: 0.9rem;
+                color: #007bff;
+                cursor: pointer;
+                padding: 0;
+                border: none;
+                background: none;
+             }
+
+             button[type="button"] {
+                background-color: #6623da;
+                color: white;
+                border: none;
+                padding: 6px 12px;
+                cursor: pointer;
+            }
+            button[type="button"]:hover {
+             background-color: #0056b3;
+            }
+
 
             #comment_list{
                /* display:none; */
                 
                width:90%;
-               margin-left:10%;
+                margin-left:10%;
                border: solid 1px salmon;
                
               
@@ -233,37 +290,23 @@
                 list-style: none;
             }
 
-            .qa_table ul{
-                
-                height:100%;
-                overflow:auto;
+
+            .comment_list{
+                margin-bottom: 100px;
               
             }
-
-            .qa_table ul>li{
+            
+           
+            #comment_list li{
+                
                 list-style: none;
-                margin:15px;
             }
 
-            .qa_table div {
-                margin-bottom: 30px;
-            }
+        
+           
+          
 
-            .qa_table span {
-                border: 1px solid rgb(224, 216, 216);
 
-            }
-            #space_review_comment{
-                /* display :grid;
-                grid-template-rows: repeat(2, 250px);
-                border:solid 1px green ; */
-            }
-
-            /* #space_qa_comment{
-                display :grid;
-                grid-template-rows: repeat(2, 250px);
-                border:solid 1px red ;
-            } */
 
 
             /*------------*/
@@ -287,6 +330,9 @@
                 display: flex;
                 justify-content: space-between;
             }
+            #choiced input{
+                border: none;
+            }
 
             #detail_space_choice {
 
@@ -297,6 +343,25 @@
             #time_choice {
                 display: none;
             }
+            
+          
+            .time_box{
+                height:100%;
+                width:100%;
+              
+            }
+
+            .time{
+                /* height:30%; */
+                font-size: 20px;
+                width:100%;
+              
+            }
+            .price{
+                font-size: 20px;
+              
+            }
+            
 
             #time_choice>ul {
 
@@ -307,9 +372,10 @@
             }
 
             .price {
-                border: solid rgb(215, 213, 213);
+                /* border: solid 1px rgb(215, 213, 213); */
 
-                background-color: yellow;
+                /* background-color: yellow */
+               
             }
 
             #space_option_kind {
@@ -338,27 +404,9 @@
 
             }
 
-            /* 달력*/
-            /* fc-daygrid-day-number -->a태그*/
-            /* .fc-daygrid-day-top{
-         border: solid 3px black;
-       } */
+       
+          
 
-            .fc-daygrid-day fc-day fc-day-sun fc-day-past fc-day-other {
-                /*전달의 정보가 담겨있는  td태그*/
-                border: solid saddlebrown;
-            }
-
-            .fc-daygrid-day fc-day fc-day-mon fc-day-past {
-                border: solid #7A36E9;
-
-
-            }
-
-            .fc-daygrid-day-number {
-                /* border: solid 3px black; */
-
-            }
         </style>
 
 
@@ -369,7 +417,7 @@
     <body>
         <%@ include file="../common/menubar.jsp" %>
 
-            <div id="main">
+            <nav id="main" class="navbar-light bg-light">
 
                 <div id="section_1">
 
@@ -379,7 +427,9 @@
                     </div>
                     <div id="space_comment" class="space">
                         <div align="left" class="img_div">
+
                             <img src="<%=request.getContextPath()%>/resources/space_img/test.png">
+
                         </div>
                         <div style=" padding-top:20px; ">
                             <span>
@@ -403,9 +453,9 @@
                     <div id="list">
                         <ul>
                             <li><a href="#space_intro">공간소개</a></li>
-                            <li><a href="#intro">시설안내</a></li>
-                            <li><a href="#warn">유의사항</a></li>
-                            <li><a href="#QanA">Q&A</a></li>
+                            <li><a href="#space_guide">시설안내</a></li>
+                            <li><a href="#reservation_warn">유의사항</a></li>
+                            <li><a href="#space_qa">Q&A</a></li>
                             <li><a href="#space_review">이용후기</a></li>
                         </ul>
                     </div>
@@ -428,7 +478,7 @@
 
                     </div>
 
-                    <div id="space_guide" name="intro" class="title">
+                    <div id="space_guide" name="space_guide" class="title">
                         <div class="text">시설안내</div>
                         <hr class="line2" style="background:rgb(235, 229, 229) ">
                     </div>
@@ -472,13 +522,16 @@
 
 
 
+
+
                     </div>
 
 
-                    <div id="reservation_warn" name="warn" class="title">
+                    <div id="reservation_warn" name="reservation_warn" class="title">
                         <div class="text">예약시 주의사항</div>
                         <hr class="line2" style="background:rgb(235, 229, 229) ">
                     </div>
+
 
                     <div id="reservation_warn_comment" class="space">
                         <table>
@@ -532,152 +585,130 @@
                             style="border:0; width:100%; height:200%;" allowfullscreen="" loading="lazy"
                             referrerpolicy="no-referrer-when-downgrade" > </iframe>
 
+
                     </div>
 
-                    <div id="space_qa" name="QanA" class="title">
+                    <div id="space_qa" name="space_qa" class="title">
                         <div class="text">Q&A</div>
                         <hr>
                     </div>
 
 
-                    <div id="space_qa_comment" class="space">
-                       <% for(int i=0; i<10; i++) { %>
-                            <div class="qa_table qa_list" >
 
-                                <div id="user_info" style=" width: 10%; align-items: center;">
-                                    <tr>
-                                       <th id="nickname">닉네임</th>
-                                    </tr>
-                                </div>
-                             
-                                <div id="content_info">
-                                    <table >
-                                       
-                                        <tr>
-                                            <th ></th>
-                                            <td id="content">
-                                                내용내용sadfasdfd
-                                                asdfasdfasdfasdfdsafdsafsadfdsfasdfasdfasdfad
-                                                asdfasdf
-                                                asdfasdfasdfasdfdsafa
-                                                ddddd
-                                                asdfasdfasdfsdafadsfasdfasdfasdasdfasdf
-                                                asdfasdf
-                                                asdfasdfasdfasdfdsafdsafsadfdsfasdfasdfasdfad
+                    <div id="space_qa_comment" class="space  container mt-4">
 
-                                                asdfasdfasdfasdfdsafdsafsadfdsfasdfasdfasdfasd
-                                                asdf
-                                                가가각
-                                                ㅏ각가가
-                                                가가가
-                                                ㄱ각
-                                                가가가가가ㅏ
-                                            </td>
-                                        </tr>
-
-                                        <tr class="clear"></tr>
-
-                                        <tr>
-                                            <th></th>
-                                            <td id="time">2024-01-01</td>
-                                    
-                                        </tr>
-
-                                        <tr class="clear"></tr>
-                                        <tr id="host_comment">
-                                            <th class="clear"></th>
-                                            <td id="comment">
-                                                <div >호스트 답글</div>
-                                                <div style="width:50%">asdfasdfasdfsdafadsfasdfasdfasd
-                                                    asdfasdfasdfasdfdsafdsafsadfdsfasdfasdf
-                                                    asdfasdf
-                                                </div>
-                                            </td>       
-                                        </tr>
-
-                                        <tr class="clear"></tr>
-
-                                        <tr>
-                                            <!-- 호스트만 답글-->
-                                            <div style="width:80%;">
-                                                <textarea placeholder="답글을입력하세요" style="width:100%"></textarea>
-                                            </div>
-                                            <div><button type="button" style="width:20%;">등록하기</button></div>
-                                        </tr>
-
-                                    
-            
-                                    </table>
-                                </div>
-
-                            </div>
-                        <%} %>
-
-
-                            <!--로그인이 되어있고 게스트일때만 보이게 한다.-->
-                            <div id="qa_info">
-
-                                <div>QA입력</div>
-    
-                                <div id="qa_input div" style="width:100%; display:flex; justify-content: space-between;">
-    
+                    
+                            <table id="comment_table" class="list-group" >
                                 
-                                    <div style="width:100%;">
-                                        <textarea placeholder="입력하세요" style="width:100%"></textarea>
-                                    </div>
-    
-                                    <div><button type="button">등록하기</button></div>
-    
-                                </div>
+                                    
+                                    <!-- <tr class="comment_list">    
+
+                                        <th class="nickName" style="width:20%">ADMIN</th>
+                                        <td class="mb-1" > 데이터
+                                        </td>
+            
+                                    </tr>
+            
+                                    <tr class="comment_list" >
+                                            <th class="clear"></th>
+                                            <td class="time">2024-04-11</td>
+                                    </tr>
+            
+
+                                  
+                                    <tr class="host_reply_title">
+                                            <th class="clear"></th>
+                                            <td><button class="btn btn-link p-0 host-reply-toggle" data-target="#hostReply">호스트 답글 보기</button></td>
+                                    </tr>
+            
+                                    <tr class="host_reply">
+                                            <th class="clear"></th>
+                                            <td> <div id="hostReply" class="host-reply-content mt-2" style="display:none;">
+                                                <p>호스트 답글내용</p>
+                                            </div></td>
+
+                                    </tr>
+                                
                             
-                           </div>
+                        
+
+                                    <로그인이 되어있고 호스트일때만 보이게 한다.
+                                    <tr id="reply_info" class="comment_list">
+                                            <th class="clear"></th>
+                                            <td>
+                                                <div>답글</div>
+
+                                                <div id="reply div" style="width:100%; display:flex; justify-content: space-between;">
+
+                                                
+                                                    <div style="width:100%;">
+                                                        <textarea placeholder="입력하세요" style="width:100%"></textarea>
+                                                    </div>
+
+                                                    <div><button type="button">등록하기</button></div>
+
+                                                </div>
+
+                                            </td>
+                                    </tr>
+
+                                    <tr id="comment_margin">
+                                      <td colspan="2" id="comment_line"><hr></td>
+                                    </tr>
+                                -->
+                              
+                            </table> 
+
+                    </div>
+
+                    <script>
+                        // $(document).ready(function(){
+                        //     $(".host-reply-toggle").click(function(){
+                        //         let targetId = $(this).data("target");
+                        //         $(targetId).toggle();
+                        //     });
+                        // });
+                    </script>
+
+                        <input id="spaceNum" type="text" value="1" hidden> <!--공간번호--> 
+                        <div id="comment_info" style="height:80px">
+                            <th></th>
+                            <td>
+                                <div class="QA" style="  font-size: 1.2rem; margin-top:30px">QA등록하기</div>
+
+                                <div id="comment div" style="width:100%; height:100%; display:flex; justify-content: space-between;">
+                                    
+                                    <div style="width:100%">
+                                        <textarea id="content" placeholder="입력하세요" style="width:100%"></textarea>
+                                    </div>
+
+
+
+                                    <div style="height:100%"><button id="comment_enroll" type="button"  style="height:100%">등록하기</button></div>
+
+                                </div>
+
+                            </td>
                         </div>
 
 
-                 
-
-                    <div id="space_review" name="space_review" class="title">
-                        <div class="text">리뷰</div>
-                        <hr>
-                    </div>
-
-                    <div id="space_review_comment" class="space">
-                       
-                        <% for(int i=1; i<=3; i++){%>
-
-                            <table>
-                                <tr>
-                                    <th><img src="#">사진1</th>
-                                    <td>닉네임</td>
-                                </tr>
-                                <tr >
-                                    <th></th>
-                                    <td>리뷰답니다~~~
-                     
-                                    </td>
-                                </tr>
-                                <tr >
-                                    <th></th>
-                                    <td>시간</td>
-                              
-                                </tr>
-                          
-    
-                            </table>
-    
-
-                        <%} %>
+                      
 
 
-                     
-                    
+                        <div id="space_qa_review" class="space">
+
+                            <div id="space_review" name="space_review" class="title">
+                                <div class="text">리뷰</div>
+                                <hr>
+                            </div>
+                        </div>
+
+                
 
 
-
-                    </div>
 
                 </div>
-
+              
 
 
 
@@ -702,7 +733,9 @@
                         </div>
 
                         <div id="space_detail_comment">
+
                             <div class="img_div"><img src="<%=request.getContextPath()%>/resources/space_img/test.png" >세부공간이미지</div>
+
                             <p>
                                 <span>서울대 입구..스터디룸 카페 예약
                                     서울대 입구..스터디룸 카페 예약
@@ -793,6 +826,7 @@
                       
                         <script>
 
+
                             //캘린더 이벤트
                           
 
@@ -802,9 +836,24 @@
                         <div id="time" class="title">
                             <div>시간선택</div>
                             <div id="choiced">
-                                선택된 날짜:<input id=choiced_date type="text" disabled>
-                                <input id=choiced_time type="text" disabled>
-                                <input id=gap_time type="number" disabled>시간
+                                <table>
+                                    <tr>
+                                        <th>선택된 날짜</th>
+                                        <td><input id=choiced_date type="text" disabled></td>
+                                    </tr>
+                                    <tr>
+                                        <th>시간</th>
+                                        <td><input id=choiced_time type="text" disabled></td>
+                                   
+                                    </tr>
+                                    <tr>
+                                        <th></th>
+                                        <td><input id=gap_time type="number" disabled>시간</td>
+                                     </tr>
+                                 </table>
+                            
+                                
+                              
                                 <input id="choiced_price" type="number" hidden >
                             </div>
                         </div>
@@ -813,91 +862,91 @@
 
 
                         <div id="time_choice">
-                            <ul>
-                                <li>
+                            <ul class="list-group list-group-horizontal" >
+                                <li class="list-group-item">
                                     <div class="time_box">
-                                        <span class="time">9</span>
-                                        <span class="price">1000</span>
+                                        <div class="time" style="display:inline;">9</div>
+                                        <div class="price">1000</div>
                                     </div>
                                 </li>
-                                <li>
+                                <li  class="list-group-item">
                                     <div class="time_box">
-                                        <span class="time">10</span>
-                                        <span class="price">1000</span>
+                                        <div class="time">10</div>
+                                        <div class="price">1000</div>
                                     </div>
                                 </li>
-                                <li>
+                                <li class="list-group-item">
                                     <div class="time_box">
-                                        <span class="time">11</span>
-                                        <span class="price">1000</span>
+                                        <div class="time">11</div>
+                                        <div class="price">1000</div>
                                     </div>
                                 </li>
-                                <li>
+                                <li class="list-group-item">
                                     <div class="time_box">
-                                        <span class="time">12</span>
-                                        <span class="price">2000</span>
+                                        <div class="time">12</div>
+                                        <div class="price">2000</div>
                                     </div>
                                 </li>
-                                <li>
+                                <li class="list-group-item">
                                     <div class="time_box">
-                                        <span class="time">13</span>
-                                        <span class="price">2000</span>
+                                        <div class="time">13</div>
+                                        <div class="price">2000</div>
                                     </div>
                                 </li>
-                                <li>
+                                <li class="list-group-item">
                                     <div class="time_box">
-                                        <span class="time">14</span>
-                                        <span class="price">3000</span>
+                                        <div class="time">14</div>
+                                        <div class="price">3000</div>
                                     </div>
                                 </li>
-                                <li>
+                                <li class="list-group-item">
                                     <div class="time_box">
-                                        <span class="time">15</span>
-                                        <span class="price">1000</span>
+                                        <div class="time">15</div>
+                                        <div class="price">1000</div>
                                     </div>
                                 </li>
-                                <li>
+                                <li class="list-group-item">
                                     <div class="time_box">
-                                        <span class="time">16</span>
-                                        <span class="price">1000</span>
+                                        <div class="time">16</div>
+                                        <div class="price">1000</div>
                                     </div>
                                 </li>
-                                <li>
+                                <li class="list-group-item">
                                     <div class="time_box">
-                                        <span class="time">17</span>
-                                        <span class="price">1000</span>
+                                        <div class="time">17</div>
+                                        <div class="price">1000</div>
                                     </div>
                                 </li>
-                                <li>
+                                <li class="list-group-item">
                                     <div class="time_box">
-                                        <span class="time">18</span>
-                                        <span class="price">1000</span>
+                                        <div class="time">18</div>
+                                        <div class="price">1000</div>
                                     </div>
                                 </li>
-                                <li>
+                                <li class="list-group-item">
                                     <div class="time_box">
-                                        <span class="time">19</span>
-                                        <span class="price">1000</span>
+                                        <div class="time">19</div>
+                                        <div class="price">1000</div>
                                     </div>
                                 </li>
-                                <li>
+                                <li class="list-group-item">
                                     <div class="time_box">
-                                        <span class="time">20</span>
-                                        <span class="price">1000</span>
-                                    </div>
-                                </li>
-
-                                <li>
-                                    <div class="time_box">
-                                        <span class="time">21</span>
-                                        <span class="price">1000</span>
+                                        <div class="time">20</div>
+                                        <div class="price">1000</div>
                                     </div>
                                 </li>
 
-                                <li>
+                                <li class="list-group-item">
                                     <div class="time_box">
-                                        <span class="time">22</span>
-                                        <span class="price">1000</span>
+                                        <div class="time">21</div>
+                                        <div class="price">1000</div>
+                                    </div>
+                                </li>
+
+                                <li class="list-group-item">
+                                    <div class="time_box">
+                                        <div class="time">22</div>
+                                        <div class="price">1000</div>
                                     </div>
                                 </li>
 
@@ -931,9 +980,9 @@
 
 
                     <div align="center" style="margin-top:0px;">
-                        <button type="button" class="button" data-toggle="modal"  data-target="#pay-modal" 
-                            id="reservation_btn">예약하기</button>
-                        <button type="button" class="button">목록으로</button>
+                        <button  class="navbar-toggler" type="button" class="button" data-toggle="modal"  data-target="#pay-modal" 
+                            id="reservation_btn" style="color:white">예약하기</button>
+                        <button class="navbar-toggler" type="button" class="button" style="color:white">목록으로</button>
                     </div>
 
 
@@ -1022,7 +1071,14 @@
                         </div>
 
                         <div id="space_detail_comment">
+
                             <div class="img_div"><img src="<%=request.getContextPath()%>/resources/space_img/test.png">세부공간이미지</div>
+
+                            <div class="img_div"><img src="../../resources/space_img/test.png">세부공간이미지</div>
+
+
+                            <div class="img_div"><img src="<%=request.getContextPath()%>/resources/space_img/test.png">세부공간이미지</div>
+
                             <p>
                                 <span>서울대 입구..스터디룸 카페 예약
                                     서울대 입구..스터디룸 카페 예약
@@ -1087,7 +1143,7 @@
 
                         <div align="center">
                             <form action="#" method="post" style="display: inline;">
-                                <button type="submit" class="button">취소하기</button>
+                                <button type="button" class="button">취소하기</button>
                             </form>
                             <button type="button" class="button" onclick="location.href=history.back();">목록으로</button>
                         </div>
@@ -1100,7 +1156,7 @@
 
                 </div>
 
-            </div>
+            </nav>
 
 
 

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+<entry key="insertMember">
+	INSERT INTO MEMBER(
+		ID
+		PWD
+		NAME
+		MEMBER_NICKNAME
+		GENDER
+		DATE_OF_BIRTH
+		EMAIL
+		PHONE
+	)
+	VALUES
+	(
+		SEQ_UNO.NEXTVAL,
+		?,
+		?,
+		?,
+		?,
+		?,
+		?,
+		?
+	)
+</entry>	
+
+	
+</properties>
