@@ -33,19 +33,21 @@ public class MemberLoginController extends HttpServlet {
 
 		String userId = request.getParameter("userId");
 		String userPwd = request.getParameter("userPwd");
-
+		System.out.println(userId);
+		System.out.println(userPwd);
 		Member loginUser = new MemberService().loginMember(userId, userPwd);
 
-		System.out.println("안녕");
+		
+		System.out.println(loginUser);
 		if (loginUser == null) {
 			request.setAttribute("errorMsg", "로그인에 실패하였습니다.");
 			request.getRequestDispatcher("views/member/LoginMember_hamyu.jsp").forward(request, response);
-			System.out.println("안녕1");
+			
 		}else {
 			
 			request.getSession().setAttribute("loginUser", loginUser);
 			response.sendRedirect(request.getContextPath()+"/views/common/mainPage.jsp");
-			System.out.println("안녕2");
+			
 		}
 	}
 

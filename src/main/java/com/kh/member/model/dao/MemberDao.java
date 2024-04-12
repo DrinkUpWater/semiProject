@@ -40,7 +40,7 @@ public class MemberDao {
 			pstmt.setString(1, m.getUserId());
 			pstmt.setString(2, m.getUserPwd());
 			pstmt.setString(3, m.getUserName());
-			pstmt.setString(4, m.getNickname());
+			pstmt.setString(4, m.getNickName());
 			pstmt.setString(5, m.getBirth());
 			pstmt.setString(6, m.getEmail());
 			pstmt.setString(7, m.getPhone());
@@ -67,8 +67,11 @@ public class MemberDao {
 			pstmt.setString(2, userPwd);
 
 			rset = pstmt.executeQuery();
+			
 			if (rset.next()) {
+				System.out.println("11");
 				m = new Member(
+						
 						   rset.getInt("USER_NO"), 
 						   rset.getString("USER_ID"), 
 						   rset.getString("USER_PWD"),
@@ -76,14 +79,14 @@ public class MemberDao {
 						   rset.getString("USER_NICKNAME"),
 						   rset.getString("GENDER"), 
 						   rset.getString("PHONE"), 
-						   rset.getString("EMAIL"), 
 						   rset.getString("BIRTH"),
-						   rset.getString("JOIN_DATE"),
-						   rset.getString("MODIFY_DATE"),
+						   rset.getString("EMAIL"), 
+						   rset.getDate("JOIN_DATE"),
+						   rset.getDate("MODIFY_DATE"),
 						   rset.getString("STATUS"),
 						   rset.getString("USER_HOST"),
-						   rset.getString("USER_ADMIN")				   
-						);
+						   rset.getString("USER_ADMIN")				   			   
+				);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

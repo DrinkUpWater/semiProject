@@ -189,7 +189,7 @@
 		            </div>
 		            <h2>kH ROOMMOAH</h2>
 		            <div id="right-bar">
-		                <a href="">닉네임</a> | <a href="">로그아웃</a>
+		                <a href="">${loginUser.nickName }</a> | <a href="">로그아웃</a>
 		            </div>
 		        </div>
         	</c:otherwise>
