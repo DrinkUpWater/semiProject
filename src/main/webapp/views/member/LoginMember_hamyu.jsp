@@ -197,6 +197,10 @@
                 userPwd.focus();
                 return false;
             }
+            else{ //빈칸없이 입력은 했으나 DB에서 계정을 찾지 못했을 경우 
+                 alert(request.getAttribute('errorMsg'));
+                return false;
+            }
         }
     </script>
 </body>
