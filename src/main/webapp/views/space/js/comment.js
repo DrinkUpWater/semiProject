@@ -131,7 +131,7 @@ function commentList (commentTable,response){
                 +"<div>답글</div>"
                 +"<div id='reply div' style='width:100%; display:flex; justify-content: space-between;'>"
                     +"<div style='width:100%;'>"
-                         + "<textarea id='hostReplyContent' class='hostReplayContents' placeholder='입력하세요' style='width:100%'></textarea>"
+                         + "<textarea id='hostReplyContent' class='hostReplayContents' placeholder='입력하세요' style='width:100%;'   ></textarea>"
                          + "<input class='hostReplyNo' type='text' value='"+reply['commentNo'] +"' hidden/>"
                     +"</div>"
                     +"<div><button class='submitHostReplyBtn' type='button' '>등록하기</button></div>"
