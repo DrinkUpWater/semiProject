@@ -64,17 +64,22 @@ document.addEventListener('DOMContentLoaded', function () {
             ///제이쿼리로 정리
 
             function disableBookedTimes1(currentDate,datetimes) {
+                let priceColor="rgb(255, 255, 255)"
+                let reservatedPriceColor='rgb(128, 128, 128)'
+                let selectedColor="rgb(0, 0, 255)"
+               
+
                 $("#choiced_date").val(currentDate); // jQuery 사용으로 변경
                 $('#time_choice').css("display", "block");
                 $('.time_box').each(function(){
                     const time=$(this).find('.time').text();
                    
                     if(datetimes.includes(parseInt(time))){
-                        $(this).find('.price').css("backgroundColor","rgb(128, 128, 128)");
+                        $(this).find('.price').css("backgroundColor",reservatedPriceColor);
                         $(this).find('.price').attr("disabled",true);
                     }
                     else{
-                        $(this).find('.price').css("backgroundColor","yellow");
+                        $(this).find('.price').css("backgroundColor",priceColor);
                     }
                  })
 
@@ -95,21 +100,21 @@ document.addEventListener('DOMContentLoaded', function () {
             
                 $('.time_box').off().on('click', function() {
 
-                    if($(this).find('.price').css("backgroundColor")==='rgb(128, 128, 128)'){
+                    if($(this).find('.price').css("backgroundColor")===reservatedPriceColor){
 
                         return false;
                     }
                    
                     const time = parseInt($(this).find('.time').text());
                     const price = parseInt($(this).find('.price').text());
-                    const isSelected = ($(this).find('.price').css("backgroundColor") === 'rgb(0, 0, 255)');
+                    const isSelected = ($(this).find('.price').css("backgroundColor") === selectedColor);
             
 
 
 
                     if (isSelected) {
                         // 선택 취소 로직
-                        $(this).find('.price').css("backgroundColor", "yellow");
+                        $(this).find('.price').css("backgroundColor", priceColor);
                         timeArr = timeArr.filter(t => t !== time); // 시간 배열에서 제거
                         priceValue -= price;
                         count--;
@@ -119,14 +124,14 @@ document.addEventListener('DOMContentLoaded', function () {
                             return false;
                         }
                        // 새로운 시간 선택 로직
-                        $(this).find('.price').css("backgroundColor", "rgb(0, 0, 255)");
+                        $(this).find('.price').css("backgroundColor", selectedColor);
                         timeArr.push(time);
                         timeArr.sort((a, b) => a - b); // 시간 순서대로 정렬
             
                         if (timeArr.length > 1 && Math.abs(timeArr[timeArr.length - 1] - timeArr[0]) >= 2) {
                             // 연속되지 않는 시간 선택 시 경고
                             alert("연속된 시간이어야 합니다.");
-                            $(this).find('.price').css("backgroundColor", "yellow");
+                            $(this).find('.price').css("backgroundColor", selectedColor);
                             timeArr.pop(); // 마지막에 추가한 시간 제거
                         } else {
                             priceValue += price;

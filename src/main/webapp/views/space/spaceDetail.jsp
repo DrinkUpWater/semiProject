@@ -330,6 +330,9 @@
                 display: flex;
                 justify-content: space-between;
             }
+            #choiced input{
+                border: none;
+            }
 
             #detail_space_choice {
 
@@ -340,6 +343,25 @@
             #time_choice {
                 display: none;
             }
+            
+          
+            .time_box{
+                height:100%;
+                width:100%;
+              
+            }
+
+            .time{
+                /* height:30%; */
+                font-size: 20px;
+                width:100%;
+              
+            }
+            .price{
+                font-size: 20px;
+              
+            }
+            
 
             #time_choice>ul {
 
@@ -350,9 +372,10 @@
             }
 
             .price {
-                border: solid rgb(215, 213, 213);
+                /* border: solid 1px rgb(215, 213, 213); */
 
-                background-color: yellow;
+                /* background-color: yellow */
+               
             }
 
             #space_option_kind {
@@ -813,9 +836,24 @@
                         <div id="time" class="title">
                             <div>시간선택</div>
                             <div id="choiced">
-                                선택된 날짜:<input id=choiced_date type="text" disabled>
-                                <input id=choiced_time type="text" disabled>
-                                <input id=gap_time type="number" disabled>시간
+                                <table>
+                                    <tr>
+                                        <th>선택된 날짜</th>
+                                        <td><input id=choiced_date type="text" disabled></td>
+                                    </tr>
+                                    <tr>
+                                        <th>시간</th>
+                                        <td><input id=choiced_time type="text" disabled></td>
+                                   
+                                    </tr>
+                                    <tr>
+                                        <th></th>
+                                        <td><input id=gap_time type="number" disabled>시간</td>
+                                     </tr>
+                                 </table>
+                            
+                                
+                              
                                 <input id="choiced_price" type="number" hidden >
                             </div>
                         </div>
@@ -824,91 +862,91 @@
 
 
                         <div id="time_choice">
-                            <ul>
-                                <li>
+                            <ul class="list-group list-group-horizontal" >
+                                <li class="list-group-item">
                                     <div class="time_box">
-                                        <span class="time">9</span>
-                                        <span class="price">1000</span>
+                                        <div class="time" style="display:inline;">9</div>
+                                        <div class="price">1000</div>
                                     </div>
                                 </li>
-                                <li>
+                                <li  class="list-group-item">
                                     <div class="time_box">
-                                        <span class="time">10</span>
-                                        <span class="price">1000</span>
+                                        <div class="time">10</div>
+                                        <div class="price">1000</div>
                                     </div>
                                 </li>
-                                <li>
+                                <li class="list-group-item">
                                     <div class="time_box">
-                                        <span class="time">11</span>
-                                        <span class="price">1000</span>
+                                        <div class="time">11</div>
+                                        <div class="price">1000</div>
                                     </div>
                                 </li>
-                                <li>
+                                <li class="list-group-item">
                                     <div class="time_box">
-                                        <span class="time">12</span>
-                                        <span class="price">2000</span>
+                                        <div class="time">12</div>
+                                        <div class="price">2000</div>
                                     </div>
                                 </li>
-                                <li>
+                                <li class="list-group-item">
                                     <div class="time_box">
-                                        <span class="time">13</span>
-                                        <span class="price">2000</span>
+                                        <div class="time">13</div>
+                                        <div class="price">2000</div>
                                     </div>
                                 </li>
-                                <li>
+                                <li class="list-group-item">
                                     <div class="time_box">
-                                        <span class="time">14</span>
-                                        <span class="price">3000</span>
+                                        <div class="time">14</div>
+                                        <div class="price">3000</div>
                                     </div>
                                 </li>
-                                <li>
+                                <li class="list-group-item">
                                     <div class="time_box">
-                                        <span class="time">15</span>
-                                        <span class="price">1000</span>
+                                        <div class="time">15</div>
+                                        <div class="price">1000</div>
                                     </div>
                                 </li>
-                                <li>
+                                <li class="list-group-item">
                                     <div class="time_box">
-                                        <span class="time">16</span>
-                                        <span class="price">1000</span>
+                                        <div class="time">16</div>
+                                        <div class="price">1000</div>
                                     </div>
                                 </li>
-                                <li>
+                                <li class="list-group-item">
                                     <div class="time_box">
-                                        <span class="time">17</span>
-                                        <span class="price">1000</span>
+                                        <div class="time">17</div>
+                                        <div class="price">1000</div>
                                     </div>
                                 </li>
-                                <li>
+                                <li class="list-group-item">
                                     <div class="time_box">
-                                        <span class="time">18</span>
-                                        <span class="price">1000</span>
+                                        <div class="time">18</div>
+                                        <div class="price">1000</div>
                                     </div>
                                 </li>
-                                <li>
+                                <li class="list-group-item">
                                     <div class="time_box">
-                                        <span class="time">19</span>
-                                        <span class="price">1000</span>
+                                        <div class="time">19</div>
+                                        <div class="price">1000</div>
                                     </div>
                                 </li>
-                                <li>
+                                <li class="list-group-item">
                                     <div class="time_box">
-                                        <span class="time">20</span>
-                                        <span class="price">1000</span>
-                                    </div>
-                                </li>
-
-                                <li>
-                                    <div class="time_box">
-                                        <span class="time">21</span>
-                                        <span class="price">1000</span>
+                                        <div class="time">20</div>
+                                        <div class="price">1000</div>
                                     </div>
                                 </li>
 
-                                <li>
+                                <li class="list-group-item">
                                     <div class="time_box">
-                                        <span class="time">22</span>
-                                        <span class="price">1000</span>
+                                        <div class="time">21</div>
+                                        <div class="price">1000</div>
+                                    </div>
+                                </li>
+
+                                <li class="list-group-item">
+                                    <div class="time_box">
+                                        <div class="time">22</div>
+                                        <div class="price">1000</div>
                                     </div>
                                 </li>
 
