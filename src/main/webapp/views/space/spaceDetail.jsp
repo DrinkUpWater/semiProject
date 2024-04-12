@@ -430,9 +430,9 @@
                     <div id="list">
                         <ul>
                             <li><a href="#space_intro">공간소개</a></li>
-                            <li><a href="#intro">시설안내</a></li>
-                            <li><a href="#warn">유의사항</a></li>
-                            <li><a href="#QanA">Q&A</a></li>
+                            <li><a href="#space_guide">시설안내</a></li>
+                            <li><a href="#reservation_warn">유의사항</a></li>
+                            <li><a href="#space_qa">Q&A</a></li>
                             <li><a href="#space_review">이용후기</a></li>
                         </ul>
                     </div>
@@ -455,7 +455,7 @@
 
                     </div>
 
-                    <div id="space_guide" name="intro" class="title">
+                    <div id="space_guide" name="space_guide" class="title">
                         <div class="text">시설안내</div>
                         <hr class="line2" style="background:rgb(235, 229, 229) ">
                     </div>
@@ -504,7 +504,7 @@
                     </div>
 
 
-                    <div id="reservation_warn" name="warn" class="title">
+                    <div id="reservation_warn" name="reservation_warn" class="title">
                         <div class="text">예약시 주의사항</div>
                         <hr class="line2" style="background:rgb(235, 229, 229) ">
                     </div>
@@ -565,7 +565,7 @@
 
                     </div>
 
-                    <div id="space_qa" name="QanA" class="title">
+                    <div id="space_qa" name="space_qa" class="title">
                         <div class="text">Q&A</div>
                         <hr>
                     </div>
