@@ -175,8 +175,8 @@
             </div>
 
             <div class="find-user-info">
-                <a href="FindPassword_hamyu.jsp" class="find-pwd">비밀번호를 잊으셨나요?</a><br>
-                <h7>계정이 없으신가요?</h7> <a href="JoinMember_hamyu.jsp" class="join-user">회원가입</a>
+                <a href="findPwd.me" class="find-pwd">비밀번호를 잊으셨나요?</a><br>
+                <h7>계정이 없으신가요?</h7> <a href="enrollForm.me" class="join-user">회원가입</a>
             </div>
 
 
