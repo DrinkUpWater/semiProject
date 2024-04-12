@@ -92,6 +92,11 @@
                 margin-right: 20px;
             }
 
+            #space_id{
+                display: flex;
+                justify-content: space-between;
+                
+            }
 
             .space {
             
@@ -413,17 +418,18 @@
 
     </head>
 
-
+  
     <body>
         <%@ include file="../common/menubar.jsp" %>
-
+           
+          
             <nav id="main" class="navbar-light bg-light">
 
                 <div id="section_1">
 
 
                     <div id="space_id" name="space_name" class="title">
-                        <div class="text"> 르씨엘 2호점</div>
+                        <div class="text"> 르씨엘 2호점</div> <div><span><a href="<%=contextPath%>/picked.sp" onclick="alert('찜되었습니다.')">찜하기</a></span></div>
                     </div>
                     <div id="space_comment" class="space">
                         <div align="left" class="img_div">
