@@ -1,5 +1,10 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%
+	String contextPath = request.getContextPath();
+%>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,8 +13,7 @@
         #wrapper{
             width: 1200px;
             height: 735px;
-            margin-top: 100px;  /*preview에서 예쁘게 볼려고 넣은거*/
-            margin-left: 100px; /*preview에서 예쁘게 볼려고 넣은거*/
+            margin: auto;
             box-sizing: border-box;
         }
         #main{
@@ -72,13 +76,12 @@
         }
         #comment-write textarea{
             width: 100%;
-            height: 58px;
+            height: 130px;
             border: 0;
             padding: 20px;
             font-size: 14px;
             opacity: 0.8;
             font-weight: 50;
-
             box-sizing: border-box;
             resize: none;
         }
@@ -138,7 +141,7 @@
                 </div>
             </div>
             <div id="btn-area">
-                <a href="" id="a1">목록보기</a>
+                <a href="<%=contextPath %>/list.no" id="a1">목록보기</a>
                 <a href="" id="a2">이전 글</a>
                 <a href="" id="a3">다음 글</a>
                 <span>

@@ -1,3 +1,9 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ page import="java.util.ArrayList"%>
+<%
+	String contextPath = request.getContextPath();
+%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -6,10 +12,10 @@
     <title>일반게시판</title>
     <style>
         #wrapper{
+
             width: 1200px;
             height: 700px;
-            margin-top: 100px;  /*preview에서 예쁘게 볼려고 넣은거*/
-            margin-left: 100px; /*preview에서 예쁘게 볼려고 넣은거*/
+            margin: auto;
         }
         .table{
             border-top: 4px solid rgb(218, 218, 218);;
@@ -17,6 +23,9 @@
             width: 100%;
             text-align: center;
             border-collapse: collapse;
+        }
+        tr{
+            cursor: pointer;
         }
         th {
             border-bottom: 1px solid rgb(201, 201, 201);
@@ -33,9 +42,6 @@
         .title{
             text-align: left;
         }
-        /* .btnList{
-
-        } */
         a{
             text-decoration: none;
             border: 1px solid rgb(201, 201, 201);
@@ -53,7 +59,10 @@
             width: 70px;
             float: right;
         }
-        .search-area{
+        #btnList-area{
+            margin-top: 10px;
+        }
+        #search-area{
              box-sizing: border-box;
              padding-top: 15px;
              display: flex;
@@ -67,7 +76,13 @@
             width: 90px;
             height: 30px
         }
-        .search-input{
+        #text-input{
+            border: 1px solid;
+            width: 300px;
+            height: 26px;
+            margin-left: 10px;
+        }
+        #search-input{
             border: 1px solid rgb(201, 201, 201);
             width: 300px;
             height: 26px;
@@ -75,14 +90,18 @@
         }
         #search-btn{
             width: 60px;
-            height: 28px;
+            height: 30px;
+            line-height: 28px;
+            background-color: #fafafa;
         }
+
     </style>
 </head>
 <body>
     <div id="wrapper" >
-        <h1 style="color: #927f69">일반게시판</h1>
+        <h1 style="color: #927f69">공지사항</h1>
         <div id="table-wrapper">
+
             <table class="table">
                 <thead align="center">
                     <th width="30">번호</th>
@@ -91,81 +110,95 @@
                     <th width="60">작성일</th>
                 </thead>
                 <tbody>
-                    <tr>
+                    <tr onclick="trClick();">
                         <td>8</td>
-                        <td class="title">안녕하세요 반갑습니다(8)</td>
+                        <td class="title">일반게시판입니다.(8)</td>
                         <td>user08</td>
                         <td>2024.01.08</td>
                     </tr>
                     <tr>
                         <td>7</td>
-                        <td class="title">안녕하세요 반갑습니다(7)</td>
+                        <td class="title">일반게시판입니다.(7)</td>
                         <td>user07</td>
                         <td>2024.01.07</td>
                     </tr>
                     <tr>
                         <td>6</td>
-                        <td class="title">안녕하세요 반갑습니다(6)</td>
+                        <td class="title">일반게시판입니다.(6)</td>
                         <td>user06</td>
                         <td>2024.01.06</td>
                     </tr>
                     <tr>
                         <td>5</td>
-                        <td class="title">안녕하세요 반갑습니다(5)</td>
+                        <td class="title">일반게시판입니다.(5)</td>
                         <td>user05</td>
                         <td>2024.01.05</td>
                     </tr>
                     <tr>
                         <td>4</td>
-                        <td class="title">안녕하세요 반갑습니다(4)</td>
+                        <td class="title">일반게시판입니다.(4)</td>
                         <td>user04</td>
                         <td>2024.01.04</td>
                     </tr>
                     <tr>
                         <td>3</td>
-                        <td class="title">안녕하세요 반갑습니다(3)</td>
+                        <td class="title">일반게시판입니다.(3)</td>
                         <td>user03</td>
                         <td>2024.01.03</td>
                     </tr>
                     <tr>
                         <td>2</td>
-                        <td class="title">안녕하세요 반갑습니다(2)</td>
+                        <td class="title">일반게시판입니다.(2)</td>
                         <td>user02</td>
                         <td>2024.01.02</td>
-                    </tr>
+                    </tr> 
                     <tr>
                         <td>1</td>
-                        <td class="title">안녕하세요 반갑습니다(1)</td>
+                        <td class="title">일반게시판입니다.(1)</td>
                         <td>user01</td>
-                        <td>2024.01.01</td>
+                        <td>2024.01.01</td> 
                     </tr>
                 </tbody>
             </table>
-            <div class="d1">
-                <div class="btnList" align="center">
-                    <a href="">&lt;</a>
-                    <a href="">1</a>
-                    <a href="">&gt;</a>
-                    
-                    <a href="" id="write-btn">글쓰기</a>
-                </div> 
-            </div>
+            <%-- 
+            <%if(loginUser != null {%>
+                <!-- 로그인 했을 때 뜨는 버튼 -->
+                <div id="btnList-area">
+                    <div class="btnList" align="center">
+                        <a href="">&lt;</a>
+                        <a href="">1</a>
+                        <a href="">&gt;</a>
+                        
+                        <a href="<%=contextPath %>/enroll.no" id="write-btn">글쓰기</a>
+                    </div> 
+                </div>
+            <%} %>
+            --%>
         </div>
         
         <form action="">
-            <div class="search-area" align="center">
+            <div id="search-area" align="center">
                 <select name="selectbar" id="selectbar">
                     <option value="">제목</option>
                     <option value="">내용</option>
                 </select>
-                <!-- <span class="sp">제목</span > -->
-                <input type="text" class="search-input">
+                <input type="text" id="search-input">
                 <a href="" id="search-btn">검색</a>
             </div>
         </form>
     </div>
+    <script>
+        // $(function(){
+        //     $(".table > tbody > tr").click(function(){
+        //         const noticeNo = $(this).children().eq(0).text();
+        //         location.href="<%=contextPath%>/detail.no?num=" + noticeNo + "";
+        //     })
+        // })
+        function trClick(){
+            // 테스트용으로 그냥 디테일뷰만 뜨게 한거임(위의 방법으로 해야함)
+            location.href="<%=contextPath%>/detail.no";
+        }
 
-
-
+    </script>
 </body>
 </html>
