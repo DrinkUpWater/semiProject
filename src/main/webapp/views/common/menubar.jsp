@@ -41,15 +41,17 @@
         margin: 10px auto;
         
     }
-    .login-area div{
-        width: 200px;
+    .login-area div {
+    	width: 200px;
     }
+    
     .login-area{
         display: flex;
         justify-content: space-between;
         align-items: center;
         border-bottom: 1px solid black;
-        
+        height: 60px;
+        padding-top: 10px;
     }
     a {
         text-decoration: none;
@@ -62,10 +64,9 @@
     }
     #left-bar{
         margin-left: 10px;
-        cursor: pointer;
     }
     #left-bar i:hover{
-        
+        cursor: pointer;
     }
     #right-bar{
         margin-right: 10px;
@@ -106,10 +107,12 @@
     }
     .side-logo>h3 {
         font-family:'ZCOOL KuaiLe';
+        padding-top: 8px;
     }
     .side-list table {
         width: 100%;
         background-color: white;
+        cursor: pointer;
     }
     .side-list table th{
         border: 1px solid rgb(204, 204, 204);
@@ -122,21 +125,40 @@
         margin: 0;
         padding: 0;
         font-size: 20px;
+        cursor: pointer;
     } 
     .side-menu{
-        display: none;
+        
     }
     .login-area{
         margin-bottom: 30px;
     }
 
     .side-menu {
-        display: none;
+        height: 100%;
+        width: 0;
+        position: fixed;
+        z-index: 1;
+        top:0;
+        left:0;
+        overflow-x: hidden;
+        transition: 0.4s;
+        padding-top: 69px;
     }
     .side-menu-host{
         display:none;
     }
-   
+    .menubar-logo{
+        cursor: pointer;
+    }
+    .x-icon{
+    	position: absolute;
+    	top: 75px;
+    	right: 8px;
+    	color : rgb(126, 126, 126);
+        cursor: pointer;
+    }
+    
     
 </style>
 </head>
@@ -145,10 +167,12 @@
         
         <!-- 로그인 전 -->
         <div class="login-area">
-            <div id="left-bar">
-                <i class="fa-solid fa-bars fa-xl"></i>
+            <div id="left-bar" >
+                <i class="fa-solid fa-bars fa-xl" onclick="openNav()"></i>
             </div>
-            <h2>kH ROOMMOAH</h2>
+          
+            <h2 class="menubar-logo" >kH ROOMMOAH</h2>
+
             <div align="end" id="right-bar">
                 <a href="">회원가입</a> | <a href="">로그인</a>
             </div>
@@ -165,11 +189,14 @@
                 <a href="">닉네임</a> | <a href="">로그아웃</a>
             </div>
         </div> -->
-    
+    </div>
         <!-- 사이드 메뉴 왼쪽위 클릭시 나오게 -->
         <!-- 일반 -->
-        <div class="side-menu" align="center">
+        <div id="mySidenav" class="side-menu sidenav" align="center">
             <div class="side-profile">
+	            <div class="x-icon">
+		        	<i class="fa-solid fa-x fa-xl" onclick="closeNav()"></i>
+		        </div>
                 <div class="side-profile-picture"></div>
                 <div class="side-profile-nickname">
                     <br>
@@ -177,7 +204,7 @@
                     <p>프로필관리 ></p>
                 </div>
             </div>
-
+			
             <div class="side-logo">
                 <h3>kH ROOMMOAH</h3>
             </div>
@@ -188,10 +215,10 @@
                 <table>
                     
                     <tr align="center">
-                        <th >홈</th>
+                        <th class="home" >홈</th>
                     </tr>
                     <tr align="center">
-                        <th>예약 리스트</th>
+                        <th class="book-list">예약 리스트</th>
                     </tr>
                     <tr align="center">
                         <th>찜한 공간</th>
@@ -211,6 +238,7 @@
                 <p>호스트센터로 이동 > </p>
             </div>
         </div>
+    
 
 
         <!-- 사이드 메뉴 왼쪽위 클릭시 나오게 -->
@@ -258,7 +286,31 @@
                 <p >스페이스클라우드로 이동 > </p>
             </div>
         </div>
+    
+    <script>
+        // 클릭시 메인페이지로
+        $(".menubar-logo").click(function(){
+            location.href="<%=contextPath%>";
+        });
+        $(".home").click(function(){
+            location.href="<%=contextPath%>";
+        });
+        
+        //호스트페이지로
+        $(".side-tohost").click(function(){
+            location.href="<%=contextPath%>/views/host/hostMainPage.jsp"
+        });
 
-    </div>
+        // 사이드 바
+        function openNav() {
+        	document.getElementById("mySidenav").style.width = "320px";
+        }
+        function closeNav() {
+        	document.getElementById("mySidenav").style.width = "0px";
+        }
+        
+        
+        
+    </script>
 </body>
 </html>
