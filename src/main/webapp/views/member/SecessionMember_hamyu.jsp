@@ -19,7 +19,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
     <style>
-        body {
+        #wrapper {
             width: 1200px;
             margin: auto;
         }
@@ -259,35 +259,59 @@
 
 <body>
     <%@ include file="../common/menubar.jsp" %>
-    <form>
-        <div class="secss-member">
-            <p class="head-text1">서비스 탈퇴전에 꼭 확인하세요!</p>
-            <p class="head-text2">서비스 탈퇴시 내 프로필,예약내역 등의 모든 정보가 삭제되며 이후 복구가 불가능합니다.</p>
-            <hr>
-            <div class="checkbox-area">
-                <div class="checkbox-wrapper-19">
-                    <input type="checkbox" id="cbtest-19" />
-                    <!-- <p class="ck-text">위의 내용을 숙지했으며 서비스 탈퇴에 동의합니다.</p> -->
-                    <label for="cbtest-19" class="check-box">
+    <div id="wrapper">
+        <form action="">
+            <div class="secss-member">
+                <p class="head-text1">서비스 탈퇴전에 꼭 확인하세요!</p>
+                <p class="head-text2">서비스 탈퇴시 내 프로필,예약내역 등의 모든 정보가 삭제되며 이후 복구가 불가능합니다.</p>
+                <hr>
+                <div class="checkbox-area">
+                    <div class="checkbox-wrapper-19">
+                        <input type="checkbox" id="cbtest-19" />
+                        <!-- <p class="ck-text">위의 내용을 숙지했으며 서비스 탈퇴에 동의합니다.</p> -->
+                        <label for="cbtest-19" class="check-box">
+                    </div>
+                    <div class="agree-text">
+                        위의 내용을 숙지했으며 서비스 탈퇴에 동의합니다.
+                    </div>
+
+
                 </div>
-                <div class="agree-text">
-                    위의 내용을 숙지했으며 서비스 탈퇴에 동의합니다.
+                <hr>
+                <div style="color: red; font-size: 10px;">
+                    * 서비스 탈퇴 동의는 필수입니다 *
                 </div>
 
+                <div class="secss-btn">
+                    <a href="MyPage_hamyu.jsp"  id="cancle">취소</a>
+                    <input type="submit" value="서비스 탈퇴" id="secess" onclick="testConfirm()"></input>
+
+                </div>
 
             </div>
-            <hr>
-            <div style="color: red; font-size: 10px;">
-                * 서비스 탈퇴 동의는 필수입니다 *
-            </div>
+        </form>
+    </div>
+    <script>
 
-            <div class="secss-btn">
-                <a href="" id="cancle">취소</a>
-                <input type="submit" value="서비스 탈퇴" id="secess"></input>
-            </div>
+        // function ckchecked(checkId){
+        //    return checkId.checked;
+        // }
 
-        </div>
-    </form>
+        function testConfirm(){ //회원 탈퇴
+       
+             if (!document.getElementById("cbtest-19").checked){
+                alert("탈퇴에 동의해주시기바랍니다.");
+            }else{
+                
+                if(confirm("정말로 탈퇴하시겠습니까?")){
+                    alert("정상적으로 탈퇴되었습니다.");
+                }else{
+                    alert("탈퇴 실패했습니다.");
+                }
+            }
+
+        }
+    </script>
 </body>
 
 </html>

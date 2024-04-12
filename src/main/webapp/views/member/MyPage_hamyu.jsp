@@ -15,9 +15,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
     <style>
-        body {
+        #wrapper {
             width: 1200px;
-            margin:auto;
+            margin: auto;
         }
         
         .login-top {
@@ -111,6 +111,10 @@
         }
         #edit-user{
             text-decoration: none;
+            color: rgb(77, 100, 228);
+        }
+        #edit-user:hover{
+            opacity: 0.7;
         }
         #bottom-area{
             height: 100px;
@@ -150,78 +154,80 @@
 </head>
 <body>
     <%@ include file="../common/menubar.jsp" %>
-    <div class="login-top" align="center">
-        <h2 class="mypage-header">마이페이지</h2>
-    </div>
-
-    <div class="user-profile">
-        <div class="user-image-area">
-            <img src="" alt="" id="user_profile">
+    <div id="wrapper">
+        <div class="login-top" align="center">
+            <h2 class="mypage-header">마이페이지</h2>
         </div>
-        <br>
-        <div class="user-id-area">
-            <h5 align="center">user01</h5>
-        </div>
-        <br>
-        <div class="user-image_edit-area" align="center">
-            <label for="image-change">
-                <div class="btn-upload" onclick="changeImg()">프로필 사진 변경</div>
-              </label>
-            <input type="file" name="file" id="image-change" class="btn-image"  onchange="loadImg(this)">
-        </div>
-    </div>
-    
-    <!-- 유저 프로필사진 등록-->
-    <!-- <script>
-        function changeImg(){
-            const imgInput = document.querySelector("#image-change");
-            imgInput.click();
-        }
-        function loadImg(ev){
-            document.getElementById("user_profile").src=ev.target.result;
-        }
-    </script> -->
 
-    <div class="user-info-area">
-        <table>
-            <tr class="tb-header">
-                <th>회원정보<hr></th>
-                <th>
-                    <a href="" id="edit-user">회원정보수정<hr></a>
-                </th>
-            </tr>
-            <tr>
-                <td>이름</td>
-                <td class="vl">홍길동</td>
-            </tr>
-            <tr>
-                <td>닉네임</td>
-                <td class="vl">대도</td>
-            </tr>
-            <tr>
-                <td>성별</td>
-                <td class="vl">남</td>
-            </tr>
-            <tr>
-                <td>전화번호</td>
-                <td class="vl">010-1111-1111</td>
-            </tr>
-            <tr>
-                <td>이메일주소</td>
-                <td class="vl">DAEDO@NAVER.COM</td>
-            </tr>
-            <tr>
-                <td>생년월일</td>
-                <td class="vl">1999년11월11일</td>
-            </tr>
-        </table>
-    </div>
+        <div class="user-profile">
+            <div class="user-image-area">
+                <img src="" alt="" id="user_profile">
+            </div>
+            <br>
+            <div class="user-id-area">
+                <h5 align="center">user01</h5>
+            </div>
+            <br>
+            <div class="user-image_edit-area" align="center">
+                <label for="image-change">
+                    <div class="btn-upload" onclick="changeImg()">프로필 사진 변경</div>
+                </label>
+                <input type="file" name="file" id="image-change" class="btn-image"  onchange="loadImg(this)">
+            </div>
+        </div>
+        
+        <!-- 유저 프로필사진 등록-->
+        <!-- <script>
+            function changeImg(){
+                const imgInput = document.querySelector("#image-change");
+                imgInput.click();
+            }
+            function loadImg(ev){
+                document.getElementById("user_profile").src=ev.target.result;
+            }
+        </script> -->
 
-    <div id="bottom-area">
-            <a href="" id="Reservation_details">예약내역</a>
-        <form action="">
-            <input type="submit" value="탈퇴하기" id="secession"> 
-        </form>
+        <div class="user-info-area">
+            <table>
+                <tr class="tb-header" align="center">
+                    <th>회원정보<hr></th>
+                    <th>
+                        <a href="EditMemberInfo_hamyu.jsp" id="edit-user">회원정보수정<hr></a>
+                    </th>
+                </tr>
+                <tr>
+                    <td>이름</td>
+                    <td class="vl">홍길동</td>
+                </tr>
+                <tr>
+                    <td>닉네임</td>
+                    <td class="vl">대도</td>
+                </tr>
+                <tr>
+                    <td>성별</td>
+                    <td class="vl">남</td>
+                </tr>
+                <tr>
+                    <td>전화번호</td>
+                    <td class="vl">010-1111-1111</td>
+                </tr>
+                <tr>
+                    <td>이메일주소</td>
+                    <td class="vl">DAEDO@NAVER.COM</td>
+                </tr>
+                <tr>
+                    <td>생년월일</td>
+                    <td class="vl">1999년11월11일</td>
+                </tr>
+            </table>
+        </div>
+
+        <div id="bottom-area">
+                <a href="Reservation_Member_hamyu.jsp" id="Reservation_details">예약내역</a>
+            <form action="SecessionMember_hamyu.jsp" method="post">
+                <input type="submit" value="탈퇴하기" id="secession"> 
+            </form>
+        </div>
     </div>
 </body>
 </html>
