@@ -96,4 +96,90 @@ public class SpaceCommentDao {
 		return result;
 	}
 
+
+	public int insertHostComment(Connection conn, int commentNo, String hostreply) {
+		PreparedStatement pstmt=null;
+		int result=0;
+		String sql=pro.getProperty("insertHostComment");
+		
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1,hostreply);
+			pstmt.setInt(2, commentNo);
+		
+			
+			result=pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		finally {
+			close(pstmt);
+		}
+		
+		
+		return result;
+		
+		
+		
+	}
+
+
+	public int updateHostComment(Connection conn, int commentNo, String hostReply) {
+		PreparedStatement pstmt=null;
+		int result=0;
+		String sql=pro.getProperty("updateHostComment");
+		
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1,hostReply);
+			pstmt.setInt(2, commentNo);
+		
+			
+			result=pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		finally {
+			close(pstmt);
+		}
+		
+		
+		return result;
+	}
+
+
+	public int findHostComment(Connection conn, int commentNo) {
+		PreparedStatement pstmt=null;
+		ResultSet rest =null;
+		int count=0;
+		String sql=pro.getProperty("findHostComment");
+		
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1,commentNo);
+			
+			rest=pstmt.executeQuery();
+			
+			if(rest.next()) {
+				count=rest.getInt("count");
+			}
+			
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		finally {
+			close(rest);
+			close(pstmt);
+		}
+		
+		return count;
+	}
+
 }

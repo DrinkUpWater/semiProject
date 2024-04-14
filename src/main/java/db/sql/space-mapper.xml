@@ -46,15 +46,25 @@
 			 )
 			 VALUES(
 			 	SEQ_HCNO.NEXTVAL,
-			 	'?',
-			 	'?'
+			 	?,
+			 	?
 			 )
 	
-	
-	
-	
-	
 </entry>
+
+<entry key="updateHostComment">
+		UPDATE HOSTCOMMENT
+			  SET CONTENT = ?
+			  WHERE COMMENT_NO = ?
+				
+</entry>
+
+<entry key="findHostComment">
+
+	SELECT COUNT(*) AS "count" FROM HOSTCOMMENT WHERE COMMENT_NO = ?
+
+</entry>
+
 
 
 <entry key="selectHostComment">
@@ -62,11 +72,13 @@
 				FROM HOSTCOMMENT H
 				JOIN GUESTCOMMENT G
 				USING(COMMENT_NO)
-				WHERE H.COMMENT_NO = '?'
+				WHERE H.COMMENT_NO = ?
 				
 	
-	
-</entry>		
+</entry>
+
+		
+		
 
 	
 </properties>

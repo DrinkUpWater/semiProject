@@ -131,8 +131,8 @@ function commentList (commentTable,response){
                 +"<div>답글</div>"
                 +"<div id='reply div' style='width:100%; display:flex; justify-content: space-between;'>"
                     +"<div style='width:100%;'>"
-                         + "<textarea id='hostReplyContent' class='hostReplayContents' placeholder='입력하세요' style='width:100%;'   ></textarea>"
-                         + "<input class='hostReplyNo' type='text' value='"+reply['commentNo'] +"' hidden/>"
+                         + "<textarea id='hostReplyContent' class='hostReplyContents' placeholder='입력하세요' style='width:100%;'   ></textarea>"
+                         + "<input  class='commentNo' type='text' value='"+reply['commentNo'] +"' hidden/>"
                     +"</div>"
                     +"<div><button class='submitHostReplyBtn' type='button' '>등록하기</button></div>"
                     
@@ -165,24 +165,24 @@ function HostCommentInsert() {
     );
 
     function sendDataToServer(event){
-        let sN=document.querySelector("#spaceNum").value;
+      //  let sN=document.querySelector("#spaceNum").value;
 
 
         let tbody=event.target.parentNode.parentNode;
         console.log(tbody);
-        let hR=tbody.querySelector('.hostReplayContents')
+        let hR=tbody.querySelector('.hostReplyContents')
         console.log(hR);
-        let coN=tbody.querySelector('.hostReplyNo').value
+        let coN=tbody.querySelector('.commentNo').value
 
 
         $.ajax({
 
-            url:'hostComment.bo',
+            url:'hcoinsert.sp',
             type:'POST',
         
             data:{
-                spaceNum:sN,
-                commentNum:coN,
+               // spaceNum:sN,
+                commentNo:coN,
                 hostReply:hR.value
             },
 
