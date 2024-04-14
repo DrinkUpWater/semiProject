@@ -32,7 +32,7 @@ function insertCommentList(){
     let con=document.querySelector("#content");
      $.ajax({
 
-            url:'insertco.bo',
+            url:'coinsert.sp',
             type:'POST',
         
             data:{
@@ -64,15 +64,15 @@ function insertCommentList(){
 
 
 function selectCommentList(){
-
+   let sNo=document.querySelector("#spaceNum");
 
     $.ajax({
 
-        url:'comment.bo',
+        url:'colist.sp',
         type:'GET',
     
         data:{
-            spaceNum:1
+            spaceNum:sNo.value
         },
 
         success:function(response){
@@ -172,7 +172,7 @@ function HostCommentInsert() {
         console.log(tbody);
         let hR=tbody.querySelector('.hostReplayContents')
         console.log(hR);
-         let coN=tbody.querySelector('.hostReplyNo').value
+        let coN=tbody.querySelector('.hostReplyNo').value
 
 
         $.ajax({

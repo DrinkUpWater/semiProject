@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.kh.space.test.Comment;
+
 /**
  * Servlet implementation class AjaxHostCommentInsert
  */
