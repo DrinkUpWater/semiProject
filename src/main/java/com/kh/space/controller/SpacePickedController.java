@@ -11,12 +11,12 @@ import javax.servlet.http.HttpServletResponse;
  * Servlet implementation class spacePickedController
  */
 @WebServlet("/picked.sp")
-public class spacePickedController extends HttpServlet {
+public class SpacePickedController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	
     
-    public spacePickedController() {
+    public SpacePickedController() {
         super();
 
 
