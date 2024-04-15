@@ -154,10 +154,21 @@
                 border: 0;
             }
 
-            .btn-area {
+            .userhost-area{
+                margin-top: 20px;
+                display: flex;         
+                
+            }
 
+            .user-header {
+                font-size: 20px;
+                font-weight: bold;
+                margin-top: 20px;
+            }
+
+            .btn-area {
                 display: flex;
-                margin-top: 60px;
+                margin-top: 30px;
                 height: 60px;
                 justify-content: space-between;
                 padding: 0px 50px;
@@ -170,6 +181,7 @@
                 border-radius: 8px;
                 background: #704DE4;
                 color: white;
+                border: 0;
             }
 
             .cancle {
@@ -199,6 +211,25 @@
                 border: 0.5px solid;
                 height: 35px;
             }
+            .bb{
+
+                padding-left: 5px;
+                padding-top: 17px;
+
+            }
+            .host-label{
+
+                display: flex;
+                
+            }
+       
+            .userhost-header{
+                font-size: 20px;
+                font-weight: bold;
+                margin-top: 20px;
+                height: 100%;
+                width: 280px;
+            }
         </style>
     </head>
 
@@ -210,7 +241,7 @@
                         <h4 class="text-header">회원가입</h4>
                         <h7 class="text-header2">회원이 되어 다양한 혜택을 받으세요! </h7>
 
-                        <table width="100%" class="tb">
+                        <table width="100%" class="tb" >
                             <!-- 이름 -->
                             <tr>
                                 <th colspan="3">이름</th>
@@ -236,7 +267,7 @@
                                         onblur="obrid()" placeholder=" 아이디입력 6~20자" required>
                                 </td>
                                 <td>
-                                    <button type="button" class="idCheck">중복 확인</button>
+                                    <button type="button" class="idCheck" onclick="idCheck()">중복 확인</button>
                                 </td>
                             </tr>
                             <script>
@@ -291,6 +322,8 @@
                                 </td>
                             </tr>
 
+                            
+
                             <!-- 전화번호 -->
                             <tr>
                                 <th colspan="3">전화번호</th>
@@ -327,10 +360,17 @@
                             <option value="nate.com">nate.com</option>
                             <option value="yahoo.com">yahoo.com</option>
                         </select>
+                        
+                        <div class="userhost-area">
+                            <h4 class="userhost-header">사용자 선택</h4>
+                            <label class="host-label"><input type="radio" name="userhost" value="host"><b class="bb">호스트</b></label>
+                            <label class="host-label"><input type="radio" name="userhost" value="guest"><b class="bb">게스트</b></label>
+                        </div>
                         <div class="btn-area">
                             <button type="submit" class="join-btn" onclick="return joinUser()">가입하기</button>
                             <a href="#" onclick="history.back();" type="button" class="cancle">가입취소</a>
                         </div>
+
                     </form>
 
                 </div>
@@ -349,6 +389,11 @@
                     let birth = document.getElementById("birth");
                     let email = document.getElementById("email");
                     let select_email = document.querySelector(".select-email");
+
+
+                    function idCheck(){ //아이디 중복 확인
+                       console.log(userId);
+                    }
 
                     function joinUser() { //빈칸 있을시 확인
                         let cantid = document.querySelector(".cantid");

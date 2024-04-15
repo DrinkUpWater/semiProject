@@ -36,13 +36,14 @@ public class MemberLoginController extends HttpServlet {
 		Member loginUser = new MemberService().loginMember(userId, userPwd);
 
 		if (loginUser == null) {
-			request.setAttribute("errorMsg", "로그인에 실패하였습니다.");
-			request.getRequestDispatcher("views/member/LoginMember_hamyu.jsp").forward(request, response);
+			request.getSession().setAttribute("alertMsg", "로그인에 실패하였습니다.");
+			//응답페이지에게 위임
+			response.sendRedirect(request.getContextPath()+"/loginForm.me");// <-  request.getContextPath()/loginForm.me
 			
 		}else {
 			
 			request.getSession().setAttribute("loginUser", loginUser);
-			response.sendRedirect(request.getContextPath()+"/views/common/mainPage.jsp");
+			response.sendRedirect(request.getContextPath()); //request.getContextPath()
 			
 		}
 	}
