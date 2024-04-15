@@ -28,6 +28,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
+
+
 function insertCommentList(){
 
     let sNo=document.querySelector("#spaceNum");  //게시판번호 리퀘스트에서 받아온다.
@@ -107,16 +109,19 @@ function commentList (commentTable,response){
         +"<tr class='comment_list'>"
             +"<th class='nickName'>"+reply['userId']+"</th>"
             + "<td class='mb-1' >"+reply['commentContent']+"</td>"
+            + "<td class='mb-1 cancel-td' style='width:100px;' ><button  class='cancel-button' style='width:100%;'>삭제</button></td>"
         +"</tr>"
     
         +"<tr class='comment_list'>"
                 +"<th class='clear'></th>"
                 +"<td class='time'>"+reply['insertDate']+"</td>"
+              
         +"</tr>"
     
         +"<tr class='host_reply_title'>"
             +"<th class='clear'> </th>"
             +"<td><button class='btn btn-link  p-0  host-reply-toggle' data-target='#hostReply' >호스트답글</button></td>"
+           
         +"</tr>"
     
         +"<tr class='host_reply'>"
@@ -124,6 +129,7 @@ function commentList (commentTable,response){
             +"<td> <div  class='hostReplys'  class='host-reply-content mt-2' style='display:block;'>"
                 +"<p class='p_class'>"+reply['hostReply']+"</p>"
             +"</div></td>"
+         
         +"</tr>"
     
     
@@ -152,10 +158,20 @@ function commentList (commentTable,response){
     
 
     }
+
     commentTable.innerHTML=htmlContent
+
+
+    //삭제 버튼 숨기기 로그인한 유저와,공간 호스트한테만 보이기
+    GusetCommentCancelButton();
+
+
+
+    //호스트 리플라이 작성
     HostCommentInsert();
  
     
+    //호스트 댓글창 숨기기
     $(".host-reply-toggle").click(function(){
         let targetId = $(this).data("target");
         console.log(this)
@@ -163,6 +179,7 @@ function commentList (commentTable,response){
         $(targetId).toggle();
     });
 
+    //호스트 답글내용 답글창 클릭하면 가져오기
     let textareas = document.querySelectorAll(".hostReplyContents");
     textareas.forEach(function(textarea) {
         textarea.onclick = function() {
@@ -172,7 +189,8 @@ function commentList (commentTable,response){
         };
     });
      
-
+   
+    
     
 
 
@@ -226,5 +244,13 @@ function HostCommentInsert() {
         })
    
     }
+}
+
+
+function GusetCommentCancelButton(){
+
+    
+
+
 }
 

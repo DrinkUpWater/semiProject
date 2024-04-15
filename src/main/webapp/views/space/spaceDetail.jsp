@@ -246,6 +246,9 @@
            .comment_list >td{
               width:500px;
            }
+          
+          
+
            #hostReplyContent{
              width:50px;
            }
