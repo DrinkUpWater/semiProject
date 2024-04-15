@@ -157,7 +157,7 @@
                     </tr>
                 </tbody>
             </table>
-            <%-- 
+
             <%if(loginUser != null && loginUser.getUserId().equals("admin")) {%>
                 <!-- 관리자로 로그인 했을 때 뜨는 버튼 -->
                 <div id="btnList-area">
@@ -170,8 +170,8 @@
                     </div> 
                 </div>
             <%} %>
-            --%>
 
+			<%-- 
             <div id="btnList-area">
                 <div class="btnList" align="center">
                     <a href="" id="a1">&lt;</a>
@@ -181,6 +181,7 @@
                     <a href="<%=contextPath %>/enroll.no" id="write-btn">글쓰기</a>
                 </div> 
             </div>
+            --%>
 
 
 
