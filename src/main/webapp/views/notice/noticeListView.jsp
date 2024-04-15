@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="java.util.ArrayList"%>
+<%@ page import="java.util.ArrayList, controller.notice.model.vo.Notice"%>
+<%
+    ArrayList<Notice> list = (ArrayList<Notice>)request.getAttribute("list");
+%>
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -57,6 +60,7 @@
             float: right;
             line-height: 32px;
             box-sizing: border-box;
+            display: inline-block;
         }
         #btnList-area{
             margin-top: 10px;
@@ -105,60 +109,28 @@
                     <th width="400">제목</th>
                     <th width="50">작성자</th>
                     <th width="60">작성일</th>
+                    <th width="30">조회수</th>
                 </thead>
                 <tbody>
-                    <tr onclick="trClick();">
-                        <td>8</td>
-                        <td class="title">공지사항입니다(8)</td>
-                        <td>관리자</td>
-                        <td>2024.01.08</td>
-                    </tr>
-                    <tr>
-                        <td>7</td>
-                        <td class="title">공지사항입니다(7)</td>
-                        <td>관리자</td>
-                        <td>2024.01.07</td>
-                    </tr>
-                    <tr>
-                        <td>6</td>
-                        <td class="title">공지사항입니다(6)</td>
-                        <td>관리자</td>
-                        <td>2024.01.06</td>
-                    </tr>
-                    <tr>
-                        <td>5</td>
-                        <td class="title">공지사항입니다(5)</td>
-                        <td>관리자</td>
-                        <td>2024.01.05</td>
-                    </tr>
-                    <tr>
-                        <td>4</td>
-                        <td class="title">공지사항입니다(4)</td>
-                        <td>관리자</td>
-                        <td>2024.01.04</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td class="title">공지사항입니다(3)</td>
-                        <td>관리자</td>
-                        <td>2024.01.03</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td class="title">공지사항입니다(2)</td>
-                        <td>관리자</td>
-                        <td>2024.01.02</td>
-                    </tr> 
-                    <tr>
-                        <td>1</td>
-                        <td class="title">공지사항입니다(1)</td>
-                        <td>관리자</td>
-                        <td>2024.01.01</td> 
-                    </tr>
+                	<%if(list.isEmpty()) {%>
+                		<tr>
+                			<td align="center">존재하는 공지사항이 없습니다.</td>
+                		</tr>
+                	<% } else { %>
+                		<%for(Notice n : list) {%>
+                			<tr>
+		                        <td><%=n.getNoticeNo() %></td>
+		                        <td class="title"><%=n.getNoticeTitle() %></td>
+		                        <td><%=n.getNoticeWriter() %></td>
+		                        <td><%=n.getCreateDate() %></td>
+		                        <td><%=n.getCount() %></td>
+                    		</tr>
+                		<% } %>
+                	<% } %>
                 </tbody>
             </table>
 
-            <%if(loginUser != null && loginUser.getUserId().equals("admin")) {%>
+            
                 <!-- 관리자로 로그인 했을 때 뜨는 버튼 -->
                 <div id="btnList-area">
                     <div class="btnList" align="center">
@@ -166,27 +138,15 @@
                         <a href="" id="a2">1</a>
                         <a href="" id="a3">&gt;</a>
                         
-                        <div id="write-btn><a href="<%=contextPath %>/enroll.no">글쓰기</a></div>
+                        <%if(loginUser != null && loginUser.getUserId().equals("admin")) {%>
+                        	<div id="write-btn"><a href="<%=contextPath %>/enroll.no">글쓰기</a></div>
+                   		<%} %>
                     </div> 
                 </div>
-            <%} %>
-
-			<%-- 
-            <div id="btnList-area">
-                <div class="btnList" align="center">
-                    <a href="" id="a1">&lt;</a>
-                    <a href="" id="a2">1</a>
-                    <a href="" id="a3">&gt;</a>
-                    
-                    <a href="<%=contextPath %>/enroll.no" id="write-btn">글쓰기</a>
-                </div> 
-            </div>
-            --%>
-
-
+            
 
         </div>
-        
+         
         <form action="">
             <div id="search-area" align="center">
                 <select name="selectbar" id="selectbar">
@@ -199,16 +159,13 @@
         </form>
     </div>
     <script>
-        // $(function(){
-        //     $(".table > tbody > tr").click(function(){
-        //         const noticeNo = $(this).children().eq(0).text();
-        //         location.href="<%=contextPath%>/detail.no?num=" + noticeNo + "";
-        //     })
-        // })
-        function trClick(){
-            // 테스트용으로 그냥 디테일뷰만 뜨게 한거임(위의 방법으로 해야함)
-            location.href="<%=contextPath%>/detail.no";
-        }
+         $(function(){
+             $("#table > tbody > tr").click(function(){
+                 const noticeNo = $(this).children().eq(0).text();
+                 location.href="<%=contextPath%>/detail.no?num=" + noticeNo + "";
+             })
+         })
+
 
     </script>
 </body>
