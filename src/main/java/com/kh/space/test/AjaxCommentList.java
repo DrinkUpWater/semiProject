@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
+import com.kh.space.test.Comment;
 
 /**
  * Servlet implementation class AjaxCommentList
@@ -32,7 +33,7 @@ public class AjaxCommentList extends HttpServlet {
 
 
 	public AjaxCommentList() {
-	 	CommentList.datas.add(new Comment("admin","관리자글입니다.","호스트리플라이1",1,"2024-04-11"));
+		CommentList.datas.add(new Comment("admin","관리자글입니다.","호스트리플라이1",1,"2024-04-11"));
     	CommentList.datas.add(new Comment("user1","user1글입니다.","호스트리플라이2",1,"2024-04-12"));
     	CommentList.datas.add(new Comment("user2","user2글입니다.","호스트리플라이3",1,"2024-04-12"));
     	CommentList.datas.add(new Comment("user3","user3글입니다.","호스트리플라이4",1,"2024-04-13"));
