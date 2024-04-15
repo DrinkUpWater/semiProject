@@ -20,7 +20,7 @@ import com.google.gson.Gson;
 /**
  * Servlet implementation class AjaxTest
  */
-@WebServlet( "/time.sp" )
+@WebServlet( "/timetest.sp" )
 public class AjaxTimeTest extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

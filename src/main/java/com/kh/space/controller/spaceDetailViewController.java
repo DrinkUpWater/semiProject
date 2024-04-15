@@ -11,13 +11,13 @@ import javax.servlet.http.HttpServletResponse;
  * Servlet implementation class spaceDetailViewController
  */
 @WebServlet("/detailview.sp")
-public class spaceDetailViewController extends HttpServlet {
+public class SpaceDetailViewController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public spaceDetailViewController() {
+    public SpaceDetailViewController() {
         super();
         // TODO Auto-generated constructor stub
     }
