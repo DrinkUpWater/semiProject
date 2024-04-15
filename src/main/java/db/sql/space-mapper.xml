@@ -77,6 +77,15 @@
 	
 </entry>
 
+<entry key="findDate">
+	  SELECT  RESERVATION_TIME1,
+	          RESERVATION_TIME2
+	          FROM RESERVATION_DATE
+	          WHERE RESERVATION_DATE  like ?
+		
+
+</entry>
+
 		
 		
 
