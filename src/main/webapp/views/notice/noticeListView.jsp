@@ -131,13 +131,13 @@
             </table>
 
             
-                <!-- 관리자로 로그인 했을 때 뜨는 버튼 -->
+                
                 <div id="btnList-area">
                     <div class="btnList" align="center">
                         <a href="" id="a1">&lt;</a>
                         <a href="" id="a2">1</a>
                         <a href="" id="a3">&gt;</a>
-                        
+                        <!-- 관리자로 로그인 했을 때 뜨는 버튼 -->
                         <%if(loginUser != null && loginUser.getUserId().equals("admin")) {%>
                         	<div id="write-btn"><a href="<%=contextPath %>/enroll.no">글쓰기</a></div>
                    		<%} %>
