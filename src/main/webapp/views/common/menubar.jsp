@@ -200,7 +200,7 @@
 		            </div>
 		            <h2>kH ROOMMOAH</h2>
 		            <div id="right-bar">
-		                <a href="">${loginUser.nickName }</a> | <a href="">로그아웃</a>
+		                <a href="myPage.me">${loginUser.nickName }</a> | <a href="logout.me">로그아웃</a>
 		            </div>
 		        </div>
         	</c:otherwise>

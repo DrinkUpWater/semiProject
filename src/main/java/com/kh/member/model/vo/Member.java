@@ -13,7 +13,7 @@ public class Member {
 	private String birth; //생일
 	private String email; //이메일
 	private Date joinDate; //가입일
-	private Date modifyDate; //탈퇴일
+	private Date modifyDate; //회원정보 수정일
 	private String status; // 탈퇴상태
 	private String host; // 호스트
 	private String admin; //관리자
