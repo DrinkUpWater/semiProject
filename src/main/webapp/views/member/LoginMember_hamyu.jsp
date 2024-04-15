@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -198,7 +199,7 @@
                 return false;
             }
             else{ //빈칸없이 입력은 했으나 DB에서 계정을 찾지 못했을 경우 
-                 alert(request.getAttribute('errorMsg'));
+                 alert(request.getAttribute('alertMsg'));
                 return false;
             }
         }
