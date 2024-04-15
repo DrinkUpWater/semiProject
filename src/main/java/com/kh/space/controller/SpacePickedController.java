@@ -29,6 +29,7 @@ public class SpacePickedController extends HttpServlet {
 	  
 		
 		//찜한 리스트에 추가
+		int spaceNum=Integer.parseInt(request.getParameter("spaceNum"));
 		
 		//이미 찜 되있으면 
 		 //이미 찜 하셨습니다.
@@ -36,6 +37,7 @@ public class SpacePickedController extends HttpServlet {
 		//찜 안되있으면 
 		  // 찜 되었습니다.
 		
+		request.getSession().setAttribute("pickedMsg", "찜되었습니다.");
 		response.sendRedirect(request.getContextPath()+"/detailview.sp");
 		
 	

@@ -461,6 +461,19 @@
     <body>
         <%@ include file="../common/menubar.jsp" %>
            
+            <%   
+                HttpSession p=request.getSession();
+                String check=(String) p.getAttribute("pickedMsg");
+            
+            %>
+            
+            <% if(check!=null){ %>
+            	<script>
+            		alert("<%=check%>");
+            	</script>
+             <%  p.removeAttribute("pickedMsg"); %>
+            <%} %>
+
           
             <nav id="main" class="navbar-light bg-light">
 
@@ -468,8 +481,31 @@
 
 
                     <div id="space_id" name="space_name" class="title">
-                        <div class="text"> 르씨엘 2호점</div> <div><span><a href="<%=contextPath%>/picked.sp" onclick="alert('찜되었습니다.')">찜하기</a></span></div>
+                        <div class="text"> 르씨엘 2호점</div>  <div id="picked" onclick="picked(this);">찜하기</div>
                     </div>
+                        <script>
+                             function picked(_this){
+                               
+                                
+                                let spaceNum=document.querySelector("#spaceNum").value;
+                                location.href="<%=contextPath%>/picked.sp?spaceNum="+spaceNum;
+
+                                // if(_this.innerText==="찜하기"){
+                                //     _this.innerText="찜해제";
+                                //     alert("찜해제되었습니다.")
+                                // }
+                                // else{
+                                //     _this.innerText="찜하기";
+                                //     alert("찜하기");
+                                // }
+
+
+
+                             }
+
+                        </script>
+
+
                     <div id="space_comment" class="space">
                         <div align="left" class="img_div">
 
