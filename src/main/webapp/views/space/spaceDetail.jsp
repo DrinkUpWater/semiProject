@@ -219,6 +219,22 @@
                 color: #666;
             }
 
+            #review_table .time{
+                font-size: 0.8rem;
+                color: #666;
+            }
+
+            .time{
+                font-size: 0.8rem;
+                color: #666;
+            }
+
+
+            #comment_table .time {
+                font-size: 0.8rem;
+                color: #666;
+            }
+
             
             .comment_list{
              /* resize:none; */
@@ -320,8 +336,14 @@
             }
 
         
+
+            /*--------리뷰---------*/
            
-          
+            #space_review{
+                overflow: auto;
+                /* border:solid blue; */
+               
+            }
 
 
 
@@ -374,6 +396,8 @@
                 width:100%;
               
             }
+
+
             .price{
                 font-size: 20px;
               
@@ -598,13 +622,17 @@
                     </div>
                     <div id="space_road_comment" class="space">
 
-                    <iframe
+
+                       <iframe
                             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3165.378379236162!2d127.03290899999996!3d37.49899300000002!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357c9ec255555555%3A0x3565475c3365c5bb!2zS0jsoJXrs7TqtZDsnKHsm5A!5e0!3m2!1sko!2skr!4v1712133003105!5m2!1sko!2skr"
                             style="border:0; width:100%; height:200%;" allowfullscreen="" loading="lazy"
                             referrerpolicy="no-referrer-when-downgrade" > </iframe>
 
+                        
 
                     </div>
+
+
 
                     <div id="space_qa" name="space_qa" class="title">
                         <div class="text">Q&A</div>
@@ -711,18 +739,72 @@
                         </div>
 
 
+
+
+
+                        <div id="space_review_title" name="space_qa" class="title">
+                            <div class="text">리뷰</div>
+                            <hr>
+                        </div>
                       
 
 
-                        <div id="space_qa_review" class="space">
+                        <div id="space_review" class="space">
+     
+                             <table id="review_table" class="list-group">
 
-                            <div id="space_review" name="space_review" class="title">
-                                <div class="text">리뷰</div>
-                                <hr>
-                            </div>
+
+                                <%for(int i=0; i<6; i++) {%>
+
+                                    <tr class="comment_list">    
+
+                                        <th class="nickName" style="width:20%">user<%=i%></th>
+                                        <td class="mb-1" > 리뷰내용<%=i%></td>
+            
+                                    </tr>
+            
+                                    <tr class="comment_list">
+                                            <th class="clear"></th>
+                                            <td class="time">2024-04-11</td>
+                                    </tr>
+            
+
+                                   <tr id="comment_margin">
+                                       <td colspan="2" id="comment_line"><hr></td>
+                                   </tr>
+                                 <% } %>
+
+                                  
+
+
+                            </table>
+
+
+
                         </div>
 
-                
+
+                        <input id="spaceNum" type="text" value="1" hidden> <!--공간번호--> 
+                        <div id="comment_info" style="height:80px">
+                            <th></th>
+                            <td>
+                                <div class="review" style="  font-size: 1.2rem; margin-top:30px">리뷰 등록하기</div>
+
+                                <div id="comment div" style="width:100%; height:100%; display:flex; justify-content:center;">
+                                    
+                                    <div style="width:100%">
+                                        <textarea id="content" placeholder="입력하세요" style="width:500px;"  ></textarea>
+                                       
+                                    </div>
+
+
+
+                                    <div style=" width:100%; height:100%;"><button id="comment_enroll" type="button" style="height:100%;" >등록하기</button></div>
+
+                                </div>
+
+                            </td>
+                        </div>
 
 
 
