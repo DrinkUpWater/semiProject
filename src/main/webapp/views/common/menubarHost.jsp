@@ -98,7 +98,7 @@
         width : 100px;
         height : 100px;
         border-radius: 50%;
-        background-color: rgb(199, 199, 199);
+        background-color: #9270ff;
     }
     .side-profile-nickname{
         margin-left: 20px;
@@ -170,6 +170,16 @@
     	color : rgb(0, 0, 0);
         cursor: pointer;
     }
+    .side-profile-picture {
+        display:table-cell;
+        vertical-align:middle;
+    }
+    .profile-img {
+        max-width:100px;
+        max-height:100px;
+        border-radius: 50%;
+        margin-top: 3px;
+    }
     
     
 </style>
@@ -203,11 +213,11 @@
 		        <!-- 로그인 후 -->
 		        <div class="login-area">
 		            <div id="left-bar">
-		                <i class="fa-solid fa-bars fa-xl"></i>
+		                <i class="fa-solid fa-bars fa-xl" onclick="openNav()"></i>
 		            </div>
-		            <h2>kH ROOMMOAH</h2>
-		            <div id="right-bar">
-		                <a href="">닉네임</a> | <a href="">로그아웃</a>
+		            <h2 class="menubar-logo" >kH ROOMMOAH</h2>
+		            <div align="end" id="right-bar">
+		                <a href="">${loginUser.nickName}</a> | <a href="">로그아웃</a>
 		            </div>
 		        </div>
         	</c:otherwise>
@@ -223,12 +233,28 @@
             	<div class="x-icon">
 			        <i class="fa-solid fa-x fa-xl" onclick="closeNav()"></i>
 			    </div>
-                <div class="side-profile-picture"></div>
-                <div class="side-profile-nickname">
-                    <br>
-                    <b>닉네임</b>
-                    <p>프로필관리 ></p>
-                </div>
+                <c:choose>
+                    <c:when test="${not empty loginUser}">
+                        <div class="side-profile-picture">
+                            <img class="profile-img" src="<%=contextPath%>/resources/teo/noLoginProfile.JPG" alt="defaultProfileImg">
+                        </div>
+                        <div class="side-profile-nickname">
+                            <br>
+                            <b>${loginUser.nickName}</b>
+                            <p><a href="myPage.me">프로필관리 ></a></p>
+                        </div>
+                    </c:when>
+                    <c:otherwise>
+                        <div class="side-profile-picture">
+                            <img class="profile-img" src="<%=contextPath%>/resources/teo/noLoginProfile.JPG" alt="defaultProfileImg">
+                        </div>
+                        <div class="side-profile-nickname">
+                            <br>
+                            <a href="loginForm.me">로그인 해주세요!</a>
+                        </div>
+                        
+                    </c:otherwise>
+                </c:choose>
             </div>
 
             <div class="side-logo">
