@@ -1,23 +1,29 @@
-package com.kh.host.controller;
+package com.kh.space.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
+import com.kh.space.model.vo.ReservationDate;
+import com.kh.space.service.SpaceReservationService;
+
 /**
- * Servlet implementation class hostPreEnrollController
+ * Servlet implementation class SpaceReservationTimeListController
  */
-@WebServlet("/enroll.ho")
-public class HostEnrollController extends HttpServlet {
+@WebServlet("/time.sp")
+public class SpaceReservationTimeListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public HostEnrollController() {
+    public SpaceReservationTimeListController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -26,21 +32,16 @@ public class HostEnrollController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
+		String date=request.getParameter("date");
 		
-		String[] sArr = request.getParameterValues("spaceKind");
-		String spaceKind = "";
-		if (sArr != null) {
-			spaceKind = String.join(",", sArr);
-		}
+		ArrayList<ReservationDate> dates=new SpaceReservationService().findDate(date);
 		
-		request.setAttribute("spaceKind", spaceKind);
-		request.getRequestDispatcher("views/host/hostEnrollFormMain.jsp").forward(request, response);
+		response.setContentType("application/json; charset=utf-8");
+		new Gson().toJson(dates,response.getWriter());
+		
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);

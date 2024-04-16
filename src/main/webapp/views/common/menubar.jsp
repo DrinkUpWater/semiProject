@@ -96,7 +96,7 @@
         width : 100px;
         height : 100px;
         border-radius: 50%;
-        background-color: rgb(199, 199, 199);
+        background-color: #fed636;
     }
     .side-profile-nickname{
         margin-left: 20px;
@@ -163,7 +163,16 @@
     	color : rgb(126, 126, 126);
         cursor: pointer;
     }
-    
+    .side-profile-picture {
+        display:table-cell;
+        vertical-align:middle;
+    }
+    .profile-img {
+        max-width:100px;
+        max-height:100px;
+        border-radius: 50%;
+        margin-top: 3px;
+    }
     
 </style>
 </head>
@@ -197,10 +206,10 @@
 		        <!-- 로그인 후 -->
 		        <div class="login-area">
 		            <div id="left-bar">
-		                <i class="fa-solid fa-bars fa-xl"></i>
+		                <i class="fa-solid fa-bars fa-xl" onclick="openNav()"></i>
 		            </div>
-		            <h2>kH ROOMMOAH</h2>
-		            <div id="right-bar">
+		            <h2 class="menubar-logo" >kH ROOMMOAH</h2>
+		            <div align="end" id="right-bar">
 		                <a href="myPage.me">${loginUser.nickName }</a> | <a href="logout.me">로그아웃</a>
 		            </div>
 		        </div>
@@ -215,12 +224,28 @@
 	            <div class="x-icon">
 		        	<i class="fa-solid fa-x fa-xl" onclick="closeNav()"></i>
 		        </div>
-                <div class="side-profile-picture"></div>
-                <div class="side-profile-nickname">
-                    <br>
-                    <b>닉네임</b>
-                    <p>프로필관리 ></p>
-                </div>
+                <c:choose>
+                    <c:when test="${not empty loginUser}">
+                        <div class="side-profile-picture">
+                            <img class="profile-img" src="<%=contextPath%>/resources/teo/noLoginProfile.JPG" alt="defaultProfileImg">
+                        </div>
+                        <div class="side-profile-nickname">
+                            <br>
+                            <b>${loginUser.nickName}</b>
+                            <p><a href="myPage.me">프로필관리 ></a></p>
+                        </div>
+                    </c:when>
+                    <c:otherwise>
+                        <div class="side-profile-picture">
+                            <img class="profile-img" src="<%=contextPath%>/resources/teo/noLoginProfile.JPG" alt="defaultProfileImg">
+                        </div>
+                        <div class="side-profile-nickname">
+                            <br>
+                            <a href="loginForm.me">로그인 해주세요!</a>
+                        </div>
+                        
+                    </c:otherwise>
+                </c:choose>
             </div>
 			
             <div class="side-logo">
@@ -249,59 +274,11 @@
 
             <br><br><br><br>
             
-            <a href="">로그아웃</a>
+            <a href="logout.me">로그아웃</a>
             <br>
             <br>
             <div class="side-tohost">
                 <p>호스트센터로 이동 > </p>
-            </div>
-        </div>
-    
-
-
-        <!-- 사이드 메뉴 왼쪽위 클릭시 나오게 -->
-        <!-- 호스트메뉴 -->
-        <div class="side-menu-host" align="center">
-            <div class="side-profile">
-                <div class="side-profile-picture"></div>
-                <div class="side-profile-nickname">
-                    <br>
-                    <b>닉네임</b>
-                    <p>프로필관리 ></p>
-                </div>
-            </div>
-
-            <div class="side-logo">
-                <h3>kH ROOMMOAH</h3>
-            </div>
-
-            <br><br><br>
-            
-            <div class="side-list">
-                <table>
-                    
-                    <tr align="center">
-                        <th >홈</th>
-                    </tr>
-                    <tr align="center">
-                        <th>내 공간</th>
-                    </tr>
-                    <tr align="center">
-                        <th>정산</th>
-                    </tr>
-                    <tr align="center">
-                        <th>공지사항</th> 
-                    </tr>
-                </table>
-            </div>
-
-            <br><br><br><br>
-            
-            <a href="">로그아웃</a>
-            <br>
-            <br>
-            <div class="side-tohost">
-                <p >스페이스클라우드로 이동 > </p>
             </div>
         </div>
     
