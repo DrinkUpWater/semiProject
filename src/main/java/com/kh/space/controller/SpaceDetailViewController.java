@@ -7,6 +7,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.kh.space.model.vo.Space;
+import com.kh.space.service.SpaceService;
+
 /**
  * Servlet implementation class spaceDetailViewController
  */
@@ -27,10 +30,21 @@ public class SpaceDetailViewController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		int spaceNo = Integer.parseInt(request.getParameter("spaceNo"));  
 		
+		Space space=new SpaceService().selectOneSpace(spaceNo);
 		
-		request.getRequestDispatcher("views/space/spaceDetail.jsp")
-		.forward(request, response);
+		if(space==null) {
+			request.getSession().setAttribute("alertMsg","공간조회실패");
+			response.sendRedirect(request.getContextPath());
+			
+		}else {
+			request.setAttribute("space", space);
+			request.getRequestDispatcher("views/space/spaceDetail.jsp")
+			.forward(request, response);
+		}
+		
+	
 	}
 
 	/**

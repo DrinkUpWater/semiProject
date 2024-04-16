@@ -2,9 +2,12 @@ package com.kh.space.service;
 
 import com.kh.space.model.dao.SpacePickedDao;
 import com.kh.space.model.vo.Picked;
+import com.kh.space.model.vo.Space;
+
 import static com.kh.common.JDBCTemplate.*;
 
 import java.sql.Connection;
+import java.util.ArrayList;
 
 public class SpacePickedService {
 	
@@ -33,7 +36,7 @@ public class SpacePickedService {
 		
 		close(conn);
 		
-		return 0;
+		return result;
 	}
 
 	public int deletePicked(int spaceNum, int userNo) {
@@ -49,6 +52,15 @@ public class SpacePickedService {
 		close(conn);
 		
 		return result;
+	}
+
+	public ArrayList<Space> findUserPicked(int userNo) {
+		Connection conn =getConnection();
+		ArrayList<Space> spaces=sDao.findUserPicked(conn,userNo);
+		
+		 close(conn);
+		 
+		return spaces;
 	}
 	
 }

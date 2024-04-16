@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import com.kh.member.model.vo.Member;
 import com.kh.space.model.vo.Picked;
+import com.kh.space.model.vo.Space;
 import com.kh.space.service.SpacePickedService;
 
 /**
@@ -38,9 +39,17 @@ public class SpacePickedListController extends HttpServlet {
 	    
 	    int userNo=member.getUserNo();
 	    
-	   //  ArrayList<Space> pickes=new SpacePickedService().findUserPicked(userNo);
+	    ArrayList<Space> pickdes=new SpacePickedService().findUserPicked(userNo);
 	    
-	    
+	    if(pickdes.isEmpty()) {
+	    	response.sendRedirect(request.getContextPath());
+	     }
+	    else {
+	    	request.setAttribute("pickeds", pickdes);
+	    	request.getRequestDispatcher("views/space/spacePicked.jsp")
+	    	.forward(request, response);
+	    	
+	    }
 		
 		
 		

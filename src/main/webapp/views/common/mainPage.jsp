@@ -364,7 +364,7 @@
     </div>
     <script>
         function detailView() {
-            location.href="detailview.sp?";
+            location.href="detailview.sp?spaceNo=1";
         }
 
     </script>

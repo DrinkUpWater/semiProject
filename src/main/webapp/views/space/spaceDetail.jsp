@@ -1,5 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
     <!DOCTYPE html>
+<%@ page import="com.kh.space.model.vo.Space" %>
+    
+    <% 
+    	Space space= (Space)request.getAttribute("space");
+        
+        String []tags=space.getSpaceTag().split(" ");
+        String []guides=space.getSpaceInformation().split("&");
+       
+       
+       
+    
+    
+    %>
+    
     <html lang="en">
 
     <head>
@@ -111,6 +125,9 @@
                 font-size: 20px;
             }
 
+            .space{
+               overflow: auto;
+            }
 
             .space p>span {
                 display: inline-block;
@@ -483,7 +500,7 @@
 
 
                     <div id="space_id" name="space_name" class="title">
-                        <div class="text"> 르씨엘 2호점</div>  <div id="picked" onclick="picked(this);"><%=(pickedMsg==null)?"찜하기":pickedMsg%></div>
+                        <div class="text"><%=space.getSpaceName() %>  </div>  <div id="picked" onclick="picked(this);"><%=(pickedMsg==null)?"찜하기":pickedMsg%></div>
                     </div>
                         <script>
                              function picked(_this){
@@ -516,18 +533,7 @@
                         </div>
                         <div style=" padding-top:20px; ">
                             <span>
-                                sdfgsfdg sdfg
-                                asdfadsf
-                                asdfadsfadsf
-                                asdasdfdasfasdfadsfdsdsadsf
-                                fasdf
-                                시설물 설명
-                                시설물 설명
-                                시설물 설명
-                                시설물 설명
-                                시설물 설명
-                                시설물 설명
-                                시설물 설명
+                                <%=space.getspaceOneIntroduce() %>
                             </span>
 
                         </div>
@@ -543,22 +549,18 @@
                         </ul>
                     </div>
                     <div id="space_intro" name="space_intro" class="title">
-                        <div class="text">공간소개</div>
+                        <div class="text">
+                           공간소개
+                         </div>
                         <hr class="line2" style="background:rgb(235, 229, 229) ">
                     </div>
                     <div id="space_intro_comment" class="space">
-                        [강남역 10번출구 1분거리]
-                        <br><br>
-                        어떤 만남도 대충하지 않는 사람들을 위한 감성공간,공튜디오입니다.
-                        <br><br>
-                        #스터디룸
-                        #회의실
-                        #생일파티
-                        #브라이덜샤워
-                        <br>
-                        등 다양한 모임공간으로 활용할 수 있습니다.
-
-
+                         <%=space.getSpaceIntroduce() %><br>
+                        <table>
+                          <% for(String tag:tags){ %>
+                              <span><a href="#"><%=tag%></a><span>&nbsp;
+                          <% } %>
+                        </table>
                     </div>
 
                     <div id="space_guide" name="space_guide" class="title">
@@ -569,33 +571,9 @@
                     <div id="space_guide_comment" class="space">
                         <table>
                             <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>초고속 와이파이+전기종 가능한 충전기</td>
-                                </tr>
-
-                                <tr>
-                                    <td>2</td>
-                                    <td>정수기+산딸기 티+ 복숭아티+사과티+아메리카노+간식</td>
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td>정수기+산딸기 티+ 복숭아티+사과티+아메리카노+간식</td>
-                                </tr>
-                                <tr>
-                                    <td>4</td>
-                                    <td>정수기+산딸기 티+ 복숭아티+사과티+아메리카노+간식</td>
-                                </tr>
-
-                                <tr>
-                                    <td>5</td>
-                                    <td>정수기+산딸기 티+ 복숭아티+사과티+아메리카노+간식</td>
-                                </tr>
-
-                                <tr>
-                                    <td>6</td>
-                                    <td>정수기+산딸기 티+ 복숭아티+사과티+아메리카노+간식</td>
-                                </tr>
+                               <% for(String guide:guides){%>
+                                  <tr><td><%=guide%></td></tr>
+                               <% } %>
 
                             </tbody>
 
@@ -617,43 +595,7 @@
 
 
                     <div id="reservation_warn_comment" class="space">
-                        <table>
-                            <tbody>
-                                <tr>
-                                    <td>1.</td>
-                                    <td>최소 1인,최대 12인까지 이용 가능합니다.</td>
-                                </tr>
-
-                                <tr>
-                                    <td>2.</td>
-                                    <td>3인부터 최소 2시간부터 이용 가능합니다.</td>
-                                </tr>
-                                <tr>
-                                    <td>3.</td>
-                                    <td>예약은 선입금 제로 만 가능하며,예약된 사용시간 전에 퇴실하여도 잔여 시간은 환불이 불가합니다.</td>
-                                </tr>
-                                <tr>
-                                    <td>4.</td>
-                                    <td>추가인원은 연락주시면 안내 도와드리고 있으며 인원 변동 가능성 있을시 최소 인원으로 예약후 인원 확정이
-                                        되면 연락후, 계좌이체로 추가금액 지불해주시면 됩니다.
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td>5.</td>
-                                    <td>지나친 소음은 삼가해주세요</td>
-                                </tr>
-
-                                <tr>
-                                    <td>6.</td>
-                                    <td>음식물 취식은 가능하나,구비된 음식물 쓰레기 봉투에 담은후 1층
-                                        후문 쓰레기장에 직접 배출해주셔야합니다.
-                                    </td>
-                                </tr>
-
-                            </tbody>
-
-                        </table>
+                          <%=space.getSpaceCaution()%>
                     </div>
 
 
@@ -890,30 +832,30 @@
                         </div>
 
                         <div id="space_option" class="title">
-                            <div class="text2">가구 설명란</div>
+                            <div class="text2">공간 설명란</div>
                             <hr class="line2" style="background:#704DE4">
                         </div>
                         <div id="space_option_comment">
                             <table align="center">
                                 <tr>
                                     <th>공간유형:</th>
-                                    <td>xxxxxx</td>
+                                    <td><%=space.getSpaceKind()%></td>
                                 </tr>
 
                                 <tr>
-                                    <th>공간면적:</th>
-                                    <td>xxxxxx</td>
+                                    <th>가격:</th>
+                                    <td><%=space.getSpacePrice()%></td>
                                 </tr>
 
 
                                 <tr>
                                     <th>예약유형:</th>
-                                    <td>xxxxx</td>
+                                    <td>카드결제</td>
                                 </tr>
 
                                 <tr>
-                                    <th>최소1명~N명:</th>
-                                    <td>xxxxx</td>
+                                    <th>수용인원:</th>
+                                    <td id="MaxPerson"><%=space.getSpaceCapacity()%></td>
                                 </tr>
 
                             </table>

@@ -7,10 +7,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.InvalidPropertiesFormatException;
 import java.util.Properties;
 
 import com.kh.space.model.vo.Picked;
+import com.kh.space.model.vo.Space;
+
 import static com.kh.common.JDBCTemplate.*;
 
 public class SpacePickedDao {
@@ -125,6 +128,46 @@ public class SpacePickedDao {
 		
 		
 		
+	}
+
+
+	public ArrayList<Space> findUserPicked(Connection conn, int userNo) {
+		
+		PreparedStatement pstmt=null;
+		ResultSet rest=null;
+		Space picked=null;
+		String sql=pro.getProperty("selectPickedes");
+		
+		
+		ArrayList<Space> pickeds=new ArrayList<>();
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1,userNo);
+			rest=pstmt.executeQuery();
+			
+			while(rest.next()) {
+				
+				
+				pickeds.add(picked);
+			}
+			
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		finally {
+			close(rest);
+			close(pstmt);
+			
+		}
+		
+		
+		return pickeds;
+		
+		
+	
 	}
 
 }
