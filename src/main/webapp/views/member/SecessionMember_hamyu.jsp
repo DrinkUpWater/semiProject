@@ -283,7 +283,7 @@
                 </div>
 
                 <div class="secss-btn">
-                    <a href="MyPage_hamyu.jsp"  id="cancle">취소</a>
+                    <a href="myPage.me"  id="cancle">취소</a>
                     <input type="submit" value="서비스 탈퇴" id="secess" onclick="testConfirm()"></input>
 
                 </div>

@@ -31,6 +31,7 @@ public class MemberLoginFormController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 				request.getRequestDispatcher("views/member/LoginMember_hamyu.jsp").forward(request, response);
+				
 	}
 
 	/**
