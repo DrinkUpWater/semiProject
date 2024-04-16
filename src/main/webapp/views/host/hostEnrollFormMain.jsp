@@ -152,8 +152,12 @@
         .hidden-spaceinfo-btn button, .hidden-caution-btn button{
             height: 50px;
         }
-        .main-img-hidden{
+        .main-img-hidden, .detail-img-hidden{
             display: none;
+        }
+        .img-area img{
+            margin-right: 2px;
+            margin-bottom: 3px;
         }
 
     </style>
@@ -289,7 +293,7 @@
                     <td colspan="2" align="right">2048*1158 권장, 최대 3MB</td>
                 </tr>
                 <tr class="main-img">
-                    <td colspan="2" class="body80"><input class="input-text" name="spaceMimg" type="text" placeholder="이미지 파일을 추가해 주세요. (JPG, JPEG, png)" required></td>
+                    <td colspan="2" class="body80"><input class="input-text" name="spaceMimg" type="text" placeholder="이미지 파일을 추가해 주세요. (JPG, JPEG, png)" disabled required></td>
                     <td><button style="height: 50px;" type="button" onclick="chooseFile(1)">파일 첨부</button></td>
                 </tr>
                 <tr class="main-img-hidden">
@@ -297,13 +301,24 @@
                     <td><button style="height: 50px;" type="button" onclick="chooseFile(1)">파일 첨부</button></td>
                 </tr>
                 <tr><td colspan="3"></td></tr>
+
+                <!-- 이미지 -->
                 <tr>
                     <th>이미지<span class="red-color">*</span></th>
-                    <td colspan="2" align="right">2048*1158 권장, 최대 3MB(최대 10장)</td>
+                    <td colspan="2" align="right">2048*1158 권장, 최대 3MB(최대 5장)</td>
                 </tr>
-                <tr>
-                    <td colspan="2" class="body80"><input class="input-text" name="spaceImg" type="text" placeholder="이미지 파일을 추가해 주세요. (JPG, JPEG, png)" required></td>
-                    <td><button type="button" >파일 첨부</button></td>
+                <tr class="detail-img">
+                    <td colspan="2" class="body80"><input class="input-text" name="spaceImg" type="text" placeholder="이미지 파일을 추가해 주세요. (JPG, JPEG, png)" disabled required></td>
+                    <td><button style="height: 50px;" type="button" onclick="chooseFile(2)" >파일 첨부</button></td>
+                </tr>
+                <tr class="detail-img-hidden">
+                    <td colspan="3" class="img-area">
+                        <img id="content-img1" width="19%" height="160;" onclick="chooseFile(2)">
+                        <img id="content-img2" width="19%" height="160;" onclick="chooseFile(3)">
+                        <img id="content-img3" width="19%" height="160;" onclick="chooseFile(4)">
+                        <img id="content-img4" width="19%" height="160;" onclick="chooseFile(5)">
+                        <img id="content-img5" width="19%" height="160;" onclick="chooseFile(6)">
+                    </td>
                 </tr>
                 <tr><td colspan="3"></td></tr>
                 <tr>
@@ -338,11 +353,11 @@
                 </tr>
                 <tr>
                     <th>전화번호<span class="red-color">*</span></th>
-                    <td colspan="1" align="right"><th>수용 인원</th></td>
+                    <td colspan="1" align="right"><th>수용 인원<span class="red-color">*</span></th></td>
                 </tr>
                 <tr>
                     <td colspan="2" ><input style="padding-right: 50px;" class="input-text" type="text" name="spaceTel" value="${loginUser.phone}" placeholder="'-' 없이 입력해주세요." required></td>
-                    <td  class="body80"><input class="input-text" name="spaceCapacity" type="number" placeholder="최대 수용 인원" required></td>
+                    <td  class="body80"><input class="input-text" name="spaceCapacity" type="number" placeholder="최대 인원" required></td>
                 </tr>
             </table>
 
@@ -351,13 +366,8 @@
                 <input type="file" name="file2" id="file2" onchange="loadImg(this, 2)">
                 <input type="file" name="file3" id="file3" onchange="loadImg(this, 3)">
                 <input type="file" name="file4" id="file4" onchange="loadImg(this, 4)">
-                <input type="file" name="file4" id="file4" onchange="loadImg(this, 5)">
-                <input type="file" name="file4" id="file4" onchange="loadImg(this, 6)">
-                <input type="file" name="file4" id="file4" onchange="loadImg(this, 7)">
-                <input type="file" name="file4" id="file4" onchange="loadImg(this, 8)">
-                <input type="file" name="file4" id="file4" onchange="loadImg(this, 9)">
-                <input type="file" name="file4" id="file4" onchange="loadImg(this, 10)">
-                <input type="file" name="file4" id="file4" onchange="loadImg(this, 11)">
+                <input type="file" name="file5" id="file5" onchange="loadImg(this, 5)">
+                <input type="file" name="file6" id="file6" onchange="loadImg(this, 6)">
             </div>
 
             <br><br>
@@ -493,9 +503,14 @@
                                 $('.main-img').css('display', 'none');
                                 $('.main-img-hidden').css('display', 'table-row');
                                 break;
-                        case 2: document.querySelector("#content-img1").src = ev.target.result; break;
+                        case 2: document.querySelector("#content-img1").src = ev.target.result;
+                                $('.detail-img').css('display', 'none');
+                                $('.detail-img-hidden').css('display', 'table-row');
+                                break;
                         case 3: $("#content-img2").attr("src", ev.target.result); break;
                         case 4: $("#content-img3").attr("src", ev.target.result); break;
+                        case 5: $("#content-img4").attr("src", ev.target.result); break;
+                        case 6: $("#content-img5").attr("src", ev.target.result); break;
                     }
                 }
             } else {
@@ -504,6 +519,8 @@
                     case 2: document.querySelector("#content-img1").src = null; break;
                     case 3: $("#content-img2").attr("src", null); break;
                     case 4: $("#content-img3").attr("src", null); break;
+                    case 5: $("#content-img4").attr("src", null); break;
+                    case 6: $("#content-img5").attr("src", null); break;
                 }
 
             }
