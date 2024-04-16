@@ -16,7 +16,6 @@ public class SpaceReservationService {
 		
 		return dates;
 		
-		
 	}
 
 }

@@ -464,7 +464,8 @@
             <%   
                 HttpSession p=request.getSession();
                 String check=(String) p.getAttribute("pickedMsg");
-            
+                String pickedMsg=(String)p.getAttribute("picked");
+                
             %>
             
             <% if(check!=null){ %>
@@ -476,12 +477,13 @@
 
           
             <nav id="main" class="navbar-light bg-light">
+                 <input id="spaceNum" type="text" value="1" hidden> <!--공간번호--> 
 
                 <div id="section_1">
 
 
                     <div id="space_id" name="space_name" class="title">
-                        <div class="text"> 르씨엘 2호점</div>  <div id="picked" onclick="picked(this);">찜하기</div>
+                        <div class="text"> 르씨엘 2호점</div>  <div id="picked" onclick="picked(this);"><%=(pickedMsg==null)?"찜하기":pickedMsg%></div>
                     </div>
                         <script>
                              function picked(_this){
@@ -755,7 +757,7 @@
                         // });
                     </script>
 
-                        <input id="spaceNum" type="text" value="1" hidden> <!--공간번호--> 
+                    
                         <div id="comment_info" style="height:80px">
                             <th></th>
                             <td>

@@ -1,46 +1,49 @@
 package com.kh.space.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import com.kh.member.model.vo.Member;
+import com.kh.space.model.vo.Picked;
+import com.kh.space.service.SpacePickedService;
 
 /**
- * Servlet implementation class spacePickedController
+ * Servlet implementation class SpacePickedListController
  */
-@WebServlet("/picked.sp")
-public class SpacePickedController extends HttpServlet {
+@WebServlet("/pickedview.sp")
+public class SpacePickedListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-	
-    
-    public SpacePickedController() {
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public SpacePickedListController() {
         super();
-
-
+        // TODO Auto-generated constructor stub
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	  
+	    HttpSession session = request.getSession();
+	    Member member=(Member)session.getAttribute("loginUser");
+	    
+	    int userNo=member.getUserNo();
+	    
+	   //  ArrayList<Space> pickes=new SpacePickedService().findUserPicked(userNo);
+	    
+	    
 		
-		//찜한 리스트에 추가
-		int spaceNum=Integer.parseInt(request.getParameter("spaceNum"));
 		
-		//이미 찜 되있으면 
-		 //이미 찜 하셨습니다.
 		
-		//찜 안되있으면 
-		  // 찜 되었습니다.
-		
-		request.getSession().setAttribute("pickedMsg", "찜되었습니다.");
-		response.sendRedirect(request.getContextPath()+"/detailview.sp");
-		
-	
 	}
 
 	/**
@@ -48,7 +51,6 @@ public class SpacePickedController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		doGet(request, response);
 	}
 
 }
