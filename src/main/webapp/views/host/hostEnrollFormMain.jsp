@@ -138,22 +138,23 @@
             padding: 0;
             margin: 0;
         }
-        .hidden-tag, .hidden-spaceinfo, .hidden-spaceinfo-btn{
+        .hidden-tag, .hidden-spaceinfo, .hidden-spaceinfo-btn, .hidden-caution, .hidden-caution-btn {
             display: none;
         }
         .detail-area{
             position: relative;
         }
-        .hidden-spaceinfo-btn{
+        .hidden-spaceinfo-btn, .hidden-caution-btn{
             position: absolute;
             right : 43px;
             
         }
-        .hidden-spaceinfo-btn button{
+        .hidden-spaceinfo-btn button, .hidden-caution-btn button{
             height: 50px;
         }
-        
-        
+        .main-img-hidden{
+            display: none;
+        }
 
     </style>
 </head>
@@ -283,13 +284,17 @@
                 <tr><td colspan="3"></td></tr>
                 <tr>
 
-
+                <!-- 대표 이미지 .. -->
                     <th>대표 이미지<span class="red-color">*</span></th>
                     <td colspan="2" align="right">2048*1158 권장, 최대 3MB</td>
                 </tr>
-                <tr>
+                <tr class="main-img">
                     <td colspan="2" class="body80"><input class="input-text" name="spaceMimg" type="text" placeholder="이미지 파일을 추가해 주세요. (JPG, JPEG, png)" required></td>
-                    <td><button>파일 첨부</button></td>
+                    <td><button style="height: 50px;" type="button" onclick="chooseFile(1)">파일 첨부</button></td>
+                </tr>
+                <tr class="main-img-hidden">
+                    <td colspan="2" class="body80"><img id="title-img" width="250" height="170"></td>
+                    <td><button style="height: 50px;" type="button" onclick="chooseFile(1)">파일 첨부</button></td>
                 </tr>
                 <tr><td colspan="3"></td></tr>
                 <tr>
@@ -298,7 +303,7 @@
                 </tr>
                 <tr>
                     <td colspan="2" class="body80"><input class="input-text" name="spaceImg" type="text" placeholder="이미지 파일을 추가해 주세요. (JPG, JPEG, png)" required></td>
-                    <td><button>파일 첨부</button></td>
+                    <td><button type="button" >파일 첨부</button></td>
                 </tr>
                 <tr><td colspan="3"></td></tr>
                 <tr>
@@ -307,7 +312,7 @@
                 </tr>
                 <tr>
                     <td colspan="2" ><input class="input-text" type="text" name="spaceAddress" placeholder="실제 서비스되는 공간의 주소를 입력해주세요." required></td>
-                    <td ><button>주소 검색</button></td>
+                    <td ><button type="button" disabled>주소 검색</button></td>
                 </tr>
                 <tr>
                     <td colspan="2" class="body80"><input class="input-text" name="spaceDetailAddress" type="text" placeholder="상세주소" required></td>
@@ -339,8 +344,22 @@
                     <td colspan="2" ><input style="padding-right: 50px;" class="input-text" type="text" name="spaceTel" value="${loginUser.phone}" placeholder="'-' 없이 입력해주세요." required></td>
                     <td  class="body80"><input class="input-text" name="spaceCapacity" type="number" placeholder="최대 수용 인원" required></td>
                 </tr>
-            
             </table>
+
+            <div style="display: none;">
+                <input type="file" name="file1" id="file1" required onchange="loadImg(this, 1)">
+                <input type="file" name="file2" id="file2" onchange="loadImg(this, 2)">
+                <input type="file" name="file3" id="file3" onchange="loadImg(this, 3)">
+                <input type="file" name="file4" id="file4" onchange="loadImg(this, 4)">
+                <input type="file" name="file4" id="file4" onchange="loadImg(this, 5)">
+                <input type="file" name="file4" id="file4" onchange="loadImg(this, 6)">
+                <input type="file" name="file4" id="file4" onchange="loadImg(this, 7)">
+                <input type="file" name="file4" id="file4" onchange="loadImg(this, 8)">
+                <input type="file" name="file4" id="file4" onchange="loadImg(this, 9)">
+                <input type="file" name="file4" id="file4" onchange="loadImg(this, 10)">
+                <input type="file" name="file4" id="file4" onchange="loadImg(this, 11)">
+            </div>
+
             <br><br>
             <div class="last-btns">
                 <button class="back-btn">이&nbsp&nbsp&nbsp&nbsp전</button>
@@ -432,35 +451,66 @@
         }
 
         // 주의사항 입력 및 삭제
-        let spaceCautionCheck = 1;
-        function insertSpaceInfo() {
+        let spaceCaution = 1;
+        function insertCaution() {
             const tag = document.querySelector("#spaceCaution-input").value;
             if (tag != ""){
-                $(".hidden-spaceinfo").css('display', 'table-row');
-                $(".hidden-spaceinfo-btn").css('display', 'table-row');
+                $(".hidden-caution").css('display', 'table-row');
+                $(".hidden-caution-btn").css('display', 'table-row');
                 let a = document.createElement('input');
-                a.value = spaceCautionCheck + ". " + tag;
+                a.value = spaceCaution + ". " + tag;
                 a.classList.add("input-text");
-                a.name = "spaceInfo";
-                document.querySelector('.hidden-spaceinfo').appendChild(a);
-                document.querySelector("#spaceInformation-input").value = "";
-                spaceCautionCheck++;
+                a.name = "spaceCaution";
+                document.querySelector('.hidden-caution').appendChild(a);
+                document.querySelector("#spaceCaution-input").value = "";
+                spaceCaution++;
             } else {
-                alert("시설 안내를 입력해주세요!");
-                $('#spaceInformation-input').focus();
+                alert("예약 시 주의사항을 입력해주세요!");
+                $('#spaceCaution-input').focus();
             }
-            if (spaceCautionCheck == 11){
-                $(".spaceInfo-btn").attr("disabled", true);
-                $(".spaceInfo-btn").css("background-color", "gray");
-            }
-            
+            if (spaceCaution == 11){
+                $(".caution-btn").attr("disabled", true);
+                $(".caution-btn").css("background-color", "gray");
+            }  
         }
-        function deleteSpaceInfo() {
-            $('.hidden-spaceinfo').children().remove();
-            $(".hidden-spaceinfo-btn").css('display', 'none');
-            $(".spaceInfo-btn").attr("disabled", false);
-            $(".spaceInfo-btn").css("background-color", "#704DE4");
-            spaceCautionCheck = 1;
+        function deleteCaution() {
+            $('.hidden-caution').children().remove();
+            $(".hidden-caution-btn").css('display', 'none');
+            $(".caution-btn").attr("disabled", false);
+            $(".caution-btn").css("background-color", "#704DE4");
+            spaceCaution = 1;
+        }
+
+        //이미지 관련 script
+        function loadImg(inputFile, num){
+            
+            if (inputFile.files.length == 1) {
+                const reader = new FileReader();
+                reader.readAsDataURL(inputFile.files[0]);
+                reader.onload = function(ev) {
+                    switch(num){
+                        case 1: document.getElementById("title-img").src = ev.target.result; 
+                                $('.main-img').css('display', 'none');
+                                $('.main-img-hidden').css('display', 'table-row');
+                                break;
+                        case 2: document.querySelector("#content-img1").src = ev.target.result; break;
+                        case 3: $("#content-img2").attr("src", ev.target.result); break;
+                        case 4: $("#content-img3").attr("src", ev.target.result); break;
+                    }
+                }
+            } else {
+                switch(num){
+                    case 1: document.getElementById("title-img").src = null; break;
+                    case 2: document.querySelector("#content-img1").src = null; break;
+                    case 3: $("#content-img2").attr("src", null); break;
+                    case 4: $("#content-img3").attr("src", null); break;
+                }
+
+            }
+        }
+        function chooseFile(num){
+            const imgInput = document.querySelector("#file" + num);
+            imgInput.click();
         }
 
     </script>
