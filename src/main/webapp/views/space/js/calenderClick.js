@@ -68,13 +68,22 @@ document.addEventListener('DOMContentLoaded', function () {
                 let reservatedPriceColor='rgb(128, 128, 128)'
                 let selectedColor="rgb(0, 0, 255)"
                
+            
+                const existTime= [];
+                for( let datetime of datetimes){
+                    console.log(datetime);
+                    existTime.push(datetime['time1'])
+                    existTime.push(datetime['time2'])
+                }
+               
+
 
                 $("#choiced_date").val(currentDate); // jQuery 사용으로 변경
                 $('#time_choice').css("display", "block");
                 $('.time_box').each(function(){
                     const time=$(this).find('.time').text();
                    
-                    if(datetimes.includes(parseInt(time))){
+                    if(existTime.includes(parseInt(time))){
                         $(this).find('.price').css("backgroundColor",reservatedPriceColor);
                         $(this).find('.price').attr("disabled",true);
                     }
@@ -83,17 +92,6 @@ document.addEventListener('DOMContentLoaded', function () {
                     }
                  })
 
-
-
-               
-
-
-             
-             
-
-
-
-             
                 let timeArr = []; // 선택된 시간을 저장하는 배열
                 let priceValue = 0; // 총 가격을 저장하는 변수
                 let count = 0; // 선택된 시간의 개수
@@ -131,7 +129,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         if (timeArr.length > 1 && Math.abs(timeArr[timeArr.length - 1] - timeArr[0]) >= 2) {
                             // 연속되지 않는 시간 선택 시 경고
                             alert("연속된 시간이어야 합니다.");
-                            $(this).find('.price').css("backgroundColor", selectedColor);
+                           $(this).find('.price').css("backgroundColor", priceColor);
                             timeArr.pop(); // 마지막에 추가한 시간 제거
                         } else {
                             priceValue += price;

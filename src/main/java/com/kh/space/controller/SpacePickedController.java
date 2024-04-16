@@ -1,4 +1,4 @@
-package com.kh.member.controller;
+package com.kh.space.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -8,32 +8,44 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class MemberLoginForm
+ * Servlet implementation class spacePickedController
  */
-@WebServlet("/login.me")
-public class MemberLoginForm extends HttpServlet {
+@WebServlet("/picked.sp")
+public class SpacePickedController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public MemberLoginForm() {
+	
+    
+    public SpacePickedController() {
         super();
-        // TODO Auto-generated constructor stub
+
+
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("views/member/LoginMember_hamyu.jsp").forward(request, response);
+	  
+		
+		//찜한 리스트에 추가
+		
+		//이미 찜 되있으면 
+		 //이미 찜 하셨습니다.
+		
+		//찜 안되있으면 
+		  // 찜 되었습니다.
+		
+		response.sendRedirect(request.getContextPath()+"/detailview.sp");
+		
+	
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		
 		doGet(request, response);
 	}
 

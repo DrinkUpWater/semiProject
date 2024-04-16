@@ -92,6 +92,11 @@
                 margin-right: 20px;
             }
 
+            #space_id{
+                display: flex;
+                justify-content: space-between;
+                
+            }
 
             .space {
             
@@ -199,13 +204,14 @@
             /* #comment_table tr th td{
                 width:100%;
             } */
+
             #comment_table td {
                 padding-top: 8px;
                 padding-bottom: 8px;
             }
 
              #comment_table th, #comment_table td {
-                vertical-align: top;
+                /* vertical-align: top; */
             }
 
             #comment_table .time {
@@ -215,19 +221,30 @@
 
             
             .comment_list{
-             
+             /* resize:none; */
              padding: 8px;
            }
-
+           .comment_list >th{
+              width:200px;
+           }
+           .comment_list >td{
+              width:500px;
+           }
+           #hostReplyContent{
+             width:50px;
+           }
             .clear {
                 width: 20%;
             }
             .mb-1 {
                 margin-bottom: .25rem;
             }
-            textarea {
-              resize: vertical;
+            textarea{
+               
+              resize:none;
+              /* resize:vertical; */
               height: 100%;
+           
             }
 
             .comment_list:last-child {
@@ -413,17 +430,18 @@
 
     </head>
 
-
+  
     <body>
         <%@ include file="../common/menubar.jsp" %>
-
+           
+          
             <nav id="main" class="navbar-light bg-light">
 
                 <div id="section_1">
 
 
                     <div id="space_id" name="space_name" class="title">
-                        <div class="text"> 르씨엘 2호점</div>
+                        <div class="text"> 르씨엘 2호점</div> <div><span><a href="<%=contextPath%>/picked.sp" onclick="alert('찜되었습니다.')">찜하기</a></span></div>
                     </div>
                     <div id="space_comment" class="space">
                         <div align="left" class="img_div">
@@ -676,15 +694,16 @@
                             <td>
                                 <div class="QA" style="  font-size: 1.2rem; margin-top:30px">QA등록하기</div>
 
-                                <div id="comment div" style="width:100%; height:100%; display:flex; justify-content: space-between;">
+                                <div id="comment div" style="width:100%; height:100%; display:flex; justify-content:center;">
                                     
                                     <div style="width:100%">
-                                        <textarea id="content" placeholder="입력하세요" style="width:100%"></textarea>
+                                        <textarea id="content" placeholder="입력하세요" style="width:500px;"  ></textarea>
+                                       
                                     </div>
 
 
 
-                                    <div style="height:100%"><button id="comment_enroll" type="button"  style="height:100%">등록하기</button></div>
+                                    <div style=" width:100%; height:100%;"><button id="comment_enroll" type="button" style="height:100%;" >등록하기</button></div>
 
                                 </div>
 

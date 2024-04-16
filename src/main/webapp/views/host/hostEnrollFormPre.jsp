@@ -140,7 +140,7 @@
     </style>
 </head>
 <body>
-    <%@ include file="../common/menubar.jsp"%>
+    <%@ include file="../common/menubarHost.jsp"%>
     <div id="wrapper">
     	<br>
         <div class="login-top">
@@ -158,12 +158,12 @@
             <li>검수 신청 후, 공간 유형은 고객센터를 통해서만 가능하오니, 신중히 선택해주세요!</li>
         </ul>
         <br><br><br>
-        <form action="<%=contextPath%>/preEnroll.ho" method="POST">
+        <form action="enroll.ho" method="POST">
             <table class="select-area">
                 <tr>
                     <td> 
                         <label class="container">&nbsp&nbsp&nbsp파티룸
-                            <input type="checkbox" id="party" name="spaceType" value="party">
+                            <input type="checkbox" id="party" name="spaceKind" value="party">
                             <span class="checkmark"></span>
                         </label>
                     </td>
@@ -176,7 +176,7 @@
                 <tr>
                     <td> 
                         <label class="container">&nbsp&nbsp&nbsp카페
-                            <input type="checkbox"  id="cafe" name="spaceType" value="cafe">
+                            <input type="checkbox"  id="cafe" name="spaceKind" value="cafe">
                             <span class="checkmark"></span>
                         </label>
                     </td>
@@ -189,7 +189,7 @@
                 <tr>
                     <td>
                         <label class="container">&nbsp&nbsp&nbsp강의실
-                            <input type="checkbox"  id="lecture" name="spaceType" value="lecture">
+                            <input type="checkbox"  id="lecture" name="spaceKind" value="lecture">
                             <span class="checkmark"></span>
                         </label>
                     </td>
@@ -202,7 +202,7 @@
                 <tr>
                     <td>
                         <label class="container">&nbsp&nbsp&nbsp회의실
-                            <input type="checkbox"  id="meeting" name="spaceType" value="meeting">
+                            <input type="checkbox"  id="meeting" name="spaceKind" value="meeting">
                             <span class="checkmark"></span>
                         </label>
                     </td>
@@ -215,7 +215,7 @@
                 <tr>
                     <td>
                         <label class="container">&nbsp&nbsp&nbsp세미나실
-                            <input type="checkbox"  id="seminar" name="spaceType" value="seminar">
+                            <input type="checkbox"  id="seminar" name="spaceKind" value="seminar">
                             <span class="checkmark"></span>
                         </label>
                     </td>
@@ -228,7 +228,7 @@
                 <tr>
                     <td> 
                         <label class="container">&nbsp&nbsp&nbsp스터디룸
-                            <input type="checkbox"  id="study" name="spaceType" value="study" >
+                            <input type="checkbox"  id="study" name="spaceKind" value="study" >
                             <span class="checkmark"></span>
                         </label>
                     </td>
