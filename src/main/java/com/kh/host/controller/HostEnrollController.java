@@ -28,13 +28,13 @@ public class HostEnrollController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		
-		String[] sArr = request.getParameterValues("spaceType");
-		String spaceType = "";
+		String[] sArr = request.getParameterValues("spaceKind");
+		String spaceKind = "";
 		if (sArr != null) {
-			spaceType = String.join(",", sArr);
+			spaceKind = String.join(",", sArr);
 		}
 		
-		request.setAttribute("spaceType", spaceType);
+		request.setAttribute("spaceKind", spaceKind);
 		request.getRequestDispatcher("views/host/hostEnrollFormMain.jsp").forward(request, response);
 	}
 

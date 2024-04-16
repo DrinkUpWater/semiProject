@@ -98,7 +98,7 @@
             width: 90%;
             margin-right: 10px;
         }
-        td>button{
+        td button{
             width: 110px;
             height: 85%;
             background-color: #704DE4;
@@ -138,6 +138,21 @@
             padding: 0;
             margin: 0;
         }
+        .hidden-tag, .hidden-spaceinfo, .hidden-spaceinfo-btn{
+            display: none;
+        }
+        .detail-area{
+            position: relative;
+        }
+        .hidden-spaceinfo-btn{
+            position: absolute;
+            right : 43px;
+            
+        }
+        .hidden-spaceinfo-btn button{
+            height: 50px;
+        }
+        
         
 
     </style>
@@ -146,7 +161,7 @@
     <%@ include file="../common/menubarHost.jsp"%>
     <div id="wrapper">
     	<br>
-        <form action="">
+        <form action="spaceEnroll.sp" method="POST">
             <div class="login-top">
                 <h2>시설물 등록</h2>
             </div>
@@ -167,7 +182,7 @@
                     <td colspan="2" align="right"><span class="textCount1">0</span>/18자</td>
                 </tr>
                 <tr>
-                    <td colspan="3"><input class="input-text input-host1" type="text" maxlength="18" placeholder="고유 업체명을 입력해주세요. ex)인디워커스 하이브 회의실" required></td>
+                    <td colspan="3"><input class="input-text input-host1" name="spaceName" type="text" maxlength="18" placeholder="고유 업체명을 입력해주세요. ex)인디워커스 하이브 회의실" required></td>
                 </tr>
                 <tr><td colspan="3"></td></tr>
                 <tr>
@@ -179,27 +194,27 @@
                     <td  colspan="3">
                         <div class="space-btns">
                             <div>
-                                <input type="checkbox" id="party" name="spaceType" value="party" >
+                                <input type="checkbox" id="party" name="spaceKind" value="party" >
                                 <label for="party">&nbsp파티룸</label>
                             </div>
                             <div>
-                                <input type="checkbox" id="cafe" name="spaceType" value="cafe">
+                                <input type="checkbox" id="cafe" name="spaceKind" value="cafe">
                                 <label for="cafe">&nbsp카페</label>
                             </div>
                             <div>
-                                <input type="checkbox" id="lecture" name="spaceType" value="lecture">
+                                <input type="checkbox" id="lecture" name="spaceKind" value="lecture">
                                 <label for="lecture">&nbsp강의실</label>
                             </div>
                             <div>
-                                <input type="checkbox" id="meeting" name="spaceType" value="meeting">
+                                <input type="checkbox" id="meeting" name="spaceKind" value="meeting">
                                 <label for="meeting">회의실</label>
                             </div>
                             <div>
-                                <input type="checkbox" id="seminar" name="spaceType" value="seminar">
+                                <input type="checkbox" id="seminar" name="spaceKind" value="seminar">
                                 <label for="seminar">&nbsp세미나실</label>
                             </div>
                             <div>
-                                <input type="checkbox" id="study" name="spaceType" value="study">
+                                <input type="checkbox" id="study" name="spaceKind" value="study">
                                 <label for="study">&nbsp스터디룸</label>
                             </div>
                         </div>
@@ -211,7 +226,7 @@
                     <td colspan="2" align="right"><span class="textCount2">0</span>/27자</td>
                 </tr>
                 <tr>
-                    <td colspan="3"><input class="input-text input-host2" type="text" maxlength="27" placeholder="공간의 특장점을 한 문자응로 작성해주세요." required></td>
+                    <td colspan="3"><input class="input-text input-host2" name="spaceOneIntroduce" type="text" maxlength="27" placeholder="공간의 특장점을 한 문자응로 작성해주세요." required></td>
                 </tr>
                 <tr><td colspan="3"></td></tr>
                 <tr>
@@ -219,42 +234,61 @@
                     <td colspan="2" align="right"><span class="textCount3">0</span>/500자</td>
                 </tr>
                 <tr>
-                    <td colspan="3"><input class="input-text input-host3" type="text" maxlength="500" placeholder="게스트들에게 필요한 공간 정보를 상세하게 소개해주세요. 툴팁은 클릭해 작성 가이드를 확인할 수 있습니다." required></td>
+                    <td colspan="3"><input class="input-text input-host3" name="spaceIntroduce" type="text" maxlength="500" placeholder="게스트들에게 필요한 공간 정보를 상세하게 소개해주세요. 툴팁은 클릭해 작성 가이드를 확인할 수 있습니다." required></td>
                 </tr>
                 <tr><td colspan="3"></td></tr>
+
+                <!-- 공간 태그 -->
                 <tr>
                     <th>공간 태그<span class="red-color">*</span></th>
                     <td colspan="2" align="right">최대 5개</td>
                 </tr>
                 <tr>
-                    <td colspan="2" class="body80"><input class="input-text" type="text" placeholder="게스트들이 선호할만한 주요 특징들을 키워드로 입력해주세요. (최대 5개)" required></td>
-                    <td><button>추가 ▼</button></td>
+                    <td colspan="2" class="body80"><input class="input-text" id="spaceTag" type="text" placeholder="게스트들이 선호할만한 주요 특징들을 키워드로 입력해주세요. (최대 5개)" required></td>
+                    <td><button class="tag-btn" type="button" onclick="insertTag()">추가 ▼</button></td>
+                </tr>
+                <tr class="hidden-tag">
+                    <td colspan="2" class="body80"> <input class="input-text" type="text" name="spaceTag" readonly required></td>
+                    <td><button type="button" onclick="deleteTag()">삭제</button></td>
                 </tr>
                 <tr><td colspan="3"></td></tr>
                 <tr>
+
+
+                 <!--시설 안내  -->
                     <th>시설 안내<span class="red-color">*</span></th>
                     <td colspan="2" align="right">최대 10개</td>
                 </tr>
                 <tr>
-                    <td colspan="2" class="body80"><input class="input-text" type="text" placeholder="이용 가능한 시설에 대해 최대한 상세하게 입력해주세요. (최대 10개)" required></td>
-                    <td><button>추가 ▼</button></td>
+                    <td colspan="2" class="body80"><input class="input-text" id="spaceInformation-input" type="text" placeholder="이용 가능한 시설에 대해 최대한 상세하게 입력해주세요. (최대 10개)" required></td>
+                    <td><button class="spaceInfo-btn" type="button" onclick="insertSpaceInfo()">추가 ▼</button></td>
+                </tr>
+                <tr><td class="hidden-spaceinfo-btn"><button type="button" onclick="deleteSpaceInfo()">삭제</button></td></tr>
+                <tr class="hidden-spaceinfo"> 
                 </tr>
                 <tr><td colspan="3"></td></tr>
                 <tr>
+
+                <!-- 예악 시 주의 사항 -->
                     <th >예약 시 주의사항<span class="red-color">*</span></th>
                     <td colspan="2" align="right">최대 10개</td>
                 </tr>
                 <tr>
-                    <td colspan="2" class="body80"><input class="input-text" type="text" placeholder="게스트들이 예약 시 확인해야 하는 주의사항을 입력해주세요. (최대 10개)" required></td>
-                    <td><button>추가 ▼</button></td>
+                    <td colspan="2" class="body80"><input class="input-text" id="spaceCaution-input" type="text" placeholder="게스트들이 예약 시 확인해야 하는 주의사항을 입력해주세요. (최대 10개)" required></td>
+                    <td><button class="caution-btn" type="button" onclick="insertCaution()">추가 ▼</button></td>
+                </tr>
+                <tr><td class="hidden-caution-btn"><button type="button" onclick="deleteCaution()">삭제</button></td></tr>
+                <tr class="hidden-caution"> 
                 </tr>
                 <tr><td colspan="3"></td></tr>
                 <tr>
+
+
                     <th>대표 이미지<span class="red-color">*</span></th>
                     <td colspan="2" align="right">2048*1158 권장, 최대 3MB</td>
                 </tr>
                 <tr>
-                    <td colspan="2" class="body80"><input class="input-text" type="text" placeholder="이미지 파일을 추가해 주세요. (JPG, JPEG, png)" required></td>
+                    <td colspan="2" class="body80"><input class="input-text" name="spaceMimg" type="text" placeholder="이미지 파일을 추가해 주세요. (JPG, JPEG, png)" required></td>
                     <td><button>파일 첨부</button></td>
                 </tr>
                 <tr><td colspan="3"></td></tr>
@@ -263,7 +297,7 @@
                     <td colspan="2" align="right">2048*1158 권장, 최대 3MB(최대 10장)</td>
                 </tr>
                 <tr>
-                    <td colspan="2" class="body80"><input class="input-text" type="text" placeholder="이미지 파일을 추가해 주세요. (JPG, JPEG, png)" required></td>
+                    <td colspan="2" class="body80"><input class="input-text" name="spaceImg" type="text" placeholder="이미지 파일을 추가해 주세요. (JPG, JPEG, png)" required></td>
                     <td><button>파일 첨부</button></td>
                 </tr>
                 <tr><td colspan="3"></td></tr>
@@ -272,11 +306,11 @@
                     <td colspan="2" align="right"></td>
                 </tr>
                 <tr>
-                    <td colspan="2" ><input class="input-text" type="text" placeholder="실제 서비스되는 공간의 주소를 입력해주세요." required></td>
+                    <td colspan="2" ><input class="input-text" type="text" name="spaceAddress" placeholder="실제 서비스되는 공간의 주소를 입력해주세요." required></td>
                     <td ><button>주소 검색</button></td>
                 </tr>
                 <tr>
-                    <td colspan="2" class="body80"><input class="input-text" type="text" placeholder="상세주소" required></td>
+                    <td colspan="2" class="body80"><input class="input-text" name="spaceDetailAddress" type="text" placeholder="상세주소" required></td>
                     
                 </tr>
                 <tr><td colspan="3"></td></tr>
@@ -284,7 +318,7 @@
                     <th>가격(1인 1시간 가격)<span class="red-color">*</span></th>
                 </tr>
                 <tr>
-                    <td colspan="3"><input class="input-text" type="text" placeholder="ex) 1000" required></td>
+                    <td colspan="3"><input class="input-text" name="spacePrice" type="text" placeholder="ex) 1000" required></td>
                 </tr>
                 <tr><td colspan="3"></td></tr>
                 <tr>
@@ -292,8 +326,20 @@
                     <td colspan="2" align="right"><span class="textCount4">0</span>/20자</td>
                 </tr>
                 <tr>
-                    <td colspan="3"><input class="input-text input-host4" type="text" maxlength="20" placeholder="ex) 동대문역사문화공원역 도보 1분 거리"></td>
+                    <td colspan="3"><input class="input-text input-host4" name="spaceLocation" type="text" maxlength="20" placeholder="ex) 동대문역사문화공원역 도보 1분 거리"></td>
                 </tr>
+                <tr>
+                    <th></th>
+                </tr>
+                <tr>
+                    <th>전화번호<span class="red-color">*</span></th>
+                    <td colspan="1" align="right"><th>수용 인원</th></td>
+                </tr>
+                <tr>
+                    <td colspan="2" ><input style="padding-right: 50px;" class="input-text" type="text" name="spaceTel" value="${loginUser.phone}" placeholder="'-' 없이 입력해주세요." required></td>
+                    <td  class="body80"><input class="input-text" name="spaceCapacity" type="number" placeholder="최대 수용 인원" required></td>
+                </tr>
+            
             </table>
             <br><br>
             <div class="last-btns">
@@ -322,14 +368,100 @@
         });
         
        	
-        const spaceType = "${spaceType}";
-       	const inputArr = document.querySelectorAll("input[name=spaceType]");
+        const spaceKind = "${spaceKind}";
+       	const inputArr = document.querySelectorAll("input[name=spaceKind]");
        	for (let input of inputArr) {
-       		if (spaceType.includes(input.value)){
+       		if (spaceKind.includes(input.value)){
        			input.checked = true;
        		}
        	}
+
+        // 공간태그 입력 및 삭제
+        function insertTag() {
+            const tag = document.querySelector("#spaceTag").value;
+            if (tag != ""){
+                $(".hidden-tag input").val($(".hidden-tag input").val()+'#'+tag+' ');
+                document.querySelector("#spaceTag").value = "";
+                $(".hidden-tag").css('display', 'table-row');
+                let count = document.querySelector(".hidden-tag input").value.split('#').length - 1;
+                if (count >= 5){
+                    $(".tag-btn").attr("disabled", true);
+                    $(".tag-btn").css("background-color", "gray");
+                }
+            } else {
+                alert("공간 태그를 입력해주세요!");
+                $('#spaceTag').focus();
+            }
+        }
+        function deleteTag() {
+            $(".hidden-tag input").val('');
+            $(".tag-btn").attr("disabled", false);
+            $(".tag-btn").css("background-color", "#704DE4");
+        }
         
+        // 시설안내 입력 및 삭제
+        let spaceInfoCheck = 1;
+        function insertSpaceInfo() {
+            const tag = document.querySelector("#spaceInformation-input").value;
+            if (tag != ""){
+                $(".hidden-spaceinfo").css('display', 'table-row');
+                $(".hidden-spaceinfo-btn").css('display', 'table-row');
+                let a = document.createElement('input');
+                a.value = spaceInfoCheck + ". " + tag;
+                a.classList.add("input-text");
+                a.name = "spaceInfo";
+                document.querySelector('.hidden-spaceinfo').appendChild(a);
+                document.querySelector("#spaceInformation-input").value = "";
+                spaceInfoCheck++;
+            } else {
+                alert("시설 안내를 입력해주세요!");
+                $('#spaceInformation-input').focus();
+            }
+            if (spaceInfoCheck == 11){
+                $(".spaceInfo-btn").attr("disabled", true);
+                $(".spaceInfo-btn").css("background-color", "gray");
+            }
+            
+        }
+        function deleteSpaceInfo() {
+            $('.hidden-spaceinfo').children().remove();
+            $(".hidden-spaceinfo-btn").css('display', 'none');
+            $(".spaceInfo-btn").attr("disabled", false);
+            $(".spaceInfo-btn").css("background-color", "#704DE4");
+            spaceInfoCheck = 1;
+        }
+
+        // 주의사항 입력 및 삭제
+        let spaceCautionCheck = 1;
+        function insertSpaceInfo() {
+            const tag = document.querySelector("#spaceCaution-input").value;
+            if (tag != ""){
+                $(".hidden-spaceinfo").css('display', 'table-row');
+                $(".hidden-spaceinfo-btn").css('display', 'table-row');
+                let a = document.createElement('input');
+                a.value = spaceCautionCheck + ". " + tag;
+                a.classList.add("input-text");
+                a.name = "spaceInfo";
+                document.querySelector('.hidden-spaceinfo').appendChild(a);
+                document.querySelector("#spaceInformation-input").value = "";
+                spaceCautionCheck++;
+            } else {
+                alert("시설 안내를 입력해주세요!");
+                $('#spaceInformation-input').focus();
+            }
+            if (spaceCautionCheck == 11){
+                $(".spaceInfo-btn").attr("disabled", true);
+                $(".spaceInfo-btn").css("background-color", "gray");
+            }
+            
+        }
+        function deleteSpaceInfo() {
+            $('.hidden-spaceinfo').children().remove();
+            $(".hidden-spaceinfo-btn").css('display', 'none');
+            $(".spaceInfo-btn").attr("disabled", false);
+            $(".spaceInfo-btn").css("background-color", "#704DE4");
+            spaceCautionCheck = 1;
+        }
 
     </script>
 
