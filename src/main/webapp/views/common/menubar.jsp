@@ -177,6 +177,7 @@
 </style>
 </head>
 <body>
+
 	<% if(alertMsg != null) {%>
 		<script>
 			alert("<%=alertMsg%>");
@@ -273,7 +274,7 @@
 
             <br><br><br><br>
             
-            <a href="">로그아웃</a>
+            <a href="logout.me">로그아웃</a>
             <br>
             <br>
             <div class="side-tohost">

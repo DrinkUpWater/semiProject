@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -151,6 +152,8 @@
 <body>
 
     <%@ include file="../common/menubar.jsp" %>
+
+  
     <div id="wrapper">
         <div class="login-top">
             <h2>로그인</h2>
@@ -176,7 +179,7 @@
             </div>
 
             <div class="find-user-info">
-                <a href="findPwd.me" class="find-pwd">비밀번호를 잊으셨나요?</a><br>
+                <a href="findPwdForm" class="find-pwd">비밀번호를 잊으셨나요?</a><br>
                 <h7>계정이 없으신가요?</h7> <a href="enrollForm.me" class="join-user">회원가입</a>
             </div>
 
@@ -198,8 +201,9 @@
                 userPwd.focus();
                 return false;
             }
-            else{ //빈칸없이 입력은 했으나 DB에서 계정을 찾지 못했을 경우 
-                 alert(request.getAttribute('alertMsg'));
+    
+           else{
+                alert(request.getAttribute("alertMsg"));
                 return false;
             }
         }

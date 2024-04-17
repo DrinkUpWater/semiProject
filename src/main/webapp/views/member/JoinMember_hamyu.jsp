@@ -68,10 +68,13 @@
 
             .cantid {
                 color: red;
+                display: none;
             }
 
             .useableid {
                 color: #34B407;
+                display: none;
+
             }
 
             .cantPwd {
@@ -237,7 +240,7 @@
         <%@ include file="../common/menubar.jsp" %>
             <div id="wrapper">
                 <div class="join-user">
-                    <form action="${contextPath}/insert.me" id="login-form" method="post">
+                    <form action="insert.me" id="login-form" method="post">
                         <h4 class="text-header">회원가입</h4>
                         <h7 class="text-header2">회원이 되어 다양한 혜택을 받으세요! </h7>
 
@@ -249,11 +252,11 @@
 
                             <tr>
                                 <td colspan="3">
-                                    <input type="text" id="userName" placeholder=" 이름" style="width: 64%; ">
+                                    <input type="text" id="userName" name ="userName" placeholder=" 이름" style="width: 64%; ">
                                 </td>
                             </tr>
 
-
+                            
                             <!-- 아이디 -->
                             <tr class="user-id">
                                 <th>아이디</th>
@@ -308,7 +311,7 @@
                             </tr>
                             <tr>
                                 <td colspan="3" class="input-nickname">
-                                    <input type="text" id="userNickName" name="nickName"
+                                    <input type="text" id="nickName" name="nickName"
                                         placeholder=" 특수문자 제외(',~,!,@,#,$,%,^...)최대 8글자">
                                 </td>
                             </tr>
@@ -317,8 +320,8 @@
                             <tr class="user-gender">
                                 <th colspan="2">성별</th>
                                 <td align="center" class="ck-gender">
-                                    <label><input type="radio" name="gender" value="남"><b>남</b></label>
-                                    <label><input type="radio" name="gender" value="여"><b>여</b></label>
+                                    <label><input type="radio" name="gender" value="M"><b>남</b></label>
+                                    <label><input type="radio" name="gender" value="F"><b>여</b></label>
                                 </td>
                             </tr>
 
@@ -350,7 +353,7 @@
                         <h4 class="email-header">이메일</h4>
                         <input type="text" id="email" name="email" class="u-email" placeholder="">
                         <b>@</b>
-                        <select class="select-email">
+                        <select class="select-email" name="select-email">
                             <option value="">-선택-</option>
                             <option value="naver.com">naver.com</option>
                             <option value="gmail.com">gmail.com</option>
@@ -363,8 +366,8 @@
                         
                         <div class="userhost-area">
                             <h4 class="userhost-header">사용자 선택</h4>
-                            <label class="host-label"><input type="radio" name="userhost" value="host"><b class="bb">호스트</b></label>
-                            <label class="host-label"><input type="radio" name="userhost" value="guest"><b class="bb">게스트</b></label>
+                            <label class="host-label"><input type="radio" name="userHost" value="H"><b class="bb">호스트</b></label>
+                            <label class="host-label"><input type="radio" name="userHost" value="G"><b class="bb">게스트</b></label>
                         </div>
                         <div class="btn-area">
                             <button type="submit" class="join-btn" onclick="return joinUser()">가입하기</button>
@@ -384,16 +387,54 @@
                     let userId = document.getElementById("userId");
                     let userPwd = document.getElementById("userPwd");
                     let userPwdCheck = document.getElementById("userPwdCheck");
-                    let userNickName = document.getElementById("userNickName");
+                    let nickName = document.getElementById("nickName");
                     let phone = document.getElementById("phone");
                     let birth = document.getElementById("birth");
                     let email = document.getElementById("email");
                     let select_email = document.querySelector(".select-email");
 
+                    const cantid =document.querySelector(".cantid"); 
+                    const useableid=document.querySelector(".useableid");
 
-                    function idCheck(){ //아이디 중복 확인
+                    function idCheck(){ //아이디 중복 확인 함수
                        console.log(userId);
+                       $.ajax({
+                        type:"POST",
+                        url : "idCheck.me",
+                        data : {
+                            checkId :userId.value
+                        },
+                        success :function(res){
+                            
+                            if(!isVailId(userId.value)){ //정규식조건에 부적절할 시
+                                cantid.style.display="block";
+                                useableid.style.display="none";
+                                return;
+                            }
+
+                            if(res ==="NNNNY"){ //db확인 후 사용 가능할시
+                              
+                                    cantid.style.display="none";
+                                    if(confirm("이 아이디를 사용하시겠습니까?")){ 
+                                        useableid.style.display ="block";
+                                    }else{ 
+                                        useableid.style.display ="none";
+                                        userId.focus(); //false클릭시 다시 아이디입력 창으로 이동
+                                    }
+            
+
+                            }else{
+                                cantid.style.display="block";
+                                useableid.style.display="none";
+                                userId.focus();
+                            }
+                        },
+                        error:function(err){
+                            alert("실패 에러 :" + err1);
+                        }
+                       })
                     }
+
 
                     function joinUser() { //빈칸 있을시 확인
                         let cantid = document.querySelector(".cantid");
@@ -407,6 +448,11 @@
                         //아이디 조건 부분----------------------------------------------
                         else if (userId.value === "") {
                             alert("아이디를 입력해주세요.");
+                            userId.focus();
+                            return false;
+                        }
+                        else if(cantid.style.display !== "none"){
+                            alert("사용할 수 없는 아이디입니다. 다시 입력해주세요.")
                             userId.focus();
                             return false;
                         }
@@ -435,9 +481,9 @@
                         }
 
 
-                        else if (userNickName.value === "") {
+                        else if (nickName.value === "") {
                             alert("닉네임을 입력해주세요.");
-                            userNickName.focus();
+                            nickName.focus();
                             return false;
                         }
                         else if (!maleRadio.checked && !femaleRadio.checked) {
@@ -486,7 +532,7 @@
                         }
 						
                         else{ //빈칸없이 서버에서 보내졌으나 에러 발생시
-                        	alert(request.getAttribute('errorMsg'));
+                            alert(request.getAttribute('alertMsg'));
                         	return false;
                         }
 
@@ -523,8 +569,17 @@
 
                     }
 
+                    //정규식 아이디조건 확인
+                    function isVailId(userId){
+                        if(!/^(?=.{6,20}$)[a-zA-Z0-9]+$/.test(userId)){
+                            return false;
+                        }
+                        return true;
+                    }
+                    
 
-                    //유효가능 비밀번호조건 확인
+
+                    //정규식 비밀번호조건 확인
                     function isValidPassword(password) {
 
                         if (password.length < 8 || password.length > 20) {// 비밀번호의 길이가 8자 이상 20자 이하
@@ -544,7 +599,7 @@
                     }
 
 
-                    //유효가능한 전화번호인지 확인
+                    //정규식 전화번호조건 확인
                     function isValidPhoneNumber(phoneNumber) {
                         // 휴대전화 번호는 숫자로만 이루어져
                         if (!/^\d{11}$/.test(phoneNumber) || phoneNumber.includes("-")) {
@@ -554,7 +609,7 @@
                         return true;
                     }
 
-                    //유효한 생년월일인지 확인
+                    //정규식 생년월일조건 확인
                     function isValidBirth(birth) {
                         if (!/^\d{6}$/.test(birth)) {
                             return false;
@@ -562,7 +617,7 @@
                         return true;
                     }
 
-                    //유효한 이메일인지 확인 
+                    //정규식 이메일조건 확인 
                     function isVailidEmail(email) {
                         return /^[^\s!@#$%^&*()\-_=+[\]{};:'",.<>/?\\|`~]*$/i.test(email);
                     }

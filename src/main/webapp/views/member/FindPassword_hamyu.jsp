@@ -1,8 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-    <!DOCTYPE html>
+<% String findPwd = (String)session.getAttribute("findPwd"); %>
+
+<!DOCTYPE html>
     <html lang="en">
 
     <head>
+
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Document</title>
@@ -181,8 +184,14 @@
     </head>
 
     <body>
-
+    
         <%@ include file="../common/menubar.jsp" %>
+          	<%if(findPwd != null){ %>
+          		<script>
+          			alert("회원님의 비밀번호는[ <%=findPwd%> ]입니다.")
+          		</script>
+                <% session.removeAttribute("findPwd"); %>
+          	<%} %>
             <div id="wrapper">
                 <div class="pwd-top">
                     <h2>비밀번호 찾기</h2>
@@ -192,19 +201,19 @@
                     <div class="pwd-logo">
                         <h1>KH ROOMMOAH</h1>
                     </div>
-
-                    <form action="#">
+                    
+                    <form action="findPwd.me">
                         <div class="member-pwd">
                             <input type="text" id="userId" name="userId" placeholder="&#32;&#32; 아이디"><br>
                             <input type="text" id="phone" name="phone" placeholder="&#32;&#32; 전화번호(-입력)"><br>
-                            <input type="password" id="email" name="email" placeholder="&#32;&#32; 이메일">
+                            <input type="email" id="email" name="email" placeholder="&#32;&#32; 이메일">
                         </div>
                         <div class="send-email">
                             *이메일로 비밀번호 전송하였습니다.
                         </div>
                         <input onclick="return finduser();" type="submit" class="userpwd" value="확 인">
                         <div id="go-login">
-                            <a href="login.me" id="go-login-a" class="atext">로그인페이지 이동</a>
+                            <a href="loginForm.me" id="go-login-a" class="atext">로그인페이지 이동</a>
                         </div>
                     </form>
                     <br>
@@ -227,8 +236,10 @@
 
 
                 </div>
-
+               
             </div>
+           
+       
     </body>
     <script>
         let userId = document.getElementById("userId");
@@ -236,6 +247,8 @@
         let email = document.getElementById("email");
 
         function finduser() {
+           
+          
             if (userId.value === "") {
                 alert("아이디를 입력해주세요.");
                 userId.focus();
@@ -251,6 +264,10 @@
             else if (email.value === "") {
                 alert("이메일을 입력해주세요.");
                 email.focus();
+                return false;
+            }
+            else{
+                alert(request.getAttribute('alertMsg'));
                 return false;
             }
         }
