@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="controller.notice.model.vo.Notice" %>
+<%
+	Notice n = (Notice)request.getAttribute("notice");
+%>
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -117,21 +120,18 @@
             <div id="notice-view">
                 <div id="title-area">
                     <div id="title">
-                        관리자가 입력한 제목
+                        <%=n.getNoticeTitle() %>
                     </div>
                     <div id="span1">
                         <span>관리자</span>
-                        <span>작성한 날짜</span>
+                        <span><%=n.getCreateDate() %></span>
                     </div>
                 </div>
                 <div id="content-area">
                     <div id="txt">
-                        <p>관리자가 입력한 내용</p>
-
-                        <p>관리자가 입력한내용2</p>
-
-                        <p>관리자가 입력한내용3</p>
+                        <p><%=n.getNoticeContent() %></p>
                     </div>
+                    
                 </div>
             </div>
             <div id="comment-count">

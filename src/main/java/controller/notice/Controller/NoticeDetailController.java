@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import controller.notice.model.vo.Notice;
+import controller.notice.service.NoticeService;
 
 /**
  * Servlet implementation class NoticeDetailController
@@ -29,7 +30,10 @@ public class NoticeDetailController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Notice n = new Notice();
+		
+		int noticeNo = Integer.parseInt(request.getParameter("num"));
+		
+		Notice n = new NoticeService().increaseCount(noticeNo);
 		
 		request.setAttribute("notice", n);
 		request.getRequestDispatcher("views/notice/noticeDetailView.jsp").forward(request, response);
