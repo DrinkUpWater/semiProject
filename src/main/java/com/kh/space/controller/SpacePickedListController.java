@@ -1,26 +1,31 @@
 package com.kh.space.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import com.kh.member.model.vo.Member;
+import com.kh.space.model.vo.Picked;
 import com.kh.space.model.vo.Space;
-import com.kh.space.service.SpaceService;
+import com.kh.space.service.SpacePickedService;
 
 /**
- * Servlet implementation class spaceDetailViewController
+ * Servlet implementation class SpacePickedListController
  */
-@WebServlet("/detailview.sp")
-public class SpaceDetailViewController extends HttpServlet {
+@WebServlet("/pickedview.sp")
+public class SpacePickedListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SpaceDetailViewController() {
+    public SpacePickedListController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,30 +34,32 @@ public class SpaceDetailViewController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	    HttpSession session = request.getSession();
+	    Member member=(Member)session.getAttribute("loginUser");
+	    
+	    int userNo=member.getUserNo();
+	    
+	    ArrayList<Space> pickdes=new SpacePickedService().findUserPicked(userNo);
+	    
+	    if(pickdes.isEmpty()) {
+	    	response.sendRedirect(request.getContextPath());
+	     }
+	    else {
+	    	request.setAttribute("pickeds", pickdes);
+	    	request.getRequestDispatcher("views/space/spacePicked.jsp")
+	    	.forward(request, response);
+	    	
+	    }
 		
-		int spaceNo = Integer.parseInt(request.getParameter("spaceNo"));  
 		
-		Space space=new SpaceService().selectOneSpace(spaceNo);
 		
-		if(space==null) {
-			request.getSession().setAttribute("alertMsg","공간조회실패");
-			response.sendRedirect(request.getContextPath());
-			
-		}else {
-			request.setAttribute("space", space);
-			request.getRequestDispatcher("views/space/spaceDetail.jsp")
-			.forward(request, response);
-		}
-		
-	
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		
 	}
 
 }
