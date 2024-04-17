@@ -12,6 +12,7 @@ import com.kh.common.PageInfo;
 
 import controller.notice.model.dao.NoticeDao;
 import controller.notice.model.vo.Notice;
+import controller.notice.model.vo.Reply;
 
 
 public class NoticeService {
@@ -64,4 +65,29 @@ public class NoticeService {
 		
 		return n;
 	}
+	
+	public int insertReply(Reply r) {
+		Connection conn = getConnection();
+		int result = new NoticeDao().insertReply(conn, r);
+		
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result;
+	}
+	
+	public ArrayList<Reply> selectReplyList(int boardNo){
+		Connection conn = getConnection();
+		
+		ArrayList<Reply> list = new NoticeDao().selectReplyList(conn, boardNo);
+		
+		close(conn);
+		
+		return list;
+	}
+	
 }

@@ -59,7 +59,7 @@
            font-size: 14px;
            font-weight: 700;
         }
-        #comment-count{
+        #reply-count{
             margin: 0 0 10px 10px;
             font-size: 15px;
             line-height: 2;
@@ -67,18 +67,18 @@
             font-weight: 400;
             color: #999;
         }
-        #comment-area{
+        #reply-area{
             padding: 30px;
             border-top: 1px solid #ebebeb;
             background-color: #fafafa;
         }
-        #comment-write{
+        #reply-write{
             border: 1px solid;
             padding: 0  0 30px 0;
             background-color: #fff;
             height: 100px;
         }
-        #comment-write textarea{
+        #reply-write textarea{
             width: 100%;
             height: 130px;
             border: 0;
@@ -93,7 +93,7 @@
             padding-top: 20px;
             box-sizing: border-box;
         }
-        #notice-wrapper a{
+        #a1, #btn2, #btn3, #btn4{
             display: inline-block;
             border: 1px solid #ddd;
             height: 40px;
@@ -103,10 +103,11 @@
             font-size: 15px;
             color: #666;
         }
-        #a2, #a3{
+        #btn2, #btn3, #btn4{
             margin-left: 8px;
+            background-color: #fff;
         }
-        #span2{
+        #btn4{
             float: right;
         }
     </style>
@@ -134,24 +135,78 @@
                     
                 </div>
             </div>
-            <div id="comment-count">
+            <div id="reply-count">
                 댓글달린 수
             </div>
-            <div id="comment-area">
+            <div id="reply-area">
                 <p>댓글달면 여길로 추가됨</p>
-                <div id="comment-write">
-                    <textarea name="" id="" cols="80" rows="20" placeholder="댓글을 입력하시려면 네이버 로그인 해주세요"></textarea>
+                <div id="reply-write">
+                    <textarea name="" id="reply-content" cols="80" rows="20" placeholder="댓글을 입력하시려면 네이버 로그인 해주세요"></textarea>
                 </div>
             </div>
             <div id="btn-area">
-                <a href="<%=contextPath %>/list.no" id="a1">목록보기</a>
-                <a href="" id="a2">이전 글</a>
-                <a href="" id="a3">다음 글</a>
+                <a href="<%=contextPath %>/list.no?cpage=1" id="a1">목록보기</a>
+                <!-- 첫번째 게시글이면 이전글이 없어야 하고 마지막(최신) 게시글이면 다음글이 없어야 한다.-->
+                <button id="btn2" onclick="location.href='<%=contextPath %>/detail.no?num=<%=n.getNoticeNo() - 1%>'">이전 글</button>
+                <button id="btn3" onclick="location.href='<%=contextPath %>/detail.no?num=<%=n.getNoticeNo() + 1%>'">다음 글</button>
+
+                <!-- <a href="<%=contextPath %>/detail.no?num= id="a2">이전 글</a>
+                     <a href="" id="a3">다음 글</a> -->
                 <span>
-                    <a href="" id="span2">답글쓰기</a>
+                    <button id="btn4" onclick="insertReply()">답글쓰기</button>
                 </span>
             </div>
         </div>
+        <script>
+	        window.onload = function(){
+	            selectReplyList();
+	            setInterval(selectReplyList, 2000);
+	         }
+        
+            function selectReplyList(){
+                $.ajax({
+                    url : "rlist.no",
+                    data : {
+                        noticeNo : <%=n.getNoticeNo()%>
+                    },
+                    success : function(res){
+                        let str = "";
+                        for(let reply of res){
+                            str += ("<div>" +
+                                    "<div>" + reply.replyWriter + "</div>" +
+                                    "<div>" + reply.replyContent + "</div>" +
+                                    "<div>" + reply.createDate + "</div>" +
+                                    "</div>")
+                        }
+
+                        document.querySelector("#reply-area p ").innerHTML = str;
+                    }, error : function(){
+                        console.log("댓글 조회중 ajax 통신 실패")
+                    }
+                })
+            }
+
+            function insertReply(){
+                const noticeNo = <%=n.getNoticeNo()%>;
+                const content = document.querySelector("#reply-content").value;
+
+                $.ajax({
+                    url : "rinsert.no",
+                    data : {
+                        noticeNo : noticeNo,
+                        content : content
+                    },
+                    type : "POST",
+                    success : function(res){
+                        document.querySelector("#reply-content").value = "";
+                        selectReplyList();
+                    }, error : function(){
+                        console.log("댓글 작성중 ajax 통신 실패")
+                    }
+
+                })
+            }
+        </script>
     </div>
 </body>
 </html>

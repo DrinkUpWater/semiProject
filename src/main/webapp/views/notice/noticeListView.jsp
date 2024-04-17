@@ -127,7 +127,7 @@
                 			<tr>
 		                        <td><%=n.getNoticeNo() %></td>
 		                        <td class="title"><%=n.getNoticeTitle() %></td>
-		                        <td><%=n.getNoticeWriter() %></td>
+		                        <td><!--<%=n.getNoticeWriter() %> --> 관리자</td>
 		                        <td><%=n.getCreateDate() %></td>
 		                        <td><%=n.getCount() %></td>
                     		</tr>

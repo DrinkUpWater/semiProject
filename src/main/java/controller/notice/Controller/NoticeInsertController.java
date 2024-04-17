@@ -59,7 +59,7 @@ public class NoticeInsertController extends HttpServlet {
 			request.getRequestDispatcher("views/common/errorPage.jsp");
 		} else {
 			session.setAttribute("alertMsg", "공지사항이 등록되었습니다.");
-			response.sendRedirect(request.getContextPath() + "/list.no");
+			response.sendRedirect(request.getContextPath() + "/list.no?cpage=1");
 		}
 		
 	}

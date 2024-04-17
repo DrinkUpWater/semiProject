@@ -14,6 +14,7 @@ import java.util.Properties;
 import com.kh.common.PageInfo;
 
 import controller.notice.model.vo.Notice;
+import controller.notice.model.vo.Reply;
 
 public class NoticeDao {
 	private Properties prop = new Properties();
@@ -166,4 +167,62 @@ public class NoticeDao {
 		
 		return n;
 	}
+	
+
+	public int insertReply(Connection conn, Reply r) {
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("insertReply");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, r.getReplyContent());
+			pstmt.setInt(2, r.getRefNoticeNo());
+			pstmt.setString(3, r.getReplyWriter());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	
+	public ArrayList<Reply> selectReplyList(Connection conn, int noticeNo){
+		ArrayList<Reply> list = new ArrayList<>();
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectReplyList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, noticeNo);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Reply r = new Reply();
+				r.setReplyNo(rset.getInt("reply_no"));
+				r.setReplyContent(rset.getString("reply_content"));
+				r.setReplyWriter(rset.getString("user_id"));
+				r.setCreateDate(rset.getString("create_date"));
+				
+				list.add(r);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+	
 }
