@@ -204,27 +204,27 @@
                     <td  colspan="3">
                         <div class="space-btns">
                             <div>
-                                <input type="checkbox" id="party" name="spaceKind" value="party" >
+                                <input type="checkbox" id="party" name="spaceKind" value="파티룸" >
                                 <label for="party">&nbsp파티룸</label>
                             </div>
                             <div>
-                                <input type="checkbox" id="cafe" name="spaceKind" value="cafe">
+                                <input type="checkbox" id="cafe" name="spaceKind" value="카페">
                                 <label for="cafe">&nbsp카페</label>
                             </div>
                             <div>
-                                <input type="checkbox" id="lecture" name="spaceKind" value="lecture">
+                                <input type="checkbox" id="lecture" name="spaceKind" value="강의실">
                                 <label for="lecture">&nbsp강의실</label>
                             </div>
                             <div>
-                                <input type="checkbox" id="meeting" name="spaceKind" value="meeting">
-                                <label for="meeting">회의실</label>
+                                <input type="checkbox" id="meeting" name="spaceKind" value="회의실">
+                                <label for="meeting">&nbsp회의실</label>
                             </div>
                             <div>
-                                <input type="checkbox" id="seminar" name="spaceKind" value="seminar">
+                                <input type="checkbox" id="seminar" name="spaceKind" value="세미나실">
                                 <label for="seminar">&nbsp세미나실</label>
                             </div>
                             <div>
-                                <input type="checkbox" id="study" name="spaceKind" value="study">
+                                <input type="checkbox" id="study" name="spaceKind" value="스터디룸">
                                 <label for="study">&nbsp스터디룸</label>
                             </div>
                         </div>
@@ -377,13 +377,16 @@
 
             <br><br>
             <div class="last-btns">
-                <button class="back-btn" type="button">이&nbsp&nbsp&nbsp&nbsp전</button>
+                <button class="back-btn" type="button" onclick="backPage()">이&nbsp&nbsp&nbsp&nbsp전</button>
                 <button class="save-btn" type="submit">저&nbsp&nbsp&nbsp&nbsp장</button>
             </div>
         </form>
     </div>
-    
     <script>
+        function backPage() {
+            location.href="enrollPre.ho";
+        }
+
         $(".input-host1").keyup(function(e) {
             content = $(this).val();
             $(".textCount1").text(content.length); 
@@ -443,7 +446,7 @@
                 let a = document.createElement('input');
                 a.value = spaceInfoCheck + ". " + tag;
                 a.classList.add("input-text");
-                a.name = "spaceInfo";
+                a.name = "spaceInformation";
                 document.querySelector('.hidden-spaceinfo').appendChild(a);
                 document.querySelector("#spaceInformation-input").value = "";
                 spaceInfoCheck++;

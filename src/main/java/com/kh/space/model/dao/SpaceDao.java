@@ -156,4 +156,38 @@ public class SpaceDao {
 		return result;
 	}
 
+
+	public ArrayList<Space> selectSpaceList(Connection conn) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Space> list = new ArrayList<>();
+		
+		String sql = pro.getProperty("selectSpaceList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			
+			if (rset.next()) {
+				Space sp = new Space();
+				sp.setSpaceNo(rset.getInt("SPACE_NO"));
+				sp.setSpaceName(rset.getString("SPACE_NAME"));
+				sp.setSpaceTag(rset.getString("SPACE_TAG"));
+				sp.setSpaceAddress(rset.getString("SPACE_ADDRESS"));
+				sp.setSpacePrice(rset.getInt("SPACE_PRICE"));	
+				sp.setSpaceCapacity(rset.getInt("SPACE_CAPACITY"));
+				
+				list.add(sp);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+
 }

@@ -168,7 +168,7 @@
 <entry key="insertAttachmentList">
 	INSERT INTO ATTACHMENT (
 								FILE_NO,  
-								REF_BNO, 
+								REF_SNO, 
 								ORIGIN_NAME, 
 								CHANGE_NAME,  
 								FILE_PATH,
@@ -182,6 +182,18 @@
 								?, 
 								?  
 								) 
+</entry>
+
+<entry key="selectSpaceList">
+	SELECT SPACE_NO, 
+		   SPACE_NAME, 
+		   SPACE_TAG, 
+		   SPACE_ADDRESS, 
+		   SPACE_PRICE, 
+		   SPACE_CAPACITY 
+	FROM SPACE  
+	WHERE SPACE_ENROLL_STATUS = 'Y'  
+	ORDER BY SPACE_NO DESC 
 </entry>
 		
 		
