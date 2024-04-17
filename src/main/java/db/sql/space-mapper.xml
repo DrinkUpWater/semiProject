@@ -128,6 +128,43 @@
 
 </entry>
 
+<entry key="insertSpace">
+	INSERT INTO SPACE (
+					    SPACE_NO,
+						SPACE_NAME,
+						SPACE_KIND,
+						SPACE_ONE_INTRODUCE,
+						SPACE_INTRODUCE,
+						SPACE_TAG,
+						SPACE_INFORMATION,
+						SPACE_CAUTION,
+						SPACE_ADDRESS,
+						SPACE_DETAIL_ADDRESS,
+						SPACE_PRICE,
+						SPACE_LOCATION,
+						SPACE_TEL,
+						SPACE_CAPACITY,
+						USER_NO 
+					   )
+				VALUES(
+					   SEQ_SNO.NEXTVAL,
+					   ?,
+					   ?,
+					   ?,
+					   ?,
+					   ?,
+					   ?,
+					   ?,
+					   ?,
+					   ?,
+					   ?,
+					   ?,
+					   ?,
+					   ?,
+					   ?
+					   )						
+
+</entry>
 		
 		
 
