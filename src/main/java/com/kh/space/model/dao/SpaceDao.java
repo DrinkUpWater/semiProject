@@ -7,9 +7,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.InvalidPropertiesFormatException;
 import java.util.Properties;
 
+import com.kh.common.Attachment;
 import com.kh.space.model.vo.Space;
 import static com.kh.common.JDBCTemplate.close;
 
@@ -87,6 +89,105 @@ public class SpaceDao {
 		}
 		
 		return  space;
+	}
+
+
+	public int insertSpace(Connection conn, Space sp) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String sql = pro.getProperty("insertSpace");
+			
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, sp.getSpaceName());
+			pstmt.setString(2, sp.getSpaceKind());
+			pstmt.setString(3, sp.getSpaceOneIntroduce());
+			pstmt.setString(4, sp.getSpaceIntroduce());
+			pstmt.setString(5, sp.getSpaceTag());
+			pstmt.setString(6, sp.getSpaceInformation());
+			pstmt.setString(7, sp.getSpaceCaution());
+			pstmt.setString(8, sp.getSpaceAddress());
+			pstmt.setString(9, sp.getSpaceDetailAddress());
+			pstmt.setInt(10, sp.getSpacePrice());
+			pstmt.setString(11, sp.getSpaceLocation());
+			pstmt.setString(12, sp.getSpaceTel());
+			pstmt.setInt(13, sp.getSpaceCapacity());
+			pstmt.setInt(14, sp.getUserNo());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+
+	public int insertAttachmentList(Connection conn, ArrayList<Attachment> list) {
+		PreparedStatement pstmt = null;
+		int result = 1;
+		
+		String sql = pro.getProperty("insertAttachmentList");
+		
+		try {
+			
+			for (Attachment at : list) {
+				pstmt = conn.prepareStatement(sql);
+				
+				pstmt.setString(1, at.getOriginName());
+				pstmt.setString(2, at.getChangeName());
+				pstmt.setString(3, at.getFilePath());
+				pstmt.setInt(4, at.getFileLevel());
+				
+				result = result * pstmt.executeUpdate();
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+
+	public ArrayList<Space> selectSpaceList(Connection conn) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Space> list = new ArrayList<>();
+		
+		String sql = pro.getProperty("selectSpaceList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			
+			while (rset.next()) {
+				Space sp = new Space();
+				sp.setSpaceNo(rset.getInt("SPACE_NO"));
+				sp.setSpaceName(rset.getString("SPACE_NAME"));
+				sp.setSpaceTag(rset.getString("SPACE_TAG"));
+				sp.setSpaceAddress(rset.getString("SPACE_ADDRESS"));
+				sp.setSpacePrice(rset.getInt("SPACE_PRICE"));	
+				sp.setSpaceCapacity(rset.getInt("SPACE_CAPACITY"));
+				
+				list.add(sp);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
 	}
 
 }

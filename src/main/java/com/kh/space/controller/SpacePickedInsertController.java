@@ -33,20 +33,21 @@ public class SpacePickedInsertController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	    request.setCharacterEncoding("utf-8");
 		HttpSession session =request.getSession();
-		
 		int spaceNum=Integer.parseInt(request.getParameter("spaceNum"));
-	
+		
 		Member m=(Member)session.getAttribute("loginUser");
 		int result=0;
 		
 		if(m==null) {//필터 줄것
 			
 			session.setAttribute("alertMsg", "로그인하세요");
-			response.sendRedirect(request.getContextPath()+"/detailview.sp");
+			response.sendRedirect(request.getContextPath()+"/detailview.sp?spaceNo="+spaceNum);
 			return;
 		}
 		
 		else {
+			
+		
 			int userNo=m.getUserNo();
 			
 			//찜한 리스트에 추가
@@ -69,7 +70,7 @@ public class SpacePickedInsertController extends HttpServlet {
 				 request.getSession().setAttribute("pickedMsg", "찜해제되었습니다.");
 			}
 			
-		    response.sendRedirect(request.getContextPath()+"/detailview.sp");
+		    response.sendRedirect(request.getContextPath()+"/detailview.sp?spaceNo="+spaceNum);
 		}
 		
 		

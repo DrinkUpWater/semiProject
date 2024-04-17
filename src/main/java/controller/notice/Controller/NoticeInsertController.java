@@ -35,19 +35,32 @@ public class NoticeInsertController extends HttpServlet {
 		
 		String noticeTitle = request.getParameter("title");
 		String noticeContent = request.getParameter("content");
+//		String img = request.getParameter("file");
+		System.out.println(noticeTitle);
+		System.out.println(noticeContent);
+		
 		
 		HttpSession session = request.getSession();
 		
 		// Member 객체와 로그인 페이지를 만들어야 가져올 수 있음
-//		int userNo = (Member)session.getAttribute("loginUser");
+//		int userNo = ((Member)session.getAttribute("loginUser")).getUserNo();
 		
 		Notice n = new Notice();
 		n.setNoticeTitle(noticeTitle);
 		n.setNoticeContent(noticeContent);
+//		n.setImg(img);
 //		n.setNoticeWriter(String.valueOf(userNo));  로그인 페이지랑 합치면 세션에 있는 로그인유저 번호 가져와 이름 뜨게하기
-		n.setNoticeWriter("관리자");
+		
 		
 		int result = new NoticeService().insertNotice(n);
+		
+		if(result == 0) {
+			request.setAttribute("errorMsg", "공지사항에 등록에 실패하였습니다.");
+			request.getRequestDispatcher("views/common/errorPage.jsp");
+		} else {
+			session.setAttribute("alertMsg", "공지사항이 등록되었습니다.");
+			response.sendRedirect(request.getContextPath() + "/list.no");
+		}
 		
 	}
 

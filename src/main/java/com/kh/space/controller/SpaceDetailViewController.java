@@ -33,13 +33,14 @@ public class SpaceDetailViewController extends HttpServlet {
 		int spaceNo = Integer.parseInt(request.getParameter("spaceNo"));  
 		
 		Space space=new SpaceService().selectOneSpace(spaceNo);
-		
+	
 		if(space==null) {
 			request.getSession().setAttribute("alertMsg","공간조회실패");
 			response.sendRedirect(request.getContextPath());
 			
 		}else {
 			request.setAttribute("space", space);
+			request.setAttribute("spaceKind", "spaces");
 			request.getRequestDispatcher("views/space/spaceDetail.jsp")
 			.forward(request, response);
 		}

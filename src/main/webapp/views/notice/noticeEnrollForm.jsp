@@ -116,7 +116,7 @@
             align-items: center;
             margin-left: 30px;
         }
-        #a2, #a3{
+        #a2, #btn{
             border: 1px solid rgb(196, 194, 194);
             width: 100px;
             height: 100%;
@@ -146,45 +146,36 @@
         <!-- <div id="h1"></div> -->
         <h3 style="color: #927f69">공지사항</h3>
 
-       	<form action="" id="enroll-form" method="POST" enctype="multipart/form-data">
+       	<form action="<%=contextPath%>/insert.no" id="enroll-form" method="POST" >
 	       	<div id="main">       
                 <div id="name-wrapper">
-                    <div id="name">
-                        이름
-                    </div> 
-                    <input id="name-input" type="text">
+                    <div id="name">이름</div> 
+                    <!-- <input id="name-input" type="text"> -->
                 </div>
 
 	            <div id="title-wrapper">
-	                <div id="title">
-	                    제목 *
-	                </div>
+	                <div id="title">제목 *</div>
 	                <input id="title-input" type="text" name="title" placeholder="제목을 입력해주세요" required>
 	            </div>
 	
 	            <div id="content-wrapper">
-	                <div id="content">
-	                    내용 *
-	                </div>
+	                <div id="content">내용 *</div>
 	                <textarea id="content-input" name="content" rows="20" placeholder="내용을 입력해주세요" required></textarea>  
 	            </div>
 
 	            <div id="img-wrapper">
-	                <div id="img">
-	                    이미지
-	                </div>
+	                <div id="img">이미지</div>
 	                <div id="img-input">
-	                    <!-- <a href="" id="a1"></a> -->
-                        <input id="a1" type="file" name="file">
+                        <!--  <input id="a1" type="file" name="file"> -->
 	                </div>
 	            </div>
 
 	            <div id="regist-area">
-	                <div id="regist" >
+	                <div id="cancle" >
 	                    <a href="<%=contextPath%>/list.no" id="a2">취소</a>
 	                </div>
-	                <div id="cancle" >
-	                    <a href="<%=contextPath%>/insert.no" id="a3">등록</a>
+	                <div id="regist" >
+	                    <button type="submit" id="btn">등록</button>
 	                </div>
 	            </div>
 	
@@ -197,8 +188,6 @@
                     imgInput.click();
         }
     </script>
-
-
 
 </body>
 </html>

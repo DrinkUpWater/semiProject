@@ -4,9 +4,14 @@
 <%@ page import="com.kh.member.model.vo.Member" %>
 
    <%@ include file="../common/menubar.jsp" %>
+   
+   <%   String spaceKind=(String)request.getAttribute("spaceKind");  %>
+   
     
     <%  
            HttpSession s=request.getSession();
+    	
+     
     	
     
 	 
@@ -15,7 +20,7 @@
 		    if(loginUser!=null){
 		    	 userNo=loginUser.getUserNo();
 		    }
-		    System.out.print(userNo);
+		 
 		    
 		    String check=(String)s.getAttribute("pickedMsg");
 		    String pickedMsg=(String)s.getAttribute("picked");       
@@ -24,6 +29,7 @@
 		   
 		
 		   Space space= (Space)request.getAttribute("space");
+		   System.out.println(space.getSpaceNo());
 		   String []tags=space.getSpaceTag().split(" ");
 		   String []guides=space.getSpaceInformation().split("&");
 		  
@@ -521,12 +527,17 @@
 
           
             <nav id="main" class="navbar-light bg-light">
-                 <input id="spaceNum" type="text" value=<%=space.getSpaceNo()%> hidden> <!--공간번호--> 
+                 <input id="spaceNum" type="text" value="<%=space.getSpaceNo()%>" hidden> <!--공간번호--> 
 
 				<% if(hostCheck==true){ %>
 				    <input id="hostCheck" type="text" value="true" hidden>
 					
-				<%} %>
+				<%}
+				 else {%>
+				    <input id="hostCheck" type="text" value="false" hidden>
+				 
+				 <%} %>
+				
 
 
                 <div id="section_1">
@@ -534,11 +545,11 @@
 
                     <div id="space_id" name="space_name" class="title">
                         <div class="text"><%=space.getSpaceName() %>  </div>  <div id="picked" onclick="picked(this);"><%=(pickedMsg==null)?"찜하기":pickedMsg%></div>
-                    </div>
+                   </div>
                         <script>
                              function picked(_this){
                                
-                                
+                            	
                                 let spaceNum=document.querySelector("#spaceNum").value;
                                 location.href="<%=contextPath%>/picked.sp?spaceNum="+spaceNum;
 
@@ -831,6 +842,10 @@
 
 
                 <div id="section_2">
+
+
+     			  <% if(spaceKind.equals("spaces")) {%>
+
 
                     <!-- 유저가 게스트면-->
                     <div id="detail_space" class="title">
@@ -1171,17 +1186,15 @@
                             </div>
                         </div>
                     </div>
-
-
-
-
-
-
-
-                    <!--유저가 호스트면-->
-
-
-                    <div style="display: block;">
+                    
+                    
+                    
+                     <!--유저가 호스트면-->
+                   <% } 
+     			  
+     			   else { %>
+     			   
+					<div >
 
                         <div id="space_detail_select">
                             <div class="text2"> 공간유형</div>
@@ -1272,7 +1285,9 @@
 
 
 
-                </div>
+                 </div>
+                 
+                 <%} %>
 
             </nav>
 

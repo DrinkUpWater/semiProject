@@ -1,6 +1,7 @@
-package controller.notice.Controller;
+package com.kh.space.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -8,20 +9,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import controller.notice.model.vo.Notice;
-import controller.notice.service.NoticeService;
+import com.kh.space.model.vo.Space;
+import com.kh.space.service.SpaceService;
 
 /**
- * Servlet implementation class NoticeDetailController
+ * Servlet implementation class SpaceSelectListController
  */
-@WebServlet("/detail.no")
-public class NoticeDetailController extends HttpServlet {
+@WebServlet("/")
+public class SpaceSelectListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public NoticeDetailController() {
+    public SpaceSelectListController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,14 +31,12 @@ public class NoticeDetailController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("utf-8");
 		
-		int noticeNo = Integer.parseInt(request.getParameter("num"));
-		
-		Notice n = new NoticeService().increaseCount(noticeNo);
-		
-		request.setAttribute("notice", n);
-		request.getRequestDispatcher("views/notice/noticeDetailView.jsp").forward(request, response);
-		
+		ArrayList<Space> list = new SpaceService().selectSpaceList();
+					
+		request.getSession().setAttribute("list", list);
+		response.sendRedirect(request.getContextPath());
 	}
 
 	/**

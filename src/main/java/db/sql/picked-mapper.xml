@@ -30,6 +30,24 @@
 		</entry>
 		
 		
+		<entry key="selectPickedes">
+			SELECT 
+				   P.SPACE_NO,
+				   SPACE_ONE_INTRODUCE,
+				   SPACE_TAG,
+				   SPACE_ADDRESS,
+				   SPACE_PRICE,
+				   SPACE_CAPACITY
+				   FROM SPACE S
+				   JOIN PICKED P
+				   ON (S.SPACE_NO=P.SPACE_NO)
+				   WHERE P.USER_NO = ?
+				   
+		</entry>
+		
+		
+		
+		
 		<entry key="deletePicked">
 			DELETE FROM PICKED
 				WHERE SPACE_NO = ? AND USER_NO = ? 

@@ -128,6 +128,7 @@
 
 </entry>
 
+<<<<<<< HEAD
 <entry key="selectReservationCount">
 SELECT COUNT(*) AS COUNT
 	FROM RESERVATION 
@@ -135,6 +136,77 @@ SELECT COUNT(*) AS COUNT
 	WHERE USER_ID = ?
 	AND STATUS ='Y'
 </entry>
+=======
+<entry key="insertSpace">
+	INSERT INTO SPACE (
+					    SPACE_NO,
+						SPACE_NAME,
+						SPACE_KIND,
+						SPACE_ONE_INTRODUCE,
+						SPACE_INTRODUCE,
+						SPACE_TAG,
+						SPACE_INFORMATION,
+						SPACE_CAUTION,
+						SPACE_ADDRESS,
+						SPACE_DETAIL_ADDRESS,
+						SPACE_PRICE,
+						SPACE_LOCATION,
+						SPACE_TEL,
+						SPACE_CAPACITY,
+						USER_NO 
+					   )
+				VALUES(
+					   SEQ_SNO.NEXTVAL,
+					   ?,
+					   ?,
+					   ?,
+					   ?,
+					   ?,
+					   ?,
+					   ?,
+					   ?,
+					   ?,
+					   ?,
+					   ?,
+					   ?,
+					   ?,
+					   ?
+					   )					
+</entry>
+
+<entry key="insertAttachmentList">
+	INSERT INTO ATTACHMENT (
+								FILE_NO,  
+								REF_SNO, 
+								ORIGIN_NAME, 
+								CHANGE_NAME,  
+								FILE_PATH,
+								FILE_LEVEL  
+								)
+						VALUES ( 
+								SEQ_ATNO.NEXTVAL, 
+								SEQ_SNO.CURRVAL, 
+								?,  
+								?,  
+								?, 
+								?  
+								) 
+</entry>
+
+<entry key="selectSpaceList">
+	SELECT SPACE_NO, 
+		   SPACE_NAME, 
+		   SPACE_TAG, 
+		   SPACE_ADDRESS, 
+		   SPACE_PRICE, 
+		   SPACE_CAPACITY 
+	FROM SPACE  
+	WHERE SPACE_ENROLL_STATUS = 'Y'  
+	ORDER BY SPACE_NO DESC 
+</entry>
+		
+		
+>>>>>>> ad400f9b0c4793d36af602c377231e73705e4e76
 
 <entry key="selectReservation"> <!-- 예약내역 정보들 가져오기 -->
 	SELECT RESERVATION_NO, 

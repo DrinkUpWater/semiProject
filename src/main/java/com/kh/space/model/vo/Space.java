@@ -28,8 +28,32 @@ public class Space {
 	public Space() {
 		super();
 	}
-
 	
+	
+  
+	
+
+	public Space(String spaceName, String spaceKind, String spaceOneIntroduce, String spaceIntroduce, String spaceTag,
+			String spaceInformation, String spaceCaution, String spaceAddress, String spaceDetailAddress,
+			int spacePrice, String spaceLocation, String spaceTel, int spaceCapacity, int userNo) {
+		super();
+		this.spaceName = spaceName;
+		this.spaceKind = spaceKind;
+		this.spaceOneIntroduce = spaceOneIntroduce;
+		this.spaceIntroduce = spaceIntroduce;
+		this.spaceTag = spaceTag;
+		this.spaceInformation = spaceInformation;
+		this.spaceCaution = spaceCaution;
+		this.spaceAddress = spaceAddress;
+		this.spaceDetailAddress = spaceDetailAddress;
+		this.spacePrice = spacePrice;
+		this.spaceLocation = spaceLocation;
+		this.spaceTel = spaceTel;
+		this.spaceCapacity = spaceCapacity;
+		this.userNo =userNo;
+	}
+
+
 
 	public Space(int spaceNo, String spaceName, String spaceKind, String spaceOneIntroduce, String spaceIntroduce,
 			String spaceTag, String spaceInformation, String spaceCaution, String spaceMimg, String spaceImg,
@@ -58,6 +82,23 @@ public class Space {
 		this.spaceEnrollStatus = spaceEnrollStatus;
 		this.userNo = userNo;
 	}
+	
+	
+
+
+    //공간 리스트 조회 생성자
+	public Space(int spaceNo, String spaceOneIntroduce, String spaceTag, String spaceAddress, int spacePrice,
+			int spaceCapacity) {
+		super();
+		this.spaceNo = spaceNo;
+		this.spaceOneIntroduce = spaceOneIntroduce;
+		this.spaceTag = spaceTag;
+		this.spaceAddress = spaceAddress;
+		this.spacePrice = spacePrice;
+		this.spaceCapacity = spaceCapacity;
+	}
+
+
 
 
 

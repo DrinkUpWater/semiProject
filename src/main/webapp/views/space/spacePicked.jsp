@@ -1,11 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+ <%@ page import="java.util.ArrayList" %>
+<%@ page import="com.kh.space.model.vo.Space" %>
 <!DOCTYPE html>
 
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
+
+
+ <% 
+ 		
+     ArrayList<Space> pickeds= (ArrayList<Space>)request.getAttribute("pickeds");
+     
+ 
+ %>
+
 
 <style>
 
@@ -67,39 +78,49 @@
         <div id="title"><h1>찜한 공간</h1></div>
 
         <section class="pickedMain">
-            <div class="info-preview" onclick="detailView()">
+            <% for(Space picked :pickeds){ %>
+            <div class="info-preview" onclick="detailView(<%=picked.getSpaceNo()%>)" >
                 <div class="space-picture" style="border:  1px solid black;"> 
                     <img src="" alt="썸네일" width="100%" height="100%">
                 </div>
                 <div class="space-info">
                     <b>
-                        [오픈이벤트] 르씨엘 2호점
+                        <%=picked.getSpaceOneIntroduce() %>
                     </b>
                     <p>
-                        <span>봉천동 | #서울대입구 #스터디룸 #파티룸 #독서모임 #온라인콘서트 </span>
+                        <span><%=picked.getSpaceAddress() %><span><br>
+                        
+                       	<%  
+                       		String []tags=picked.getSpaceTag().split(",");
+                       	
+                        %>
+                        
+                         <% for(String tag:tags){ %>
+                         		
+                         	     <span><a href="#"><%=tag%></a><span> &nbsp;
+                         		
+                         <%} %>
+                       
+                       
                     </p>
                     <div class="price-info">
-                        <div><b>1,000</b> <span>원/시간</span></div> <span>최대 12인 ○7 ♡18</span>
+                        <div><b><%=picked.getSpacePrice()%></b><span>원/시간</span></div> <span>최대 <%=picked.getSpaceCapacity()%>인 ○7 ♡18</span>
                     </div>
                 </div>
             </div>
-            <div class="info-preview"></div>
-            <div class="info-preview"></div>
-            <div class="info-preview"></div>
-            <div class="info-preview"></div>
-            <div class="info-preview"></div>
-            <div class="info-preview"></div>
-            <div class="info-preview"></div>
-            <div class="info-preview"></div>
+            
+             <script>
+		        function detailView(spaceNo) {
+		            location.href="detailview.sp?spaceNo="+spaceNo;
+       		  }
+
+             </script>
+            <% } %>
+          
         </section>
     </div>
 
 
-    <script>
-        function detailView() {
-            location.href="detailview.sp?";
-        }
-
-    </script>
+   
 </body>
 </html>
