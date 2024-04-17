@@ -15,7 +15,7 @@ public class Member {
 	private Date joinDate; //가입일
 	private Date modifyDate; //회원정보 수정일
 	private String status; // 탈퇴상태
-	private String host; // 호스트
+	private String userHost; // 호스트
 	private String admin; //관리자
 	
 	public Member() {
@@ -34,9 +34,24 @@ public class Member {
 		this.birth = birth;
 		this.email = email;
 	}
+	
+	
+	public Member(String userId, String userPwd, String userName, String nickName, String gender, String phone,
+			String birth, String email, String userHost) {
+		super();
+		this.userId = userId;
+		this.userPwd = userPwd;
+		this.userName = userName;
+		this.nickName = nickName;
+		this.gender = gender;
+		this.phone = phone;
+		this.birth = birth;
+		this.email = email;
+		this.userHost = userHost;
+	}
 
 	public Member(int userNo, String userId, String userPwd, String userName, String nickName, String gender,
-			String phone, String birth, String email, Date joinDate, Date modifyDate, String status, String host,
+			String phone, String birth, String email, Date joinDate, Date modifyDate, String status, String userHost,
 			String admin) {
 		super();
 		this.userNo = userNo;
@@ -51,8 +66,19 @@ public class Member {
 		this.joinDate = joinDate;
 		this.modifyDate = modifyDate;
 		this.status = status;
-		this.host = host;
+		this.userHost = userHost;
 		this.admin = admin;
+	}
+	
+	
+	
+	public Member(String userId, String nickName, String phone, String birth, String email) {
+		super();
+		this.userId = userId;
+		this.nickName = nickName;
+		this.phone = phone;
+		this.birth = birth;
+		this.email = email;
 	}
 
 	public int getUserNo() {
@@ -151,12 +177,12 @@ public class Member {
 		this.status = status;
 	}
 
-	public String getHost() {
-		return host;
+	public String getUserHost() {
+		return userHost;
 	}
 
-	public void setHost(String host) {
-		this.host = host;
+	public void setUserHost(String userHost) {
+		this.userHost = userHost;
 	}
 
 	public String getAdmin() {
@@ -171,15 +197,9 @@ public class Member {
 	public String toString() {
 		return "Member [userNo=" + userNo + ", userId=" + userId + ", userPwd=" + userPwd + ", userName=" + userName
 				+ ", nickName=" + nickName + ", gender=" + gender + ", phone=" + phone + ", birth=" + birth + ", email="
-				+ email + ", joinDate=" + joinDate + ", modifyDate=" + modifyDate + ", status=" + status + ", host="
-				+ host + ", admin=" + admin + "]";
+				+ email + ", joinDate=" + joinDate + ", modifyDate=" + modifyDate + ", status=" + status + ", userHost="
+				+ userHost + ", admin=" + admin + "]";
 	}
-
-	
-	
-	
-	
-	
 
 	
 	

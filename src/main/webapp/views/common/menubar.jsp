@@ -177,6 +177,7 @@
 </style>
 </head>
 <body>
+
 	<% if(alertMsg != null) {%>
 		<script>
 			alert("<%=alertMsg%>");

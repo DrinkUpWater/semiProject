@@ -41,9 +41,11 @@ public class MemberDao {
 			pstmt.setString(2, m.getUserPwd());
 			pstmt.setString(3, m.getUserName());
 			pstmt.setString(4, m.getNickName());
-			pstmt.setString(5, m.getBirth());
-			pstmt.setString(6, m.getEmail());
-			pstmt.setString(7, m.getPhone());
+			pstmt.setString(5, m.getGender());
+			pstmt.setString(6, m.getBirth());
+			pstmt.setString(7, m.getEmail());
+			pstmt.setString(8, m.getPhone());
+			pstmt.setString(9, m.getUserHost());
 
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -94,6 +96,176 @@ public class MemberDao {
 			close(rset);
 		}
 		return m;
+	}
+	
+	//아이디 중복확인
+	public int idCheck(Connection conn, String checkId) {
+		int count =0;
+		ResultSet rset= null;
+		PreparedStatement pstmt =null;
+		String sql = prop.getProperty("idCheck");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, checkId);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				count = rset.getInt("count");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return count;
+	}
+
+	//비밀번호 찾기
+	public String findPwd(Connection conn, String userId, String phone, String email) { 
+		String findPwd = null; //찾을 비밀번호
+		ResultSet rset= null;
+		PreparedStatement pstmt =null;
+		String sql = prop.getProperty("findPwd");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1,userId);
+			pstmt.setString(2,phone);
+			pstmt.setString(3,email);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				findPwd =rset.getString("USER_PWD");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return findPwd;
+	}
+
+	public int updateMember(Connection conn, Member m) {
+		int result = 0;		
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateMember");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, m.getNickName());
+			pstmt.setString(2, m.getPhone());
+			pstmt.setString(3, m.getBirth());
+			pstmt.setString(4, m.getEmail());
+			pstmt.setString(5, m.getUserId());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public Member selectMember(Connection conn, String userId) {
+		Member m = null;
+		
+		PreparedStatement pstmt =null;
+		ResultSet rset = null;
+		String sql =prop.getProperty("selectMember");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				m= new Member(
+						rset.getInt("user_no"),
+						rset.getString("user_id"),
+						rset.getString("user_pwd"),
+						rset.getString("user_name"),
+						rset.getString("user_nickname"),
+						rset.getString("gender"),
+						rset.getString("phone"),
+						rset.getString("birth"),
+						rset.getString("email"),
+						rset.getDate("join_date"),
+						rset.getDate("modify_date"),
+						rset.getString("status"),
+						rset.getString("user_host"),
+						rset.getString("user_admin")
+						);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return m;
+	}
+
+	public int updatePwdMember(Connection conn, Member m, String newPwd) {
+		int result =0;
+		PreparedStatement pstmt =null;
+		String sql = prop.getProperty("updatePwdMember");
+		try {
+			pstmt =conn.prepareStatement(sql);
+			pstmt.setString(1, newPwd);
+			pstmt.setString(2, m.getNickName());
+			pstmt.setString(3, m.getPhone());
+			pstmt.setString(4, m.getBirth());
+			pstmt.setString(5, m.getEmail());
+			pstmt.setString(6, m.getUserId());
+			
+			result =pstmt.executeUpdate();
+		} catch (SQLException e) {			
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int checkPwdMember(Connection conn, Member m, String oldPwd) { //현재비밀번호를 맞게 입력했는지 확인
+		int count=0;
+		ResultSet rset = null;
+		PreparedStatement pstmt =null;
+		String sql = prop.getProperty("checkPwd");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, oldPwd);
+			pstmt.setString(2, m.getUserId());
+			
+			rset =pstmt.executeQuery();
+			if(rset.next()) {
+				count = rset.getInt("count");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return count;
+	}
+
+	public int deleteMember(Connection conn, String userId) {
+		int result =0;
+		PreparedStatement pstmt =null;
+		String sql = prop.getProperty("deleteMember");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			result =pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
 	}
 
 }

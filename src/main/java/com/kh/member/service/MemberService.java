@@ -27,4 +27,66 @@ public class MemberService {
 		return m;
 	}
 
+	public int idCheck(String checkId) {
+		Connection conn = getConnection();
+		int result =new MemberDao().idCheck(conn,checkId);
+		close(conn);
+		return result;
+	}
+
+	public String findPwd(String userId, String phone, String email) {
+		Connection conn = getConnection();
+		String result = new MemberDao().findPwd(conn,userId,phone,email);
+		close(conn);
+		return result;
+	}
+
+	
+	public Member updateMember(Member m) {
+		Connection conn =getConnection();
+		int result =new MemberDao().updateMember(conn, m);
+		Member updateMem = null;
+		if(result>0) {
+			commit(conn);
+			updateMem = new MemberDao().selectMember(conn, m.getUserId());
+		}
+		else {
+			rollback(conn);
+		}
+		close(conn);
+		return updateMem;
+	}
+
+	public Member updatePwdMember(Member m, String oldPwd,String newPwd) {
+		Connection conn = getConnection();
+		int resultCk =new MemberDao().checkPwdMember(conn,m,oldPwd);
+		Member updateMem= null;		
+		if(resultCk==0) { //비밀번호가 동일하지않으면 바로 컷
+			return updateMem;
+		}
+		
+		int result = new MemberDao().updatePwdMember(conn,m,newPwd);
+		if(result>0) {
+			commit(conn);
+			updateMem = new MemberDao().selectMember(conn, m.getUserId());
+		}
+		else {
+			rollback(conn);
+		}
+		close(conn);
+		return updateMem;
+	}
+
+	public int deleteMember(String userId) {
+		Connection conn =getConnection();
+		int result = new MemberDao().deleteMember(conn,userId);
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
+
 }

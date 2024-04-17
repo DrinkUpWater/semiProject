@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
     <!DOCTYPE html>
     <html lang="en">
-
+<%@ page import="java.text.SimpleDateFormat,java.util.Date" %>
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -33,7 +33,8 @@
                 margin: auto;
                 margin-top: 120px;
                 width: 600px;
-                height: 850px;
+                height: 100%;
+                /* height: 850px; */
                 border: 1px solid;
                 border-radius: 20px;
                 background: #F2F6FF;
@@ -188,42 +189,63 @@
             }
 
             .input-pwd-check {
-                padding-bottom: 50px;
+                padding-bottom: 30px;
+            }
+            .pwd-color{
+                color: #c2c0c0;
             }
         </style>
     </head>
 
     <body>
         <%@ include file="../common/menubar.jsp" %>
-            <div id="wrapper">
+		<%
+			String nickName = loginUser.getNickName();
+			String phone = loginUser.getPhone();
+		  	StringBuffer ph = new StringBuffer(phone);
+	    	ph.insert(3,'-');
+	    	ph.insert(8,'-');
+			
+	    	String email = loginUser.getEmail();	
+			int index = email.indexOf("@");
+			String emailSelect = email.substring(index+1); //admin@kh.or.kr => kh.or.kr만추출
+			email = email.substring(0,index); //admin@kh.or.kr => admin만 추출
+			
+			String birth = loginUser.getBirth();	
+		%>
+	<div id="wrapper">
                 <div class="join-user">
-                    <form action="" id="login-form" method="post">
+                    <form action="update.me" id="login-form" method="post">
 
-
+                        <input type="hidden" name="userId" value="${loginUser.userId }"> 
                         <table width="100%" class="tb">
+                            <tr>
+                                <input type="button" value="비밀번호 변경" onclick="pwdUpdate()" style="margin-right: 10px;">
+                                <input type="button" value="변경 취소" onclick="canclePwdUpdate()">
+                            </tr>
                             <tr class="user-id">
-                                <th>현재 비밀번호</th>
+                                <th class="pwd-color">현재 비밀번호</th>
                                 <td colspan="2">
-                                    <div id="crt-pwd-check-area"></div>
+                                    <div id="oldPwd-area"></div>
                                 </td>
                             </tr>
                             <tr>
                                 <td colspan="3" class="input-id">
-                                    <input type="password" name="crt-pwd-check" id="crtpwdcheck" minlength="6"
-                                        maxlength="15" placeholder=" 비밀번호 입력(문자,숫자,특수문자 포함 8~20자)" onblur="onbcrt()"
-                                        required>
+                                    <input type="password" name="oldPwd" id="oldPwd" minlength="6"
+                                        maxlength="15" placeholder="" onblur="onbcrt()"
+                                        required readonly>
                                 </td>
                             </tr>
 
                             <!--변경할 비밀번호 -->
                             <tr>
-                                <th>변경할 비밀번호</th>
+                                <th class="pwd-color">변경할 비밀번호</th>
                                 <td class="cantPwd" colspan="2" align="right">*사용할 수 없는 비밀번호입니다.</td>
                             </tr>
                             <tr>
                                 <td colspan="3" class="input-pwd">
                                     <input type="password" name="userPwd" id="userPwd" maxlength="20"
-                                        placeholder=" 비밀번호 입력(문자,숫자,특수문자 포함 8~20자)" onblur="onbcrt();onb();" required>
+                                        placeholder="" onblur="onbcrt();onb();" required readonly>
 
                                 </td>
                             </tr>
@@ -231,17 +253,16 @@
 
                             <!-- 비밀번호 확인 -->
                             <tr class="user-pwd-check">
-                                <th>비밀번호 확인</th>
+                                <th class="pwd-color">비밀번호 확인</th>
                                 <td class="cantPwdCheck" align="right">*비밀번호가 일치하지 않습니다</td>
                                 <td class="usealbePwd" align="right">비밀번호 동일합니다</td>
                             </tr>
                             <tr>
                                 <td colspan="3" class="input-pwd-check">
-                                    <input type="password" id="userPwdCheck" placeholder=" 비밀번호 재입력" onblur="onb()">
+                                    <input type="password" id="userPwdCheck" placeholder="" onblur="onb()" readonly>
                                 </td>
                             </tr>
-
-
+                      
                             <!-- 닉네임 -->
                             <tr class="user-nickname">
                                 <th colspan="3">닉네임</th>
@@ -249,8 +270,8 @@
 
                             <tr>
                                 <td colspan="3" class="input-nickname">
-                                    <input type="text" id="userNickName"
-                                        placeholder=" 특수문자 제외(',~,!,@,#,$,%,^...)최대 8글자" value="대도">
+                                    <input type="text" id="userNickName" name="nickName"
+                                        placeholder=" 특수문자 제외(',~,!,@,#,$,%,^...)최대 8글자" value="<%=nickName%>">
                                 </td>
                             </tr>
 
@@ -262,8 +283,8 @@
 
                             <tr>
                                 <td colspan="3">
-                                    <input type="text" id="phone" placeholder=" 휴대폰 번호 입력(‘-’제외 11자리 입력)"
-                                        value="010-1111-2222">
+                                    <input type="text" id="phone" name="phone" placeholder=" 휴대폰 번호 입력(‘-’제외 11자리 입력)" 
+                                        value="<%=ph%>">
                                 </td>
                             </tr>
 
@@ -274,17 +295,17 @@
 
                             <tr>
                                 <td colspan="3">
-                                    <input type="text" id="birth" placeholder=" 주민번호 앞자리(8글자)" value="991024" readonly>
+                                    <input type="text" id="birth" name="birth" placeholder=" 주민번호 앞자리(8글자)" value="<%=birth %>" readonly>
 
                                 </td>
                             </tr>
                         </table>
 
                         <h4 class="email-header">이메일</h4>
-                        <input type="text" class="u-email" placeholder="" id="email" value="DAEDO">
+                        <input type="text" class="u-email" placeholder="" id="email" name="email" value="<%=email%>">
                         <b>@</b>
-                        <select class="select-email">
-                            <option value="">-선택-</option>
+                        <select class="select-email" name="select-email">
+                            <option value="<%=emailSelect %>"><%=emailSelect %></option>
                             <option value="naver.com">naver.com</option>
                             <option value="gmail.com">gmail.com</option>
                             <option value="hanmail.net">hanmail.net</option>
@@ -302,9 +323,9 @@
                 </div>
                 <script>
 
-                    let crtpwdcheckArea = document.getElementById("crt-pwd-check-area"); //현재 비밀번호 확인 영역(맞으면 HTMLinner띄움)
+                    let oldPwdArea = document.getElementById("oldPwd-area"); //현재 비밀번호 확인 영역(맞으면 HTMLinner띄움)
 
-                    let crtpwdcheck = document.getElementById("crtpwdcheck"); //현 비밀번호
+                    let oldPwd = document.getElementById("oldPwd"); //현 비밀번호
                     let userPwd = document.getElementById("userPwd");          //변경할 비밀번호
                     let userPwdCheck = document.getElementById("userPwdCheck"); //변경된 비밀번호 확인
                     let userNickName = document.getElementById("userNickName");
@@ -315,13 +336,40 @@
 
 
 
+                    function pwdUpdate(){//비밀번호 변경버튼 클릭시
+                     document.querySelectorAll(".pwd-color").forEach(function(el){ //모든 pwd-color 폰트색 검정으로 변경
+                        el.style.color="black"; 
+                     })
+                     oldPwd.removeAttribute("readonly");
+                     oldPwd.placeholder=" 비밀번호 입력(문자,숫자,특수문자 포함 8~20자)";
+                     userPwd.removeAttribute("readonly");
+                     userPwd.placeholder=" 비밀번호 입력(문자,숫자,특수문자 포함 8~20자)";
+                     
+                     userPwdCheck.removeAttribute("readonly");
+                     userPwdCheck.placeholder=" 비밀번호 재입력";
+                    }
+
+                    function canclePwdUpdate(){//비밀번호 변경 취소버튼 클릭시
+                        document.querySelectorAll(".pwd-color").forEach(function(el){ //모든 pwd-color 폰트색 검정으로 변경
+                        el.style.color="#c2c0c0"; 
+
+                        oldPwd.setAttribute("readonly",true);
+                        oldPwd.placeholder="";
+                        userPwd.setAttribute("readonly",true);
+                        userPwd.placeholder="";
+                        
+                        userPwdCheck.setAttribute("readonly",true);
+                        userPwdCheck.placeholder="";
+                     })
+                    }
+
 
                     function editUser() {//빈칸 있을시 확인
-
+                    if(userPwd.readonly){                       
                         //비밀번호 조건 부분-------------------------------------------
-                        if (crtpwdcheck.value === "") { //나중에 loginUser 조건 비교 추가 (crtpwdcheck.value ===loginUser.getPwd())
+                        if (oldPwd.value === "") { //나중에 loginUser 조건 비교 추가 (oldPwd.value ===loginUser.getPwd())
                             alert("현재 비밀번호를 입력해주세요.");
-                            userPwd.focus();
+                            oldPwd.focus();
                             return false;
                         }
 
@@ -346,9 +394,9 @@
                             return false;
                         }
 
-
+                    }
                         //닉네임 조건 부분-----------------------------------------------
-                        else if (userNickName.value === "") { //나중에 loginUser조건 비교 추가
+                         if (userNickName.value === "") { //나중에 loginUser조건 비교 추가
                             alert("닉네임을 입력해주세요.");
                             userNickName.focus();
                             return false;
@@ -361,11 +409,11 @@
                             phon.focus();
                             return false;
                         }
-                        else if (!isValidPhoneNumber(phone.value)) {
-                            alert("전화번호는 -제외 및 11자리 숫자로만 입력해주세요.");
-                            phone.focus();
-                            return false;
-                        }
+                        // else if (!isValidPhoneNumber(phone.value)) {
+                        //     alert("전화번호는 -제외 및 11자리 숫자로만 입력해주세요.");
+                        //     phone.focus();
+                        //     return false;
+                        // }
 
                         //이메일 조건 부분-------------------------------------------
                         else if (email.value === "") {
@@ -391,9 +439,9 @@
                         cantPwd.style.color = "red";
 
 
-                        if (crtpwdcheck.value === userPwd.value) { //현재 비밀번호와 변경할 비밀번호가 같을 시
+                        if (oldPwd.value === userPwd.value) { //현재 비밀번호와 변경할 비밀번호가 같을 시
 
-                            if ((crtpwdcheck.value !== "" && userPwd.value !== "")) {   //각 비밀번호가 동일하면 th안에 있는 "*사용할 수 없는 비밀번호입니다." 대신             
+                            if ((oldPwd.value !== "" && userPwd.value !== "")) {   //각 비밀번호가 동일하면 th안에 있는 "*사용할 수 없는 비밀번호입니다." 대신             
                                 cantPwd.innerHTML = "*중복된 비번입니다";             //"중복된 비번입니다"로 변경 (단, 둘다 빈칸이 아니여야함)
                                 cantPwd.style.display = "block";
                                 return;
@@ -419,7 +467,7 @@
                             cantPwdCheck.style.display = "none";
                         }
                         else { //정규식에 합당한 '변경할 비번'이 '현재비밀번호'와 같으면 "중복된 비번입니다"를 보이게하기 (단, 둘다 빈칸이 아닐시에만)
-                            if (crtpwdcheck.value === userPwd.value && (crtpwdcheck.value !== "" && userPwd.value !== "")) {
+                            if (oldPwd.value === userPwd.value && (oldPwd.value !== "" && userPwd.value !== "")) {
                                 cantPwd.style.display = "block";
                             }
                             else { //그렇지 않으면 none
@@ -444,7 +492,7 @@
 
 
 
-                    //유효가능 비밀번호조건 확인
+                    //정규식 비밀번호조건 확인
                     function isValidPassword(password) {
 
                         if (password.length < 8 || password.length > 20) {// 비밀번호의 길이가 8자 이상 20자 이하
@@ -463,7 +511,7 @@
                         return true;
                     }
 
-                    //유효가능한 전화번호인지 확인
+                    //정규식 전화번호조건 확인
                     function isValidPhoneNumber(phoneNumber) {
                         // 휴대전화 번호는 숫자로만 이루어져
                         if (!/^\d{11}$/.test(phoneNumber) || phoneNumber.includes("-")) {
@@ -473,7 +521,7 @@
                         return true;
                     }
 
-                    //유효한 이메일인지 확인 
+                    //정규식 이메일조건 확인 
                     function isVailidEmail(email) {
                         return /^[^\s!@#$%^&*()\-_=+[\]{};:'",.<>/?\\|`~]*$/i.test(email);
                     }

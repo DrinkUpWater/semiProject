@@ -96,6 +96,9 @@
     </style>
 </head>
 <body>
+
+    
+
     <div id="wrapper" >
         <h1 style="color: #927f69">공지사항</h1>
         <table class="table">
