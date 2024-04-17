@@ -28,7 +28,9 @@ public class Space {
 	public Space() {
 		super();
 	}
-
+	
+	
+  
 	
 
 	public Space(String spaceName, String spaceKind, String spaceOneIntroduce, String spaceIntroduce, String spaceTag,
@@ -80,6 +82,23 @@ public class Space {
 		this.spaceEnrollStatus = spaceEnrollStatus;
 		this.userNo = userNo;
 	}
+	
+	
+
+
+    //공간 리스트 조회 생성자
+	public Space(int spaceNo, String spaceOneIntroduce, String spaceTag, String spaceAddress, int spacePrice,
+			int spaceCapacity) {
+		super();
+		this.spaceNo = spaceNo;
+		this.spaceOneIntroduce = spaceOneIntroduce;
+		this.spaceTag = spaceTag;
+		this.spaceAddress = spaceAddress;
+		this.spacePrice = spacePrice;
+		this.spaceCapacity = spaceCapacity;
+	}
+
+
 
 
 

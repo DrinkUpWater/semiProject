@@ -37,6 +37,14 @@ public class SpacePickedListController extends HttpServlet {
 	    HttpSession session = request.getSession();
 	    Member member=(Member)session.getAttribute("loginUser");
 	    
+	    if(member==null) {
+	    	
+	    	request.setAttribute("alertMsg", "로그인하세요");
+	    	response.sendRedirect(request.getContextPath()+"/loginForm.me");
+	    	return;
+	    }
+	    
+	    
 	    int userNo=member.getUserNo();
 	    
 	    ArrayList<Space> pickdes=new SpacePickedService().findUserPicked(userNo);
