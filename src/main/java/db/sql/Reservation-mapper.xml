@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<entry key="selectReservationCount">
+SELECT COUNT(*) AS COUNT
+	FROM RESERVATION 
+	JOIN MEMBER USING (USER_NO)
+	WHERE USER_ID = ?
+	AND STATUS ='Y'
+</entry>
+
+<entry key="selectReservation"> <!-- 예약내역 정보들 가져오기 -->
+	SELECT RESERVATION_NO, 
+		HEADCOUNT, 
+		USER_NAME, 
+		TOTAL_PRICE, 
+		RESERVATION_TIME1,
+		RESERVATION_TIME2, 
+		RESERVATION_DATE,
+		SPACE_NAME,
+		RES_REQUEST
+		FROM RESERVATION R
+		LEFT JOIN RESERVATION_DATE USING(RESERVATION_NO)
+		JOIN MEMBER M ON R.USER_NO = M.USER_NO
+		JOIN SPACE S ON R.SPACE_NO = S.SPACE_NO
+		WHERE USER_ID = ?
+		AND STATUS ='Y';
+</entry>
