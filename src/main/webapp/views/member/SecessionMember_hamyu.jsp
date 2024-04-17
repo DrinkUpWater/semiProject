@@ -302,13 +302,10 @@
        
              if (!document.getElementById("cbtest-19").checked){
                 alert("탈퇴에 동의해주시기바랍니다.");
-            }else{
-                
+            }else{ 
                 if(confirm("정말로 탈퇴하시겠습니까?")){
-
-                }
             }
-
+        }
         }
     </script>
 </body>
