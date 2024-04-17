@@ -190,13 +190,14 @@ function commentList (commentTable,response){
      
      //이 방의 주인만 답글달게 하기
     let checkHost=document.querySelectorAll(".hostReplyDiv");
-    let hostCheck=(document.querySelector("#hostCheck"));
+    let hostCheck=document.querySelector("#hostCheck");
+    console.log(hostCheck);
    // let hostCheckValue=null;
     
-    if(hostCheck!==undefined){
+    if(hostCheck.value==='true'){
 		checkHost.forEach(function(check){
 			//check.style.display='block';
-			check.style.display='flex';
+			 check.style.display='flex';
 		});
 	}
     
