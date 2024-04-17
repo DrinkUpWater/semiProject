@@ -2,6 +2,7 @@ package com.kh.space.service;
 
 import com.kh.common.Attachment;
 import com.kh.space.model.dao.SpaceDao;
+import com.kh.space.model.dto.SpaceThumbNail;
 import com.kh.space.model.vo.Space;
 import static com.kh.common.JDBCTemplate.*;
 
@@ -46,6 +47,16 @@ public class SpaceService {
 		close(conn);
 		
 		return list;
+	}
+
+	public ArrayList<Space> selectMySpaces(int userNo) {
+		Connection conn = getConnection();
+		
+		ArrayList<Space> list = spaceDao.selectMySpaces(conn,userNo);
+		
+		close(conn);
+		
+		return list ;
 	}
 
 }

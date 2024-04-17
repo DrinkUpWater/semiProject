@@ -1,3 +1,6 @@
+
+
+
 document.addEventListener('DOMContentLoaded', function () {
 
   
@@ -19,6 +22,7 @@ document.addEventListener('DOMContentLoaded', function () {
 //        console.log(targetId)
 //        $(targetId).toggle();
 //    });
+
 
   
 });
@@ -169,13 +173,13 @@ function commentList (commentTable,response){
     
     
     //호스트 댓글창 숨기기
-    $(".host-reply-toggle").click(function(){
+  /*  $(".host-reply-toggle").click(function(){
         let targetId = $(this).data("target");
         console.log(this)
         console.log(targetId)
         $(targetId).toggle();
     });
-
+*/
 
 
     //호스트 답글내용 답글창 클릭하면 가져오기

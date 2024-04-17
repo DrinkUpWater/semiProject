@@ -103,7 +103,7 @@ public class SpaceEnrollController extends HttpServlet {
 					Attachment at = new Attachment();
 					at.setOriginName(multiRequest.getOriginalFileName(key));
 					at.setChangeName(multiRequest.getFilesystemName(key));
-					at.setFilePath("resources/thumbnail_upfile/");
+					at.setFilePath("/resources/space_img/");
 					at.setFileLevel(i == 1 ? 1 : 2); 
 					
 					list.add(at);
