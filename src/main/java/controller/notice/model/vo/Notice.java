@@ -10,13 +10,15 @@ public class Notice {
 	private int count;
 	private Date createDate;
 	private String status;
+	private String img;
 	
+
 	public Notice() {
 		super();
 	}
 
 	public Notice(int noticeNo, String noticeTitle, String noticeContent, String noticeWriter, int count,
-			Date createDate, String status) {
+			Date createDate, String status, String img) {
 		super();
 		this.noticeNo = noticeNo;
 		this.noticeTitle = noticeTitle;
@@ -25,9 +27,8 @@ public class Notice {
 		this.count = count;
 		this.createDate = createDate;
 		this.status = status;
+		this.img = img;
 	}
-	
-	
 
 	public Notice(int noticeNo, String noticeTitle, String noticeWriter, int count, Date createDate) {
 		super();
@@ -36,6 +37,19 @@ public class Notice {
 		this.noticeWriter = noticeWriter;
 		this.count = count;
 		this.createDate = createDate;
+	}
+	
+	public Notice(String noticeTitle, String noticeContent, Date createDate) {
+		super();
+		this.noticeTitle = noticeTitle;
+		this.noticeContent = noticeContent;
+		this.createDate = createDate;
+	}
+	
+	public Notice(String noticeTitle, String noticeContent, String noticeWriter) {
+		super();
+		this.noticeTitle = noticeTitle;
+		this.noticeContent = noticeContent;
 	}
 
 	public int getNoticeNo() {
@@ -94,12 +108,21 @@ public class Notice {
 		this.status = status;
 	}
 
+	public String getImg() {
+		return img;
+	}
+
+	public void setImg(String img) {
+		this.img = img;
+	}
+
 	@Override
 	public String toString() {
 		return "Notice [noticeNo=" + noticeNo + ", noticeTitle=" + noticeTitle + ", noticeContent=" + noticeContent
 				+ ", noticeWriter=" + noticeWriter + ", count=" + count + ", createDate=" + createDate + ", status="
-				+ status + "]";
+				+ status + ", img=" + img + "]";
 	}
+
 
 	
 	

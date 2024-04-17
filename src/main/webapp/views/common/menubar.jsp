@@ -297,7 +297,7 @@
 
         //클릭시 공시사항페이지로
         $(".notice").click(function(){
-            location.href="list.no"
+            location.href="list.no?cpage=1"
         });
 
         // 사이드 바

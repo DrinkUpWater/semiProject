@@ -1,8 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="java.util.ArrayList, controller.notice.model.vo.Notice"%>
+<%@ page import="java.util.ArrayList, com.kh.common.PageInfo, controller.notice.model.vo.Notice"%>
 <%
+	PageInfo pi = (PageInfo)request.getAttribute("pi");
     ArrayList<Notice> list = (ArrayList<Notice>)request.getAttribute("list");
+    
+	int currentPage = pi.getCurrentPage();
+	int startPage = pi.getStartPage();
+	int endPage = pi.getEndPage();
+	int maxPage = pi.getMaxPage();
 %>
 
 <!DOCTYPE html>
@@ -39,7 +45,7 @@
         .title{
             text-align: left;
         }
-        #a1, #a2, #a3{
+        #btn1, #btn2, #btn3{
             text-decoration: none;
             border: 1px solid rgb(201, 201, 201);
             display: inline-block;
@@ -134,17 +140,26 @@
                 
                 <div id="btnList-area">
                     <div class="btnList" align="center">
-                        <a href="" id="a1">&lt;</a>
-                        <a href="" id="a2">1</a>
-                        <a href="" id="a3">&gt;</a>
+                        <%if(currentPage != 1) {%>
+                    	<button id="btn1" onclick="location.href='<%=contextPath%>/list.no?cpage=<%=currentPage - 1%>'">&lt;</button>
+                        <%} %>
+                        <%for(int p = startPage; p <= endPage; p++) {%>
+                            <%if(p == currentPage) {%>
+                                <button id="btn2" disabled><%=p %></button>
+                            <%} else {%>
+                                <button id="btn2" onclick="location.href='<%=contextPath%>/list.no?cpage=<%=p %>'"><%=p %></button>
+                            <%} %>
+                        <%} %>
+                        <%if(currentPage != maxPage) {%>
+                            <button id="btn3" onclick="location.href='<%=contextPath%>/list.no?cpage=<%=currentPage + 1%>'">&gt;</button>
+                        <%} %>
+
                         <!-- 관리자로 로그인 했을 때 뜨는 버튼 -->
                         <%if(loginUser != null && loginUser.getUserId().equals("admin")) {%>
                         	<div id="write-btn"><a href="<%=contextPath %>/enroll.no">글쓰기</a></div>
                    		<%} %>
                     </div> 
                 </div>
-            
-
         </div>
          
         <form action="">
@@ -162,7 +177,7 @@
          $(function(){
              $("#table > tbody > tr").click(function(){
                  const noticeNo = $(this).children().eq(0).text();
-                 location.href="<%=contextPath%>/detail.no?num=" + noticeNo + "";
+                 location.href="<%=contextPath%>/detail.no?num=" + noticeNo;
              })
          })
 

@@ -1,39 +1,50 @@
 package controller.notice.service;
 
+import static com.kh.common.JDBCTemplate.close;
+import static com.kh.common.JDBCTemplate.commit;
+import static com.kh.common.JDBCTemplate.getConnection;
+import static com.kh.common.JDBCTemplate.rollback;
+
 import java.sql.Connection;
 import java.util.ArrayList;
 
+import com.kh.common.PageInfo;
+
 import controller.notice.model.dao.NoticeDao;
 import controller.notice.model.vo.Notice;
-import static com.kh.common.JDBCTemplate.getConnection;
-import static com.kh.common.JDBCTemplate.close;
+
 
 public class NoticeService {
-	
-	public ArrayList<Notice> selectNotice(){
+	public int selectListCount() {
 		Connection conn = getConnection();
 		
-		ArrayList<Notice> list = new NoticeDao().selectNoticeList(conn);
+		int listCount = new NoticeDao().selectListCount(conn);
+		close(conn);
+		
+		return listCount;
+	}
+	
+	
+	public ArrayList<Notice> selectNotice(PageInfo pi){
+		Connection conn = getConnection();
+		
+		ArrayList<Notice> list = new NoticeDao().selectNoticeList(conn, pi);
 		
 		close(conn);
 		return list;
 	}
 	
 	public int insertNotice(Notice n) {
-		//Connection conn = getConnection();   JDBCTemplate 클래스 따로 만들어서 import getConnection 해줘야함
-		//int result = new NoticeDao().insertNotice(conn, n);
+		Connection conn = getConnection();
 		
-		int result = new NoticeDao().insertNotice(n);
+		int result = new NoticeDao().insertNotice(conn, n);
 		
-//		if(result > 0) {
-//			commit(conn);
-//		} else {
-//			rollback(conn);
-//		}
-//		
-//		close(conn);
-		
-//		conn.close();
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		close(conn);
 		
 		return result;
 	}
@@ -43,6 +54,14 @@ public class NoticeService {
 		
 		int result = new NoticeDao().increaseCount(conn, noticeNo);
 		
-		return null;
+		Notice n = null;
+		if(result > 0) {
+			commit(conn);
+			n = new NoticeDao().selectNotice(conn, noticeNo);
+		} else {
+			rollback(conn);
+		}
+		
+		return n;
 	}
 }
