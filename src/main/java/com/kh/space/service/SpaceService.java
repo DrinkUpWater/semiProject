@@ -25,8 +25,27 @@ public class SpaceService {
 		Connection conn = getConnection();
 		
 		int result1 = spaceDao.insertSpace(conn, sp);
+		int result2 = spaceDao.insertAttachmentList(conn, list);
 		
-		return 0;
+		if (result1 * result2 > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result1 * result2;
+	}
+	
+	public ArrayList<Space> selectSpaceList(){
+		Connection conn = getConnection();
+		
+		ArrayList<Space> list = spaceDao.selectSpaceList(conn);
+		
+		close(conn);
+		
+		return list;
 	}
 
 }

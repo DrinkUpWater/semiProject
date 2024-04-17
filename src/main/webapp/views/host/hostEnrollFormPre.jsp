@@ -163,7 +163,7 @@
                 <tr>
                     <td> 
                         <label class="container">&nbsp&nbsp&nbsp파티룸
-                            <input type="checkbox" id="party" name="spaceKind" value="party">
+                            <input type="checkbox" id="party" name="spaceKind" value="파티룸">
                             <span class="checkmark"></span>
                         </label>
                     </td>
@@ -176,7 +176,7 @@
                 <tr>
                     <td> 
                         <label class="container">&nbsp&nbsp&nbsp카페
-                            <input type="checkbox"  id="cafe" name="spaceKind" value="cafe">
+                            <input type="checkbox"  id="cafe" name="spaceKind" value="카페">
                             <span class="checkmark"></span>
                         </label>
                     </td>
@@ -189,7 +189,7 @@
                 <tr>
                     <td>
                         <label class="container">&nbsp&nbsp&nbsp강의실
-                            <input type="checkbox"  id="lecture" name="spaceKind" value="lecture">
+                            <input type="checkbox"  id="lecture" name="spaceKind" value="강의실">
                             <span class="checkmark"></span>
                         </label>
                     </td>
@@ -202,7 +202,7 @@
                 <tr>
                     <td>
                         <label class="container">&nbsp&nbsp&nbsp회의실
-                            <input type="checkbox"  id="meeting" name="spaceKind" value="meeting">
+                            <input type="checkbox"  id="meeting" name="spaceKind" value="회의실">
                             <span class="checkmark"></span>
                         </label>
                     </td>
@@ -215,7 +215,7 @@
                 <tr>
                     <td>
                         <label class="container">&nbsp&nbsp&nbsp세미나실
-                            <input type="checkbox"  id="seminar" name="spaceKind" value="seminar">
+                            <input type="checkbox"  id="seminar" name="spaceKind" value="세미나실">
                             <span class="checkmark"></span>
                         </label>
                     </td>
@@ -228,7 +228,7 @@
                 <tr>
                     <td> 
                         <label class="container">&nbsp&nbsp&nbsp스터디룸
-                            <input type="checkbox"  id="study" name="spaceKind" value="study" >
+                            <input type="checkbox"  id="study" name="spaceKind" value="스터디룸" >
                             <span class="checkmark"></span>
                         </label>
                     </td>
@@ -251,7 +251,7 @@
     </div>
     <script>
         function backPage() {
-            location.href="hostMainPage.jsp";
+            location.href="main.ho";
         }
     </script>
 </body>

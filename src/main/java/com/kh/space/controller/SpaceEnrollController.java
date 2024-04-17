@@ -94,9 +94,6 @@ public class SpaceEnrollController extends HttpServlet {
 								 userNo
 								 );
 			
-			System.out.println(sp);
-			System.out.println(userNo);
-			
 			ArrayList<Attachment> list = new ArrayList<>();
 			for(int i = 1; i <= 4; i++) {
 				String key = "file" + i;
@@ -114,6 +111,16 @@ public class SpaceEnrollController extends HttpServlet {
 			}
 			
 			int result = new SpaceService().insertSpace(sp, list);
+			
+			if (result > 0) {
+				request.getSession().setAttribute("alertMsg", "성공!! SPACE등록에 성공하였습니다.");
+				response.sendRedirect(request.getContextPath() + "/main.ho");
+			} else {
+				request.getSession().setAttribute("alertMsg", "실패 !! SPACE등록에 실패하였습니다.");
+				response.sendRedirect(request.getContextPath() + "/main.ho");
+			}
+			
+			
 		}
 		
 	}
