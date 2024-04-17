@@ -12,7 +12,7 @@
 
  <% 
  		
-     ArrayList<Space> pickeds= (ArrayList<Space>)request.getAttribute("pickeds");
+     ArrayList<Space> mySpaces= (ArrayList<Space>)request.getAttribute("mySpace");
      
  
  %>
@@ -63,14 +63,11 @@
 
 </style>
 
-<%    
-    
 
-%>
 
 <body>
 
-    <%@ include file="../common/menubar.jsp" %>
+    <%@ include file="../common/menubarHost.jsp" %>
 
      
 
@@ -78,20 +75,20 @@
         <div id="title"><h1>내공간리스트</h1></div>
 
         <section class="pickedMain">
-            <% for(Space picked :pickeds){ %>
-            <div class="info-preview" onclick="detailView(<%=picked.getSpaceNo()%>)" >
+            <% for(Space space : mySpaces){ %>
+            <div class="info-preview" onclick="detailView(<%=space.getSpaceNo()%>)" >
                 <div class="space-picture" style="border:  1px solid black;"> 
-                    <img src="" alt="썸네일" width="100%" height="100%">
+                    <img src="#" alt="썸네일" width="100%" height="100%">
                 </div>
                 <div class="space-info">
                     <b>
-                        <%=picked.getSpaceOneIntroduce() %>
+                        <%=space.getSpaceName() %>
                     </b>
                     <p>
-                        <span><%=picked.getSpaceAddress() %><span><br>
+                        <span><%=space.getSpaceAddress() %><span><br>
                         
                        	<%  
-                       		String []tags=picked.getSpaceTag().split(",");
+                       		String []tags=space.getSpaceTag().split(",");
                        	
                         %>
                         
@@ -104,14 +101,14 @@
                        
                     </p>
                     <div class="price-info">
-                        <div><b><%=picked.getSpacePrice()%></b><span>원/시간</span></div> <span>최대 <%=picked.getSpaceCapacity()%>인 ○7 ♡18</span>
+                        <div><b><%=space.getSpacePrice()%></b><span>원/시간</span></div> <span>최대 <%=space.getSpaceCapacity()%>인 ○7 ♡18</span>
                     </div>
                 </div>
             </div>
             
              <script>
 		        function detailView(spaceNo) {
-		            location.href="detailview.sp?spaceNo="+spaceNo;
+		            location.href="myspacedetail.sp?spaceNo="+spaceNo;
        		  }
 
              </script>

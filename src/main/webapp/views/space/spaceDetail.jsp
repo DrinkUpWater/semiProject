@@ -9,33 +9,47 @@
    
     
     <%     
-    
-    
-           String spaceKind=(String)request.getAttribute("spaceKind");
-           HttpSession s=request.getSession();
-           int userNo=-1;
-    	
-     
-            Member member=null;
-            member=(Member)s.getAttribute("loginUser");
-             
+   		   HttpSession s=request.getSession();
+		   String []tags=null;
+		   String []guides=null;
+		   Member member=null;
+		   int userNo=-1;
 		   
-		    
-		    if(member!=null){
+		   
+		   
+           String spaceKind=(String)request.getAttribute("spaceKind");
+           //System.out.println(spaceKind);
+           member=(Member)s.getAttribute("loginUser");
+           if(member!=null){
 		    	 userNo=member.getUserNo();
 		    }
 		 
 		    
 		    String check=(String)s.getAttribute("pickedMsg");
-		    String pickedMsg=(String)s.getAttribute("picked");       
-		      
-		   
-		   
+		    String pickedMsg=(String)s.getAttribute("picked");   
+		    
+		    Space space= (Space)request.getAttribute("space");
 		
-		   Space space= (Space)request.getAttribute("space");
-		   System.out.println(space.getSpaceNo());
-		   String []tags=space.getSpaceTag().split(" ");
-		   String []guides=space.getSpaceInformation().split("&");
+		   
+		 
+		   
+		   if(space.getSpaceTag()!=null){
+			 tags=space.getSpaceTag().split(" ");
+		   }else{
+			  tags=new String[1];
+			  tags[0]=" ";
+		   }
+		   
+		   
+		   if(space.getSpaceInformation()!=null){
+			 guides=space.getSpaceInformation().split(",");
+		   }
+		   else{
+			  guides=new String[1];
+			  guides[0]=" ";
+		   }
+		   
+		 
 		  
 		   
 		  boolean hostCheck=false;
@@ -1293,6 +1307,7 @@
 
             </nav>
 
+          
 
 
     </body>

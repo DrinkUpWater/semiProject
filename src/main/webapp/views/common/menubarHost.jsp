@@ -270,7 +270,7 @@
                         <th >홈</th>
                     </tr>
                     <tr align="center">
-                        <th>내 공간</th>
+                        <th class="myspaces">내 공간</th>
                     </tr>
                     <tr align="center">
                         <th>정산</th>
@@ -310,6 +310,12 @@
         $(".notice").click(function(){
             location.href="list.no"
         });
+
+        //클릭시 내공간 페이지로
+         $(".myspaces").click(function(){
+            location.href="myspace.sp"
+         });
+
 
 
         // 사이드 바
