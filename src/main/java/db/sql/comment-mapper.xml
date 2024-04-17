@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+
+
+<entry key="insertGuestComment">
+	 	INSERT INTO GUESTCOMMENT
+	 		 (
+	 	     COMMENT_NO,
+	 		 CONTENT,
+	 		 SPACE_NO,
+	 		 USER_NO
+	 		 )
+	 		 VALUES(
+	 			SEQ_GCNO.NEXTVAL,
+	 			?,
+	 			?,
+	 			?
+	 		 )
+</entry>
+
+<entry key="selectGuestComment">
+	   SELECT
+	         G.COMMENT_NO As "Comment_No", 
+	         USER_ID,
+	  		 G.CONTENT AS "게스트답글",
+	  		 INSERT_DATE,
+             NVL(H.CONTENT,' ') AS "호스트답글"
+	  		 FROM GUESTCOMMENT G 
+	  		 JOIN MEMBER M
+	  		 ON(G.USER_NO=M.USER_NO)
+             JOIN SPACE S
+             ON(G.SPACE_NO=S.SPACE_NO)
+             LEFT JOIN HOSTCOMMENT H
+             ON(H.COMMENT_NO=G.COMMENT_NO)
+	  		 WHERE S.SPACE_NO = ?
+	
+	
+</entry>
+
+
+<entry key="insertHostComment">
+	INSERT INTO HOSTCOMMENT
+			(HOSTCOMMENT_NO,
+			  CONTENT,
+			  COMMENT_NO
+			 )
+			 VALUES(
+			 	SEQ_HCNO.NEXTVAL,
+			 	?,
+			 	?
+			 )
+	
+</entry>
+
+<entry key="updateHostComment">
+		UPDATE HOSTCOMMENT
+			  SET CONTENT = ?
+			  WHERE COMMENT_NO = ?
+				
+</entry>
+
+<entry key="findHostComment">
+
+	SELECT COUNT(*) AS "count" FROM HOSTCOMMENT WHERE COMMENT_NO = ?
+
+</entry>
+
+
+
+<entry key="selectHostComment">
+		 SELECT CONENT
+				FROM HOSTCOMMENT H
+				JOIN GUESTCOMMENT G
+				USING(COMMENT_NO)
+				WHERE H.COMMENT_NO = ?
+				
+	
+</entry>
