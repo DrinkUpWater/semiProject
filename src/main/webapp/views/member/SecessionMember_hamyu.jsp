@@ -260,7 +260,8 @@
 <body>
     <%@ include file="../common/menubar.jsp" %>
     <div id="wrapper">
-        <form action="">
+        <form action="delete.me" method="post">
+            <input type="hidden" id="userId" name="userId" value="${loginUser.userId }">
             <div class="secss-member">
                 <p class="head-text1">서비스 탈퇴전에 꼭 확인하세요!</p>
                 <p class="head-text2">서비스 탈퇴시 내 프로필,예약내역 등의 모든 정보가 삭제되며 이후 복구가 불가능합니다.</p>
@@ -287,7 +288,7 @@
                     <input type="submit" value="서비스 탈퇴" id="secess" onclick="testConfirm()"></input>
 
                 </div>
-
+                
             </div>
         </form>
     </div>
@@ -304,9 +305,7 @@
             }else{
                 
                 if(confirm("정말로 탈퇴하시겠습니까?")){
-                    alert("정상적으로 탈퇴되었습니다.");
-                }else{
-                    alert("탈퇴 실패했습니다.");
+
                 }
             }
 
