@@ -94,9 +94,6 @@ public class SpaceEnrollController extends HttpServlet {
 								 userNo
 								 );
 			
-			System.out.println(sp);
-			System.out.println(userNo);
-			
 			ArrayList<Attachment> list = new ArrayList<>();
 			for(int i = 1; i <= 4; i++) {
 				String key = "file" + i;

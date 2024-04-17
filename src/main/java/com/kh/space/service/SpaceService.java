@@ -37,5 +37,15 @@ public class SpaceService {
 		
 		return result1 * result2;
 	}
+	
+	public ArrayList<Space> selectSpaceList(){
+		Connection conn = getConnection();
+		
+		ArrayList<Space> list = spaceDao.selectSpaceList(conn);
+		
+		close(conn);
+		
+		return list;
+	}
 
 }

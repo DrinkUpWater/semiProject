@@ -273,8 +273,9 @@
             </div>
 
             <br><br><br><br>
-            
-            <a href="logout.me">로그아웃</a>
+            <c:if test="${loginUser != null}">
+                <a href="logout.me">로그아웃</a>
+            </c:if>
             <br>
             <br>
             <div class="side-tohost">

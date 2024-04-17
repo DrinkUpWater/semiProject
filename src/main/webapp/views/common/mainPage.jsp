@@ -232,7 +232,6 @@
             <input type="search" name="search">
             <i class="fa-solid fa-magnifying-glass"></i>
         </div>
-
         <div class="search-option">
             <section class="option1">
                 <select name="" id="">
@@ -278,6 +277,8 @@
         </div>
 
         <section class="main-grid">
+           
+
             <div class="info-preview" onclick="detailView()">
                 <div class="space-picture" style="border:  1px solid black;"> 
                     <img src="" alt="썸네일" width="100%" height="100%">
@@ -294,6 +295,7 @@
                     </div>
                 </div>
             </div>
+            
             <div class="info-preview"></div>
             <div class="info-preview"></div>
             <div class="info-preview"></div>
@@ -363,9 +365,6 @@
         </div> -->
     </div>
     <script>
-        function detailView() {
-            location.href="detailview.sp?spaceNo=1";
-        }
 
     </script>
     
