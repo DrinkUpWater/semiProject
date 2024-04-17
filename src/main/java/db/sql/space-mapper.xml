@@ -121,14 +121,9 @@
 
 </entry>
 
-<entry key="spacePickeView">
 
-	SELECT SPACE_NAME, SPACE_ADDRESS
-	
 
-</entry>
 
-<<<<<<< HEAD
 <entry key="selectReservationCount">
 SELECT COUNT(*) AS COUNT
 	FROM RESERVATION 
@@ -136,7 +131,7 @@ SELECT COUNT(*) AS COUNT
 	WHERE USER_ID = ?
 	AND STATUS ='Y'
 </entry>
-=======
+
 <entry key="insertSpace">
 	INSERT INTO SPACE (
 					    SPACE_NO,
@@ -193,20 +188,18 @@ SELECT COUNT(*) AS COUNT
 								) 
 </entry>
 
-<entry key="selectSpaceList">
-	SELECT SPACE_NO, 
-		   SPACE_NAME, 
-		   SPACE_TAG, 
-		   SPACE_ADDRESS, 
-		   SPACE_PRICE, 
-		   SPACE_CAPACITY 
-	FROM SPACE  
-	WHERE SPACE_ENROLL_STATUS = 'Y'  
-	ORDER BY SPACE_NO DESC 
-</entry>
+	<entry key="selectSpaceList">
+		SELECT SPACE_NO, 
+			   SPACE_NAME, 
+			   SPACE_TAG, 
+			   SPACE_ADDRESS, 
+			   SPACE_PRICE, 
+			   SPACE_CAPACITY 
+		FROM SPACE  
+		WHERE SPACE_ENROLL_STATUS = 'Y'  
+		ORDER BY SPACE_NO DESC 
+	</entry>
 		
-		
->>>>>>> ad400f9b0c4793d36af602c377231e73705e4e76
 
 <entry key="selectReservation"> <!-- 예약내역 정보들 가져오기 -->
 	SELECT RESERVATION_NO, 
@@ -225,4 +218,41 @@ SELECT COUNT(*) AS COUNT
 		WHERE USER_ID = ?
 		AND STATUS ='Y';
 </entry>
+
+	<entry key="myselectTumNailSpaceList">  <!-- 썸네일 리스트 -->
+		SELECT DISTINCT
+			  SPACE_NO,
+			  SPACE_NAME,
+			  SPACE_TAG,
+			  SPACE_ADDRESS,
+			  SPACE_PRICE,
+			  SPACE_CAPACITY,
+			  FILE_PATH || CHANGE_NAME AS "TITLE_IMG"
+			  FROM SPACE S
+			  JOIN MEMBER M
+			  ON (S.USER_NO=M.USER_NO)
+			  JOIN ATTACHMENT A
+			  ON (A.REF_SNO=S.SPACE_NO)
+			  WHERE M.USER_NO = ?
+					   
+	</entry>
+
+	<entry key="myselectSpaceList">  <!-- 썸네일 리스트 -->
+		SELECT DISTINCT
+			  SPACE_NO,
+			  SPACE_NAME,
+			  SPACE_TAG,
+			  SPACE_ADDRESS,
+			  SPACE_PRICE,
+			  SPACE_CAPACITY
+			 
+			  FROM SPACE S
+			  JOIN MEMBER M
+			  ON (S.USER_NO=M.USER_NO)
+			  WHERE M.USER_NO = ?
+					   
+	</entry>
+
+	
+>>>>>>> bbdf247849d81594cd1e2b71cdcb61686ec8a813
 </properties>

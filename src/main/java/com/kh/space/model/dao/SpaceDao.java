@@ -12,6 +12,7 @@ import java.util.InvalidPropertiesFormatException;
 import java.util.Properties;
 
 import com.kh.common.Attachment;
+import com.kh.space.model.dto.SpaceThumbNail;
 import com.kh.space.model.vo.Space;
 import static com.kh.common.JDBCTemplate.close;
 
@@ -90,6 +91,9 @@ public class SpaceDao {
 		
 		return  space;
 	}
+	
+	
+	
 
 
 	public int insertSpace(Connection conn, Space sp) {
@@ -188,6 +192,42 @@ public class SpaceDao {
 		}
 		
 		return list;
+	}
+
+
+	public ArrayList<Space> selectMySpaces(Connection conn, int userNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Space> list = new ArrayList<>();
+		
+		String sql = pro.getProperty("myselectSpaceList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1,userNo);
+			rset = pstmt.executeQuery();
+			
+			while (rset.next()) {
+				Space sp = new Space();
+				sp.setSpaceNo(rset.getInt("SPACE_NO"));
+				sp.setSpaceName(rset.getString("SPACE_NAME"));
+				sp.setSpaceTag(rset.getString("SPACE_TAG"));
+				sp.setSpaceAddress(rset.getString("SPACE_ADDRESS"));
+				sp.setSpacePrice(rset.getInt("SPACE_PRICE"));	
+				sp.setSpaceCapacity(rset.getInt("SPACE_CAPACITY"));
+				
+				list.add(sp);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+		
 	}
 
 }
