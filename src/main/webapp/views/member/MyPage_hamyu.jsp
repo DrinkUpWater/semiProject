@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.text.SimpleDateFormat,java.util.Date" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -28,6 +29,8 @@
             border-radius: 20px;
             margin: auto;
             margin-top: 100px;
+          
+            margin-bottom: 100px;    /*삭제 할수있음 */
         }
         .mypage-header{
             line-height: 65px;
@@ -154,11 +157,28 @@
 </head>
 <body>
     <%@ include file="../common/menubar.jsp" %>
+    <%
+    	String userName =loginUser.getUserName();
+    	String nickName = loginUser.getNickName();
+    	String gender = loginUser.getGender();
+    	
+    	String phone = loginUser.getPhone();
+    	StringBuffer ph = new StringBuffer(phone);
+    	ph.insert(3,'-');
+    	ph.insert(8,'-');
+    	
+    	String email = loginUser.getEmail();
+    	
+    	String birth = loginUser.getBirth();
+    	Date date =new SimpleDateFormat("yyMMdd").parse(birth); //String타입인 991024를 날짜타입으로변경
+    	String birthDate = new SimpleDateFormat("yyyy년 MM월 dd일").format(date); //변경된 날짜타입을 원하는 날짜로 출력하게 변경 ex)xxxx년xx월xx일
+    	
+    %>
     <div id="wrapper">
         <div class="login-top" align="center">
             <h2 class="mypage-header">마이페이지</h2>
         </div>
-
+<!-- 
         <div class="user-profile">
             <div class="user-image-area">
                 <img src="" alt="" id="user_profile">
@@ -174,7 +194,7 @@
                 </label>
                 <input type="file" name="file" id="image-change" class="btn-image"  onchange="loadImg(this)">
             </div>
-        </div>
+        </div> -->
         
         <!-- 유저 프로필사진 등록-->
         <!-- <script>
@@ -192,39 +212,39 @@
                 <tr class="tb-header" align="center">
                     <th>회원정보<hr></th>
                     <th>
-                        <a href="EditMemberInfo_hamyu.jsp" id="edit-user">회원정보수정<hr></a>
+                        <a href="editInfo.me" id="edit-user">회원정보수정<hr></a>
                     </th>
                 </tr>
                 <tr>
                     <td>이름</td>
-                    <td class="vl">홍길동</td>
+                    <td class="vl"><%=userName %></td>
                 </tr>
                 <tr>
                     <td>닉네임</td>
-                    <td class="vl">대도</td>
+                    <td class="vl"><%=nickName %></td>
                 </tr>
                 <tr>
                     <td>성별</td>
-                    <td class="vl">남</td>
+                    <td class="vl"><%=gender %></td>
                 </tr>
                 <tr>
                     <td>전화번호</td>
-                    <td class="vl">010-1111-1111</td>
+                    <td class="vl"><%=ph %></td>
                 </tr>
                 <tr>
                     <td>이메일주소</td>
-                    <td class="vl">DAEDO@NAVER.COM</td>
+                    <td class="vl"><%=email %></td>
                 </tr>
                 <tr>
                     <td>생년월일</td>
-                    <td class="vl">1999년11월11일</td>
+                    <td class="vl"><%=birthDate %></td>
                 </tr>
             </table>
         </div>
 
         <div id="bottom-area">
-                <a href="Reservation_Member_hamyu.jsp" id="Reservation_details">예약내역</a>
-            <form action="SecessionMember_hamyu.jsp" method="post">
+                <a href="reservation.me" id="Reservation_details">예약내역</a>
+            <form action="secession.me" method="post">
                 <input type="submit" value="탈퇴하기" id="secession"> 
             </form>
         </div>

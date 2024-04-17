@@ -8,20 +8,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.kh.member.model.vo.Member;
 import com.kh.member.service.MemberService;
 
 /**
- * Servlet implementation class MemberFindPwdController
+ * Servlet implementation class MemberDeleteController
  */
-@WebServlet("/findPwd.me")
-public class MemberFindPwdController extends HttpServlet {
+@WebServlet("/delete.me")
+public class MemberDeleteController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MemberFindPwdController() {
+    public MemberDeleteController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,18 +32,17 @@ public class MemberFindPwdController extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		
 		String userId = request.getParameter("userId");
-		String phone = request.getParameter("phone");
-		String email = request.getParameter("email");		
-	
-		String findPwd= new MemberService().findPwd(userId,phone,email);
-		if(findPwd == null) {
-			 request.getSession().setAttribute("alertMsg", "비밀번호 찾기에 실패했습니다. 다시 확인 후 입력해주세요.");
-			 response.sendRedirect(request.getContextPath()+"/findPwdForm");
+		
+		int result = new MemberService().deleteMember(userId);
+		HttpSession session = request.getSession();
+		if(result>0) {
+			session.setAttribute("alertMsg", "회원이 성공적으로 탈퇴되셨습니다. 이용해주셔서 감사합니다.");
+			session.removeAttribute("loginUser");
+			response.sendRedirect(request.getContextPath());
 		}else {
-			 request.getSession().setAttribute("findPwd", findPwd);
-			 response.sendRedirect(request.getContextPath()+"/findPwdForm");
+			session.setAttribute("alert", "회원탈퇴에 실패했습니다.");
+			request.getRequestDispatcher("views/member/Reservation_Member_hamyu.jsp").forward(request, response);;
 		}
-			
 	}
 
 	/**

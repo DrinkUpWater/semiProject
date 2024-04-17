@@ -8,25 +8,24 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class MemberMyPageController
+ * Servlet implementation class MemberSessionController
  */
-@WebServlet("/myPage.me")
-public class MemberMyPageController extends HttpServlet {
+@WebServlet("/secession.me")
+public class MemberSessionController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MemberMyPageController() {
+    public MemberSessionController() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {	
-		request.getRequestDispatcher("views/member/MyPage_hamyu.jsp").forward(request, response);
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.getRequestDispatcher("views/member/SecessionMember_hamyu.jsp").forward(request, response);
 	}
 
 	/**
