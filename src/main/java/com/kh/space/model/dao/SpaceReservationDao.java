@@ -22,7 +22,7 @@ public class SpaceReservationDao {
 	
 	public SpaceReservationDao() {
 		
-		String file=SpaceReservationDao.class.getResource("/db/sql/space-mapper.xml").getPath();
+		String file=SpaceReservationDao.class.getResource("/db/sql/reservation-mapper.xml").getPath();
 		
 		try {
 			pro.loadFromXML(new FileInputStream(file));
