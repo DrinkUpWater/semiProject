@@ -6,20 +6,24 @@ document.addEventListener('DOMContentLoaded', function () {
 
     document.querySelector("#comment_enroll").onclick=function(){
         insertCommentList();//QandA작성
-      
     }
 
    // HostCommentInsert();
 
-    $(".host-reply-toggle").click(function(){
-        let targetId = $(this).data("target");
-        console.log(this)
-        console.log(targetId)
-        $(targetId).toggle();
-    });
+//    HostCommentInsert();
+ 
+    
+//    $(".host-reply-toggle").click(function(){
+//        let targetId = $(this).data("target");
+//        console.log(this)
+//        console.log(targetId)
+//        $(targetId).toggle();
+//    });
 
   
 });
+
+
 
 
 
@@ -105,37 +109,40 @@ function commentList (commentTable,response){
         +"<tr class='comment_list'>"
             +"<th class='nickName'>"+reply['userId']+"</th>"
             + "<td class='mb-1' >"+reply['commentContent']+"</td>"
+            + "<td class='mb-1 cancel-td' style='width:100px;' ><button  class='cancel-button' style='width:100%;'>삭제</button></td>"
         +"</tr>"
     
         +"<tr class='comment_list'>"
                 +"<th class='clear'></th>"
                 +"<td class='time'>"+reply['insertDate']+"</td>"
+              
         +"</tr>"
     
         +"<tr class='host_reply_title'>"
             +"<th class='clear'> </th>"
             +"<td><button class='btn btn-link  p-0  host-reply-toggle' data-target='#hostReply' >호스트답글</button></td>"
+           
         +"</tr>"
     
         +"<tr class='host_reply'>"
             +"<th class='clear'> </th>"
-            +"<td> <div  class='hostReplys' id='hostReply' class='host-reply-content mt-2' style='display:block;'>"
-                +"<p>"+reply['hostReply']+"</p>"
+            +"<td> <div  class='hostReplys'  class='host-reply-content mt-2' style='display:block;'>"
+                +"<p class='p_class'>"+reply['hostReply']+"</p>"
             +"</div></td>"
+         
         +"</tr>"
     
     
-        +"<tr id='reply_info' class='comment_list'>"
+        +"<tr  class='comment_list'>"
             +"<th class='clear'></th>"
             +"<td>"
                 +"<div>답글</div>"
-                +"<div id='reply div' style='width:100%; display:flex; justify-content: space-between;'>"
+                +"<div class='hostReplyDiv' style='width:100%; display:none;  justify-content: space-between;'>"
                     +"<div style='width:100%;'>"
-                         + "<textarea id='hostReplyContent' class='hostReplyContents' placeholder='입력하세요' style='width:100%;'   ></textarea>"
+                         + "<textarea  class='hostReplyContents' placeholder='입력하세요' style='width:100%;' ></textarea>"
                          + "<input  class='commentNo' type='text' value='"+reply['commentNo'] +"' hidden/>"
                     +"</div>"
-                    +"<div><button class='submitHostReplyBtn' type='button' '>등록하기</button></div>"
-                    
+                    +"<div><button class='submitHostReplyBtn' type='button' >등록하기</button></div>"
                 +"</div>"
             +"</td>"
     
@@ -150,9 +157,59 @@ function commentList (commentTable,response){
     
 
     }
+
     commentTable.innerHTML=htmlContent
-    HostCommentInsert();
+
+
+    //삭제 버튼 숨기기 로그인한 유저와,공간 호스트한테만 보이기
+    GusetCommentCancelButton();
+
  
+    
+    
+    
+    //호스트 댓글창 숨기기
+    $(".host-reply-toggle").click(function(){
+        let targetId = $(this).data("target");
+        console.log(this)
+        console.log(targetId)
+        $(targetId).toggle();
+    });
+
+
+
+    //호스트 답글내용 답글창 클릭하면 가져오기
+    let textareas = document.querySelectorAll(".hostReplyContents");
+    textareas.forEach(function(textarea) {
+        textarea.onclick = function() {
+            let replyText = this.closest("tr").previousElementSibling.querySelector(".hostReplys .p_class").innerText;
+            console.log(replyText);
+            this.value = replyText; // textarea의 값으로 설정
+        };
+    });
+     
+     //이 방의 주인만 답글달게 하기
+    let checkHost=document.querySelectorAll(".hostReplyDiv");
+    let hostCheck=(document.querySelector("#hostCheck"));
+   // let hostCheckValue=null;
+    
+    if(hostCheck!==undefined){
+		checkHost.forEach(function(check){
+			//check.style.display='block';
+			check.style.display='flex';
+		});
+	}
+    
+    
+ 
+   
+	
+	
+   
+     //호스트 리플라이 작성
+    HostCommentInsert();
+    
+
 
 }
 
@@ -204,5 +261,13 @@ function HostCommentInsert() {
         })
    
     }
+}
+
+
+function GusetCommentCancelButton(){
+
+    
+
+
 }
 
