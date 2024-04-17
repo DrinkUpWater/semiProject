@@ -7,9 +7,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.InvalidPropertiesFormatException;
 import java.util.Properties;
 
+import com.kh.common.Attachment;
 import com.kh.space.model.vo.Space;
 import static com.kh.common.JDBCTemplate.close;
 
@@ -116,6 +118,36 @@ public class SpaceDao {
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+
+	public int insertAttachmentList(Connection conn, ArrayList<Attachment> list) {
+		PreparedStatement pstmt = null;
+		int result = 1;
+		
+		String sql = pro.getProperty("insertAttachmentList");
+		
+		try {
+			
+			for (Attachment at : list) {
+				pstmt = conn.prepareStatement(sql);
+				
+				pstmt.setString(1, at.getOriginName());
+				pstmt.setString(2, at.getChangeName());
+				pstmt.setString(3, at.getFilePath());
+				pstmt.setInt(4, at.getFileLevel());
+				
+				result = result * pstmt.executeUpdate();
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			close(pstmt);
