@@ -1,14 +1,41 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
     <!DOCTYPE html>
 <%@ page import="com.kh.space.model.vo.Space" %>
+<%@ page import="com.kh.member.model.vo.Member" %>
+
+   <%@ include file="../common/menubar.jsp" %>
     
-    <% 
-    	Space space= (Space)request.getAttribute("space");
-        
-        String []tags=space.getSpaceTag().split(" ");
-        String []guides=space.getSpaceInformation().split("&");
-       
-       
+    <%  
+           HttpSession s=request.getSession();
+    	
+    
+	 
+		    int userNo=-1;
+		    
+		    if(loginUser!=null){
+		    	 userNo=loginUser.getUserNo();
+		    }
+		    System.out.print(userNo);
+		    
+		    String check=(String)s.getAttribute("pickedMsg");
+		    String pickedMsg=(String)s.getAttribute("picked");       
+		      
+		   
+		   
+		
+		   Space space= (Space)request.getAttribute("space");
+		   String []tags=space.getSpaceTag().split(" ");
+		   String []guides=space.getSpaceInformation().split("&");
+		  
+		   
+		  boolean hostCheck=false;
+		  if(space.getUserNo()==userNo){
+			   hostCheck=true;
+		  } 
+    	
+         
+    	 
+    	
        
     
     
@@ -476,12 +503,12 @@
 
   
     <body>
-        <%@ include file="../common/menubar.jsp" %>
+     
            
             <%   
-                HttpSession p=request.getSession();
-                String check=(String) p.getAttribute("pickedMsg");
-                String pickedMsg=(String)p.getAttribute("picked");
+               // HttpSession p=request.getSession();
+               // String check=(String) p.getAttribute("pickedMsg");
+               // String pickedMsg=(String)p.getAttribute("picked");       
                 
             %>
             
@@ -489,12 +516,18 @@
             	<script>
             		alert("<%=check%>");
             	</script>
-             <%  p.removeAttribute("pickedMsg"); %>
+             <%  s.removeAttribute("pickedMsg"); %>
             <%} %>
 
           
             <nav id="main" class="navbar-light bg-light">
-                 <input id="spaceNum" type="text" value="1" hidden> <!--공간번호--> 
+                 <input id="spaceNum" type="text" value=<%=space.getSpaceNo()%> hidden> <!--공간번호--> 
+
+				<% if(hostCheck==true){ %>
+				    <input id="hostCheck" type="text" value="true" hidden>
+					
+				<%} %>
+
 
                 <div id="section_1">
 
@@ -533,7 +566,7 @@
                         </div>
                         <div style=" padding-top:20px; ">
                             <span>
-                                <%=space.getspaceOneIntroduce() %>
+                                <%=space.getSpaceOneIntroduce() %>
                             </span>
 
                         </div>
@@ -699,6 +732,7 @@
                         // });
                     </script>
 
+                        <% if(loginUser!=null) {%>
                     
                         <div id="comment_info" style="height:80px">
                             <th></th>
@@ -721,7 +755,7 @@
                             </td>
                         </div>
 
-
+                         <% } %>
 
 
 

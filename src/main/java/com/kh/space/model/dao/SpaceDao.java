@@ -68,7 +68,8 @@ public class SpaceDao {
 						reset.getInt("SPACE_CAPACITY"),
 						reset.getString("SPACE_RESERVATION_STATUS"),
 						reset.getDate("SPACE_ENROLL_DATE"),
-						reset.getString("SPACE_ENROLL_STATUS")
+						reset.getString("SPACE_ENROLL_STATUS"),
+						reset.getInt("USER_NO")
 						);
 				
 				

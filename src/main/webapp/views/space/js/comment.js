@@ -137,13 +137,12 @@ function commentList (commentTable,response){
             +"<th class='clear'></th>"
             +"<td>"
                 +"<div>답글</div>"
-                +"<div  style='width:100%; display:flex; justify-content: space-between;'>"
+                +"<div class='hostReplyDiv' style='width:100%; display:none;  justify-content: space-between;'>"
                     +"<div style='width:100%;'>"
                          + "<textarea  class='hostReplyContents' placeholder='입력하세요' style='width:100%;' ></textarea>"
                          + "<input  class='commentNo' type='text' value='"+reply['commentNo'] +"' hidden/>"
                     +"</div>"
-                    +"<div><button class='submitHostReplyBtn' type='button' '>등록하기</button></div>"
-                    
+                    +"<div><button class='submitHostReplyBtn' type='button' >등록하기</button></div>"
                 +"</div>"
             +"</td>"
     
@@ -165,11 +164,9 @@ function commentList (commentTable,response){
     //삭제 버튼 숨기기 로그인한 유저와,공간 호스트한테만 보이기
     GusetCommentCancelButton();
 
-
-
-    //호스트 리플라이 작성
-    HostCommentInsert();
  
+    
+    
     
     //호스트 댓글창 숨기기
     $(".host-reply-toggle").click(function(){
@@ -178,6 +175,8 @@ function commentList (commentTable,response){
         console.log(targetId)
         $(targetId).toggle();
     });
+
+
 
     //호스트 답글내용 답글창 클릭하면 가져오기
     let textareas = document.querySelectorAll(".hostReplyContents");
@@ -189,8 +188,26 @@ function commentList (commentTable,response){
         };
     });
      
-   
+     //이 방의 주인만 답글달게 하기
+    let checkHost=document.querySelectorAll(".hostReplyDiv");
+    let hostCheck=(document.querySelector("#hostCheck"));
+   // let hostCheckValue=null;
     
+    if(hostCheck!==undefined){
+		checkHost.forEach(function(check){
+			//check.style.display='block';
+			check.style.display='flex';
+		});
+	}
+    
+    
+ 
+   
+	
+	
+   
+     //호스트 리플라이 작성
+    HostCommentInsert();
     
 
 
