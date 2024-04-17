@@ -148,7 +148,14 @@ public class SpacePickedDao {
 			while(rest.next()) {
 				
 				
-				pickeds.add(picked);
+				pickeds.add(new Space(
+						rest.getInt("SPACE_NO"),
+						rest.getString("SPACE_ONE_INTRODUCE"),
+						rest.getString("SPACE_TAG"),
+						rest.getString("SPACE_ADDRESS"),
+						rest.getInt("SPACE_PRICE"),
+						rest.getInt("SPACE_CAPACITY")
+				));
 			}
 			
 			
