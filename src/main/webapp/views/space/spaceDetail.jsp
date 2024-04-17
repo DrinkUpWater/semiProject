@@ -1,5 +1,52 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
     <!DOCTYPE html>
+<%@ page import="com.kh.space.model.vo.Space" %>
+<%@ page import="com.kh.member.model.vo.Member" %>
+
+   <%@ include file="../common/menubar.jsp" %>
+   
+   <%   String spaceKind=(String)request.getAttribute("spaceKind");  %>
+   
+    
+    <%  
+           HttpSession s=request.getSession();
+    	
+     
+    	
+    
+	 
+		    int userNo=-1;
+		    
+		    if(loginUser!=null){
+		    	 userNo=loginUser.getUserNo();
+		    }
+		 
+		    
+		    String check=(String)s.getAttribute("pickedMsg");
+		    String pickedMsg=(String)s.getAttribute("picked");       
+		      
+		   
+		   
+		
+		   Space space= (Space)request.getAttribute("space");
+		   System.out.println(space.getSpaceNo());
+		   String []tags=space.getSpaceTag().split(" ");
+		   String []guides=space.getSpaceInformation().split("&");
+		  
+		   
+		  boolean hostCheck=false;
+		  if(space.getUserNo()==userNo){
+			   hostCheck=true;
+		  } 
+    	
+         
+    	 
+    	
+       
+    
+    
+    %>
+    
     <html lang="en">
 
     <head>
@@ -111,6 +158,9 @@
                 font-size: 20px;
             }
 
+            .space{
+               overflow: auto;
+            }
 
             .space p>span {
                 display: inline-block;
@@ -219,6 +269,22 @@
                 color: #666;
             }
 
+            #review_table .time{
+                font-size: 0.8rem;
+                color: #666;
+            }
+
+            .time{
+                font-size: 0.8rem;
+                color: #666;
+            }
+
+
+            #comment_table .time {
+                font-size: 0.8rem;
+                color: #666;
+            }
+
             
             .comment_list{
              /* resize:none; */
@@ -230,6 +296,9 @@
            .comment_list >td{
               width:500px;
            }
+          
+          
+
            #hostReplyContent{
              width:50px;
            }
@@ -320,8 +389,14 @@
             }
 
         
+
+            /*--------리뷰---------*/
            
-          
+            #space_review{
+                overflow: auto;
+                /* border:solid blue; */
+               
+            }
 
 
 
@@ -374,6 +449,8 @@
                 width:100%;
               
             }
+
+
             .price{
                 font-size: 20px;
               
@@ -432,17 +509,66 @@
 
   
     <body>
-        <%@ include file="../common/menubar.jsp" %>
+     
            
+            <%   
+               // HttpSession p=request.getSession();
+               // String check=(String) p.getAttribute("pickedMsg");
+               // String pickedMsg=(String)p.getAttribute("picked");       
+                
+            %>
+            
+            <% if(check!=null){ %>
+            	<script>
+            		alert("<%=check%>");
+            	</script>
+             <%  s.removeAttribute("pickedMsg"); %>
+            <%} %>
+
           
             <nav id="main" class="navbar-light bg-light">
+                 <input id="spaceNum" type="text" value="<%=space.getSpaceNo()%>" hidden> <!--공간번호--> 
+
+				<% if(hostCheck==true){ %>
+				    <input id="hostCheck" type="text" value="true" hidden>
+					
+				<%}
+				 else {%>
+				    <input id="hostCheck" type="text" value="false" hidden>
+				 
+				 <%} %>
+				
+
 
                 <div id="section_1">
 
 
                     <div id="space_id" name="space_name" class="title">
-                        <div class="text"> 르씨엘 2호점</div> <div><span><a href="<%=contextPath%>/picked.sp" onclick="alert('찜되었습니다.')">찜하기</a></span></div>
-                    </div>
+                        <div class="text"><%=space.getSpaceName() %>  </div>  <div id="picked" onclick="picked(this);"><%=(pickedMsg==null)?"찜하기":pickedMsg%></div>
+                   </div>
+                        <script>
+                             function picked(_this){
+                               
+                            	
+                                let spaceNum=document.querySelector("#spaceNum").value;
+                                location.href="<%=contextPath%>/picked.sp?spaceNum="+spaceNum;
+
+                                // if(_this.innerText==="찜하기"){
+                                //     _this.innerText="찜해제";
+                                //     alert("찜해제되었습니다.")
+                                // }
+                                // else{
+                                //     _this.innerText="찜하기";
+                                //     alert("찜하기");
+                                // }
+
+
+
+                             }
+
+                        </script>
+
+
                     <div id="space_comment" class="space">
                         <div align="left" class="img_div">
 
@@ -451,18 +577,7 @@
                         </div>
                         <div style=" padding-top:20px; ">
                             <span>
-                                sdfgsfdg sdfg
-                                asdfadsf
-                                asdfadsfadsf
-                                asdasdfdasfasdfadsfdsdsadsf
-                                fasdf
-                                시설물 설명
-                                시설물 설명
-                                시설물 설명
-                                시설물 설명
-                                시설물 설명
-                                시설물 설명
-                                시설물 설명
+                                <%=space.getSpaceOneIntroduce() %>
                             </span>
 
                         </div>
@@ -478,22 +593,18 @@
                         </ul>
                     </div>
                     <div id="space_intro" name="space_intro" class="title">
-                        <div class="text">공간소개</div>
+                        <div class="text">
+                           공간소개
+                         </div>
                         <hr class="line2" style="background:rgb(235, 229, 229) ">
                     </div>
                     <div id="space_intro_comment" class="space">
-                        [강남역 10번출구 1분거리]
-                        <br><br>
-                        어떤 만남도 대충하지 않는 사람들을 위한 감성공간,공튜디오입니다.
-                        <br><br>
-                        #스터디룸
-                        #회의실
-                        #생일파티
-                        #브라이덜샤워
-                        <br>
-                        등 다양한 모임공간으로 활용할 수 있습니다.
-
-
+                         <%=space.getSpaceIntroduce() %><br>
+                        <table>
+                          <% for(String tag:tags){ %>
+                              <span><a href="#"><%=tag%></a><span>&nbsp;
+                          <% } %>
+                        </table>
                     </div>
 
                     <div id="space_guide" name="space_guide" class="title">
@@ -504,33 +615,9 @@
                     <div id="space_guide_comment" class="space">
                         <table>
                             <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>초고속 와이파이+전기종 가능한 충전기</td>
-                                </tr>
-
-                                <tr>
-                                    <td>2</td>
-                                    <td>정수기+산딸기 티+ 복숭아티+사과티+아메리카노+간식</td>
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td>정수기+산딸기 티+ 복숭아티+사과티+아메리카노+간식</td>
-                                </tr>
-                                <tr>
-                                    <td>4</td>
-                                    <td>정수기+산딸기 티+ 복숭아티+사과티+아메리카노+간식</td>
-                                </tr>
-
-                                <tr>
-                                    <td>5</td>
-                                    <td>정수기+산딸기 티+ 복숭아티+사과티+아메리카노+간식</td>
-                                </tr>
-
-                                <tr>
-                                    <td>6</td>
-                                    <td>정수기+산딸기 티+ 복숭아티+사과티+아메리카노+간식</td>
-                                </tr>
+                               <% for(String guide:guides){%>
+                                  <tr><td><%=guide%></td></tr>
+                               <% } %>
 
                             </tbody>
 
@@ -552,43 +639,7 @@
 
 
                     <div id="reservation_warn_comment" class="space">
-                        <table>
-                            <tbody>
-                                <tr>
-                                    <td>1.</td>
-                                    <td>최소 1인,최대 12인까지 이용 가능합니다.</td>
-                                </tr>
-
-                                <tr>
-                                    <td>2.</td>
-                                    <td>3인부터 최소 2시간부터 이용 가능합니다.</td>
-                                </tr>
-                                <tr>
-                                    <td>3.</td>
-                                    <td>예약은 선입금 제로 만 가능하며,예약된 사용시간 전에 퇴실하여도 잔여 시간은 환불이 불가합니다.</td>
-                                </tr>
-                                <tr>
-                                    <td>4.</td>
-                                    <td>추가인원은 연락주시면 안내 도와드리고 있으며 인원 변동 가능성 있을시 최소 인원으로 예약후 인원 확정이
-                                        되면 연락후, 계좌이체로 추가금액 지불해주시면 됩니다.
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td>5.</td>
-                                    <td>지나친 소음은 삼가해주세요</td>
-                                </tr>
-
-                                <tr>
-                                    <td>6.</td>
-                                    <td>음식물 취식은 가능하나,구비된 음식물 쓰레기 봉투에 담은후 1층
-                                        후문 쓰레기장에 직접 배출해주셔야합니다.
-                                    </td>
-                                </tr>
-
-                            </tbody>
-
-                        </table>
+                          <%=space.getSpaceCaution()%>
                     </div>
 
 
@@ -598,13 +649,17 @@
                     </div>
                     <div id="space_road_comment" class="space">
 
-                    <iframe
+
+                       <iframe
                             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3165.378379236162!2d127.03290899999996!3d37.49899300000002!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357c9ec255555555%3A0x3565475c3365c5bb!2zS0jsoJXrs7TqtZDsnKHsm5A!5e0!3m2!1sko!2skr!4v1712133003105!5m2!1sko!2skr"
                             style="border:0; width:100%; height:200%;" allowfullscreen="" loading="lazy"
                             referrerpolicy="no-referrer-when-downgrade" > </iframe>
 
+                        
 
                     </div>
+
+
 
                     <div id="space_qa" name="space_qa" class="title">
                         <div class="text">Q&A</div>
@@ -688,7 +743,8 @@
                         // });
                     </script>
 
-                        <input id="spaceNum" type="text" value="1" hidden> <!--공간번호--> 
+                        <% if(loginUser!=null) {%>
+                    
                         <div id="comment_info" style="height:80px">
                             <th></th>
                             <td>
@@ -710,19 +766,73 @@
                             </td>
                         </div>
 
+                         <% } %>
 
+
+
+                        <div id="space_review_title" name="space_qa" class="title">
+                            <div class="text">리뷰</div>
+                            <hr>
+                        </div>
                       
 
 
-                        <div id="space_qa_review" class="space">
+                        <div id="space_review" class="space">
+     
+                             <table id="review_table" class="list-group">
 
-                            <div id="space_review" name="space_review" class="title">
-                                <div class="text">리뷰</div>
-                                <hr>
-                            </div>
+
+                                <%for(int i=0; i<6; i++) {%>
+
+                                    <tr class="comment_list">    
+
+                                        <th class="nickName" style="width:20%">user<%=i%></th>
+                                        <td class="mb-1" > 리뷰내용<%=i%></td>
+            
+                                    </tr>
+            
+                                    <tr class="comment_list">
+                                            <th class="clear"></th>
+                                            <td class="time">2024-04-11</td>
+                                    </tr>
+            
+
+                                   <tr id="comment_margin">
+                                       <td colspan="2" id="comment_line"><hr></td>
+                                   </tr>
+                                 <% } %>
+
+                                  
+
+
+                            </table>
+
+
+
                         </div>
 
-                
+
+                        <input id="spaceNum" type="text" value="1" hidden> <!--공간번호--> 
+                        <div id="comment_info" style="height:80px">
+                            <th></th>
+                            <td>
+                                <div class="review" style="  font-size: 1.2rem; margin-top:30px">리뷰 등록하기</div>
+
+                                <div id="comment div" style="width:100%; height:100%; display:flex; justify-content:center;">
+                                    
+                                    <div style="width:100%">
+                                        <textarea id="content" placeholder="입력하세요" style="width:500px;"  ></textarea>
+                                       
+                                    </div>
+
+
+
+                                    <div style=" width:100%; height:100%;"><button id="comment_enroll" type="button" style="height:100%;" >등록하기</button></div>
+
+                                </div>
+
+                            </td>
+                        </div>
 
 
 
@@ -732,6 +842,10 @@
 
 
                 <div id="section_2">
+
+
+     			  <% if(spaceKind.equals("spaces")) {%>
+
 
                     <!-- 유저가 게스트면-->
                     <div id="detail_space" class="title">
@@ -767,30 +881,30 @@
                         </div>
 
                         <div id="space_option" class="title">
-                            <div class="text2">가구 설명란</div>
+                            <div class="text2">공간 설명란</div>
                             <hr class="line2" style="background:#704DE4">
                         </div>
                         <div id="space_option_comment">
                             <table align="center">
                                 <tr>
                                     <th>공간유형:</th>
-                                    <td>xxxxxx</td>
+                                    <td><%=space.getSpaceKind()%></td>
                                 </tr>
 
                                 <tr>
-                                    <th>공간면적:</th>
-                                    <td>xxxxxx</td>
+                                    <th>가격:</th>
+                                    <td><%=space.getSpacePrice()%></td>
                                 </tr>
 
 
                                 <tr>
                                     <th>예약유형:</th>
-                                    <td>xxxxx</td>
+                                    <td>카드결제</td>
                                 </tr>
 
                                 <tr>
-                                    <th>최소1명~N명:</th>
-                                    <td>xxxxx</td>
+                                    <th>수용인원:</th>
+                                    <td id="MaxPerson"><%=space.getSpaceCapacity()%></td>
                                 </tr>
 
                             </table>
@@ -1072,17 +1186,15 @@
                             </div>
                         </div>
                     </div>
-
-
-
-
-
-
-
-                    <!--유저가 호스트면-->
-
-
-                    <div style="display: block;">
+                    
+                    
+                    
+                     <!--유저가 호스트면-->
+                   <% } 
+     			  
+     			   else { %>
+     			   
+					<div >
 
                         <div id="space_detail_select">
                             <div class="text2"> 공간유형</div>
@@ -1173,7 +1285,9 @@
 
 
 
-                </div>
+                 </div>
+                 
+                 <%} %>
 
             </nav>
 

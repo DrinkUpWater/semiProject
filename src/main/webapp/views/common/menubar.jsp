@@ -177,6 +177,7 @@
 </style>
 </head>
 <body>
+
 	<% if(alertMsg != null) {%>
 		<script>
 			alert("<%=alertMsg%>");
@@ -263,7 +264,7 @@
                         <th class="book-list">예약 리스트</th>
                     </tr>
                     <tr align="center">
-                        <th>찜한 공간</th>
+                        <th class="picked-list">찜한 공간</th>
                     </tr>
                     <tr align="center">
                         <th class="notice">공지사항</th>
@@ -272,8 +273,9 @@
             </div>
 
             <br><br><br><br>
-            
-            <a href="logout.me">로그아웃</a>
+            <c:if test="${loginUser != null}">
+                <a href="logout.me">로그아웃</a>
+            </c:if>
             <br>
             <br>
             <div class="side-tohost">
@@ -297,8 +299,15 @@
 
         //클릭시 공시사항페이지로
         $(".notice").click(function(){
-            location.href="list.no"
+            location.href="list.no?cpage=1"
         });
+        
+        //클릭시 찜한공간으로
+         $(".picked-list").click(function(){
+            location.href="pickedview.sp"
+        });
+        
+        
 
         // 사이드 바
         function openNav() {

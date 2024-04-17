@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+
+<properties>
+		<entry key="selectOnePicked">
+		      SELECT PICKED_NUM,
+		      		 PICKED_DATE,
+		      		 USER_NO,
+		      		 SPACE_NO
+		      FROM PICKED
+		      WHERE USER_NO = ? AND SPACE_NO = ?
+		
+			 
+		</entry>
+		
+		
+		<entry key="insertPicked">
+			INSERT INTO PICKED
+					(
+						PICKED_NUM,
+						USER_NO,
+						SPACE_NO
+					)
+					VALUES
+					(SEQ_PNO.NEXTVAL,
+						?,
+						?
+					)
+					
+		</entry>
+		
+		
+		<entry key="selectPickedes">
+			SELECT 
+				   P.SPACE_NO,
+				   SPACE_ONE_INTRODUCE,
+				   SPACE_TAG,
+				   SPACE_ADDRESS,
+				   SPACE_PRICE,
+				   SPACE_CAPACITY
+				   FROM SPACE S
+				   JOIN PICKED P
+				   ON (S.SPACE_NO=P.SPACE_NO)
+				   WHERE P.USER_NO = ?
+				   
+		</entry>
+		
+		
+		
+		
+		<entry key="deletePicked">
+			DELETE FROM PICKED
+				WHERE SPACE_NO = ? AND USER_NO = ? 
+					
+		</entry>
+
+</properties>
+

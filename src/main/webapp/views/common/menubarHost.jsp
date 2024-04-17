@@ -205,7 +205,7 @@
 		            <h2 class="menubar-logo" >kH ROOMMOAH</h2>
 		
 		            <div align="end" id="right-bar">
-		                <a href="enrollForm.me">회원가입</a> | <a href="login.me">로그인</a>
+		                <a href="enrollForm.me">회원가입</a> | <a href="loginForm.me">로그인</a>
 		            </div>
 		        </div>
 	        </c:when>
@@ -217,7 +217,7 @@
 		            </div>
 		            <h2 class="menubar-logo" >kH ROOMMOAH</h2>
 		            <div align="end" id="right-bar">
-		                <a href="">${loginUser.nickName}</a> | <a href="">로그아웃</a>
+		                <a href="">${loginUser.nickName}</a> | <a href="logout.me">로그아웃</a>
 		            </div>
 		        </div>
         	</c:otherwise>
@@ -282,8 +282,9 @@
             </div>
 
             <br><br><br><br>
-            
-            <a href="logout.me">로그아웃</a>
+            <c:if test="${loginUser != null}">
+                <a href="logout.me">로그아웃</a>
+            </c:if>
             <br>
             <br>
             <div class="side-tohost">

@@ -2,6 +2,41 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
 
+
+<entry key="selectOneSpace">
+
+	 SELECT SPACE_NO,
+			SPACE_NAME,
+			SPACE_KIND,
+			SPACE_ONE_INTRODUCE,
+			SPACE_INTRODUCE,
+			SPACE_TAG,
+			SPACE_INFORMATION,
+			SPACE_CAUTION,
+			SPACE_MIMG,
+			SPACE_IMG,
+			SPACE_ADDRESS,
+			SPACE_DETAIL_ADDRESS,
+			SPACE_PRICE,
+			SPACE_LOCATION,
+			SPACE_TEL,
+			SPACE_CAPACITY,
+			SPACE_RESERVATION_STATUS,
+			SPACE_ENROLL_DATE,
+			SPACE_ENROLL_STATUS,
+			USER_NO
+			FROM SPACE
+			WHERE SPACE_NO = ? 
+
+
+
+</entry>
+
+
+
+
+
+
 <entry key="insertGuestComment">
 	 	INSERT INTO GUESTCOMMENT
 	 		 (
@@ -86,6 +121,80 @@
 
 </entry>
 
+<entry key="spacePickeView">
+
+	SELECT SPACE_NAME, SPACE_ADDRESS
+	
+
+</entry>
+
+<entry key="insertSpace">
+	INSERT INTO SPACE (
+					    SPACE_NO,
+						SPACE_NAME,
+						SPACE_KIND,
+						SPACE_ONE_INTRODUCE,
+						SPACE_INTRODUCE,
+						SPACE_TAG,
+						SPACE_INFORMATION,
+						SPACE_CAUTION,
+						SPACE_ADDRESS,
+						SPACE_DETAIL_ADDRESS,
+						SPACE_PRICE,
+						SPACE_LOCATION,
+						SPACE_TEL,
+						SPACE_CAPACITY,
+						USER_NO 
+					   )
+				VALUES(
+					   SEQ_SNO.NEXTVAL,
+					   ?,
+					   ?,
+					   ?,
+					   ?,
+					   ?,
+					   ?,
+					   ?,
+					   ?,
+					   ?,
+					   ?,
+					   ?,
+					   ?,
+					   ?,
+					   ?
+					   )					
+</entry>
+
+<entry key="insertAttachmentList">
+	INSERT INTO ATTACHMENT (
+								FILE_NO,  
+								REF_SNO, 
+								ORIGIN_NAME, 
+								CHANGE_NAME,  
+								FILE_PATH,
+								FILE_LEVEL  
+								)
+						VALUES ( 
+								SEQ_ATNO.NEXTVAL, 
+								SEQ_SNO.CURRVAL, 
+								?,  
+								?,  
+								?, 
+								?  
+								) 
+</entry>
+
+<entry key="selectSpaceList">
+	SELECT SPACE_NO, 
+		   SPACE_NAME, 
+		   SPACE_TAG, 
+		   SPACE_ADDRESS, 
+		   SPACE_PRICE, 
+		   SPACE_CAPACITY 
+	FROM SPACE  
+	WHERE SPACE_ENROLL_STATUS = 'Y'  
+	ORDER BY SPACE_NO DESC 
+</entry>
 		
 		
 

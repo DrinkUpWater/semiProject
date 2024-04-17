@@ -23,15 +23,43 @@ public class Space {
 	private String spaceReservationStatus;
 	private Date spaceEnrollDate;
 	private String spaceEnrollStatus;
+	private int userNo;
 	
 	public Space() {
 		super();
 	}
+	
+	
+  
+	
+
+	public Space(String spaceName, String spaceKind, String spaceOneIntroduce, String spaceIntroduce, String spaceTag,
+			String spaceInformation, String spaceCaution, String spaceAddress, String spaceDetailAddress,
+			int spacePrice, String spaceLocation, String spaceTel, int spaceCapacity, int userNo) {
+		super();
+		this.spaceName = spaceName;
+		this.spaceKind = spaceKind;
+		this.spaceOneIntroduce = spaceOneIntroduce;
+		this.spaceIntroduce = spaceIntroduce;
+		this.spaceTag = spaceTag;
+		this.spaceInformation = spaceInformation;
+		this.spaceCaution = spaceCaution;
+		this.spaceAddress = spaceAddress;
+		this.spaceDetailAddress = spaceDetailAddress;
+		this.spacePrice = spacePrice;
+		this.spaceLocation = spaceLocation;
+		this.spaceTel = spaceTel;
+		this.spaceCapacity = spaceCapacity;
+		this.userNo =userNo;
+	}
+
+
 
 	public Space(int spaceNo, String spaceName, String spaceKind, String spaceOneIntroduce, String spaceIntroduce,
 			String spaceTag, String spaceInformation, String spaceCaution, String spaceMimg, String spaceImg,
 			String spaceAddress, String spaceDetailAddress, int spacePrice, String spaceLocation, String spaceTel,
-			int spaceCapacity, String spaceReservationStatus, Date spaceEnrollDate, String spaceEnrollStatus) {
+			int spaceCapacity, String spaceReservationStatus, Date spaceEnrollDate, String spaceEnrollStatus,
+			int userNo) {
 		super();
 		this.spaceNo = spaceNo;
 		this.spaceName = spaceName;
@@ -52,14 +80,30 @@ public class Space {
 		this.spaceReservationStatus = spaceReservationStatus;
 		this.spaceEnrollDate = spaceEnrollDate;
 		this.spaceEnrollStatus = spaceEnrollStatus;
+		this.userNo = userNo;
 	}
+	
+	
+
+
+    //공간 리스트 조회 생성자
+	public Space(int spaceNo, String spaceOneIntroduce, String spaceTag, String spaceAddress, int spacePrice,
+			int spaceCapacity) {
+		super();
+		this.spaceNo = spaceNo;
+		this.spaceOneIntroduce = spaceOneIntroduce;
+		this.spaceTag = spaceTag;
+		this.spaceAddress = spaceAddress;
+		this.spacePrice = spacePrice;
+		this.spaceCapacity = spaceCapacity;
+	}
+
+
+
+
 
 	public int getSpaceNo() {
 		return spaceNo;
-	}
-
-	public void setSpaceNo(int spaceNo) {
-		this.spaceNo = spaceNo;
 	}
 
 	public String getSpaceName() {
@@ -78,11 +122,11 @@ public class Space {
 		this.spaceKind = spaceKind;
 	}
 
-	public String getspaceOneIntroduce() {
+	public String getSpaceOneIntroduce() {
 		return spaceOneIntroduce;
 	}
 
-	public void setspaceOneIntroduce(String spaceOneIntroduce) {
+	public void setSpaceOneIntroduce(String spaceOneIntroduce) {
 		this.spaceOneIntroduce = spaceOneIntroduce;
 	}
 
@@ -134,11 +178,11 @@ public class Space {
 		this.spaceImg = spaceImg;
 	}
 
-	public String getspaceAddress() {
+	public String getSpaceAddress() {
 		return spaceAddress;
 	}
 
-	public void setspaceAddress(String spaceAddress) {
+	public void setSpaceAddress(String spaceAddress) {
 		this.spaceAddress = spaceAddress;
 	}
 
@@ -206,6 +250,18 @@ public class Space {
 		this.spaceEnrollStatus = spaceEnrollStatus;
 	}
 
+	public int getUserNo() {
+		return userNo;
+	}
+
+	public void setUserNo(int userNo) {
+		this.userNo = userNo;
+	}
+
+	public void setSpaceNo(int spaceNo) {
+		this.spaceNo = spaceNo;
+	}
+
 	@Override
 	public String toString() {
 		return "Space [spaceNo=" + spaceNo + ", spaceName=" + spaceName + ", spaceKind=" + spaceKind
@@ -215,8 +271,21 @@ public class Space {
 				+ ", spaceDetailAddress=" + spaceDetailAddress + ", spacePrice=" + spacePrice + ", spaceLocation="
 				+ spaceLocation + ", spaceTel=" + spaceTel + ", spaceCapacity=" + spaceCapacity
 				+ ", spaceReservationStatus=" + spaceReservationStatus + ", spaceEnrollDate=" + spaceEnrollDate
-				+ ", spaceEnrollStatus=" + spaceEnrollStatus + "]";
+				+ ", spaceEnrollStatus=" + spaceEnrollStatus + ", userNo=" + userNo + ", getSpaceNo()=" + getSpaceNo()
+				+ ", getSpaceName()=" + getSpaceName() + ", getSpaceKind()=" + getSpaceKind()
+				+ ", getSpaceOneIntroduce()=" + getSpaceOneIntroduce() + ", getSpaceIntroduce()=" + getSpaceIntroduce()
+				+ ", getSpaceTag()=" + getSpaceTag() + ", getSpaceInformation()=" + getSpaceInformation()
+				+ ", getSpaceCaution()=" + getSpaceCaution() + ", getSpaceMimg()=" + getSpaceMimg() + ", getSpaceImg()="
+				+ getSpaceImg() + ", getSpaceAddress()=" + getSpaceAddress() + ", getSpaceDetailAddress()="
+				+ getSpaceDetailAddress() + ", getSpacePrice()=" + getSpacePrice() + ", getSpaceLocation()="
+				+ getSpaceLocation() + ", getSpaceTel()=" + getSpaceTel() + ", getSpaceCapacity()=" + getSpaceCapacity()
+				+ ", getSpaceReservationStatus()=" + getSpaceReservationStatus() + ", getSpaceEnrollDate()="
+				+ getSpaceEnrollDate() + ", getSpaceEnrollStatus()=" + getSpaceEnrollStatus() + ", getUserNo()="
+				+ getUserNo() + ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + ", toString()="
+				+ super.toString() + "]";
 	}
 	
+	
+
 	
 }

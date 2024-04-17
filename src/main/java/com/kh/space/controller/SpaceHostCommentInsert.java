@@ -42,6 +42,13 @@ public class SpaceHostCommentInsert extends HttpServlet {
 			int commentNo=Integer.parseInt(request.getParameter("commentNo"));
 			String hostReply=request.getParameter("hostReply");
 			
+			
+			
+			
+			if(hostReply==null) {
+				hostReply="";
+			}
+			
 			int result=0;
 			int count=new SpaceCommentService().findHostComment(commentNo);
 			

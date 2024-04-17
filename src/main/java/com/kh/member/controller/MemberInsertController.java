@@ -39,17 +39,21 @@ public class MemberInsertController extends HttpServlet {
 		String gender =request.getParameter("gender");
 		String phone =request.getParameter("phone");
 		String birth =request.getParameter("birth");
-		String email =request.getParameter("email");
+		String email = request.getParameter("email") + "@" + request.getParameter("select-email");
+		String userHost = request.getParameter("userHost");
 		
-		Member m = new Member(userId,userPwd,userName,nickName,gender,phone,birth,email);
+		System.out.println(userHost);
+		
+		Member m = new Member(userId,userPwd,userName,nickName,gender,phone,birth,email,userHost);
+		
 		int result = new MemberService().insertMember(m);
-		if(result> 0) {
-			request.getSession().setAttribute("alertMsg", "성공적으로 회원가입이 되었습니다.");
-			response.sendRedirect(request.getContextPath());
-			
-		}else {
-			request.setAttribute("errorMsg", "회원가입에 실패했습니다.");
-			request.getRequestDispatcher("views/member/JoinMember_hamyu.jsp");
+		
+		if (result > 0) {
+		    request.getSession().setAttribute("alertMsg", "성공적으로 회원가입이 되었습니다.");
+		    response.sendRedirect(request.getContextPath()); // 메인 페이지로 리디렉션
+		} else {
+		    request.getSession().setAttribute("alertMsg", "회원가입에 실패했습니다.");
+		    response.sendRedirect(request.getContextPath()+"/enrollForm.me"); // 회원 가입 페이지로 리디렉션
 		}
 		
 	}

@@ -138,22 +138,31 @@
             padding: 0;
             margin: 0;
         }
-        .hidden-tag, .hidden-spaceinfo, .hidden-spaceinfo-btn{
+        .hidden-tag, .hidden-spaceinfo, .hidden-spaceinfo-btn, .hidden-caution, .hidden-caution-btn {
             display: none;
         }
         .detail-area{
             position: relative;
         }
-        .hidden-spaceinfo-btn{
+        .hidden-spaceinfo-btn, .hidden-caution-btn{
             position: absolute;
             right : 43px;
             
         }
-        .hidden-spaceinfo-btn button{
+        .hidden-spaceinfo-btn button, .hidden-caution-btn button{
             height: 50px;
         }
-        
-        
+        .main-img-hidden, .detail-img-hidden{
+            display: none;
+        }
+        .img-area img{
+            margin-right: 2px;
+            margin-bottom: 3px;
+        }
+        .img-area img:hover{
+            cursor: pointer;
+            scale: 0.98;
+        }
 
     </style>
 </head>
@@ -161,7 +170,8 @@
     <%@ include file="../common/menubarHost.jsp"%>
     <div id="wrapper">
     	<br>
-        <form action="spaceEnroll.sp" method="POST">
+        <form action="spaceEnroll.sp" method="POST" enctype="multipart/form-data">
+            <input style="display: none;" type="text" name="userNo" value="${loginUser.userNo}">
             <div class="login-top">
                 <h2>시설물 등록</h2>
             </div>
@@ -194,27 +204,27 @@
                     <td  colspan="3">
                         <div class="space-btns">
                             <div>
-                                <input type="checkbox" id="party" name="spaceKind" value="party" >
+                                <input type="checkbox" id="party" name="spaceKind" value="파티룸" >
                                 <label for="party">&nbsp파티룸</label>
                             </div>
                             <div>
-                                <input type="checkbox" id="cafe" name="spaceKind" value="cafe">
+                                <input type="checkbox" id="cafe" name="spaceKind" value="카페">
                                 <label for="cafe">&nbsp카페</label>
                             </div>
                             <div>
-                                <input type="checkbox" id="lecture" name="spaceKind" value="lecture">
+                                <input type="checkbox" id="lecture" name="spaceKind" value="강의실">
                                 <label for="lecture">&nbsp강의실</label>
                             </div>
                             <div>
-                                <input type="checkbox" id="meeting" name="spaceKind" value="meeting">
-                                <label for="meeting">회의실</label>
+                                <input type="checkbox" id="meeting" name="spaceKind" value="회의실">
+                                <label for="meeting">&nbsp회의실</label>
                             </div>
                             <div>
-                                <input type="checkbox" id="seminar" name="spaceKind" value="seminar">
+                                <input type="checkbox" id="seminar" name="spaceKind" value="세미나실">
                                 <label for="seminar">&nbsp세미나실</label>
                             </div>
                             <div>
-                                <input type="checkbox" id="study" name="spaceKind" value="study">
+                                <input type="checkbox" id="study" name="spaceKind" value="스터디룸">
                                 <label for="study">&nbsp스터디룸</label>
                             </div>
                         </div>
@@ -244,7 +254,7 @@
                     <td colspan="2" align="right">최대 5개</td>
                 </tr>
                 <tr>
-                    <td colspan="2" class="body80"><input class="input-text" id="spaceTag" type="text" placeholder="게스트들이 선호할만한 주요 특징들을 키워드로 입력해주세요. (최대 5개)" required></td>
+                    <td colspan="2" class="body80"><input class="input-text" id="spaceTag" type="text" placeholder="게스트들이 선호할만한 주요 특징들을 키워드로 입력해주세요. (최대 5개)"></td>
                     <td><button class="tag-btn" type="button" onclick="insertTag()">추가 ▼</button></td>
                 </tr>
                 <tr class="hidden-tag">
@@ -260,7 +270,7 @@
                     <td colspan="2" align="right">최대 10개</td>
                 </tr>
                 <tr>
-                    <td colspan="2" class="body80"><input class="input-text" id="spaceInformation-input" type="text" placeholder="이용 가능한 시설에 대해 최대한 상세하게 입력해주세요. (최대 10개)" required></td>
+                    <td colspan="2" class="body80"><input class="input-text" id="spaceInformation-input" type="text" placeholder="이용 가능한 시설에 대해 최대한 상세하게 입력해주세요. (최대 10개)" ></td>
                     <td><button class="spaceInfo-btn" type="button" onclick="insertSpaceInfo()">추가 ▼</button></td>
                 </tr>
                 <tr><td class="hidden-spaceinfo-btn"><button type="button" onclick="deleteSpaceInfo()">삭제</button></td></tr>
@@ -274,7 +284,7 @@
                     <td colspan="2" align="right">최대 10개</td>
                 </tr>
                 <tr>
-                    <td colspan="2" class="body80"><input class="input-text" id="spaceCaution-input" type="text" placeholder="게스트들이 예약 시 확인해야 하는 주의사항을 입력해주세요. (최대 10개)" required></td>
+                    <td colspan="2" class="body80"><input class="input-text" id="spaceCaution-input" type="text" placeholder="게스트들이 예약 시 확인해야 하는 주의사항을 입력해주세요. (최대 10개)" ></td>
                     <td><button class="caution-btn" type="button" onclick="insertCaution()">추가 ▼</button></td>
                 </tr>
                 <tr><td class="hidden-caution-btn"><button type="button" onclick="deleteCaution()">삭제</button></td></tr>
@@ -283,22 +293,37 @@
                 <tr><td colspan="3"></td></tr>
                 <tr>
 
-
+                <!-- 대표 이미지 .. -->
                     <th>대표 이미지<span class="red-color">*</span></th>
                     <td colspan="2" align="right">2048*1158 권장, 최대 3MB</td>
                 </tr>
-                <tr>
-                    <td colspan="2" class="body80"><input class="input-text" name="spaceMimg" type="text" placeholder="이미지 파일을 추가해 주세요. (JPG, JPEG, png)" required></td>
-                    <td><button>파일 첨부</button></td>
+                <tr class="main-img">
+                    <td colspan="2" class="body80"><input class="input-text" name="spaceMimg" type="text" placeholder="이미지 파일을 추가해 주세요. (JPG, JPEG, png)" disabled></td>
+                    <td><button style="height: 50px;" type="button" onclick="chooseFile(1)">파일 첨부</button></td>
+                </tr>
+                <tr class="main-img-hidden">
+                    <td colspan="2" class="body80"><img id="title-img" width="25%" height="170"></td>
+                    <td><button style="height: 50px;" type="button" onclick="chooseFile(1)">파일 수정</button></td>
                 </tr>
                 <tr><td colspan="3"></td></tr>
+
+                <!-- 이미지 -->
                 <tr>
                     <th>이미지<span class="red-color">*</span></th>
-                    <td colspan="2" align="right">2048*1158 권장, 최대 3MB(최대 10장)</td>
+                    <td colspan="2" align="right">2048*1158 권장, 최대 3MB(최대 5장)</td>
                 </tr>
-                <tr>
-                    <td colspan="2" class="body80"><input class="input-text" name="spaceImg" type="text" placeholder="이미지 파일을 추가해 주세요. (JPG, JPEG, png)" required></td>
-                    <td><button>파일 첨부</button></td>
+                <tr class="detail-img">
+                    <td colspan="2" class="body80"><input class="input-text" name="spaceImg" type="text" placeholder="이미지 파일을 추가해 주세요. (JPG, JPEG, png)" disabled></td>
+                    <td><button style="height: 50px;" type="button" onclick="chooseFile(2)" >파일 첨부</button></td>
+                </tr>
+                <tr class="detail-img-hidden">
+                    <td colspan="3" class="img-area">
+                        <img id="content-img1" width="19%" height="160;" onclick="chooseFile(2)">
+                        <img id="content-img2" width="19%" height="160;" onclick="chooseFile(3)">
+                        <img id="content-img3" width="19%" height="160;" onclick="chooseFile(4)">
+                        <img id="content-img4" width="19%" height="160;" onclick="chooseFile(5)">
+                        <img id="content-img5" width="19%" height="160;" onclick="chooseFile(6)">
+                    </td>
                 </tr>
                 <tr><td colspan="3"></td></tr>
                 <tr>
@@ -307,7 +332,7 @@
                 </tr>
                 <tr>
                     <td colspan="2" ><input class="input-text" type="text" name="spaceAddress" placeholder="실제 서비스되는 공간의 주소를 입력해주세요." required></td>
-                    <td ><button>주소 검색</button></td>
+                    <td ><button type="button" disabled>주소 검색</button></td>
                 </tr>
                 <tr>
                     <td colspan="2" class="body80"><input class="input-text" name="spaceDetailAddress" type="text" placeholder="상세주소" required></td>
@@ -333,23 +358,35 @@
                 </tr>
                 <tr>
                     <th>전화번호<span class="red-color">*</span></th>
-                    <td colspan="1" align="right"><th>수용 인원</th></td>
+                    <td colspan="1" align="right"><th>수용 인원<span class="red-color">*</span></th></td>
                 </tr>
                 <tr>
                     <td colspan="2" ><input style="padding-right: 50px;" class="input-text" type="text" name="spaceTel" value="${loginUser.phone}" placeholder="'-' 없이 입력해주세요." required></td>
-                    <td  class="body80"><input class="input-text" name="spaceCapacity" type="number" placeholder="최대 수용 인원" required></td>
+                    <td  class="body80"><input class="input-text" name="spaceCapacity" type="number" placeholder="최대 인원" required></td>
                 </tr>
-            
             </table>
+
+            <div style="display: none;">
+                <input type="file" name="file1" id="file1" required onchange="loadImg(this, 1)">
+                <input type="file" name="file2" id="file2" onchange="loadImg(this, 2)">
+                <input type="file" name="file3" id="file3" onchange="loadImg(this, 3)">
+                <input type="file" name="file4" id="file4" onchange="loadImg(this, 4)">
+                <input type="file" name="file5" id="file5" onchange="loadImg(this, 5)">
+                <input type="file" name="file6" id="file6" onchange="loadImg(this, 6)">
+            </div>
+
             <br><br>
             <div class="last-btns">
-                <button class="back-btn">이&nbsp&nbsp&nbsp&nbsp전</button>
+                <button class="back-btn" type="button" onclick="backPage()">이&nbsp&nbsp&nbsp&nbsp전</button>
                 <button class="save-btn" type="submit">저&nbsp&nbsp&nbsp&nbsp장</button>
             </div>
         </form>
     </div>
-    
     <script>
+        function backPage() {
+            location.href="enrollPre.ho";
+        }
+
         $(".input-host1").keyup(function(e) {
             content = $(this).val();
             $(".textCount1").text(content.length); 
@@ -409,7 +446,7 @@
                 let a = document.createElement('input');
                 a.value = spaceInfoCheck + ". " + tag;
                 a.classList.add("input-text");
-                a.name = "spaceInfo";
+                a.name = "spaceInformation";
                 document.querySelector('.hidden-spaceinfo').appendChild(a);
                 document.querySelector("#spaceInformation-input").value = "";
                 spaceInfoCheck++;
@@ -432,35 +469,73 @@
         }
 
         // 주의사항 입력 및 삭제
-        let spaceCautionCheck = 1;
-        function insertSpaceInfo() {
+        let spaceCaution = 1;
+        function insertCaution() {
             const tag = document.querySelector("#spaceCaution-input").value;
             if (tag != ""){
-                $(".hidden-spaceinfo").css('display', 'table-row');
-                $(".hidden-spaceinfo-btn").css('display', 'table-row');
+                $(".hidden-caution").css('display', 'table-row');
+                $(".hidden-caution-btn").css('display', 'table-row');
                 let a = document.createElement('input');
-                a.value = spaceCautionCheck + ". " + tag;
+                a.value = spaceCaution + ". " + tag;
                 a.classList.add("input-text");
-                a.name = "spaceInfo";
-                document.querySelector('.hidden-spaceinfo').appendChild(a);
-                document.querySelector("#spaceInformation-input").value = "";
-                spaceCautionCheck++;
+                a.name = "spaceCaution";
+                document.querySelector('.hidden-caution').appendChild(a);
+                document.querySelector("#spaceCaution-input").value = "";
+                spaceCaution++;
             } else {
-                alert("시설 안내를 입력해주세요!");
-                $('#spaceInformation-input').focus();
+                alert("예약 시 주의사항을 입력해주세요!");
+                $('#spaceCaution-input').focus();
             }
-            if (spaceCautionCheck == 11){
-                $(".spaceInfo-btn").attr("disabled", true);
-                $(".spaceInfo-btn").css("background-color", "gray");
-            }
-            
+            if (spaceCaution == 11){
+                $(".caution-btn").attr("disabled", true);
+                $(".caution-btn").css("background-color", "gray");
+            }  
         }
-        function deleteSpaceInfo() {
-            $('.hidden-spaceinfo').children().remove();
-            $(".hidden-spaceinfo-btn").css('display', 'none');
-            $(".spaceInfo-btn").attr("disabled", false);
-            $(".spaceInfo-btn").css("background-color", "#704DE4");
-            spaceCautionCheck = 1;
+        function deleteCaution() {
+            $('.hidden-caution').children().remove();
+            $(".hidden-caution-btn").css('display', 'none');
+            $(".caution-btn").attr("disabled", false);
+            $(".caution-btn").css("background-color", "#704DE4");
+            spaceCaution = 1;
+        }
+
+        //이미지 관련 script
+        function loadImg(inputFile, num){
+            
+            if (inputFile.files.length == 1) {
+                const reader = new FileReader();
+                reader.readAsDataURL(inputFile.files[0]);
+                reader.onload = function(ev) {
+                    switch(num){
+                        case 1: document.getElementById("title-img").src = ev.target.result; 
+                                $('.main-img').css('display', 'none');
+                                $('.main-img-hidden').css('display', 'table-row');
+                                break;
+                        case 2: document.querySelector("#content-img1").src = ev.target.result;
+                                $('.detail-img').css('display', 'none');
+                                $('.detail-img-hidden').css('display', 'table-row');
+                                break;
+                        case 3: $("#content-img2").attr("src", ev.target.result); break;
+                        case 4: $("#content-img3").attr("src", ev.target.result); break;
+                        case 5: $("#content-img4").attr("src", ev.target.result); break;
+                        case 6: $("#content-img5").attr("src", ev.target.result); break;
+                    }
+                }
+            } else {
+                switch(num){
+                    case 1: document.getElementById("title-img").src = null; break;
+                    case 2: document.querySelector("#content-img1").src = null; break;
+                    case 3: $("#content-img2").attr("src", null); break;
+                    case 4: $("#content-img3").attr("src", null); break;
+                    case 5: $("#content-img4").attr("src", null); break;
+                    case 6: $("#content-img5").attr("src", null); break;
+                }
+
+            }
+        }
+        function chooseFile(num){
+            const imgInput = document.querySelector("#file" + num);
+            imgInput.click();
         }
 
     </script>
