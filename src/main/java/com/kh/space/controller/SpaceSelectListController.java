@@ -34,8 +34,8 @@ public class SpaceSelectListController extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		
 		ArrayList<Space> list = new SpaceService().selectSpaceList();
-		
-		System.out.println(list);
+					
+		request.getSession().setAttribute("list", list);
 		response.sendRedirect(request.getContextPath());
 	}
 

@@ -168,7 +168,7 @@ public class SpaceDao {
 			pstmt = conn.prepareStatement(sql);
 			rset = pstmt.executeQuery();
 			
-			if (rset.next()) {
+			while (rset.next()) {
 				Space sp = new Space();
 				sp.setSpaceNo(rset.getInt("SPACE_NO"));
 				sp.setSpaceName(rset.getString("SPACE_NAME"));
