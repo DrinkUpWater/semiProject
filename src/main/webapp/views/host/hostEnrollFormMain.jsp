@@ -159,6 +159,10 @@
             margin-right: 2px;
             margin-bottom: 3px;
         }
+        .img-area img:hover{
+            cursor: pointer;
+            scale: 0.98;
+        }
 
     </style>
 </head>
@@ -166,7 +170,8 @@
     <%@ include file="../common/menubarHost.jsp"%>
     <div id="wrapper">
     	<br>
-        <form action="spaceEnroll.sp" method="POST">
+        <form action="spaceEnroll.sp" method="POST" enctype="multipart/form-data">
+            <input style="display: none;" type="text" name="userNo" value="${loginUser.userNo}">
             <div class="login-top">
                 <h2>시설물 등록</h2>
             </div>
@@ -249,7 +254,7 @@
                     <td colspan="2" align="right">최대 5개</td>
                 </tr>
                 <tr>
-                    <td colspan="2" class="body80"><input class="input-text" id="spaceTag" type="text" placeholder="게스트들이 선호할만한 주요 특징들을 키워드로 입력해주세요. (최대 5개)" required></td>
+                    <td colspan="2" class="body80"><input class="input-text" id="spaceTag" type="text" placeholder="게스트들이 선호할만한 주요 특징들을 키워드로 입력해주세요. (최대 5개)"></td>
                     <td><button class="tag-btn" type="button" onclick="insertTag()">추가 ▼</button></td>
                 </tr>
                 <tr class="hidden-tag">
@@ -265,7 +270,7 @@
                     <td colspan="2" align="right">최대 10개</td>
                 </tr>
                 <tr>
-                    <td colspan="2" class="body80"><input class="input-text" id="spaceInformation-input" type="text" placeholder="이용 가능한 시설에 대해 최대한 상세하게 입력해주세요. (최대 10개)" required></td>
+                    <td colspan="2" class="body80"><input class="input-text" id="spaceInformation-input" type="text" placeholder="이용 가능한 시설에 대해 최대한 상세하게 입력해주세요. (최대 10개)" ></td>
                     <td><button class="spaceInfo-btn" type="button" onclick="insertSpaceInfo()">추가 ▼</button></td>
                 </tr>
                 <tr><td class="hidden-spaceinfo-btn"><button type="button" onclick="deleteSpaceInfo()">삭제</button></td></tr>
@@ -279,7 +284,7 @@
                     <td colspan="2" align="right">최대 10개</td>
                 </tr>
                 <tr>
-                    <td colspan="2" class="body80"><input class="input-text" id="spaceCaution-input" type="text" placeholder="게스트들이 예약 시 확인해야 하는 주의사항을 입력해주세요. (최대 10개)" required></td>
+                    <td colspan="2" class="body80"><input class="input-text" id="spaceCaution-input" type="text" placeholder="게스트들이 예약 시 확인해야 하는 주의사항을 입력해주세요. (최대 10개)" ></td>
                     <td><button class="caution-btn" type="button" onclick="insertCaution()">추가 ▼</button></td>
                 </tr>
                 <tr><td class="hidden-caution-btn"><button type="button" onclick="deleteCaution()">삭제</button></td></tr>
@@ -293,12 +298,12 @@
                     <td colspan="2" align="right">2048*1158 권장, 최대 3MB</td>
                 </tr>
                 <tr class="main-img">
-                    <td colspan="2" class="body80"><input class="input-text" name="spaceMimg" type="text" placeholder="이미지 파일을 추가해 주세요. (JPG, JPEG, png)" disabled required></td>
+                    <td colspan="2" class="body80"><input class="input-text" name="spaceMimg" type="text" placeholder="이미지 파일을 추가해 주세요. (JPG, JPEG, png)" disabled></td>
                     <td><button style="height: 50px;" type="button" onclick="chooseFile(1)">파일 첨부</button></td>
                 </tr>
                 <tr class="main-img-hidden">
-                    <td colspan="2" class="body80"><img id="title-img" width="250" height="170"></td>
-                    <td><button style="height: 50px;" type="button" onclick="chooseFile(1)">파일 첨부</button></td>
+                    <td colspan="2" class="body80"><img id="title-img" width="25%" height="170"></td>
+                    <td><button style="height: 50px;" type="button" onclick="chooseFile(1)">파일 수정</button></td>
                 </tr>
                 <tr><td colspan="3"></td></tr>
 
@@ -308,7 +313,7 @@
                     <td colspan="2" align="right">2048*1158 권장, 최대 3MB(최대 5장)</td>
                 </tr>
                 <tr class="detail-img">
-                    <td colspan="2" class="body80"><input class="input-text" name="spaceImg" type="text" placeholder="이미지 파일을 추가해 주세요. (JPG, JPEG, png)" disabled required></td>
+                    <td colspan="2" class="body80"><input class="input-text" name="spaceImg" type="text" placeholder="이미지 파일을 추가해 주세요. (JPG, JPEG, png)" disabled></td>
                     <td><button style="height: 50px;" type="button" onclick="chooseFile(2)" >파일 첨부</button></td>
                 </tr>
                 <tr class="detail-img-hidden">
@@ -372,7 +377,7 @@
 
             <br><br>
             <div class="last-btns">
-                <button class="back-btn">이&nbsp&nbsp&nbsp&nbsp전</button>
+                <button class="back-btn" type="button">이&nbsp&nbsp&nbsp&nbsp전</button>
                 <button class="save-btn" type="submit">저&nbsp&nbsp&nbsp&nbsp장</button>
             </div>
         </form>

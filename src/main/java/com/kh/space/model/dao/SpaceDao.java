@@ -89,4 +89,39 @@ public class SpaceDao {
 		return  space;
 	}
 
+
+	public int insertSpace(Connection conn, Space sp) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String sql = pro.getProperty("insertSpace");
+			
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, sp.getSpaceName());
+			pstmt.setString(2, sp.getSpaceKind());
+			pstmt.setString(3, sp.getSpaceOneIntroduce());
+			pstmt.setString(4, sp.getSpaceIntroduce());
+			pstmt.setString(5, sp.getSpaceTag());
+			pstmt.setString(6, sp.getSpaceInformation());
+			pstmt.setString(7, sp.getSpaceCaution());
+			pstmt.setString(8, sp.getSpaceAddress());
+			pstmt.setString(9, sp.getSpaceDetailAddress());
+			pstmt.setInt(10, sp.getSpacePrice());
+			pstmt.setString(11, sp.getSpaceLocation());
+			pstmt.setString(12, sp.getSpaceTel());
+			pstmt.setInt(13, sp.getSpaceCapacity());
+			pstmt.setInt(14, sp.getUserNo());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
 }
