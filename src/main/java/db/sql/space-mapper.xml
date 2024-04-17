@@ -220,7 +220,7 @@ SELECT COUNT(*) AS COUNT
 </entry>
 
 	<entry key="myselectTumNailSpaceList">  <!-- 썸네일 리스트 -->
-		SELECT DISTINCT
+	   SELECT
 			  SPACE_NO,
 			  SPACE_NAME,
 			  SPACE_TAG,
