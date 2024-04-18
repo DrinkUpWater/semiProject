@@ -34,100 +34,6 @@
 
 
 
-
-
-
-<entry key="insertGuestComment">
-	 	INSERT INTO GUESTCOMMENT
-	 		 (
-	 	     COMMENT_NO,
-	 		 CONTENT,
-	 		 SPACE_NO,
-	 		 USER_NO
-	 		 )
-	 		 VALUES(
-	 			SEQ_GCNO.NEXTVAL,
-	 			?,
-	 			?,
-	 			?
-	 		 )
-</entry>
-
-<entry key="selectGuestComment">
-	   SELECT
-	         G.COMMENT_NO As "Comment_No", 
-	         USER_ID,
-	  		 G.CONTENT AS "게스트답글",
-	  		 INSERT_DATE,
-             NVL(H.CONTENT,' ') AS "호스트답글"
-	  		 FROM GUESTCOMMENT G 
-	  		 JOIN MEMBER M
-	  		 ON(G.USER_NO=M.USER_NO)
-             JOIN SPACE S
-             ON(G.SPACE_NO=S.SPACE_NO)
-             LEFT JOIN HOSTCOMMENT H
-             ON(H.COMMENT_NO=G.COMMENT_NO)
-	  		 WHERE S.SPACE_NO = ?
-	
-	
-</entry>
-
-
-<entry key="insertHostComment">
-	INSERT INTO HOSTCOMMENT
-			(HOSTCOMMENT_NO,
-			  CONTENT,
-			  COMMENT_NO
-			 )
-			 VALUES(
-			 	SEQ_HCNO.NEXTVAL,
-			 	?,
-			 	?
-			 )
-	
-</entry>
-
-<entry key="updateHostComment">
-		UPDATE HOSTCOMMENT
-			  SET CONTENT = ?
-			  WHERE COMMENT_NO = ?
-				
-</entry>
-
-<entry key="findHostComment">
-
-	SELECT COUNT(*) AS "count" FROM HOSTCOMMENT WHERE COMMENT_NO = ?
-
-</entry>
-
-
-
-<entry key="selectHostComment">
-		 SELECT CONENT
-				FROM HOSTCOMMENT H
-				JOIN GUESTCOMMENT G
-				USING(COMMENT_NO)
-				WHERE H.COMMENT_NO = ?
-				
-	
-</entry>
-
-<entry key="findDate">
-	  SELECT  RESERVATION_TIME1,
-	          RESERVATION_TIME2
-	          FROM RESERVATION_DATE
-	          WHERE RESERVATION_DATE  like ?
-		
-
-</entry>
-
-<entry key="spacePickeView">
-
-	SELECT SPACE_NAME, SPACE_ADDRESS
-	
-
-</entry>
-
 <entry key="insertSpace">
 	INSERT INTO SPACE (
 					    SPACE_NO,
@@ -138,6 +44,7 @@
 						SPACE_TAG,
 						SPACE_INFORMATION,
 						SPACE_CAUTION,
+						SPACE_MIMG,
 						SPACE_ADDRESS,
 						SPACE_DETAIL_ADDRESS,
 						SPACE_PRICE,
@@ -148,6 +55,7 @@
 					   )
 				VALUES(
 					   SEQ_SNO.NEXTVAL,
+					   ?,
 					   ?,
 					   ?,
 					   ?,
@@ -184,19 +92,125 @@
 								) 
 </entry>
 
-<entry key="selectSpaceList">
-	SELECT SPACE_NO, 
-		   SPACE_NAME, 
-		   SPACE_TAG, 
-		   SPACE_ADDRESS, 
-		   SPACE_PRICE, 
-		   SPACE_CAPACITY 
-	FROM SPACE  
-	WHERE SPACE_ENROLL_STATUS = 'Y'  
-	ORDER BY SPACE_NO DESC 
-</entry>
-		
+	<entry key="selectSpaceList">
+		SELECT SPACE_NO, 
+			   SPACE_NAME, 
+			   SPACE_TAG,
+			   SPACE_MIMG, 
+			   SPACE_ADDRESS, 
+			   SPACE_PRICE, 
+			   SPACE_CAPACITY 
+		FROM SPACE  
+		WHERE SPACE_ENROLL_STATUS = 'Y'  
+		ORDER BY SPACE_NO DESC 
+	</entry>
 		
 
+
+
+	<entry key="myselectTumNailSpaceList">  <!-- 썸네일 리스트 -->
+	   SELECT
+			  SPACE_NO,
+			  SPACE_NAME,
+			  SPACE_TAG,
+			  SPACE_ADDRESS,
+			  SPACE_PRICE,
+			  SPACE_CAPACITY,
+			  FILE_PATH || CHANGE_NAME AS "TITLE_IMG"
+			  FROM SPACE S
+			  JOIN MEMBER M
+			  ON (S.USER_NO=M.USER_NO)
+			  JOIN ATTACHMENT A
+			  ON (A.REF_SNO=S.SPACE_NO)
+			  WHERE M.USER_NO = ?
+					   
+	</entry>
+
+	<entry key="myselectSpaceList">  <!-- 썸네일 리스트 -->
+		SELECT 
+			  SPACE_NO,
+			  SPACE_NAME,
+			  SPACE_TAG,
+			  SPACE_MIMG,
+			  SPACE_ADDRESS,
+			  SPACE_PRICE,
+			  SPACE_CAPACITY
+			 
+			  FROM SPACE S
+			  JOIN MEMBER M
+			  ON (S.USER_NO=M.USER_NO)
+			  WHERE M.USER_NO = ?
+					   
+	</entry>
+
+	<!-- 메인이미지 전부가져오기 -->
+	<entry key="selectMainAttachment">
+		SELECT  FILE_NO,
+				REF_SNO,
+				ORIGIN_NAME,
+				CHANGE_NAME,
+				FILE_PATH
+			FROM ATTACHMENT
+		WHERE FILE_LEVEL = 1
+	</entry>
 	
+
+	
+	<entry key="selectSpaceAttachment">
+		SELECT  FILE_NO,
+				FILE_PATH
+			FROM ATTACHMENT A
+			JOIN SPACE S ON (A.REF_SNO=S.SPACE_NO)
+	  WHERE FILE_LEVEL = 2  AND  S.SPACE_NO =  ?
+		
+	</entry>
+
+
+	<!-- 인원 수 몇명이상 공간 검색 -->
+	<entry key="selectSpaceListPeopleCount">
+		SELECT SPACE_NO, 
+			   SPACE_NAME, 
+			   SPACE_TAG,
+			   SPACE_MIMG, 
+			   SPACE_ADDRESS, 
+			   SPACE_PRICE, 
+			   SPACE_CAPACITY 
+		FROM SPACE  
+		WHERE SPACE_ENROLL_STATUS = 'Y'  
+			AND SPACE_CAPACITY >= ? 
+		ORDER BY SPACE_NO DESC 
+	</entry>
+	
+	<!-- 지역으로 공간 검색 -->
+	<entry key="selectSpaceListPlaceInfo">
+		SELECT SPACE_NO, 
+			   SPACE_NAME, 
+			   SPACE_TAG,
+			   SPACE_MIMG, 
+			   SPACE_ADDRESS, 
+			   SPACE_PRICE, 
+			   SPACE_CAPACITY 
+		FROM SPACE  
+		WHERE SPACE_ENROLL_STATUS = 'Y'  
+			AND SPACE_ADDRESS LIKE ?
+		ORDER BY SPACE_NO DESC 
+	</entry>
+	
+	<!-- 지역으로 인원 & 공간 검색 -->
+	<entry key="selectSpaceListPCountPInfo">
+	
+		SELECT SPACE_NO, 
+			   SPACE_NAME, 
+			   SPACE_TAG,
+			   SPACE_MIMG, 
+			   SPACE_ADDRESS, 
+			   SPACE_PRICE, 
+			   SPACE_CAPACITY 
+		FROM SPACE  
+		WHERE SPACE_ENROLL_STATUS = 'Y'
+		  	AND SPACE_CAPACITY >= ? 
+			AND SPACE_ADDRESS LIKE ?
+		ORDER BY SPACE_NO DESC 
+	</entry>
+
 </properties>

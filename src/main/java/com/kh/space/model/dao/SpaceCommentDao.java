@@ -18,7 +18,7 @@ import com.kh.space.model.vo.GuestComment;
 public class SpaceCommentDao {
 	private Properties pro=new Properties();
 	public SpaceCommentDao() {
-		String file=SpaceCommentDao.class.getResource("/db/sql/space-mapper.xml").getPath();
+		String file=SpaceCommentDao.class.getResource("/db/sql/comment-mapper.xml").getPath();
 		try {
 			pro.loadFromXML(new FileInputStream(file));
 		} catch (InvalidPropertiesFormatException e) {

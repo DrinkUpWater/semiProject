@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.kh.member.model.vo.Member;
+
 import controller.notice.model.vo.Notice;
 import controller.notice.service.NoticeService;
 
@@ -36,21 +38,21 @@ public class NoticeInsertController extends HttpServlet {
 		String noticeTitle = request.getParameter("title");
 		String noticeContent = request.getParameter("content");
 //		String img = request.getParameter("file");
+		
 		System.out.println(noticeTitle);
 		System.out.println(noticeContent);
 		
-		
 		HttpSession session = request.getSession();
+
+		int userNo = ((Member)session.getAttribute("loginUser")).getUserNo();
 		
-		// Member 객체와 로그인 페이지를 만들어야 가져올 수 있음
-//		int userNo = ((Member)session.getAttribute("loginUser")).getUserNo();
+
 		
 		Notice n = new Notice();
 		n.setNoticeTitle(noticeTitle);
 		n.setNoticeContent(noticeContent);
+		n.setNoticeWriter(String.valueOf(userNo));  
 //		n.setImg(img);
-//		n.setNoticeWriter(String.valueOf(userNo));  로그인 페이지랑 합치면 세션에 있는 로그인유저 번호 가져와 이름 뜨게하기
-		
 		
 		int result = new NoticeService().insertNotice(n);
 		
@@ -59,7 +61,7 @@ public class NoticeInsertController extends HttpServlet {
 			request.getRequestDispatcher("views/common/errorPage.jsp");
 		} else {
 			session.setAttribute("alertMsg", "공지사항이 등록되었습니다.");
-			response.sendRedirect(request.getContextPath() + "/list.no");
+			response.sendRedirect(request.getContextPath() + "/list.no?cpage=1");
 		}
 		
 	}

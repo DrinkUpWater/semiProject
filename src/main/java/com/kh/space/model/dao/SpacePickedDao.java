@@ -150,11 +150,13 @@ public class SpacePickedDao {
 				
 				pickeds.add(new Space(
 						rest.getInt("SPACE_NO"),
-						rest.getString("SPACE_ONE_INTRODUCE"),
+						rest.getString("SPACE_NAME"),
 						rest.getString("SPACE_TAG"),
+						rest.getString("SPACE_MIMG"),
 						rest.getString("SPACE_ADDRESS"),
 						rest.getInt("SPACE_PRICE"),
 						rest.getInt("SPACE_CAPACITY")
+						
 				));
 			}
 			

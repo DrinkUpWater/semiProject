@@ -46,7 +46,7 @@
     #wrapper{
          width: 1200px;
          margin: 10px auto;    
-         text-align: center;
+        /* text-align: center;*/
     }
 
     .pickedMain{
@@ -55,12 +55,52 @@
         column-gap: 16px;
         row-gap: 40px;
     }
-   .info-preview {
+    .info-preview {
             border: 1px solid black;
             width: 360px;
-            height: 340px;
-     }
+            height: 360px;
+        }
+        .space-picture{
+            height: 220px;
+            padding: 0;
+            margin: 0;
+            border: none;
+        }
+        .space-info{
+            padding : 0 10px;
+            padding-top: 10px;
+            border-top: 1px solid black;
+        }
+        /* .space-info p span {
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+        } */
+        .price-info{
+            display: flex;
+            justify-content: space-between;
+            align-items:baseline
+        }
+        .price-info>div>b{
+            font-size: 20px;
+            color: #704DE4;
+        }
+        .calender-select{
+            position: relative;
+        }
 
+        .calender {
+            width: 300px;
+            position: absolute;
+            top : 140px;
+            left: 48%
+        }
+        .info-preview{
+            cursor: pointer;
+        }
+        .space-info>b {
+            margin-bottom: 15px;
+        }
 </style>
 
 <%    
@@ -75,23 +115,23 @@
      
 
      <div id="wrapper">
-        <div id="title"><h1>찜한 공간</h1></div>
+        <div id="title" ><h1>찜한 공간</h1></div>
 
         <section class="pickedMain">
             <% for(Space picked :pickeds){ %>
             <div class="info-preview" onclick="detailView(<%=picked.getSpaceNo()%>)" >
                 <div class="space-picture" style="border:  1px solid black;"> 
-                    <img src="" alt="썸네일" width="100%" height="100%">
+                    <img src="<%=request.getContextPath()%>/<%=picked.getSpaceMimg()%>" alt="썸네일" width="100%" height="100%">
                 </div>
                 <div class="space-info">
                     <b>
-                        <%=picked.getSpaceOneIntroduce() %>
+                        <%=picked.getSpaceName() %>
                     </b>
                     <p>
                         <span><%=picked.getSpaceAddress() %><span><br>
                         
                        	<%  
-                       		String []tags=picked.getSpaceTag().split(",");
+                       		String []tags=picked.getSpaceTag().split(" ");
                        	
                         %>
                         
@@ -112,7 +152,7 @@
              <script>
 		        function detailView(spaceNo) {
 		            location.href="detailview.sp?spaceNo="+spaceNo;
-       		  }
+       		    }
 
              </script>
             <% } %>

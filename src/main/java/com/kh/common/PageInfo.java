@@ -4,7 +4,7 @@ public class PageInfo {
 	private int listCount;  // 현재 총 게시글 수
 	private int currentPage;  //현재 페이지(사용자가 요청한 페이지)
 	private int pageLimit; // 페이지 하단에 보여질 페이징바의 개수
-	private int noticeLimit; // 한페이지 내에 보여질 게시글 최대갯수
+	private int boardLimit; // 한페이지 내에 보여질 게시글 최대갯수
 	// 위 4개의 값을 기준으로 4개의 값을 구해야 함
 	
 	private int maxPage;  // 가장 마지막 페이지(총 페이지의 수)
@@ -15,18 +15,19 @@ public class PageInfo {
 		super();
 	}
 
-	public PageInfo(int listCount, int currentPage, int pageLimit, int noticeLimit, int maxPage, int startPage,
+	public PageInfo(int listCount, int currentPage, int pageLimit, int boardLimit, int maxPage, int startPage,
 			int endPage) {
 		super();
 		this.listCount = listCount;
 		this.currentPage = currentPage;
 		this.pageLimit = pageLimit;
-		this.noticeLimit = noticeLimit;
+		this.boardLimit = boardLimit;
 		this.maxPage = maxPage;
 		this.startPage = startPage;
 		this.endPage = endPage;
 	}
 
+	
 	public int getListCount() {
 		return listCount;
 	}
@@ -51,12 +52,12 @@ public class PageInfo {
 		this.pageLimit = pageLimit;
 	}
 
-	public int getNoticeLimit() {
-		return noticeLimit;
+	public int getBoardLimit() {
+		return boardLimit;
 	}
 
-	public void setNoticeLimit(int noticeLimit) {
-		this.noticeLimit = noticeLimit;
+	public void setBoardLimit(int boardLimit) {
+		this.boardLimit = boardLimit;
 	}
 
 	public int getMaxPage() {
@@ -86,9 +87,11 @@ public class PageInfo {
 	@Override
 	public String toString() {
 		return "PageInfo [listCount=" + listCount + ", currentPage=" + currentPage + ", pageLimit=" + pageLimit
-				+ ", noticeLimit=" + noticeLimit + ", maxPage=" + maxPage + ", startPage=" + startPage + ", endPage="
+				+ ", boardLimit=" + boardLimit + ", maxPage=" + maxPage + ", startPage=" + startPage + ", endPage="
 				+ endPage + "]";
 	}
+
+	
 	
 	
 }

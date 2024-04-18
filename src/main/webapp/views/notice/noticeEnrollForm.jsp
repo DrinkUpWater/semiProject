@@ -172,7 +172,7 @@
 
 	            <div id="regist-area">
 	                <div id="cancle" >
-	                    <a href="<%=contextPath%>/list.no" id="a2">취소</a>
+	                    <a href="<%=contextPath%>/list.no?cpage=1" id="a2">취소</a>
 	                </div>
 	                <div id="regist" >
 	                    <button type="submit" id="btn">등록</button>

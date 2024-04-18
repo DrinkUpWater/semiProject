@@ -2,36 +2,57 @@
     <!DOCTYPE html>
 <%@ page import="com.kh.space.model.vo.Space" %>
 <%@ page import="com.kh.member.model.vo.Member" %>
+<%@ page import="com.kh.common.Attachment" %>
+<%@ page import="java.util.ArrayList" %>
 
-   <%@ include file="../common/menubar.jsp" %>
-   
-   <%   String spaceKind=(String)request.getAttribute("spaceKind");  %>
-   
-    
-    <%  
-           HttpSession s=request.getSession();
-    	
-     
-    	
-    
-	 
-		    int userNo=-1;
-		    
-		    if(loginUser!=null){
-		    	 userNo=loginUser.getUserNo();
+
+      <%     
+   		   HttpSession s=request.getSession();
+		   String []tags=null;
+		   String []guides=null;
+		   Member member=null;
+		   int userNo=-1;
+		   
+		   
+		   
+           String spaceKind=(String)request.getAttribute("spaceKind");
+           ArrayList<Attachment> attachment = (ArrayList<Attachment>)request.getAttribute("attachments");
+           //System.out.println(spaceKind);
+           member=(Member)s.getAttribute("loginUser");
+           if(member!=null){
+		    	 userNo=member.getUserNo();
 		    }
 		 
 		    
-		    String check=(String)s.getAttribute("pickedMsg");
-		    String pickedMsg=(String)s.getAttribute("picked");       
-		      
-		   
-		   
+		    String pickedMsg=(String)s.getAttribute("pickedMsg");
+		    String picked=(String)s.getAttribute("picked");
+		    if(picked==null){
+		    	picked="찜하기";
+		    }
+		    
+		    
+		    Space space= (Space)request.getAttribute("space");
 		
-		   Space space= (Space)request.getAttribute("space");
-		   System.out.println(space.getSpaceNo());
-		   String []tags=space.getSpaceTag().split(" ");
-		   String []guides=space.getSpaceInformation().split("&");
+		   
+		 
+		   
+		   if(space.getSpaceTag()!=null){
+			 tags=space.getSpaceTag().split(" ");
+		   }else{
+			  tags=new String[1];
+			  tags[0]=" ";
+		   }
+		   
+		   
+		   if(space.getSpaceInformation()!=null){
+			 guides=space.getSpaceInformation().split(",");
+		   }
+		   else{
+			  guides=new String[1];
+			  guides[0]=" ";
+		   }
+		   
+		 
 		  
 		   
 		  boolean hostCheck=false;
@@ -78,7 +99,7 @@
         <link href="https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
 
 
-        <script src=" <%=request.getContextPath()%>/views/space/js/calenderClick.js"></script>
+        <script src="<%=request.getContextPath()%>/views/space/js/calenderClick.js"></script>
         <script src="<%=request.getContextPath()%>/views/space/js/modal.js"></script>
         <script src="<%=request.getContextPath()%>/views/space/js/reservationNum.js"></script>
         <script src='<%=request.getContextPath()%>/views/space/fullcalendar/main.min.js'></script>
@@ -215,18 +236,21 @@
 
             #space_comment>div {
                 height: 100%;
-                display: inline-block;
+                /* display: inline-block; */
             }
+           
 
             .img_div {
                 height: 100%;
+                width:100%;
                 /* border: solid brown; */
                 margin-bottom: 50px;
+                align-items: center;
             }
 
             .img_div>img {
                  max-width: 100%;
-                height: 100%;
+                 height: 100%;
 
             }
 
@@ -499,6 +523,11 @@
             }
 
        
+       
+        .heartColor{
+        	color:red;
+        
+        }
           
 
         </style>
@@ -510,17 +539,14 @@
   
     <body>
      
-           
-            <%   
-               // HttpSession p=request.getSession();
-               // String check=(String) p.getAttribute("pickedMsg");
-               // String pickedMsg=(String)p.getAttribute("picked");       
-                
-            %>
+     
+         <%@ include file="../common/menubar.jsp" %>
+     
+        
             
-            <% if(check!=null){ %>
+             <% if(pickedMsg!=null){ %>
             	<script>
-            		alert("<%=check%>");
+            		alert("<%=pickedMsg%>");
             	</script>
              <%  s.removeAttribute("pickedMsg"); %>
             <%} %>
@@ -544,14 +570,114 @@
 
 
                     <div id="space_id" name="space_name" class="title">
-                        <div class="text"><%=space.getSpaceName() %>  </div>  <div id="picked" onclick="picked(this);"><%=(pickedMsg==null)?"찜하기":pickedMsg%></div>
-                   </div>
-                        <script>
-                             function picked(_this){
-                               
+                        <div class="text"><%=space.getSpaceName() %> </div> 
+                        <div id="picked_divs" onclick="picked(this)" >찜하기<i class='fa-regular fa-heart'></i></div>
+                    </div>
+
+			      <script>
+                
+                        window.onload = function(){
+                      
+                        	  pickedview();
+                          
+                          };
+                          
+                         
+                          
+                        function pickedview(){
+                         	 	
+                        	  <%if(member==null){%>
+                        	     
+                       	 	 	  return false;
+                       	 
+                       		  <% }%>  
+                        	
+                              let spaceNo=document.querySelector("#spaceNum").value;
+                              let picked=document.querySelector("#picked")
+                              let pickedText=document.querySelector("#picked_divs");
+                          	
+                              
+                              $.ajax({
+
+                                  url:'pickedcheck.sp',
+                                  type:'GET',
+                              
+                                  data:{
+                                      spaceNum:spaceNo
+                       
+                                  },
+
+                                  success:function(response){
+                                 
+                                  
+                                  if(response==="찜하기"){
+                                 	 pickedText.innerHTML=response+"<i class='fa-regular fa-heart'></i>"
+                                  
+                                  }
+                                  else{
+                                 	 pickedText.innerHTML=response+"<i class='fa-solid fa-heart' style='color:red'></i>"
+                                  }
+                                  
+                                 },
+                                  error:function(error){
+                                      console.log("error"+error);
+
+                                  }
+
+
+                              })
+                         
+                         	 
+                         	 
+                         }
+                                 
+                                 
+                             
+                          
+                              function picked(_this){
                             	
-                                let spaceNum=document.querySelector("#spaceNum").value;
-                                location.href="<%=contextPath%>/picked.sp?spaceNum="+spaceNum;
+                            	  <%if(member==null){%>
+                            	     alert("로그인해주세요");
+                              	 	 return false;
+                              	 
+                              	 <% }%>  
+                            	  
+                            	  
+                                let spaceNo=document.querySelector("#spaceNum").value;
+                                let picked=document.querySelector("#picked")
+                            
+                                
+                                $.ajax({
+
+                                    url:'picked.sp',
+                                    type:'GET',
+                                
+                                    data:{
+                                        spaceNum:spaceNo
+                         
+                                    },
+
+                                    success:function(response){
+                                    console.log(response);
+                                    
+                                    if(response==="찜하기"){
+                                    	_this.innerHTML=response+"<i class='fa-regular fa-heart'></i>"
+                                    
+                                    }
+                                    else{
+                                    	_this.innerHTML=response+"<i class='fa-solid fa-heart' style='color:red'></i>"
+                                    }
+                                    
+                                   },
+                                    error:function(error){
+                                        console.log("error"+error);
+
+                                    }
+
+
+                                })
+                           
+                                
 
                                 // if(_this.innerText==="찜하기"){
                                 //     _this.innerText="찜해제";
@@ -566,23 +692,24 @@
 
                              }
 
-                        </script>
+                       </script>
 
 
-                    <div id="space_comment" class="space">
-                        <div align="left" class="img_div">
+			   <div id="space_comment" class="space">
 
-                            <img src="<%=request.getContextPath()%>/resources/space_img/test.png">
+                        <div class="img_div" >
 
-                        </div>
+                            <img src="<%=request.getContextPath()%>/<%=space.getSpaceMimg()%>"/>
+                            
+                         </div>
+
                         <div style=" padding-top:20px; ">
                             <span>
                                 <%=space.getSpaceOneIntroduce() %>
                             </span>
 
                         </div>
-                    </div>
-
+                 </div>
                     <div id="list">
                         <ul>
                             <li><a href="#space_intro">공간소개</a></li>
@@ -743,7 +870,7 @@
                         // });
                     </script>
 
-                        <% if(loginUser!=null) {%>
+                        <% if(member!=null) {%>
                     
                         <div id="comment_info" style="height:80px">
                             <th></th>
@@ -867,7 +994,7 @@
 
                         <div id="space_detail_comment">
 
-                            <div class="img_div"><img src="<%=request.getContextPath()%>/resources/space_img/test.png" >세부공간이미지</div>
+                            <div class="img_div"><img src="<%=request.getContextPath()%>/<%=attachment.get(0).getFilePath()%>" >세부공간이미지</div>
 
                             <p>
                                 <span>서울대 입구..스터디룸 카페 예약
@@ -1132,9 +1259,14 @@
 
                                 <!-- Modal body -->
                                 <div class="modal-body" align="center">
-                                    <form action="#" method="POST">
-                                        <input type="hidden" name="userId" value="">
-                                        <table>
+                                    <form action="reservationInsert.me?cpage=1" method="POST">
+                                        
+                                         <%if (loginUser!=null){ %>
+                                            <input type="hidden" name="userId" value="<%=loginUser.getUserId()%>">
+                                         <%} %>
+                                    
+                                     
+                                         <table>
                                             <tr>
                                                 <td>사용자이름</td>
                                                 <td><input id="userName" type="text" name="name" disabled value="user"></td>
@@ -1203,12 +1335,8 @@
 
                         <div id="space_detail_comment">
 
-                            <div class="img_div"><img src="<%=request.getContextPath()%>/resources/space_img/test.png">세부공간이미지</div>
-
-                            <div class="img_div"><img src="../../resources/space_img/test.png">세부공간이미지</div>
-
-
-                            <div class="img_div"><img src="<%=request.getContextPath()%>/resources/space_img/test.png">세부공간이미지</div>
+                            <div class="img_div"><img src="<%=request.getContextPath()%>/<%=attachment.get(0).getFilePath()%>">세부공간이미지</div>
+                    
 
                             <p>
                                 <span>서울대 입구..스터디룸 카페 예약
@@ -1229,23 +1357,23 @@
                             <table align="center">
                                 <tr>
                                     <th>공간유형:</th>
-                                    <td>xxxxxx</td>
+                                    <td><%=space.getSpaceKind()%></td>
                                 </tr>
 
                                 <tr>
-                                    <th>공간면적:</th>
-                                    <td>xxxxxx</td>
+                                    <th>가격:</th>
+                                    <td><%=space.getSpacePrice()%></td>
                                 </tr>
 
 
                                 <tr>
                                     <th>예약유형:</th>
-                                    <td>xxxxx</td>
+                                    <td>카드결제</td>
                                 </tr>
 
                                 <tr>
-                                    <th>최소1명~N명:</th>
-                                    <td>xxxxx</td>
+                                    <th>수용인원:</th>
+                                    <td id="MaxPerson"><%=space.getSpaceCapacity()%></td>
                                 </tr>
 
                             </table>
@@ -1291,6 +1419,7 @@
 
             </nav>
 
+          
 
 
     </body>

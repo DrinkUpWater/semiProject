@@ -126,6 +126,7 @@
             margin: auto;
             padding: 40px 100px;
             justify-content: space-between;
+            border: 1px solid;
         }
         #Reservation_details{
             height: 42px;
@@ -243,7 +244,11 @@
         </div>
 
         <div id="bottom-area">
-                <a href="reservation.me" id="Reservation_details">예약내역</a>
+        	<form action ="reservation.me?cpage=1">
+        		<input type="hidden" name="userId" value="${loginUser.userId }">
+        		 <input type="hidden" name="cpage" value="1">
+        		<input type="submit" value="예약내역" id="Reservation_details">
+        	</form>
             <form action="secession.me" method="post">
                 <input type="submit" value="탈퇴하기" id="secession"> 
             </form>

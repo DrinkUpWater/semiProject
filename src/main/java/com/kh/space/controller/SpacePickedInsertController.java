@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.google.gson.Gson;
 import com.kh.member.model.vo.Member;
 import com.kh.space.model.vo.Picked;
 import com.kh.space.service.SpacePickedService;
@@ -41,6 +42,7 @@ public class SpacePickedInsertController extends HttpServlet {
 		if(m==null) {//필터 줄것
 			
 			session.setAttribute("alertMsg", "로그인하세요");
+			
 			response.sendRedirect(request.getContextPath()+"/detailview.sp?spaceNo="+spaceNum);
 			return;
 		}
@@ -56,21 +58,36 @@ public class SpacePickedInsertController extends HttpServlet {
 			//찜한 리스트 확인
 			
 			Picked picked=service.selectOnePicked(spaceNum,userNo);
+			response.setContentType("application/json; charset=utf-8");
 			
 			
+			String check="";
 			if(picked==null) {
 				 result=service.insertPicked(spaceNum,userNo);
-				 session.setAttribute("picked", "찜해제");
-				 request.getSession().setAttribute("pickedMsg", "찜되었습니다.");
-
+				 
+				 if(result>0) {
+					check="찜해제";
+				 }else {
+					check="찜하기";
+				 }
+				 
 			}
 			else {
 				 result=service.deletePicked(spaceNum,userNo);
-				 session.setAttribute("picked", "찜하기");
-				 request.getSession().setAttribute("pickedMsg", "찜해제되었습니다.");
+				 
+				 if(result>0) {
+						check="찜하기";
+					 }else {
+						 check="찜해제";
+					 }
+					 
 			}
 			
-		    response.sendRedirect(request.getContextPath()+"/detailview.sp?spaceNo="+spaceNum);
+			 new Gson().toJson(check,response.getWriter());
+			 
+				
+			
+				
 		}
 		
 		
