@@ -51,7 +51,7 @@ public class SpaceEnrollController extends HttpServlet {
 			String[] spaceKinds = multiRequest.getParameterValues("spaceKind");
 			String spaceKind = "";
 			if (spaceKinds != null) {
-				spaceKind = String.join(",", spaceKinds);
+				spaceKind = String.join("/", spaceKinds);
 			}
 			
 			String spaceOneIntroduce = multiRequest.getParameter("spaceOneIntroduce");
@@ -60,13 +60,13 @@ public class SpaceEnrollController extends HttpServlet {
 			String[] spaceInformations = multiRequest.getParameterValues("spaceInformation");
 			String spaceInformation = "";
 			if (spaceInformations != null) {
-				spaceInformation = String.join(",", spaceInformations);
+				spaceInformation = String.join("/", spaceInformations);
 			}
 			
 			String[] spaceCautions = multiRequest.getParameterValues("spaceCaution");
 			String spaceCaution = "";
 			if (spaceCautions != null) {
-				spaceCaution = String.join(",", spaceCautions);
+				spaceCaution = String.join("/", spaceCautions);
 			}
 			
 			String spaceAddress = multiRequest.getParameter("spaceAddress");
