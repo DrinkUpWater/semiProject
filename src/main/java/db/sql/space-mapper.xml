@@ -179,13 +179,12 @@
 			   SPACE_CAPACITY 
 		FROM SPACE  
 		WHERE SPACE_ENROLL_STATUS = 'Y'  
-			AND SPACE_ADDRESS LIKE ?
+			AND SPACE_ADDRESS LIKE '%'||?||'%'
 		ORDER BY SPACE_NO DESC 
 	</entry>
 	
 	<!-- 지역으로 인원 & 공간 검색 -->
 	<entry key="selectSpaceListPCountPInfo">
-	
 		SELECT SPACE_NO, 
 			   SPACE_NAME, 
 			   SPACE_TAG,
@@ -196,7 +195,32 @@
 		FROM SPACE  
 		WHERE SPACE_ENROLL_STATUS = 'Y'
 		  	AND SPACE_CAPACITY >= ? 
-			AND SPACE_ADDRESS LIKE ?
+			AND SPACE_ADDRESS LIKE '%'||?||'%'
 		ORDER BY SPACE_NO DESC 
 	</entry>
+	
+	<!-- 키워드 space 검색 -->
+	<entry key="selectKeywordSpaceList">
+		SELECT SPACE_NO, 
+			   SPACE_NAME, 
+			   SPACE_TAG,
+			   SPACE_MIMG, 
+			   SPACE_ADDRESS, 
+			   SPACE_PRICE, 
+			   SPACE_CAPACITY 
+		FROM SPACE  
+		WHERE SPACE_ENROLL_STATUS = 'Y'  
+			AND (SPACE_NAME LIKE '%'||?||'%'
+			 or  SPACE_TAG LIKE '%'||?||'%'
+			 or  SPACE_ADDRESS LIKE '%'||?||'%'
+			 or  SPACE_KIND LIKE '%'||?||'%'
+			 or  SPACE_INFORMATION LIKE '%'||?||'%'
+			 or  SPACE_ONE_INTRODUCE LIKE '%'||?||'%'
+			 or  SPACE_INTRODUCE LIKE '%'||?||'%'
+			 or  SPACE_PRICE LIKE '%'||?||'%'
+				)
+			
+		ORDER BY SPACE_NO DESC 
+	</entry>
+	
 </properties>

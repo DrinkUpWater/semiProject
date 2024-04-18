@@ -90,11 +90,20 @@ public class SpaceService {
 	}
 
 	public ArrayList<Space> selectSpaceList(String pInfo, int pCount) {
-Connection conn = getConnection();
+		Connection conn = getConnection();
 		
 		ArrayList<Space> list = spaceDao.selectSpaceList(conn, pInfo, pCount);
 		
 		close(conn);
+		
+		return list;
+	}
+
+	public ArrayList<Space> KeywordSearchSpaceList(String keyword) {
+		Connection conn = getConnection();
+		ArrayList<Space> list = spaceDao.KeywordSearchSpaceList(conn, keyword);
+		
+	    close(conn);	
 		
 		return list;
 	}
