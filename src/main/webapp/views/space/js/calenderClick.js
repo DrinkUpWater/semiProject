@@ -167,6 +167,7 @@ document.addEventListener('DOMContentLoaded', function () {
                           name: 'times[]',
                           value:t,
                           checked:true
+                         
                       })
                   ).append(' '+t+'<br>')
               }

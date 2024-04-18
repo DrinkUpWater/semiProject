@@ -8,24 +8,22 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import com.kh.member.model.vo.Member;
-import com.kh.space.model.dto.SpaceThumbNail;
+import com.google.gson.Gson;
 import com.kh.space.model.vo.Space;
 import com.kh.space.service.SpaceService;
 
 /**
- * Servlet implementation class mySpaceListController
+ * Servlet implementation class SpaceKeywordSearchController
  */
-@WebServlet("/myspace.sp")
-public class mySpaceListController extends HttpServlet {
+@WebServlet("/search.sp")
+public class SpaceKeywordSearchController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public mySpaceListController() {
+    public SpaceKeywordSearchController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,30 +32,12 @@ public class mySpaceListController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
-	    HttpSession session=request.getSession();
-    	Member m=(Member)session.getAttribute("loginUser");
-    	if(m==null) {
-    		session.setAttribute("alertMsg", "로그인하세요");
-    		response.sendRedirect(request.getContextPath()+"/loginForm.me");
-    		return;
-    	}
- 		int userNo=m.getUserNo();
+		String keyword = request.getParameter("keyword");
 		
-		ArrayList<Space> mySpaces=new SpaceService().selectMySpaces(userNo);
+		ArrayList<Space> list = new SpaceService().KeywordSearchSpaceList(keyword);		
 		
-		if(mySpaces.isEmpty()) {
-			session.setAttribute("alertMsg", "등록한 공간이 없습니다.");
-			response.sendRedirect(request.getContextPath());
-		}
-		else {
-			request.setAttribute("mySpace",mySpaces);
-			request.getRequestDispatcher("/views/space/mySpaceList.jsp").forward(request, response);
-		}
-		
-		
-		
-		
+		response.setContentType("application/json; charset=utf-8");
+		new Gson().toJson(list, response.getWriter());
 	}
 
 	/**
