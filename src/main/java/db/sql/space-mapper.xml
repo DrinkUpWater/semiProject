@@ -34,23 +34,6 @@
 
 
 
-
-
-
-<entry key="findDate">
-	  SELECT  RESERVATION_TIME1,
-	          RESERVATION_TIME2
-	          FROM RESERVATION_DATE
-	          WHERE RESERVATION_DATE  like ?
-		
-
-</entry>
-
-
-
-
-
-
 <entry key="insertSpace">
 	INSERT INTO SPACE (
 					    SPACE_NO,
