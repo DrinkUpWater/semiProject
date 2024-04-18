@@ -27,7 +27,7 @@ public class MemberReservationInsertController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
-		 response.sendRedirect(request.getContextPath()+"/reservation.me?capge=1");
+		 response.sendRedirect(request.getContextPath()+"/reservation.me?cpage=1");
 	}
 
 	/**
