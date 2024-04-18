@@ -59,4 +59,14 @@ public class SpaceService {
 		return list ;
 	}
 
+	public ArrayList<Attachment> selectMainAttachment() {
+		Connection conn = getConnection();
+		
+		ArrayList<Attachment> atList = spaceDao.selectMainAttachment(conn);
+		
+		close(conn);
+		
+		return atList;
+	}
+
 }

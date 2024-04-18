@@ -44,6 +44,7 @@
 						SPACE_TAG,
 						SPACE_INFORMATION,
 						SPACE_CAUTION,
+						SPACE_MIMG,
 						SPACE_ADDRESS,
 						SPACE_DETAIL_ADDRESS,
 						SPACE_PRICE,
@@ -54,6 +55,7 @@
 					   )
 				VALUES(
 					   SEQ_SNO.NEXTVAL,
+					   ?,
 					   ?,
 					   ?,
 					   ?,
@@ -93,7 +95,8 @@
 	<entry key="selectSpaceList">
 		SELECT SPACE_NO, 
 			   SPACE_NAME, 
-			   SPACE_TAG, 
+			   SPACE_TAG,
+			   SPACE_MIMG, 
 			   SPACE_ADDRESS, 
 			   SPACE_PRICE, 
 			   SPACE_CAPACITY 
@@ -139,6 +142,15 @@
 					   
 	</entry>
 
-	
+	<!-- 메인이미지 전부가져오기 -->
+	<entry key="selectMainAttachment">
+		SELECT  FILE_NO,
+				REF_SNO,
+				ORIGIN_NAME,
+				CHANGE_NAME,
+				FILE_PATH
+			FROM ATTACHMENT
+		WHERE FILE_LEVEL = 1
+	</entry>
 
 </properties>
