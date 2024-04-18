@@ -9,13 +9,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.kh.common.Attachment;
 import com.kh.space.model.vo.Space;
 import com.kh.space.service.SpaceService;
 
 /**
  * Servlet implementation class SpaceSelectListController
  */
-@WebServlet("/select")
+@WebServlet("/main")
 public class SpaceSelectListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -34,10 +35,11 @@ public class SpaceSelectListController extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		
 		ArrayList<Space> list = new SpaceService().selectSpaceList();
-					
+//		ArrayList<Attachment> atList = new SpaceService().selectMainAttachment(); 
+		
 		request.getSession().setAttribute("list", list);
-		//response.sendRedirect(request.getContextPath());
-		 request.getRequestDispatcher("views/common/mainPage.jsp").forward(request, response);
+//		request.getSession().setAttribute("atList", atList);
+		request.getRequestDispatcher("views/common/mainPage.jsp").forward(request, response);
 	}
 
 	/**

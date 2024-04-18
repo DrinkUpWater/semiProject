@@ -111,18 +111,18 @@
         .info-preview {
             border: 1px solid black;
             width: 360px;
-            height: 340px;
+            height: 360px;
         }
         .space-picture{
-            height: 200px;
+            height: 220px;
             padding: 0;
             margin: 0;
+            border: none;
         }
         .space-info{
-
-            padding : 0 5px;
-            margin-top: 12px;
-        
+            padding : 0 10px;
+            padding-top: 10px;
+            border-top: 1px solid black;
         }
         /* .space-info p span {
             text-overflow: ellipsis;
@@ -148,80 +148,14 @@
             top : 140px;
             left: 48%
         }
-        
-        /* 달력 css */
-        
-        * {box-sizing: border-box;}
-        ul {list-style-type: none;}
-        body {font-family: Verdana, sans-serif;}
-
-        .month {
-        padding: 30px 25px;
-        width: 100%;
-        background: #704DE4;
-        text-align: center;
-        }
-
-        .month ul {
-        margin: 0;
-        padding: 0;
-        }
-
-        .month ul li {
-        color: white;
-        font-size: 20px;
-        text-transform: uppercase;
-        letter-spacing: 3px;
-        }
-
-        .month .prev {
-        float: left;
-        padding-top: 10px;
-        }
-
-        .month .next {
-        float: right;
-        padding-top: 10px;
-        }
-
-        .weekdays {
-        margin: 0;
-        padding: 10px;
-        background-color: #ddd;
-        }
-
-        .weekdays li {
-        display: inline-block;
-        width: 12%;
-        color: #666;
-        text-align: center;
-        }
-
-        .days {
-        padding: 10px ;
-    
-        background: #eee;
-        margin: 0;
-        }
-
-        .days li {
-        list-style-type: none;
-        display: inline-block;
-        width: 12%;
-        text-align: center;
-        margin-bottom: 5px;
-        font-size:12px;
-        color: #777;
-        }
-
-        .days li .active {
-        padding: 5px;
-        background: #704DE4;
-        color: white !important
-        }
         .info-preview{
             cursor: pointer;
         }
+        .space-info>b {
+            margin-bottom: 15px;
+        }
+        
+    
 
     </style>
 </head>
@@ -259,6 +193,7 @@
                 <div>지도</div>
             </div>
         </div>
+        <br>
         <div class="option3">
             <div>
                 <a href="">전체</a> | 
@@ -275,38 +210,33 @@
                 </select>
             </div>
         </div>
-
+        <br>
         <section class="main-grid">
            
 
             <c:forEach var="sp" items="${list}">
-                <div class="info-preview" onclick="detailView()">
-                    <div class="space-picture" style="border:  1px solid black;"> 
-                        <img src="" alt="썸네일" width="100%" height="100%">
+                <div class="info-preview" onclick="detailView('${sp.spaceNo}')">
+                    <div class="space-picture"> 
+                        <img src="<%=contextPath%>${sp.spaceMimg}" alt="썸네일" width="100%" height="100%">
                     </div>
                     <div class="space-info">
-                        <b>
-                            ${sp.spaceName}
-                        </b>
-                        <p>
-                            <span>${sp.spaceAddress} <br> ${sp.spaceTag} </span>
-                        </p>
+                        <div style="margin-bottom: 5px;">
+                            <b>
+                                ${sp.spaceName}
+                            </b>
+                        </div>
+                        <div>
+                            <p>
+                                <span>${sp.spaceAddress} <br> ${sp.spaceTag} </span>
+                            </p>
+                        </div>
                         <div class="price-info">
                             <div><b>${sp.spacePrice}</b> <span>원/시간</span></div> <span>최대 ${sp.spaceCapacity}인</span>
                         </div>
                     </div>
                 </div>
             </c:forEach>
-            
-            <div class="info-preview"></div>
-            <div class="info-preview"></div>
-            <div class="info-preview"></div>
-            <div class="info-preview"></div>
-            <div class="info-preview"></div>
-            <div class="info-preview"></div>
-            <div class="info-preview"></div>
-            <div class="info-preview"></div> 
-            
+                        
         </section>
 
         <!-- 달력
@@ -368,10 +298,9 @@
         </div> -->
     </div>
     <script>
-   		 function detailView() {
-       		 location.href="detailview.sp?spaceNo=1";
+   		function detailView(spaceNo) {
+       		location.href="detailview.sp?spaceNo="+spaceNo;
 	    }
-
     </script>
     
 </body>
