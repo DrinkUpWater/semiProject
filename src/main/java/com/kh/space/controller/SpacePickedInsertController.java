@@ -87,7 +87,7 @@ public class SpacePickedInsertController extends HttpServlet {
 			 
 				
 			
-				new Gson().toJson(dates,response.getWriter());
+				
 		}
 		
 		
