@@ -7,24 +7,21 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
-import com.kh.member.model.vo.Member;
 
 import controller.notice.model.vo.Notice;
 import controller.notice.service.NoticeService;
 
 /**
- * Servlet implementation class NoticeInsertController
+ * Servlet implementation class NoticeUpdateController
  */
-@WebServlet("/insert.no")
-public class NoticeInsertController extends HttpServlet {
+@WebServlet("/update.no")
+public class NoticeUpdateController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public NoticeInsertController() {
+    public NoticeUpdateController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -35,35 +32,24 @@ public class NoticeInsertController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		
+		int noticeNo = Integer.parseInt(request.getParameter("num"));
 		String noticeTitle = request.getParameter("title");
 		String noticeContent = request.getParameter("content");
-//		String img = request.getParameter("file");
-		
-		System.out.println(noticeTitle);
-		System.out.println(noticeContent);
-		
-		HttpSession session = request.getSession();
-
-		int userNo = ((Member)session.getAttribute("loginUser")).getUserNo();
-		
-
 		
 		Notice n = new Notice();
+		n.setNoticeNo(noticeNo);
 		n.setNoticeTitle(noticeTitle);
 		n.setNoticeContent(noticeContent);
-		n.setNoticeWriter(String.valueOf(userNo));  
-//		n.setImg(img);
 		
-		int result = new NoticeService().insertNotice(n);
+		int result = new NoticeService().updateNotice(n);
 		
-		if(result == 0) {
-			request.setAttribute("errorMsg", "공지사항에 등록에 실패하였습니다.");
-			request.getRequestDispatcher("views/common/errorPage.jsp");
+		if(result > 0) {
+			request.getSession().setAttribute("alertMsg", "공지사항이 수정되었습니다.");
+			response.sendRedirect(request.getContextPath() + "/detail.no?num=" + n.getNoticeNo());
 		} else {
-			session.setAttribute("alertMsg", "공지사항이 등록되었습니다.");
-			response.sendRedirect(request.getContextPath() + "/list.no?cpage=1");
+			request.setAttribute("errorMsg", "공지사항 수정에 실패하였습니다.");
+			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 		}
-		
 	}
 
 	/**

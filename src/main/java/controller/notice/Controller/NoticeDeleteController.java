@@ -8,20 +8,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import controller.notice.model.vo.Notice;
 import controller.notice.service.NoticeService;
 
 /**
- * Servlet implementation class NoticeDetailController
+ * Servlet implementation class NoticeDeleteController
  */
-@WebServlet("/detail.no")
-public class NoticeDetailController extends HttpServlet {
+@WebServlet("/delete.no")
+public class NoticeDeleteController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public NoticeDetailController() {
+    public NoticeDeleteController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,16 +29,15 @@ public class NoticeDetailController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		int noticeNo = Integer.parseInt(request.getParameter("num"));
 		
-		Notice n = new NoticeService().increaseCount(noticeNo);
+		int result = new NoticeService().deleteNotice(noticeNo);
 		
-		if(n != null) {
-			request.setAttribute("notice", n);
-			request.getRequestDispatcher("views/notice/noticeDetailView.jsp").forward(request, response);
-		} else {
-			request.setAttribute("errorMsg", "공지사항 조회에 실패하였습니다.");
+		if (result > 0) {
+			request.getSession().setAttribute("alertMsg", "공지사항이 삭제되었습니다.");
+			response.sendRedirect(request.getContextPath() + "/list.no?cpage=1");
+		} else { 
+			request.setAttribute("errorMsg", "공지사항 삭제 실패");
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 		}
 	}

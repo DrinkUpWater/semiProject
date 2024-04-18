@@ -12,16 +12,16 @@ import controller.notice.model.vo.Notice;
 import controller.notice.service.NoticeService;
 
 /**
- * Servlet implementation class NoticeDetailController
+ * Servlet implementation class NoticeUpdateFormController
  */
-@WebServlet("/detail.no")
-public class NoticeDetailController extends HttpServlet {
+@WebServlet("/updateForm.no")
+public class NoticeUpdateFormController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public NoticeDetailController() {
+    public NoticeUpdateFormController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,15 +33,10 @@ public class NoticeDetailController extends HttpServlet {
 		
 		int noticeNo = Integer.parseInt(request.getParameter("num"));
 		
-		Notice n = new NoticeService().increaseCount(noticeNo);
+		Notice n = new NoticeService().selectNotice(noticeNo);
 		
-		if(n != null) {
-			request.setAttribute("notice", n);
-			request.getRequestDispatcher("views/notice/noticeDetailView.jsp").forward(request, response);
-		} else {
-			request.setAttribute("errorMsg", "공지사항 조회에 실패하였습니다.");
-			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
-		}
+		request.setAttribute("notice", n);
+		request.getRequestDispatcher("views/notice/noticeUpdateForm.jsp").forward(request, response);;
 	}
 
 	/**

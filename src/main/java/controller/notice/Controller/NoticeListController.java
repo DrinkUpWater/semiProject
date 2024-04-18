@@ -120,7 +120,7 @@ public class NoticeListController extends HttpServlet {
 		
 		PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, noticeLimit, maxPage, startPage, endPage);
 		
-		ArrayList<Notice> list = new NoticeService().selectNotice(pi);
+		ArrayList<Notice> list = new NoticeService().selectNoticeList(pi);
 		
 		request.setAttribute("pi", pi);
 		request.setAttribute("list", list);

@@ -104,6 +104,8 @@ public class NoticeDao {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, n.getNoticeTitle());
 			pstmt.setString(2, n.getNoticeContent());
+			pstmt.setInt(3, Integer.parseInt(n.getNoticeWriter()));
+			
 //			pstmt.setString(3, n.getImg());
 			
 			result = pstmt.executeUpdate();
@@ -152,8 +154,10 @@ public class NoticeDao {
 			
 			if(rset.next()) {
 				n = new Notice(
+							rset.getInt("notice_no"),
 							rset.getString("notice_title"),
 							rset.getString("notice_content"),
+							rset.getString("user_id"),
 							rset.getDate("create_date")
 						);	
 			}
@@ -168,6 +172,47 @@ public class NoticeDao {
 		return n;
 	}
 	
+	public int updateNotice(Connection conn, Notice n) {
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateNotice");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, n.getNoticeTitle());
+			pstmt.setString(2, n.getNoticeContent());
+			pstmt.setInt(3, n.getNoticeNo());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	
+	public int deleteNotice(Connection conn, int noticeNo) {
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("deleteNotice");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, noticeNo);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
 
 	public int insertReply(Connection conn, Reply r) {
 		int result = 0;
@@ -181,7 +226,7 @@ public class NoticeDao {
 			
 			pstmt.setString(1, r.getReplyContent());
 			pstmt.setInt(2, r.getRefNoticeNo());
-			pstmt.setString(3, r.getReplyWriter());
+			pstmt.setInt(3, Integer.parseInt(r.getReplyWriter()));
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
