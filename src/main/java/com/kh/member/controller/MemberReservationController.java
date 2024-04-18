@@ -8,8 +8,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.kh.common.vo.PageInfo;
+import com.kh.member.model.vo.Member;
 import com.kh.space.model.vo.Reservation;
 import com.kh.space.model.vo.Space;
 import com.kh.space.service.SpaceReservationService;
@@ -33,7 +35,9 @@ public class MemberReservationController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
+		
+		
+		
 		int listCount; //현재 총 게시글 수
 		int currentPage; //현재 페이지(사용자가 요청한 페이지)
 		int pageLimit; //페이지 하단에 보여질 페이징바의 페이지 최대개水
@@ -43,26 +47,38 @@ public class MemberReservationController extends HttpServlet {
 		int startPage; // 페이징바의 시작수
 		int endPage; //페이징바의 마지막 끝 수
 		
-		String userId = request.getParameter("userId");
-		System.out.println(userId);
-		listCount = new SpaceReservationService().selectReservationCount(userId);
-		System.out.println(listCount);
-		currentPage =Integer.parseInt(request.getParameter("cpage"));		
-		pageLimit = 10;	
-		boardLimit = 10;
+		HttpSession session = request.getSession();
+		String userId =((Member)session.getAttribute("loginUser")).getUserId();
 		
-		 maxPage = (int)Math.ceil((double)listCount / boardLimit);
-		startPage = ((currentPage - 1) / pageLimit) * pageLimit + 1; 
-
+		if(userId == null) { //로그인이 안되어있을 시
+			request.getRequestDispatcher("views/member/LoginMember_hamyu.jsp").forward(request, response);
+			session.setAttribute("alertMsg","로그인 후 이용할 수 있습니다.");
+			
+		}else {
 		
-		endPage = startPage + pageLimit - 1;		
-		endPage = endPage > maxPage ? maxPage : endPage;
-		
-		PageInfo pi =new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
-		
-		ArrayList<Reservation> list =new SpaceReservationService().selectReservation(pi);
-		System.out.println(list);
-		request.getRequestDispatcher("views/member/Reservation_Member_hamyu.jsp").forward(request, response);
+			listCount = new SpaceReservationService().selectReservationCount(userId);
+			
+			currentPage =Integer.parseInt(request.getParameter("cpage"));	
+			
+			System.out.println(listCount);
+			pageLimit = 10;	
+			boardLimit = 5;
+			
+			 maxPage = (int)Math.ceil((double)listCount / boardLimit);
+			startPage = ((currentPage - 1) / pageLimit) * pageLimit + 1; 
+	
+			
+			endPage = startPage + pageLimit - 1;		
+			endPage = endPage > maxPage ? maxPage : endPage;
+			
+			PageInfo pi =new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
+			
+			ArrayList<Reservation> list =new SpaceReservationService().selectReservation(pi);
+			System.out.println(list);
+			request.setAttribute("pi", pi);
+			request.setAttribute("list", list);
+			request.getRequestDispatcher("views/member/Reservation_Member_hamyu.jsp").forward(request, response);
+		}
 	}
 
 	/**
