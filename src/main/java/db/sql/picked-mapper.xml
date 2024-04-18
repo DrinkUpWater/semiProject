@@ -33,10 +33,11 @@
 		<entry key="selectPickedes">
 			SELECT 
 				   P.SPACE_NO,
-				   SPACE_ONE_INTRODUCE,
+				   SPACE_NAME,
 				   SPACE_TAG,
 				   SPACE_ADDRESS,
 				   SPACE_PRICE,
+				   SPACE_MIMG,
 				   SPACE_CAPACITY
 				   FROM SPACE S
 				   JOIN PICKED P
