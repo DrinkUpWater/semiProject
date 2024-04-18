@@ -1238,14 +1238,14 @@
                     </script>
 
 
+                    <% if(loginUser!=null) {%>
+                        <div align="center" style="margin-top:0px;">
+                            <button  class="navbar-toggler" type="button" class="button" data-toggle="modal"  data-target="#pay-modal" 
+                                id="reservation_btn" style="color:white">예약하기</button>
+                            <button class="navbar-toggler" type="button" class="button" style="color:white">목록으로</button>
+                        </div>
 
-                    <div align="center" style="margin-top:0px;">
-                        <button  class="navbar-toggler" type="button" class="button" data-toggle="modal"  data-target="#pay-modal" 
-                            id="reservation_btn" style="color:white">예약하기</button>
-                        <button class="navbar-toggler" type="button" class="button" style="color:white">목록으로</button>
-                    </div>
-
-
+                    <%} %>
                     <!-- 결제창 타켓  modal-->
                     <div class="modal" id="pay-modal">
                         <div class="modal-dialog">
@@ -1323,8 +1323,7 @@
                     
                      <!--유저가 호스트면-->
                    <% } 
-     			  
-     			   else { %>
+     			    else { %>
      			   
 					<div >
 
