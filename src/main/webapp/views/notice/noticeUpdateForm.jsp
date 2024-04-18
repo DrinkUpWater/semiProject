@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="controller.notice.model.vo.Notice"%>
+<%
+	Notice n =(Notice)request.getAttribute("notice");
+%>
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -146,7 +149,8 @@
         <!-- <div id="h1"></div> -->
         <h3 style="color: #927f69">공지사항</h3>
 
-       	<form action="<%=contextPath%>/insert.no" id="enroll-form" method="POST" >
+       	<form action="<%=contextPath%>/update.no" id="enroll-form" method="POST" >
+       		<input type="hidden" name="num" value="<%=n.getNoticeNo() %>">
 	       	<div id="main">       
                 <div id="name-wrapper">
                     <div id="name">이름</div> 
@@ -172,7 +176,7 @@
 
 	            <div id="regist-area">
 	                <div id="cancle" >
-	                    <a href="<%=contextPath%>/list.no?cpage=1" id="a2">취소</a>
+	                    <a href="<%=contextPath%>/detail.no?num=<%=n.getNoticeNo() %>" id="a2">취소</a>
 	                </div>
 	                <div id="regist" >
 	                    <button type="submit" id="btn">등록</button>

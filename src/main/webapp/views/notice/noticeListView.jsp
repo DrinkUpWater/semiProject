@@ -127,7 +127,7 @@
                 			<tr>
 		                        <td><%=n.getNoticeNo() %></td>
 		                        <td class="title"><%=n.getNoticeTitle() %></td>
-		                        <td><%=n.getNoticeWriter() %></td>
+		                        <td><!--<%=n.getNoticeWriter() %> --> 관리자</td>
 		                        <td><%=n.getCreateDate() %></td>
 		                        <td><%=n.getCount() %></td>
                     		</tr>
@@ -155,7 +155,7 @@
                         <%} %>
 
                         <!-- 관리자로 로그인 했을 때 뜨는 버튼 -->
-                        <%if(loginUser != null && loginUser.getUserId().equals("admin")) {%>
+                        <%if(loginUser != null && loginUser.getAdmin().equals("Y")) {%>
                         	<div id="write-btn"><a href="<%=contextPath %>/enroll.no">글쓰기</a></div>
                    		<%} %>
                     </div> 

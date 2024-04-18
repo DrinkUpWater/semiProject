@@ -101,6 +101,7 @@ public class SpaceReservationDao {
 		ResultSet rset = null;
 		PreparedStatement pstmt =null;
 		String sql = pro.getProperty("selectReservation");
+		
 		try {
 			pstmt=conn.prepareStatement(sql);
 			
@@ -112,15 +113,14 @@ public class SpaceReservationDao {
 			rset=pstmt.executeQuery();
 			while(rset.next()) {
 				list.add(new Reservation(
-						rset.getInt("RESERVATION_NO"),
+						rset.getInt("RNUM"),
 						rset.getInt("HEADCOUNT"),
 						rset.getString("USER_NAME"),
 						rset.getInt("TOTAL_PRICE"),
 						rset.getInt("RESERVATION_TIME1"),
 						rset.getInt("RESERVATION_TIME2"),
 						rset.getDate("RESERVATION_DATE"),
-						rset.getString("SPACE_NAME"),
-						rset.getString("RES_REQUEST")
+						rset.getString("SPACE_NAME")			
 						));
 				
 		

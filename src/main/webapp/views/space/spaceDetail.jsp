@@ -1259,9 +1259,14 @@
 
                                 <!-- Modal body -->
                                 <div class="modal-body" align="center">
-                                    <form action="#" method="POST">
-                                        <input type="hidden" name="userId" value="">
-                                        <table>
+                                    <form action="reservationInsert.me?cpage=1" method="POST">
+                                        
+                                         <%if (loginUser!=null){ %>
+                                            <input type="hidden" name="userId" value="<%=loginUser.getUserId()%>">
+                                         <%} %>
+                                    
+                                     
+                                         <table>
                                             <tr>
                                                 <td>사용자이름</td>
                                                 <td><input id="userName" type="text" name="name" disabled value="user"></td>
