@@ -25,8 +25,12 @@
 		    }
 		 
 		    
-		    String check=(String)s.getAttribute("pickedMsg");
-		    String pickedMsg=(String)s.getAttribute("picked");   
+		    String pickedMsg=(String)s.getAttribute("pickedMsg");
+		    String picked=(String)s.getAttribute("picked");
+		    if(picked==null){
+		    	picked="찜하기";
+		    }
+		    
 		    
 		    Space space= (Space)request.getAttribute("space");
 		
@@ -517,6 +521,11 @@
             }
 
        
+       
+        .heartColor{
+        	color:red;
+        
+        }
           
 
         </style>
@@ -533,9 +542,9 @@
      
         
             
-            <% if(check!=null){ %>
+             <% if(pickedMsg!=null){ %>
             	<script>
-            		alert("<%=check%>");
+            		alert("<%=pickedMsg%>");
             	</script>
              <%  s.removeAttribute("pickedMsg"); %>
             <%} %>
@@ -559,15 +568,57 @@
 
 
                     <div id="space_id" name="space_name" class="title">
-                        <div class="text"><%=space.getSpaceName() %>  </div>  <div id="picked" onclick="picked();"><%=(pickedMsg==null)?"찜하기":pickedMsg%></div>
-                        
-                   </div>
+                        <div class="text"><%=space.getSpaceName() %> </div> 
+                        <div id="picked" onclick="picked();">찜하기</div>
+                    </div>   
+                    
                         <script>
+                        
+                                  
+                          
                              function picked(){
-                               
                             	
-                                let spaceNum=document.querySelector("#spaceNum").value;
-                                location.href="<%=request.getContextPath()%>/picked.sp?spaceNum="+spaceNum;
+                            	
+                                let spaceNo=document.querySelector("#spaceNum").value;
+                            
+                                
+                                $.ajax({
+
+                                    url:'picked.sp'
+                                    type:'POST',
+                                
+                                    data:{
+                                        spaceNum:spaceNo,
+                         
+                                    },
+
+                                    success:function(response){
+                                    console.log(response);
+                                    
+                                    if(response==="찜하기"){
+                                    	_this.innerHTML=response+"<i class='fa-regular fa-heart'></i>"
+                                    
+                                    }
+                                    else{
+                                    	_this.innerHTML=response+"<i class='fa-solid fa-heart' style='color:red'"></i>"
+                                    }
+                                    
+                                  
+                             
+                                  
+                                    
+                                        
+                                        
+                                    },
+                                    error:function(error){
+                                        console.log("error"+error);
+
+                                    }
+
+
+                                })
+                           
+                                
 
                                 // if(_this.innerText==="찜하기"){
                                 //     _this.innerText="찜해제";
