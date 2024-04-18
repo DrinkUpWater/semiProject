@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+
+
+<properties>
+
 <entry key="selectReservationCount">
 SELECT COUNT(*) AS COUNT
 	FROM RESERVATION 
@@ -33,3 +37,5 @@ SELECT COUNT(*) AS COUNT
 	          FROM RESERVATION_DATE
 	          WHERE RESERVATION_DATE  like ?
 </entry>
+
+</properties>

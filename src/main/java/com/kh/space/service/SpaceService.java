@@ -69,4 +69,15 @@ public class SpaceService {
 		return atList;
 	}
 
+	public ArrayList<Attachment> selectSpaceAttachment(int spaceNo) {
+		Connection conn = getConnection();
+		
+		ArrayList<Attachment> atList = spaceDao.selectSpaceAttachment(conn,spaceNo);
+		
+		close(conn);
+		
+		return atList;
+		
+	}
+
 }
