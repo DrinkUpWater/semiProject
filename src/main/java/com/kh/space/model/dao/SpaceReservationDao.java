@@ -115,10 +115,10 @@ public class SpaceReservationDao {
 			while(rset.next()) {
 
 				list.add(new Reservation(
-						rset.getInt("RESERVATION_NO"),
-						rset.getInt("HEADCOUNT"),
-						rset.getString("USER_NAME"),
-						rset.getInt("TOTAL_PRICE"),
+//						rset.getInt("RESERVATION_NO"),
+//						rset.getInt("HEADCOUNT"),
+//						rset.getString("USER_NAME"),
+//						rset.getInt("TOTAL_PRICE")
 //						rset.getInt("RESERVATION_TIME1"),
 //						rset.getInt("RESERVATION_TIME2"),
 //						rset.getDate("RESERVATION_DATE"),

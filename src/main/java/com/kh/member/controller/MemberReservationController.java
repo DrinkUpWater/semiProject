@@ -57,7 +57,9 @@ public class MemberReservationController extends HttpServlet {
 		}
 		
 		String userId =((Member)session.getAttribute("loginUser")).getUserId();
-
+		
+		//space_no, 
+		
 		if(userId == null) { //로그인이 안되어있을 시
 			request.getRequestDispatcher("views/member/LoginMember_hamyu.jsp").forward(request, response);
 			session.setAttribute("alertMsg","로그인 후 이용할 수 있습니다.");
