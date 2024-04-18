@@ -96,11 +96,12 @@ public class SpaceReservationDao {
 		return reservationCount;
 	}
 
-	public ArrayList<Reservation> selectReservation(Connection conn, PageInfo pi) {
+	public ArrayList<Reservation> selectReservation(Connection conn, PageInfo pi, String userId) {
 		ArrayList<Reservation> list = new ArrayList<Reservation>();
 		ResultSet rset = null;
 		PreparedStatement pstmt =null;
 		String sql = pro.getProperty("selectReservation");
+		
 		try {
 			pstmt=conn.prepareStatement(sql);
 			
@@ -108,19 +109,19 @@ public class SpaceReservationDao {
 			int endRow = startRow + pi.getBoardLimit() - 1;
 			pstmt.setInt(1, startRow);
 			pstmt.setInt(2, endRow);
+			pstmt.setString(3, userId);
 			
 			rset=pstmt.executeQuery();
 			while(rset.next()) {
 				list.add(new Reservation(
-						rset.getInt("RESERVATION_NO"),
+						rset.getInt("RNUM"),
 						rset.getInt("HEADCOUNT"),
 						rset.getString("USER_NAME"),
 						rset.getInt("TOTAL_PRICE"),
 						rset.getInt("RESERVATION_TIME1"),
 						rset.getInt("RESERVATION_TIME2"),
 						rset.getDate("RESERVATION_DATE"),
-						rset.getString("SPACE_NAME"),
-						rset.getString("RES_REQUEST")
+						rset.getString("SPACE_NAME")			
 						));
 				
 		

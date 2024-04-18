@@ -8,20 +8,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import controller.notice.model.vo.Notice;
+import com.kh.member.model.vo.Member;
+
+import controller.notice.model.vo.Reply;
 import controller.notice.service.NoticeService;
 
 /**
- * Servlet implementation class NoticeDetailController
+ * Servlet implementation class ReplyInsertController
  */
-@WebServlet("/detail.no")
-public class NoticeDetailController extends HttpServlet {
+@WebServlet("/rinsert.no")
+public class ReplyInsertController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public NoticeDetailController() {
+    public ReplyInsertController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,18 +32,20 @@ public class NoticeDetailController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
 		
-		int noticeNo = Integer.parseInt(request.getParameter("num"));
+		String replyContent = request.getParameter("content");
+		int noticeNo = Integer.parseInt(request.getParameter("noticeNo"));
+		int userNo = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();		
 		
-		Notice n = new NoticeService().increaseCount(noticeNo);
+		Reply r = new Reply();
+		r.setReplyContent(replyContent);
+		r.setRefNoticeNo(noticeNo);
+		r.setReplyWriter(String.valueOf(userNo));
 		
-		if(n != null) {
-			request.setAttribute("notice", n);
-			request.getRequestDispatcher("views/notice/noticeDetailView.jsp").forward(request, response);
-		} else {
-			request.setAttribute("errorMsg", "공지사항 조회에 실패하였습니다.");
-			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
-		}
+		int result = new NoticeService().insertReply(r);
+		
+		response.getWriter().print(result);
 	}
 
 	/**

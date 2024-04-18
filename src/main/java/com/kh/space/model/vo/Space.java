@@ -110,6 +110,8 @@ public class Space {
 	}
 	
 	
+	
+	
 
 
     //공간 리스트 조회 생성자
@@ -119,6 +121,21 @@ public class Space {
 		this.spaceNo = spaceNo;
 		this.spaceOneIntroduce = spaceOneIntroduce;
 		this.spaceTag = spaceTag;
+		this.spaceAddress = spaceAddress;
+		this.spacePrice = spacePrice;
+		this.spaceCapacity = spaceCapacity;
+	}
+
+
+
+
+	public Space(int spaceNo, String spaceName, String spaceTag, String spaceMimg, String spaceAddress,
+			int spacePrice, int spaceCapacity) {
+		super();
+		this.spaceNo = spaceNo;
+		this.spaceName = spaceName;
+		this.spaceTag = spaceTag;
+		this.spaceMimg = spaceMimg;
 		this.spaceAddress = spaceAddress;
 		this.spacePrice = spacePrice;
 		this.spaceCapacity = spaceCapacity;

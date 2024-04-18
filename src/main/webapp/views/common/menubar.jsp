@@ -307,6 +307,11 @@
             location.href="pickedview.sp"
         });
         
+        //클릭시 예약페이지로
+         $(".book-list").click(function(){
+            location.href="reservation.me?cpage=1";
+        });
+        
         
 
         // 사이드 바

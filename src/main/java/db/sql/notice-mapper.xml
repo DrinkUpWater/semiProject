@@ -4,7 +4,7 @@
 
 <entry key="selectListCount">
 	SELECT COUNT(*) AS COUNT
-	FROM BOARD
+	FROM NOTICE
 	WHERE STATUS = 'Y'
 </entry>
 <entry key="selectNoticeList">
@@ -34,7 +34,7 @@
 		SEQ_UNO.NEXTVAL,
 		?,
 		?,
-		1
+		?
 	)
 </entry>
 <entry key="increaseCount">
@@ -44,15 +44,53 @@
 	AND STATUS = 'Y'
 </entry>
 <entry key="selectNotice">
-	SELECT NOTICE_TITLE,
+	SELECT NOTICE_NO,
+		   NOTICE_TITLE,
 		   NOTICE_CONTENT,
+		   USER_ID,
 		   CREATE_DATE
-	FROM NOTICE
+	FROM NOTICE N
+	JOIN MEMBER ON (NOTICE_WRITER = USER_NO)
 	WHERE NOTICE_NO = ?
-	AND STATUS = 'Y'
+	AND N.STATUS = 'Y'
 </entry>
-
-
-
+<entry key="updateNotice">
+	UPDATE NOTICE
+	SET NOTICE_TITLE = ?,
+		NOTICE_CONTENT =?
+	WHERE NOTICE_NO = ?
+</entry>
+<entry key="deleteNotice">
+	UPDATE NOTICE
+	SET STATUS = 'N'
+	WHERE NOTICE_NO = ?
+</entry>
+<entry key="insertReply">
+	INSERT INTO NOTICE_REPLY
+	(
+		REPLY_NO,
+		REPLY_CONTENT,
+		REF_NNO,
+		REPLY_WRITER
+	)
+	VALUES
+	(
+		SEQ_RNO.NEXTVAL,
+		?,
+		?,
+		?
+	)
+</entry>
+<entry key="selectReplyList">
+	SELECT REPLY_NO,
+		   REPLY_CONTENT,
+		   CREATE_DATE,
+		   USER_ID
+	FROM NOTICE_REPLY R
+	JOIN MEMBER ON (REPLY_WRITER = USER_NO)
+	WHERE R.STATUS = 'Y'
+	AND REF_NNO = ?
+	ORDER BY REPLY_NO DESC
+</entry>
 	
 </properties>
