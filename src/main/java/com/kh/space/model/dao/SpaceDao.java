@@ -342,7 +342,7 @@ public class SpaceDao {
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, "%"+pInfo+"%");
+			pstmt.setString(1, pInfo);
 			
 			rset = pstmt.executeQuery();
 			
@@ -380,7 +380,51 @@ public class SpaceDao {
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, pCount);
-			pstmt.setString(2, "%"+pInfo+"%");
+			pstmt.setString(2, pInfo);
+			
+			rset = pstmt.executeQuery();
+			
+			while (rset.next()) {
+				Space sp = new Space();
+				sp.setSpaceNo(rset.getInt("SPACE_NO"));
+				sp.setSpaceName(rset.getString("SPACE_NAME"));
+				sp.setSpaceTag(rset.getString("SPACE_TAG"));
+				sp.setSpaceMimg(rset.getString("SPACE_MIMG"));
+				sp.setSpaceAddress(rset.getString("SPACE_ADDRESS"));
+				sp.setSpacePrice(rset.getInt("SPACE_PRICE"));	
+				sp.setSpaceCapacity(rset.getInt("SPACE_CAPACITY"));
+				
+				list.add(sp);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+
+
+	public ArrayList<Space> KeywordSearchSpaceList(Connection conn, String keyword) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Space> list = new ArrayList<>();
+		
+		String sql = pro.getProperty("selectKeywordSpaceList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, keyword);
+			pstmt.setString(2, keyword);
+			pstmt.setString(3, keyword);
+			pstmt.setString(4, keyword);
+			pstmt.setString(5, keyword);
+			pstmt.setString(6, keyword);
+			pstmt.setString(7, keyword);
+			pstmt.setString(8, keyword);
 			
 			rset = pstmt.executeQuery();
 			
