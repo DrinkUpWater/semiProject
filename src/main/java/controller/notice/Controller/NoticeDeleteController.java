@@ -1,7 +1,6 @@
-package com.kh.space.controller;
+package controller.notice.Controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,21 +8,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kh.common.Attachment;
-import com.kh.space.model.vo.Space;
-import com.kh.space.service.SpaceService;
+import controller.notice.service.NoticeService;
 
 /**
- * Servlet implementation class SpaceSelectListController
+ * Servlet implementation class NoticeDeleteController
  */
-@WebServlet("/main")
-public class SpaceSelectListController extends HttpServlet {
+@WebServlet("/delete.no")
+public class NoticeDeleteController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SpaceSelectListController() {
+    public NoticeDeleteController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,12 +29,17 @@ public class SpaceSelectListController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("utf-8");
+		int noticeNo = Integer.parseInt(request.getParameter("num"));
 		
-		ArrayList<Space> list = new SpaceService().selectSpaceList();
+		int result = new NoticeService().deleteNotice(noticeNo);
 		
-		request.setAttribute("list", list);
-		request.getRequestDispatcher("views/common/mainPage.jsp").forward(request, response);
+		if (result > 0) {
+			request.getSession().setAttribute("alertMsg", "공지사항이 삭제되었습니다.");
+			response.sendRedirect(request.getContextPath() + "/list.no?cpage=1");
+		} else { 
+			request.setAttribute("errorMsg", "공지사항 삭제 실패");
+			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+		}
 	}
 
 	/**

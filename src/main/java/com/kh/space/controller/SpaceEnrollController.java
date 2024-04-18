@@ -51,7 +51,7 @@ public class SpaceEnrollController extends HttpServlet {
 			String[] spaceKinds = multiRequest.getParameterValues("spaceKind");
 			String spaceKind = "";
 			if (spaceKinds != null) {
-				spaceKind = String.join(",", spaceKinds);
+				spaceKind = String.join("/", spaceKinds);
 			}
 			
 			String spaceOneIntroduce = multiRequest.getParameter("spaceOneIntroduce");
@@ -60,13 +60,13 @@ public class SpaceEnrollController extends HttpServlet {
 			String[] spaceInformations = multiRequest.getParameterValues("spaceInformation");
 			String spaceInformation = "";
 			if (spaceInformations != null) {
-				spaceInformation = String.join(",", spaceInformations);
+				spaceInformation = String.join("/", spaceInformations);
 			}
 			
 			String[] spaceCautions = multiRequest.getParameterValues("spaceCaution");
 			String spaceCaution = "";
 			if (spaceCautions != null) {
-				spaceCaution = String.join(",", spaceCautions);
+				spaceCaution = String.join("/", spaceCautions);
 			}
 			
 			String spaceAddress = multiRequest.getParameter("spaceAddress");
@@ -76,26 +76,10 @@ public class SpaceEnrollController extends HttpServlet {
 			String spaceTel = multiRequest.getParameter("spaceTel");
 			int spaceCapacity = Integer.parseInt(multiRequest.getParameter("spaceCapacity"));
 			
-			
-			
-			Space sp = new Space(spaceName,
-								 spaceKind,
-								 spaceOneIntroduce,
-								 spaceIntroduce,
-								 spaceTag,
-								 spaceInformation,
-								 spaceCaution,
-								 spaceAddress,
-								 spaceDetailAddress,
-								 spacePrice,
-								 spaceLocation,
-								 spaceTel,
-								 spaceCapacity,
-								 userNo
-								 );
+			String spaceMimg = null;
 			
 			ArrayList<Attachment> list = new ArrayList<>();
-			for(int i = 1; i <= 4; i++) {
+			for(int i = 1; i <= 6; i++) {
 				String key = "file" + i;
 				if (multiRequest.getOriginalFileName(key) != null) {
 					//첨부파일이 존재할 경우
@@ -106,9 +90,29 @@ public class SpaceEnrollController extends HttpServlet {
 					at.setFilePath("/resources/space_img/");
 					at.setFileLevel(i == 1 ? 1 : 2); 
 					
+					if(at.getFileLevel() == 1) {
+						spaceMimg = at.getFilePath() + at.getChangeName();
+					}
 					list.add(at);
 				}
 			}
+			
+			Space sp = new Space(spaceName,
+								 spaceKind,
+								 spaceOneIntroduce,
+								 spaceIntroduce,
+								 spaceTag,
+								 spaceInformation,
+								 spaceCaution,
+								 spaceMimg,
+								 spaceAddress,
+								 spaceDetailAddress,
+								 spacePrice,
+								 spaceLocation,
+								 spaceTel,
+								 spaceCapacity,
+								 userNo
+								 );
 			
 			int result = new SpaceService().insertSpace(sp, list);
 			

@@ -24,8 +24,8 @@
         }
         .search-bar input{
             width: 500px;
+            border: 2px solid #704DE4;
             border-radius: 20px;
-            border-color: #704DE4;
             padding-left: 20px;
             height: 39px;
         }
@@ -109,20 +109,20 @@
         }
         
         .info-preview {
-            border: 1px solid black;
+            border: 1px solid rgb(180, 180, 180);
             width: 360px;
-            height: 340px;
+            height: 360px;
         }
         .space-picture{
-            height: 200px;
+            height: 220px;
             padding: 0;
             margin: 0;
+            border: none;
         }
         .space-info{
-
-            padding : 0 5px;
-            margin-top: 12px;
-        
+            padding : 0 10px;
+            padding-top: 10px;
+            border-top: 1px solid rgb(180, 180, 180);
         }
         /* .space-info p span {
             text-overflow: ellipsis;
@@ -148,80 +148,14 @@
             top : 140px;
             left: 48%
         }
-        
-        /* 달력 css */
-        
-        * {box-sizing: border-box;}
-        ul {list-style-type: none;}
-        body {font-family: Verdana, sans-serif;}
-
-        .month {
-        padding: 30px 25px;
-        width: 100%;
-        background: #704DE4;
-        text-align: center;
-        }
-
-        .month ul {
-        margin: 0;
-        padding: 0;
-        }
-
-        .month ul li {
-        color: white;
-        font-size: 20px;
-        text-transform: uppercase;
-        letter-spacing: 3px;
-        }
-
-        .month .prev {
-        float: left;
-        padding-top: 10px;
-        }
-
-        .month .next {
-        float: right;
-        padding-top: 10px;
-        }
-
-        .weekdays {
-        margin: 0;
-        padding: 10px;
-        background-color: #ddd;
-        }
-
-        .weekdays li {
-        display: inline-block;
-        width: 12%;
-        color: #666;
-        text-align: center;
-        }
-
-        .days {
-        padding: 10px ;
-    
-        background: #eee;
-        margin: 0;
-        }
-
-        .days li {
-        list-style-type: none;
-        display: inline-block;
-        width: 12%;
-        text-align: center;
-        margin-bottom: 5px;
-        font-size:12px;
-        color: #777;
-        }
-
-        .days li .active {
-        padding: 5px;
-        background: #704DE4;
-        color: white !important
-        }
         .info-preview{
             cursor: pointer;
         }
+        .space-info>b {
+            margin-bottom: 15px;
+        }
+        
+    
 
     </style>
 </head>
@@ -232,33 +166,39 @@
             <input type="search" name="search">
             <i class="fa-solid fa-magnifying-glass"></i>
         </div>
-        <div class="search-option">
-            <section class="option1">
-                <select name="" id="">
-                    <option value="">지역</option>
-                    <option value="">서울</option>
-                    <option value="">경기</option>
-                </select>
-                <select name="" id="calender-select">
-                    <option value="">인원</option>
-                    <option value="">1명</option>
-                    <option value="">2명</option>
-                    <option value="">3명</option>
-                    <option value="">4명</option>
-                    <option value="">5명</option>
-                    <option value="">6명</option>
-                    <option value="">7명</option>
-                    <option value="">8명</option>
-                    <option value="">9명</option>
-                    <option value="">10명 이상</option>
-                </select>
-                <input type="date" value="날짜">
-            </section>
-            <div class="option2">
-                <div>필터</div>
-                <div>지도</div>
+        <form action="mainP.sp" method="get">
+            <div class="search-option">  
+                <section class="option1">
+                    <select class="place-Info" onchange="clickFilterBtn()">
+                        <option value="">지역</option>
+                        <option value="서울" name="pInfo">서울</option>
+                        <option value="경기" name="pInfo">경기</option>
+                    </select>
+                    <input type="text" name="pInfo" style="display: none;">
+                    <select class="people-count" onchange="clickFilterBtn()">
+                        <option value="" >인원</option>
+                        <option value="1" name="pCount">1명</option>                        <option value="2" name="pCount">2명</option>
+                        <option value="3" name="pCount">3명</option>
+                        <option value="4" name="pCount">4명</option>
+                        <option value="5" name="pCount">5명</option>
+                        <option value="6" name="pCount">6명</option>
+                        <option value="7" name="pCount">7명</option>
+                        <option value="8" name="pCount">8명</option>
+                        <option value="9" name="pCount">9명</option>
+                        <option value="10" name="pCount">10명 이상</option>
+                    </select>
+                    <input type="text" name="pCount" style="display: none;">
+                    <input type="date" value="날짜">
+                </section>
+                <div class="option2">
+                    <div>필터</div>
+                    <div>지도</div>
+                </div>
+                
             </div>
-        </div>
+            <button id="filter-btn" type="submit" style="display: none;"></button>
+        </form>
+        <br>
         <div class="option3">
             <div>
                 <a href="">전체</a> | 
@@ -275,103 +215,55 @@
                 </select>
             </div>
         </div>
-
+        <br>
         <section class="main-grid">
            
 
             <c:forEach var="sp" items="${list}">
-                <div class="info-preview" onclick="detailView()">
-                    <div class="space-picture" style="border:  1px solid black;"> 
-                        <img src="" alt="썸네일" width="100%" height="100%">
+                <div class="info-preview" onclick="detailView('${sp.spaceNo}')">
+                    <div class="space-picture"> 
+                        <img src="<%=contextPath%>${sp.spaceMimg}" alt="썸네일" width="100%" height="100%">
                     </div>
                     <div class="space-info">
-                        <b>
-                            ${sp.spaceName}
-                        </b>
-                        <p>
-                            <span>${sp.spaceAddress} <br> ${sp.spaceTag} </span>
-                        </p>
+                        <div style="margin-bottom: 5px;">
+                            <b>
+                                ${sp.spaceName}
+                            </b>
+                        </div>
+                        <div>
+                            <p>
+                                <span>${sp.spaceAddress} <br> ${sp.spaceTag} </span>
+                            </p>
+                        </div>
                         <div class="price-info">
                             <div><b>${sp.spacePrice}</b> <span>원/시간</span></div> <span>최대 ${sp.spaceCapacity}인</span>
                         </div>
                     </div>
                 </div>
             </c:forEach>
-            
-            <div class="info-preview"></div>
-            <div class="info-preview"></div>
-            <div class="info-preview"></div>
-            <div class="info-preview"></div>
-            <div class="info-preview"></div>
-            <div class="info-preview"></div>
-            <div class="info-preview"></div>
-            <div class="info-preview"></div> 
-            
+                        
         </section>
 
-        <!-- 달력
-        <div class="calender">
-            <div class="month">      
-                <ul>
-                    <li class="prev">&#10094;</li>
-                    <li class="next">&#10095;</li>
-                    <li>
-                    4월<br>
-                    <span style="font-size:18px">2024</span>
-                    </li>
-                </ul>
-            </div>
-
-            <ul class="weekdays">
-            <li>Mo</li>
-            <li>Tu</li>
-            <li>We</li>
-            <li>Th</li>
-            <li>Fr</li>
-            <li>Sa</li>
-            <li>Su</li>
-            </ul>
-
-            <ul class="days">  
-                <li>1</li>
-                <li>2</li>
-                <li>3</li>
-                <li>4</li>
-                <li>5</li>
-                <li>6</li>
-                <li>7</li>
-                <li>8</li>
-                <li>9</li>
-                <li><span class="active">10</span></li>
-                <li>11</li>
-                <li>12</li>
-                <li>13</li>
-                <li>14</li>
-                <li>15</li>
-                <li>16</li>
-                <li>17</li>
-                <li>18</li>
-                <li>19</li>
-                <li>20</li>
-                <li>21</li>
-                <li>22</li>
-                <li>23</li>
-                <li>24</li>
-                <li>25</li>
-                <li>26</li>
-                <li>27</li>
-                <li>28</li>
-                <li>29</li>
-                <li>30</li>
-                <li>31</li>
-            </ul>
-        </div> -->
     </div>
     <script>
-   		 function detailView() {
-       		 location.href="detailview.sp?spaceNo=1";
+   		function detailView(spaceNo) {
+       		location.href="detailview.sp?spaceNo="+spaceNo;
 	    }
 
+        
+        const pCountArr = document.querySelector('.people-count').children;
+        pCountArr["${pCount}"].selected = true;
+        document.querySelector('option[value="${pInfo}"]').selected = true;
+        <c:remove var="pInfo"/>
+        <c:remove var="pCount"/>
+
+        function clickFilterBtn(){
+            let pInfo = document.querySelector(".place-Info").value;
+            $('input[name=pInfo]').val(pInfo);
+            let pCount = document.querySelector(".people-count").value;
+            $('input[name=pCount]').val(pCount);
+            document.querySelector('#filter-btn').click();
+        }   
     </script>
     
 </body>

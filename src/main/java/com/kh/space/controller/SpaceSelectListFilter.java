@@ -8,22 +8,22 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.jsp.PageContext;
 
-import com.kh.common.Attachment;
 import com.kh.space.model.vo.Space;
 import com.kh.space.service.SpaceService;
 
 /**
- * Servlet implementation class SpaceSelectListController
+ * Servlet implementation class SpaceSelectListPeopleCountController
  */
-@WebServlet("/main")
-public class SpaceSelectListController extends HttpServlet {
+@WebServlet("/mainP.sp")
+public class SpaceSelectListFilter extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SpaceSelectListController() {
+    public SpaceSelectListFilter() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,9 +32,30 @@ public class SpaceSelectListController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("utf-8");
 		
-		ArrayList<Space> list = new SpaceService().selectSpaceList();
+		ArrayList<Space> list = new ArrayList<>();
+		String pInfo = request.getParameter("pInfo");
+		
+		if( request.getParameter("pCount") != "" && pInfo == "") {
+			int pCount = Integer.parseInt(request.getParameter("pCount"));
+			request.setAttribute("pCount", pCount);
+			list = new SpaceService().selectSpaceList(pCount);
+		} else if (request.getParameter("pCount") == "" && pInfo != "") {
+			request.setAttribute("pInfo", pInfo);
+			list = new SpaceService().selectSpaceList(pInfo);
+		} else if (request.getParameter("pCount") != "" && pInfo != ""){
+			int pCount = Integer.parseInt(request.getParameter("pCount"));
+			list = new SpaceService().selectSpaceList(pInfo, pCount);
+			request.setAttribute("pCount", pCount);
+			request.setAttribute("pInfo", pInfo);
+		} else {
+			list = new SpaceService().selectSpaceList();
+		}
+		
+		
+		
+		
+		
 		
 		request.setAttribute("list", list);
 		request.getRequestDispatcher("views/common/mainPage.jsp").forward(request, response);

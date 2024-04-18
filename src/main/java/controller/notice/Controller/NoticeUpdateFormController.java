@@ -1,7 +1,6 @@
-package com.kh.space.controller;
+package controller.notice.Controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,21 +8,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kh.common.Attachment;
-import com.kh.space.model.vo.Space;
-import com.kh.space.service.SpaceService;
+import controller.notice.model.vo.Notice;
+import controller.notice.service.NoticeService;
 
 /**
- * Servlet implementation class SpaceSelectListController
+ * Servlet implementation class NoticeUpdateFormController
  */
-@WebServlet("/main")
-public class SpaceSelectListController extends HttpServlet {
+@WebServlet("/updateForm.no")
+public class NoticeUpdateFormController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SpaceSelectListController() {
+    public NoticeUpdateFormController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,12 +30,13 @@ public class SpaceSelectListController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("utf-8");
 		
-		ArrayList<Space> list = new SpaceService().selectSpaceList();
+		int noticeNo = Integer.parseInt(request.getParameter("num"));
 		
-		request.setAttribute("list", list);
-		request.getRequestDispatcher("views/common/mainPage.jsp").forward(request, response);
+		Notice n = new NoticeService().selectNotice(noticeNo);
+		
+		request.setAttribute("notice", n);
+		request.getRequestDispatcher("views/notice/noticeUpdateForm.jsp").forward(request, response);;
 	}
 
 	/**

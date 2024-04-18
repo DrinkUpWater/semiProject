@@ -1,4 +1,4 @@
-package com.kh.space.controller;
+package controller.notice.Controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -9,21 +9,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kh.common.Attachment;
-import com.kh.space.model.vo.Space;
-import com.kh.space.service.SpaceService;
+import com.google.gson.Gson;
+
+import controller.notice.model.vo.Reply;
+import controller.notice.service.NoticeService;
 
 /**
- * Servlet implementation class SpaceSelectListController
+ * Servlet implementation class ReplyListController
  */
-@WebServlet("/main")
-public class SpaceSelectListController extends HttpServlet {
+@WebServlet("/rlist.no")
+public class ReplyListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SpaceSelectListController() {
+    public ReplyListController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,12 +33,12 @@ public class SpaceSelectListController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("utf-8");
+		int noticeNo = Integer.parseInt(request.getParameter("noticeNo"));
 		
-		ArrayList<Space> list = new SpaceService().selectSpaceList();
+		ArrayList<Reply> list = new NoticeService().selectReplyList(noticeNo);
 		
-		request.setAttribute("list", list);
-		request.getRequestDispatcher("views/common/mainPage.jsp").forward(request, response);
+		response.setContentType("application/json; charset=utf-8");
+		new Gson().toJson(list, response.getWriter());
 	}
 
 	/**

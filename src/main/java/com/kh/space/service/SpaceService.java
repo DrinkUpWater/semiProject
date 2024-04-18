@@ -59,4 +59,44 @@ public class SpaceService {
 		return list ;
 	}
 
+	public ArrayList<Attachment> selectMainAttachment() {
+		Connection conn = getConnection();
+		
+		ArrayList<Attachment> atList = spaceDao.selectMainAttachment(conn);
+		
+		close(conn);
+		
+		return atList;
+	}
+
+	public ArrayList<Space> selectSpaceList(int pCount) {
+		Connection conn = getConnection();
+		
+		ArrayList<Space> list = spaceDao.selectSpaceList(conn, pCount);
+		
+		close(conn);
+		
+		return list;
+	}
+
+	public ArrayList<Space> selectSpaceList(String pInfo) {
+		Connection conn = getConnection();
+		
+		ArrayList<Space> list = spaceDao.selectSpaceList(conn, pInfo);
+		
+		close(conn);
+		
+		return list;
+	}
+
+	public ArrayList<Space> selectSpaceList(String pInfo, int pCount) {
+Connection conn = getConnection();
+		
+		ArrayList<Space> list = spaceDao.selectSpaceList(conn, pInfo, pCount);
+		
+		close(conn);
+		
+		return list;
+	}
+
 }
