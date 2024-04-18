@@ -37,4 +37,22 @@ public class SpaceReservationService {
 		return list;
 	}
 
+
+	public int insertReservation(Reservation reservation, ReservationDate reservationDate) {
+		Connection conn =getConnection();
+		int result1=new SpaceReservationDao().insertReservation(conn,reservation);
+		int result2=new SpaceReservationDao().insertReservationDate(conn,reservationDate);
+		
+		int result=result1*result2;
+		if(result>0) {
+			commit(conn);
+		}
+		else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result;
+	}
+
 }
