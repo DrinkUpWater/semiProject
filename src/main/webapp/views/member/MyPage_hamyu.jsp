@@ -244,8 +244,9 @@
         </div>
 
         <div id="bottom-area">
-        	<form action ="reservation.me">
+        	<form action ="reservation.me?cpage=1">
         		<input type="hidden" name="userId" value="${loginUser.userId }">
+        		 <input type="hidden" name="cpage" value="1">
         		<input type="submit" value="예약내역" id="Reservation_details">
         	</form>
             <form action="secession.me" method="post">
