@@ -30,9 +30,9 @@ public class SpaceReservationService {
 	}
 
 
-	public ArrayList<Reservation> selectReservation(PageInfo pi) {
+	public ArrayList<Reservation> selectReservation(PageInfo pi, String userId) {
 		Connection conn =getConnection();
-		ArrayList<Reservation> list = new SpaceReservationDao().selectReservation(conn,pi);
+		ArrayList<Reservation> list = new SpaceReservationDao().selectReservation(conn,pi,userId);
 
 		return list;
 	}
