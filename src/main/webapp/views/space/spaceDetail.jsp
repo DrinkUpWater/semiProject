@@ -3,35 +3,53 @@
 <%@ page import="com.kh.space.model.vo.Space" %>
 <%@ page import="com.kh.member.model.vo.Member" %>
 
-   <%@ include file="../common/menubar.jsp" %>
+  
    
-   <%   String spaceKind=(String)request.getAttribute("spaceKind");  %>
+  
    
     
-    <%  
-           HttpSession s=request.getSession();
-    	
-     
-    	
-    
-	 
-		    int userNo=-1;
-		    
-		    if(loginUser!=null){
-		    	 userNo=loginUser.getUserNo();
+    <%     
+   		   HttpSession s=request.getSession();
+		   String []tags=null;
+		   String []guides=null;
+		   Member member=null;
+		   int userNo=-1;
+		   
+		   
+		   
+           String spaceKind=(String)request.getAttribute("spaceKind");
+           //System.out.println(spaceKind);
+           member=(Member)s.getAttribute("loginUser");
+           if(member!=null){
+		    	 userNo=member.getUserNo();
 		    }
 		 
 		    
 		    String check=(String)s.getAttribute("pickedMsg");
-		    String pickedMsg=(String)s.getAttribute("picked");       
-		      
-		   
-		   
+		    String pickedMsg=(String)s.getAttribute("picked");   
+		    
+		    Space space= (Space)request.getAttribute("space");
 		
-		   Space space= (Space)request.getAttribute("space");
-		   System.out.println(space.getSpaceNo());
-		   String []tags=space.getSpaceTag().split(" ");
-		   String []guides=space.getSpaceInformation().split("&");
+		   
+		 
+		   
+		   if(space.getSpaceTag()!=null){
+			 tags=space.getSpaceTag().split(" ");
+		   }else{
+			  tags=new String[1];
+			  tags[0]=" ";
+		   }
+		   
+		   
+		   if(space.getSpaceInformation()!=null){
+			 guides=space.getSpaceInformation().split(",");
+		   }
+		   else{
+			  guides=new String[1];
+			  guides[0]=" ";
+		   }
+		   
+		 
 		  
 		   
 		  boolean hostCheck=false;
@@ -78,7 +96,7 @@
         <link href="https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
 
 
-        <script src=" <%=request.getContextPath()%>/views/space/js/calenderClick.js"></script>
+        <script src="<%=request.getContextPath()%>/views/space/js/calenderClick.js"></script>
         <script src="<%=request.getContextPath()%>/views/space/js/modal.js"></script>
         <script src="<%=request.getContextPath()%>/views/space/js/reservationNum.js"></script>
         <script src='<%=request.getContextPath()%>/views/space/fullcalendar/main.min.js'></script>
@@ -510,13 +528,10 @@
   
     <body>
      
-           
-            <%   
-               // HttpSession p=request.getSession();
-               // String check=(String) p.getAttribute("pickedMsg");
-               // String pickedMsg=(String)p.getAttribute("picked");       
-                
-            %>
+     
+         <%@ include file="../common/menubar.jsp" %>
+     
+        
             
             <% if(check!=null){ %>
             	<script>
@@ -544,14 +559,15 @@
 
 
                     <div id="space_id" name="space_name" class="title">
-                        <div class="text"><%=space.getSpaceName() %>  </div>  <div id="picked" onclick="picked(this);"><%=(pickedMsg==null)?"찜하기":pickedMsg%></div>
+                        <div class="text"><%=space.getSpaceName() %>  </div>  <div id="picked" onclick="picked();"><%=(pickedMsg==null)?"찜하기":pickedMsg%></div>
+                        
                    </div>
                         <script>
-                             function picked(_this){
+                             function picked(){
                                
                             	
                                 let spaceNum=document.querySelector("#spaceNum").value;
-                                location.href="<%=contextPath%>/picked.sp?spaceNum="+spaceNum;
+                                location.href="<%=request.getContextPath()%>/picked.sp?spaceNum="+spaceNum;
 
                                 // if(_this.innerText==="찜하기"){
                                 //     _this.innerText="찜해제";
@@ -743,7 +759,7 @@
                         // });
                     </script>
 
-                        <% if(loginUser!=null) {%>
+                        <% if(member!=null) {%>
                     
                         <div id="comment_info" style="height:80px">
                             <th></th>
@@ -1291,6 +1307,7 @@
 
             </nav>
 
+          
 
 
     </body>

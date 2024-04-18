@@ -112,7 +112,7 @@
              <script>
 		        function detailView(spaceNo) {
 		            location.href="detailview.sp?spaceNo="+spaceNo;
-       		  }
+       		    }
 
              </script>
             <% } %>

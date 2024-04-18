@@ -51,7 +51,7 @@ public class SpaceEnrollController extends HttpServlet {
 			String[] spaceKinds = multiRequest.getParameterValues("spaceKind");
 			String spaceKind = "";
 			if (spaceKinds != null) {
-				spaceKind = String.join(",", spaceKinds);
+				spaceKind = String.join("/", spaceKinds);
 			}
 			
 			String spaceOneIntroduce = multiRequest.getParameter("spaceOneIntroduce");
@@ -60,13 +60,13 @@ public class SpaceEnrollController extends HttpServlet {
 			String[] spaceInformations = multiRequest.getParameterValues("spaceInformation");
 			String spaceInformation = "";
 			if (spaceInformations != null) {
-				spaceInformation = String.join(",", spaceInformations);
+				spaceInformation = String.join("/", spaceInformations);
 			}
 			
 			String[] spaceCautions = multiRequest.getParameterValues("spaceCaution");
 			String spaceCaution = "";
 			if (spaceCautions != null) {
-				spaceCaution = String.join(",", spaceCautions);
+				spaceCaution = String.join("/", spaceCautions);
 			}
 			
 			String spaceAddress = multiRequest.getParameter("spaceAddress");
@@ -76,7 +76,26 @@ public class SpaceEnrollController extends HttpServlet {
 			String spaceTel = multiRequest.getParameter("spaceTel");
 			int spaceCapacity = Integer.parseInt(multiRequest.getParameter("spaceCapacity"));
 			
+			String spaceMimg = null;
 			
+			ArrayList<Attachment> list = new ArrayList<>();
+			for(int i = 1; i <= 6; i++) {
+				String key = "file" + i;
+				if (multiRequest.getOriginalFileName(key) != null) {
+					//첨부파일이 존재할 경우
+					//Attachment 생성 -> 원본명, 수정된파일명, 폴더경로, 파일레벨 => list
+					Attachment at = new Attachment();
+					at.setOriginName(multiRequest.getOriginalFileName(key));
+					at.setChangeName(multiRequest.getFilesystemName(key));
+					at.setFilePath("/resources/space_img/");
+					at.setFileLevel(i == 1 ? 1 : 2); 
+					
+					if(at.getFileLevel() == 1) {
+						spaceMimg = at.getFilePath() + at.getChangeName();
+					}
+					list.add(at);
+				}
+			}
 			
 			Space sp = new Space(spaceName,
 								 spaceKind,
@@ -85,6 +104,7 @@ public class SpaceEnrollController extends HttpServlet {
 								 spaceTag,
 								 spaceInformation,
 								 spaceCaution,
+								 spaceMimg,
 								 spaceAddress,
 								 spaceDetailAddress,
 								 spacePrice,
@@ -93,22 +113,6 @@ public class SpaceEnrollController extends HttpServlet {
 								 spaceCapacity,
 								 userNo
 								 );
-			
-			ArrayList<Attachment> list = new ArrayList<>();
-			for(int i = 1; i <= 4; i++) {
-				String key = "file" + i;
-				if (multiRequest.getOriginalFileName(key) != null) {
-					//첨부파일이 존재할 경우
-					//Attachment 생성 -> 원본명, 수정된파일명, 폴더경로, 파일레벨 => list
-					Attachment at = new Attachment();
-					at.setOriginName(multiRequest.getOriginalFileName(key));
-					at.setChangeName(multiRequest.getFilesystemName(key));
-					at.setFilePath("resources/thumbnail_upfile/");
-					at.setFileLevel(i == 1 ? 1 : 2); 
-					
-					list.add(at);
-				}
-			}
 			
 			int result = new SpaceService().insertSpace(sp, list);
 			

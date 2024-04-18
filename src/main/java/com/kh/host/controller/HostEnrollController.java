@@ -31,7 +31,7 @@ public class HostEnrollController extends HttpServlet {
 		String[] sArr = request.getParameterValues("spaceKind");
 		String spaceKind = "";
 		if (sArr != null) {
-			spaceKind = String.join(",", sArr);
+			spaceKind = String.join("/", sArr);
 		}
 		
 		request.setAttribute("spaceKind", spaceKind);

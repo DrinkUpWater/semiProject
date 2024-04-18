@@ -50,6 +50,7 @@ public class SpacePickedListController extends HttpServlet {
 	    ArrayList<Space> pickdes=new SpacePickedService().findUserPicked(userNo);
 	    
 	    if(pickdes.isEmpty()) {
+	        session.setAttribute("alertMsg", "찜한 공간이 없습니다.");
 	    	response.sendRedirect(request.getContextPath());
 	     }
 	    else {

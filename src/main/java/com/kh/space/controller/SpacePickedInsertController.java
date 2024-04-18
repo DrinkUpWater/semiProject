@@ -61,13 +61,13 @@ public class SpacePickedInsertController extends HttpServlet {
 			if(picked==null) {
 				 result=service.insertPicked(spaceNum,userNo);
 				 session.setAttribute("picked", "찜해제");
-				 request.getSession().setAttribute("pickedMsg", "찜되었습니다.");
+				 session.setAttribute("pickedMsg", "찜되었습니다.");
 
 			}
 			else {
 				 result=service.deletePicked(spaceNum,userNo);
 				 session.setAttribute("picked", "찜하기");
-				 request.getSession().setAttribute("pickedMsg", "찜해제되었습니다.");
+				 session.setAttribute("pickedMsg", "찜해제되었습니다.");
 			}
 			
 		    response.sendRedirect(request.getContextPath()+"/detailview.sp?spaceNo="+spaceNum);

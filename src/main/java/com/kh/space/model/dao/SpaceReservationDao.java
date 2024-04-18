@@ -13,6 +13,8 @@ import java.util.ArrayList;
 import java.util.InvalidPropertiesFormatException;
 import java.util.Properties;
 
+import com.kh.common.vo.PageInfo;
+import com.kh.space.model.vo.Reservation;
 import com.kh.space.model.vo.ReservationDate;
 
 public class SpaceReservationDao {
@@ -20,7 +22,7 @@ public class SpaceReservationDao {
 	
 	public SpaceReservationDao() {
 		
-		String file=SpaceReservationDao.class.getResource("/db/sql/space-mapper.xml").getPath();
+		String file=SpaceReservationDao.class.getResource("/db/sql/reservation-mapper.xml").getPath();
 		
 		try {
 			pro.loadFromXML(new FileInputStream(file));
@@ -70,6 +72,67 @@ public class SpaceReservationDao {
 	   
 	   
 	 return dates;
+	}
+
+
+	public int selecReservationCount(Connection conn, String userId) { //예약내역 수
+		int reservationCount=0;
+		ResultSet rset =null;
+		PreparedStatement pstmt=null;
+		String sql = pro.getProperty("selectReservationCount");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			rset =pstmt.executeQuery();
+			if(rset.next()) {
+				reservationCount = rset.getInt("count");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);	
+		}
+		return reservationCount;
+	}
+
+	public ArrayList<Reservation> selectReservation(Connection conn, PageInfo pi) {
+		ArrayList<Reservation> list = new ArrayList<Reservation>();
+		ResultSet rset = null;
+		PreparedStatement pstmt =null;
+		String sql = pro.getProperty("selectReservation");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			
+			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() - 1;
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			
+			rset=pstmt.executeQuery();
+			while(rset.next()) {
+				list.add(new Reservation(
+						rset.getInt("RESERVATION_NO"),
+						rset.getInt("HEADCOUNT"),
+						rset.getString("USER_NAME"),
+						rset.getInt("TOTAL_PRICE"),
+						rset.getInt("RESERVATION_TIME1"),
+						rset.getInt("RESERVATION_TIME2"),
+						rset.getDate("RESERVATION_DATE"),
+						rset.getString("SPACE_NAME"),
+						rset.getString("RES_REQUEST")
+						));
+				
+		
+			}
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+		return list;
 	}
 
 }
