@@ -96,7 +96,7 @@ public class SpaceReservationDao {
 		return reservationCount;
 	}
 
-	public ArrayList<Reservation> selectReservation(Connection conn, PageInfo pi) {
+	public ArrayList<Reservation> selectReservation(Connection conn, PageInfo pi, String userId) {
 		ArrayList<Reservation> list = new ArrayList<Reservation>();
 		ResultSet rset = null;
 		PreparedStatement pstmt =null;
@@ -109,6 +109,7 @@ public class SpaceReservationDao {
 			int endRow = startRow + pi.getBoardLimit() - 1;
 			pstmt.setInt(1, startRow);
 			pstmt.setInt(2, endRow);
+			pstmt.setString(3, userId);
 			
 			rset=pstmt.executeQuery();
 			while(rset.next()) {
