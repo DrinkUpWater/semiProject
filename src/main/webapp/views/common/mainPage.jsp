@@ -189,30 +189,38 @@
                         <option value="10" name="pCount">10명 이상</option>
                     </select>
                     <input type="text" name="pCount" style="display: none;">
-                    <input type="date" value="날짜">
+                    <select id="place-kind" class="place-kind" >
+                    	<option value="">유형</option>
+                    	<option value="파티룸">파티룸</option>
+                    	<option value="카페">카페</option>
+                    	<option value="강의실">강의실</option>
+                    	<option value="회의실">회의실</option>
+                    	<option value="세미나실">세미나실</option>
+                    	<option value="스터디룸">스터디룸</option>
+                    </select>
                 </section>
                 <div class="option2">
-                    <div>필터</div>
+                    
                     <div>지도</div>
                 </div>
                 
             </div>
-            <button id="filter-btn" type="submit" style="display: none;"></button>
+            
         </form>
         <br>
         <div class="option3">
             <div>
-                <a href="">전체</a> | 
+               <!--  <a href="">전체</a> | 
                 <a href="">시간단위</a> |
                 <a href="">패키지단위</a> |
-                <a href="">월단위</a>
+                <a href="">월단위</a> -->
             </div>
             <div>
-                <select name="" id="">
-                    <option value="">최신 순</option>
-                    <option value="">베스트 공간 순</option>
-                    <option value="">가격 낮은 순</option>
-                    <option value="">가격 높은 순</option>
+                <select id="place-order">
+                    <option value="SPACE_NO DESC">최신 순</option>
+                    <option value="SPACE_COUNT DESC">베스트 공간 순</option>
+                    <option value="SPACE_PRICE ASC">가격 낮은 순</option>
+                    <option value="SPACE_PRICE DESC">가격 높은 순</option>
                 </select>
             </div>
         </div>
@@ -251,25 +259,7 @@
    		function detailView(spaceNo) {
        		location.href="detailview.sp?spaceNo="+spaceNo;
 	    }
-
-        
-	       /*  const pCountArr = document.querySelector('.people-count').children;
-	        pCountArr["${pCount}"].selected = true;
-	        <c:remove var="pCount"/>
-
-     
-	        document.querySelector('option[value="${pInfo}"]').selected = true;
-	        <c:remove var="pInfo"/> */
-
-
-        function clickFilterBtn(){
-            let pInfo = document.querySelector(".place-Info").value;
-            $('input[name=pInfo]').val(pInfo);
-            let pCount = document.querySelector(".people-count").value;
-            $('input[name=pCount]').val(pCount);
-            document.querySelector('#filter-btn').click();
-        }   
-        
+ 
         $('#search-btn').click(function(){
         	$.ajax({
                 url: "search.sp",
@@ -277,7 +267,7 @@
                     keyword: $('#keyword').val()
                 },
                 success : function(res){
-                	setMarkUp(res);
+                	drawSpaceList(res);
                 },
                 error : function(){
                 	alert("실패")
@@ -285,15 +275,19 @@
             })
         });
         
-        $('#people-count, #place-Info').change(function(){
+        $('#people-count, #place-Info, #place-kind, #place-order').change(function(){
+        	console.log("1");
         	$.ajax({
                 url: "filteringSpace.sp",
                 data : {
-                    pcount: $("#people-count").val(),
-                    pInfo: $("#place-Info").val()
+                    pCount: $("#people-count").val(),
+                    pInfo: $("#place-Info").val(),
+                    pKind: $("#place-kind").val(),
+                    pOrder: $("#place-order").val()
                 },
                 success : function(res){
-                	setMarkUp(res);
+                	console.log("2");
+                	drawSpaceList(res);
                 	$("#keyword").val("");
                 },
                 error : function(){
@@ -302,22 +296,6 @@
             })
         });
 
-        // $('#place-Info').change(function(){
-        //     console.log($(this).val());
-        // 	 $.ajax({
-        //         url: "pinfo.sp",
-        //         data : {
-        //             pInfo: $(this).val()
-        //         },
-        //         success : function(res){
-        //         	setMarkUp(res);
-        //         },
-        //         error : function(){
-        //         	alert("실패")
-        //         }
-        //     })
-        // });
-        
         $('#keyword').keypress(function(event){
             // 키 코드가 13이면(엔터 키) 버튼을 클릭합니다.
             if(event.which === 13){
@@ -325,30 +303,36 @@
             }
         });
         
-        function setMarkUp(data) {
+        function drawSpaceList(data) {
         	let str = "";
-        	for (let sp of data){
-        		str += '<div class="info-preview" onclick="detailView(\'' + sp.spaceNo + '\')">\n' +
-                '    <div class="space-picture"> \n' +
-                '        <img src="<%=contextPath%>' + sp.spaceMimg + '" alt="썸네일" width="100%" height="100%">\n' +
-                '    </div>\n' +
-                '    <div class="space-info">\n' +
-                '        <div style="margin-bottom: 5px;">\n' +
-                '            <b>\n' +
-                '                ' + sp.spaceName + '\n' +
-                '            </b>\n' +
-                '        </div>\n' +
-                '        <div>\n' +
-                '            <p>\n' +
-                '                <span>' + sp.spaceAddress + ' <br> ' + sp.spaceTag + ' </span>\n' +
-                '            </p>\n' +
-                '        </div>\n' +
-                '        <div class="price-info">\n' +
-                '            <div><b>' + sp.spacePrice + '</b> <span>원/시간</span></div> <span>최대 ' + sp.spaceCapacity + '인</span>\n' +
-                '        </div>\n' +
-                '    </div>\n' +
-                '</div>';
-            }
+        	if (data.length !== 0){
+	        	for (let sp of data){
+	        		str += '<div class="info-preview" onclick="detailView(\'' + sp.spaceNo + '\')">\n' +
+			               '    <div class="space-picture"> \n' +
+			               '        <img src="<%=contextPath%>' + sp.spaceMimg + '" alt="썸네일" width="100%" height="100%">\n' +
+			               '    </div>\n' +
+			               '    <div class="space-info">\n' +
+			               '        <div style="margin-bottom: 5px;">\n' +
+			               '            <b>\n' +
+			               '                ' + sp.spaceName + '\n' +
+			               '            </b>\n' +
+			               '        </div>\n' +
+			               '        <div>\n' +
+			               '            <p>\n' +
+			               '                <span>' + sp.spaceAddress + ' <br> ' + sp.spaceTag + ' </span>\n' +
+			               '            </p>\n' +
+			               '        </div>\n' +
+			               '        <div class="price-info">\n' +
+			               '            <div><b>' + sp.spacePrice + '</b> <span>원/시간</span></div> <span>최대 ' + sp.spaceCapacity + '인</span>\n' +
+			               '        </div>\n' +
+			               '    </div>\n' +
+			               '</div>';
+	            }
+	        } else {
+	        	str = '<br><br><h2>조건에 맞는 결과가 없습니다.</h2>';
+	        }
+	        	
+	      
             document.querySelector(".main-grid").innerHTML = str;
         }
     </script>
