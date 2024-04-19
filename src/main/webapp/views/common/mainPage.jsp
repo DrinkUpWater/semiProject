@@ -154,8 +154,9 @@
         .space-info>b {
             margin-bottom: 15px;
         }
-        
-    
+        #search-btn {
+        	cursor: pointer;
+        }
 
     </style>
 </head>
@@ -163,20 +164,20 @@
     <%@ include file="../common/menubar.jsp"%>
     <div id="wrapper">
         <div class="search-bar" align="center">
-            <input type="search" name="search">
-            <i class="fa-solid fa-magnifying-glass"></i>
+            <input id="keyword" type="search" name="search">
+            <i id="search-btn" class="fa-solid fa-magnifying-glass"></i>
         </div>
         <form action="mainP.sp" method="get">
             <div class="search-option">  
                 <section class="option1">
-                    <select class="place-Info" onchange="clickFilterBtn()">
+                    <select id="place-Info" class="place-Info" >
                         <option value="">지역</option>
                         <option value="서울" name="pInfo">서울</option>
                         <option value="경기" name="pInfo">경기</option>
                     </select>
                     <input type="text" name="pInfo" style="display: none;">
-                    <select class="people-count" onchange="clickFilterBtn()">
-                        <option value="" >인원</option>
+                    <select id="people-count" class="people-count" >
+                        <option value="0" >인원</option>
                         <option value="1" name="pCount">1명</option>                        <option value="2" name="pCount">2명</option>
                         <option value="3" name="pCount">3명</option>
                         <option value="4" name="pCount">4명</option>
@@ -218,7 +219,7 @@
         <br>
         <section class="main-grid">
            
-
+			
             <c:forEach var="sp" items="${list}">
                 <div class="info-preview" onclick="detailView('${sp.spaceNo}')">
                     <div class="space-picture"> 
@@ -243,19 +244,23 @@
             </c:forEach>
                         
         </section>
-
+		
     </div>
     <script>
+    	
    		function detailView(spaceNo) {
        		location.href="detailview.sp?spaceNo="+spaceNo;
 	    }
 
         
-        const pCountArr = document.querySelector('.people-count').children;
-        pCountArr["${pCount}"].selected = true;
-        document.querySelector('option[value="${pInfo}"]').selected = true;
-        <c:remove var="pInfo"/>
-        <c:remove var="pCount"/>
+	       /*  const pCountArr = document.querySelector('.people-count').children;
+	        pCountArr["${pCount}"].selected = true;
+	        <c:remove var="pCount"/>
+
+     
+	        document.querySelector('option[value="${pInfo}"]').selected = true;
+	        <c:remove var="pInfo"/> */
+
 
         function clickFilterBtn(){
             let pInfo = document.querySelector(".place-Info").value;
@@ -264,6 +269,88 @@
             $('input[name=pCount]').val(pCount);
             document.querySelector('#filter-btn').click();
         }   
+        
+        $('#search-btn').click(function(){
+        	$.ajax({
+                url: "search.sp",
+                data : {
+                    keyword: $('#keyword').val()
+                },
+                success : function(res){
+                	setMarkUp(res);
+                },
+                error : function(){
+                	alert("실패")
+                }
+            })
+        });
+        
+        $('#people-count, #place-Info').change(function(){
+        	$.ajax({
+                url: "filteringSpace.sp",
+                data : {
+                    pcount: $("#people-count").val(),
+                    pInfo: $("#place-Info").val()
+                },
+                success : function(res){
+                	setMarkUp(res);
+                	$("#keyword").val("");
+                },
+                error : function(){
+                	alert("실패")
+                }
+            })
+        });
+
+        // $('#place-Info').change(function(){
+        //     console.log($(this).val());
+        // 	 $.ajax({
+        //         url: "pinfo.sp",
+        //         data : {
+        //             pInfo: $(this).val()
+        //         },
+        //         success : function(res){
+        //         	setMarkUp(res);
+        //         },
+        //         error : function(){
+        //         	alert("실패")
+        //         }
+        //     })
+        // });
+        
+        $('#keyword').keypress(function(event){
+            // 키 코드가 13이면(엔터 키) 버튼을 클릭합니다.
+            if(event.which === 13){
+                $('#search-btn').click();
+            }
+        });
+        
+        function setMarkUp(data) {
+        	let str = "";
+        	for (let sp of data){
+        		str += '<div class="info-preview" onclick="detailView(\'' + sp.spaceNo + '\')">\n' +
+                '    <div class="space-picture"> \n' +
+                '        <img src="<%=contextPath%>' + sp.spaceMimg + '" alt="썸네일" width="100%" height="100%">\n' +
+                '    </div>\n' +
+                '    <div class="space-info">\n' +
+                '        <div style="margin-bottom: 5px;">\n' +
+                '            <b>\n' +
+                '                ' + sp.spaceName + '\n' +
+                '            </b>\n' +
+                '        </div>\n' +
+                '        <div>\n' +
+                '            <p>\n' +
+                '                <span>' + sp.spaceAddress + ' <br> ' + sp.spaceTag + ' </span>\n' +
+                '            </p>\n' +
+                '        </div>\n' +
+                '        <div class="price-info">\n' +
+                '            <div><b>' + sp.spacePrice + '</b> <span>원/시간</span></div> <span>최대 ' + sp.spaceCapacity + '인</span>\n' +
+                '        </div>\n' +
+                '    </div>\n' +
+                '</div>';
+            }
+            document.querySelector(".main-grid").innerHTML = str;
+        }
     </script>
     
 </body>

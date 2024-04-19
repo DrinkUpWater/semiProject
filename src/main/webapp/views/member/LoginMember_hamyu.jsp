@@ -203,11 +203,14 @@
             }
     
            else{
-                alert(request.getAttribute("alertMsg"));
-                return false;
+                //alert("");
+                //return false;
             }
         }
+        
+      
     </script>
+      <% request.getSession().removeAttribute("alertMsg"); %>
 </body>
 
 </html>

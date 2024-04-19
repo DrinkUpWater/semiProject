@@ -48,12 +48,19 @@ public class MemberReservationController extends HttpServlet {
 		int endPage; //페이징바의 마지막 끝 수
 		
 		HttpSession session = request.getSession();
+		Member m = (Member)session.getAttribute("loginUser");
+		
+		if(m == null) { //m이 null일때
+			session.setAttribute("alertMsg","로그인 후 이용할 수 있습니다.");
+			response.sendRedirect(request.getContextPath()+"/loginForm.me");
+			return;
+		}
+		
 		String userId =((Member)session.getAttribute("loginUser")).getUserId();
 		
 		if(userId == null) { //로그인이 안되어있을 시
 			request.getRequestDispatcher("views/member/LoginMember_hamyu.jsp").forward(request, response);
 			session.setAttribute("alertMsg","로그인 후 이용할 수 있습니다.");
-			
 		}else {
 		
 			listCount = new SpaceReservationService().selectReservationCount(userId);
@@ -73,7 +80,7 @@ public class MemberReservationController extends HttpServlet {
 			
 			PageInfo pi =new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
 			
-			ArrayList<Reservation> list =new SpaceReservationService().selectReservation(pi);
+			ArrayList<Reservation> list =new SpaceReservationService().selectReservation(pi,userId);
 			System.out.println(list);
 			request.setAttribute("pi", pi);
 			request.setAttribute("list", list);

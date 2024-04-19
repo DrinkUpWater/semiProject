@@ -1237,15 +1237,33 @@
                        
                     </script>
 
-
-
-                    <div align="center" style="margin-top:0px;">
-                        <button  class="navbar-toggler" type="button" class="button" data-toggle="modal"  data-target="#pay-modal" 
-                            id="reservation_btn" style="color:white">예약하기</button>
-                        <button class="navbar-toggler" type="button" class="button" style="color:white">목록으로</button>
-                    </div>
-
-
+                       <input id="userNo" type="text" value="<%=userNo%>" hidden >
+                  
+                  		
+                  		
+                  
+                        <div align="center" style="margin-top:0px;">
+                            <% if(loginUser!=null){ %>
+                        
+                            <button  class="navbar-toggler" type="button" class="button" data-toggle="modal"  data-target="#pay-modal" 
+                                id="reservation_btn" style="color:white">예약하기</button>
+                            <button class="navbar-toggler" type="button" class="button" style="color:white">목록으로</button>
+                            <%}else{%>
+						
+						       <button class="navbar-toggler" type="button" class="button" style="color:white">로그인하세요</button>
+						
+							<%}%>
+                            
+                        </div>
+						
+						
+						
+                    
+                    
+                    
+                    
+                    
+                    
                     <!-- 결제창 타켓  modal-->
                     <div class="modal" id="pay-modal">
                         <div class="modal-dialog">
@@ -1259,41 +1277,39 @@
 
                                 <!-- Modal body -->
                                 <div class="modal-body" align="center">
-                                    <form action="reservationInsert.me?cpage=1" method="POST">
+                                    <form action="reservationInsert.me"  method="POST">
                                         
-                                         <%if (loginUser!=null){ %>
-                                            <input type="hidden" name="userId" value="<%=loginUser.getUserId()%>">
-                                         <%} %>
+                                          <input id="s"  type="text" name="spaceNum" value="<%=space.getSpaceNo()%>" hidden>
                                     
                                      
                                          <table>
                                             <tr>
                                                 <td>사용자이름</td>
-                                                <td><input id="userName" type="text" name="name" disabled value="user"></td>
+                                                <td><input id="userName" type="text" name="name" value="<%=(loginUser!=null)?loginUser.getUserName():"none"%>"></td>
                                             </tr>
                                             <tr>
                                                 <td>예약날짜</td>
-                                                <td><input type="text" id="reservationDate" name="date" id="re_time" disabled></td>
+                                                <td><input type="text" id="reservationDate" name="date" id="re_time" ></td>
                                             </tr>
                                             <tr>
                                                 <td>예약시간</td>
-                                                <td><input type="text" id="reservationTime" name="time" disabled>
+                                                <td><input type="text" id="reservationTime" name="time" >
                                             
                                             </tr>
                                             <tr>
                                                 <td id ="AddTime" >
-
+															
 
                                                 </td>
 
                                             </tr>
                                             <tr>
                                                 <td>예약인원</td>
-                                                <td><input type="text" id="personalCount" name="count" disabled></td>
+                                                <td><input type="text" id="personalCount" name="count" ></td>
                                             </tr>
                                             <tr>
                                                 <td>결재금액</td>
-                                                <td><input type="number"  id="payment" name="payment" disabled ></td>
+                                                <td><input type="text"  id="payment" name="payment"  ></td>
                                             </tr>
                                            
                                         </table>
@@ -1323,8 +1339,7 @@
                     
                      <!--유저가 호스트면-->
                    <% } 
-     			  
-     			   else { %>
+     			    else { %>
      			   
 					<div >
 
