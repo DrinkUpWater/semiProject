@@ -166,6 +166,7 @@
 	</entry>
 
 
+
 	<!-- 인원 수 몇명이상 공간 검색 -->
 	<entry key="selectSpaceListPeopleCount">
 		SELECT SPACE_NO, 
@@ -213,6 +214,7 @@
 	</entry>
 
 
+
 	<!-- 키워드 space 검색 -->
 	<entry key="selectKeywordSpaceList">
 		SELECT SPACE_NO, 
@@ -237,5 +239,36 @@
 		ORDER BY SPACE_NO DESC 
 	</entry>
 	
+	<entry key="selectSpaceListPCountPInfoPKind">
+		SELECT SPACE_NO, 
+			   SPACE_NAME, 
+			   SPACE_TAG,
+			   SPACE_MIMG, 
+			   SPACE_ADDRESS, 
+			   SPACE_PRICE, 
+			   SPACE_CAPACITY 
+		FROM SPACE  
+		WHERE SPACE_ENROLL_STATUS = 'Y'
+		  	AND SPACE_CAPACITY >= ? 
+			AND SPACE_ADDRESS LIKE '%'||?||'%'
+			AND SPACE_KIND LIKE '%'||?||'%'
+		ORDER BY SPACE_NO DESC 
+	</entry>
+	
+	<entry key="selectFilterSpaceList">
+		SELECT SPACE_NO, 
+			   SPACE_NAME, 
+			   SPACE_TAG,
+			   SPACE_MIMG, 
+			   SPACE_ADDRESS, 
+			   SPACE_PRICE, 
+			   SPACE_CAPACITY 
+		FROM SPACE  
+		WHERE SPACE_ENROLL_STATUS = 'Y'
+		  	AND SPACE_CAPACITY >= ? 
+			AND SPACE_ADDRESS LIKE '%'||?||'%'
+			AND SPACE_KIND LIKE '%'||?||'%' 
+	  	ORDER BY
+	</entry>
 
 </properties>
