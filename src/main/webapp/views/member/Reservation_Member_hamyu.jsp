@@ -1,10 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+      <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page import="com.kh.common.vo.PageInfo, java.util.ArrayList, com.kh.space.model.vo.Reservation" %>
+<%@ page import="com.kh.common.vo.PageInfo, java.util.ArrayList, com.kh.space.model.vo.ReservationInfo" %>
 <%
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
-	ArrayList<Reservation> list =(ArrayList<Reservation>)request.getAttribute("list");
+	ArrayList<ReservationInfo> list =(ArrayList<ReservationInfo>)request.getAttribute("list");
 	int currentPage = pi.getCurrentPage();
 	int startPage =pi.getStartPage();
 	int endPage =pi.getEndPage();
@@ -152,8 +152,8 @@
         }
         .img-area{
             border: 1px solid;
-            height: 300px;
-            width: 50%;
+          /*   height: 300px; */
+            width: 100%;
 
         }
     	.paging-area>button{
@@ -210,9 +210,10 @@
                                 <tr class="reservation-list">
                                 <td>${p.reservationNo }</td>
 									<td>
+									
 										<button type="button" class="btn-rserv" data-toggle="modal"
-											data-target="#myModal">${p.spaceName }</button> <!-- The Modal -->
-										<div class="modal" id="myModal">
+											data-target="#myModal${status.index}">${p.spaceName}</button> <!-- The Modal -->
+										<div class="modal" id="myModal${status.index}">
 											<div class="modal-dialog">
 												<div class="modal-content">
 
@@ -226,9 +227,11 @@
 													<div class="modal-body">
 														<div class="table-area">
 															<table class="modal-tb-css">
+																
 																<tr>
 																	<td class="trtd">예약 신청일</td>
-																	<td align="center" style="color: red;">${p.reservationDate}</td>
+																	<td align="center" style="color: red;" id="dateform">${p.reservationDate }</td>
+																
 
 																</tr>
 																<tr>
@@ -246,7 +249,7 @@
 
 																<tr>
 																	<div class="img-area">
-																		<img src="" alt="">
+																		<img src="<%=contextPath %>${p.spaceMimg}" width="100%"> 
 																	</div>
 																</tr>
 															</table>
@@ -268,7 +271,7 @@
 									<td>${p.userName }</td>
 									<!-- host이름으로 수정해야함 -->
 									<td>${p.totalPrice}</td>
-									<td>${p.reservationDate}</td>
+									<td>${p.createDate}</td>
                                 </tr>
 								</c:forEach>
 						</c:otherwise>

@@ -9,6 +9,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.InvalidPropertiesFormatException;
 import java.util.Properties;
@@ -16,6 +17,7 @@ import java.util.Properties;
 import com.kh.common.vo.PageInfo;
 import com.kh.space.model.vo.Reservation;
 import com.kh.space.model.vo.ReservationDate;
+import com.kh.space.model.vo.ReservationInfo;
 
 public class SpaceReservationDao {
 	private Properties pro =new Properties();
@@ -96,33 +98,36 @@ public class SpaceReservationDao {
 		return reservationCount;
 	}
 
-	public ArrayList<Reservation> selectReservation(Connection conn, PageInfo pi, String userId) {
-		ArrayList<Reservation> list = new ArrayList<Reservation>();
+	public ArrayList<ReservationInfo> selectReservation(Connection conn, PageInfo pi, String userId) {
+		ArrayList<ReservationInfo> list = new ArrayList<ReservationInfo>();
 		ResultSet rset = null;
 		PreparedStatement pstmt =null;
-		String sql = pro.getProperty("selectReservation");
+		String sql = pro.getProperty("selectReservationInfo");
 		
 		try {
 			pstmt=conn.prepareStatement(sql);
 			
 			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
 			int endRow = startRow + pi.getBoardLimit() - 1;
-			pstmt.setInt(1, startRow);
-			pstmt.setInt(2, endRow);
-			pstmt.setString(3, userId);
+			pstmt.setString(1, userId);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
 			
 			rset=pstmt.executeQuery();
 			while(rset.next()) {
-//				list.add(new Reservation(
-//						rset.getInt("RNUM"),
-//						rset.getInt("HEADCOUNT"),
-//						rset.getString("USER_NAME"),
-//						rset.getInt("TOTAL_PRICE"),
-//						rset.getInt("RESERVATION_TIME1"),
-//						rset.getInt("RESERVATION_TIME2"),
-//						rset.getDate("RESERVATION_DATE"),
-//						rset.getString("SPACE_NAME")			
-//						));
+		
+		        list.add(new ReservationInfo(
+						rset.getInt("RESERVATION_NO"),
+						rset.getInt("HEADCOUNT"),
+						rset.getString("USER_NAME"),
+						rset.getInt("TOTAL_PRICE"),
+						rset.getInt("RESERVATION_TIME1"), 
+						rset.getInt("RESERVATION_TIME2"),
+						rset.getString("RESERVATION_DATE"),
+						rset.getDate("CREATE_DATE"),
+						rset.getString("SPACE_NAME"),		
+						rset.getString("SPACE_MIMG")			
+						));
 				
 		
 			}

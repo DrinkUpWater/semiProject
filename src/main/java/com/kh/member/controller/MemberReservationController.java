@@ -9,11 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
+import com.kh.space.model.vo.ReservationInfo;
 import com.kh.common.vo.PageInfo;
 import com.kh.member.model.vo.Member;
-import com.kh.space.model.vo.Reservation;
-import com.kh.space.model.vo.Space;
 import com.kh.space.service.SpaceReservationService;
 
 /**
@@ -58,6 +56,8 @@ public class MemberReservationController extends HttpServlet {
 		
 		String userId =((Member)session.getAttribute("loginUser")).getUserId();
 		
+		
+		
 		if(userId == null) { //로그인이 안되어있을 시
 			request.getRequestDispatcher("views/member/LoginMember_hamyu.jsp").forward(request, response);
 			session.setAttribute("alertMsg","로그인 후 이용할 수 있습니다.");
@@ -66,8 +66,7 @@ public class MemberReservationController extends HttpServlet {
 			listCount = new SpaceReservationService().selectReservationCount(userId);
 			
 			currentPage =Integer.parseInt(request.getParameter("cpage"));	
-			
-			System.out.println(listCount);
+
 			pageLimit = 10;	
 			boardLimit = 5;
 			
@@ -80,10 +79,18 @@ public class MemberReservationController extends HttpServlet {
 			
 			PageInfo pi =new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
 			
-			ArrayList<Reservation> list =new SpaceReservationService().selectReservation(pi,userId);
+			
+			
+			
+			ArrayList<ReservationInfo> list =new SpaceReservationService().selectReservation(pi,userId);
+			
+			
+
 			System.out.println(list);
 			request.setAttribute("pi", pi);
 			request.setAttribute("list", list);
+			
+
 			request.getRequestDispatcher("views/member/Reservation_Member_hamyu.jsp").forward(request, response);
 		}
 	}
