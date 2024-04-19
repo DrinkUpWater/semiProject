@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.kh.common.NoticeAttachment;
+
 import controller.notice.model.vo.Notice;
 import controller.notice.service.NoticeService;
 
@@ -36,7 +38,10 @@ public class NoticeDetailController extends HttpServlet {
 		Notice n = new NoticeService().increaseCount(noticeNo);
 		
 		if(n != null) {
+			NoticeAttachment nat = new NoticeService().selectAttachment(noticeNo);
+			
 			request.setAttribute("notice", n);
+			request.setAttribute("noticeAttachment", nat);
 			request.getRequestDispatcher("views/notice/noticeDetailView.jsp").forward(request, response);
 		} else {
 			request.setAttribute("errorMsg", "공지사항 조회에 실패하였습니다.");

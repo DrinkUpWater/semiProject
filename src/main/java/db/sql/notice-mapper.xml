@@ -31,7 +31,7 @@
 		NOTICE_WRITER
 	)
 	VALUES(
-		SEQ_UNO.NEXTVAL,
+		SEQ_NNO.NEXTVAL,
 		?,
 		?,
 		?
@@ -64,6 +64,31 @@
 	UPDATE NOTICE
 	SET STATUS = 'N'
 	WHERE NOTICE_NO = ?
+</entry>
+<entry key="insertAttachment">
+		INSERT
+		INTO NOTICEATTACHMENT(
+				    FILE_NO
+				   ,REF_NNO
+				   ,ORIGIN_NAME
+				   ,CHANGE_NAME
+				   ,FILE_PATH
+				  )
+			VALUES(
+				    SEQ_NATNO.NEXTVAL
+				   ,SEQ_NNO.CURRVAL
+				   ,?
+				   ,?
+				   ,?
+				  )
+</entry>
+<entry key="selectAttachment">
+	SELECT FILE_NO
+		 , ORIGIN_NAME
+		 , CHANGE_NAME
+		 , FILE_PATH
+	  FROM NOTICEATTACHMENT
+	 WHERE REF_NNO = ?
 </entry>
 <entry key="insertReply">
 	INSERT INTO NOTICE_REPLY

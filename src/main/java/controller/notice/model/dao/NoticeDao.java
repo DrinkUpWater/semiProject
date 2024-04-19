@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import com.kh.common.NoticeAttachment;
 import com.kh.common.PageInfo;
 
 import controller.notice.model.vo.Notice;
@@ -99,15 +100,13 @@ public class NoticeDao {
 		
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("insertNotice");
-		System.out.println(n);
+
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, n.getNoticeTitle());
 			pstmt.setString(2, n.getNoticeContent());
 			pstmt.setInt(3, Integer.parseInt(n.getNoticeWriter()));
-			
-//			pstmt.setString(3, n.getImg());
-			
+						
 			result = pstmt.executeUpdate();
 			
 		} catch (SQLException e) {
@@ -212,6 +211,61 @@ public class NoticeDao {
 		}
 		
 		return result;
+	}
+	
+	public int insertAttachment(Connection conn, NoticeAttachment at) {
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertAttachment");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, at.getOriginName());
+			pstmt.setString(2, at.getChangeName());
+			pstmt.setString(3, at.getFilePath());
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	
+	public NoticeAttachment selectAttachment(Connection conn, int noticeNo) {
+		
+		NoticeAttachment nat = null;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectAttachment");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, noticeNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				nat = new NoticeAttachment();
+				nat.setFileNo(rset.getInt("file_no"));
+				nat.setOriginName(rset.getString("origin_name"));
+				nat.setChangeName(rset.getString("change_name"));
+				nat.setFilePath(rset.getString("file_path"));
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return nat;
 	}
 
 	public int insertReply(Connection conn, Reply r) {

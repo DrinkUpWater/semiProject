@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="controller.notice.model.vo.Notice" %>
+    pageEncoding="UTF-8" import="controller.notice.model.vo.Notice, com.kh.common.NoticeAttachment" %>
 <%
 	Notice n = (Notice)request.getAttribute("notice");
+
+	NoticeAttachment nat = (NoticeAttachment)request.getAttribute("noticeAttachment");
 %>
 
 <!DOCTYPE html>
@@ -140,7 +142,19 @@
                 </div>
                 <div id="content-area">
                     <div id="txt">
-                        <p><%=n.getNoticeContent() %></p>
+                    	<%if(nat == null) {%>
+                    		
+                    	<%} else {%>
+                    	<div>
+                        	<img src="<%=contextPath%>/<%=nat.getFilePath() + nat.getChangeName() %>" id="img-area">
+                        </div>
+                    	
+                    	<%} %>
+
+                    	<div>
+                            <p><%=n.getNoticeContent() %></p>
+                        </div>
+                        
                     </div>
                     
                 </div>
@@ -171,9 +185,15 @@
                 <a href="<%=contextPath%>/updateForm.no?num=<%=n.getNoticeNo() %>" id="a1">수정하기</a>
                 <a href="<%=contextPath%>/delete.no?num=<%=n.getNoticeNo() %>" id="a2">삭제하기</a>
 				<%} %>
+				<%if(loginUser != null) {%>
                 <span>
                     <button id="btn4" onclick="insertReply()">답글쓰기</button>
                 </span>
+                <%} else {%>
+                <span>
+                    <button id="btn4" onclick="insertReply()" disabled>답글쓰기</button>
+                </span>
+                <%} %>
             </div>
         </div>
         <script>

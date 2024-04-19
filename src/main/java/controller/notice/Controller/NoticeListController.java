@@ -48,7 +48,6 @@ public class NoticeListController extends HttpServlet {
 		
 		//* currentPage : 현재 페이지(사용자가 요청한 페이지)
 		currentPage = Integer.parseInt(request.getParameter("cpage"));
-		System.out.println("currentPage : " + currentPage);
 		
 		//* pageLimit : 페이징바의 최대갯수
 		pageLimit = 10;

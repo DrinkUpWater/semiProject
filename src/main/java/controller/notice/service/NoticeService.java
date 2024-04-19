@@ -8,6 +8,7 @@ import static com.kh.common.JDBCTemplate.rollback;
 import java.sql.Connection;
 import java.util.ArrayList;
 
+import com.kh.common.NoticeAttachment;
 import com.kh.common.PageInfo;
 
 import controller.notice.model.dao.NoticeDao;
@@ -35,19 +36,25 @@ public class NoticeService {
 		return list;
 	}
 	
-	public int insertNotice(Notice n) {
+	public int insertNotice(Notice n, NoticeAttachment nat) {
 		Connection conn = getConnection();
 		
-		int result = new NoticeDao().insertNotice(conn, n);
+		int result1 = new NoticeDao().insertNotice(conn, n);
+		int result2 = 1;
 		
-		if(result > 0) {
+		if(nat != null) {
+			result2 = new NoticeDao().insertAttachment(conn, nat);
+			System.out.println(result2);
+		}
+		
+		if(result1 > 0 && result2 > 0) {
 			commit(conn);
 		} else {
 			rollback(conn);
 		}
 		close(conn);
 		
-		return result;
+		return result1 * result2;
 	}
 	
 	public Notice increaseCount(int noticeNo) {
@@ -100,6 +107,19 @@ public class NoticeService {
 		}
 		
 		return result;
+	}
+	
+	public NoticeAttachment selectAttachment(int noticeNo) {
+		Connection conn = getConnection();
+		NoticeAttachment nat = new NoticeDao().selectAttachment(conn, noticeNo);
+		
+		close(conn);
+		if(nat != null) {
+			return nat;
+		} else {
+			return null;
+		}
+		
 	}
 	
 	public int insertReply(Reply r) {
