@@ -212,7 +212,7 @@
 		ORDER BY SPACE_NO DESC 
 	</entry>
 
-	
+
 	<!-- 키워드 space 검색 -->
 	<entry key="selectKeywordSpaceList">
 		SELECT SPACE_NO, 
