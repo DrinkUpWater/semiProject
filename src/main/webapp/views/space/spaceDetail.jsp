@@ -104,6 +104,7 @@
         <script src="<%=request.getContextPath()%>/views/space/js/reservationNum.js"></script>
         <script src='<%=request.getContextPath()%>/views/space/fullcalendar/main.min.js'></script>
         <script src='<%=request.getContextPath()%>/views/space/js/comment.js'></script>
+        <script src='<%=request.getContextPath()%>/views/space/js/review.js'></script>
 
         <style>
             @media (max-width: 1200px) {
@@ -908,30 +909,8 @@
      
                              <table id="review_table" class="list-group">
 
-
-                                <%for(int i=0; i<6; i++) {%>
-
-                                    <tr class="comment_list">    
-
-                                        <th class="nickName" style="width:20%">user<%=i%></th>
-                                        <td class="mb-1" > 리뷰내용<%=i%></td>
-            
-                                    </tr>
-            
-                                    <tr class="comment_list">
-                                            <th class="clear"></th>
-                                            <td class="time">2024-04-11</td>
-                                    </tr>
-            
-
-                                   <tr id="comment_margin">
-                                       <td colspan="2" id="comment_line"><hr></td>
-                                   </tr>
-                                 <% } %>
-
-                                  
-
-
+                                <tbody class='comment_body'></tbody>
+                       
                             </table>
 
 
@@ -943,19 +922,23 @@
                         <div id="comment_info" style="height:80px">
                             <th></th>
                             <td>
-                                <div class="review" style="  font-size: 1.2rem; margin-top:30px">리뷰 등록하기</div>
 
-                                <div id="comment div" style="width:100%; height:100%; display:flex; justify-content:center;">
-                                    
-                                    <div style="width:100%">
-                                        <textarea id="content" placeholder="입력하세요" style="width:500px;"  ></textarea>
+                                <% if(loginUser!=null) {%>
+                                    <form action="<%=contextPath%>/reviewInsert.sp" method="POST">
+                                        <div class="review" style="  font-size: 1.2rem; margin-top:30px">리뷰 등록하기</div>
+
+                                        <div id="comment div" style="width:100%; height:100%; display:flex; justify-content:center;">
+
+                                            <input type="text" name="spaceNum"  value="<%=space.getSpaceNo()%>" hidden>
+                                            <div style="width:100%">
+                                                <textarea id="content" placeholder="입력하세요" name="content" style="width:500px;" ></textarea>
+                                            </div>
+                                            <div style=" width:100%; height:100%;"><button id="comment_enroll" type="submit" style="height:100%;">등록하기</button></div>
+
+                                     </form>
+
                                        
-                                    </div>
-
-
-
-                                    <div style=" width:100%; height:100%;"><button id="comment_enroll" type="button" style="height:100%;" >등록하기</button></div>
-
+                                     <%} %>
                                 </div>
 
                             </td>
