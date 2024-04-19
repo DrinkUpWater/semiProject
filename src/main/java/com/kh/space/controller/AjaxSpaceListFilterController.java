@@ -14,16 +14,16 @@ import com.kh.space.model.vo.Space;
 import com.kh.space.service.SpaceService;
 
 /**
- * Servlet implementation class SpaceKeywordSearchController
+ * Servlet implementation class SpaceListPcountController
  */
-@WebServlet("/search.sp")
-public class SpaceKeywordSearchController extends HttpServlet {
+@WebServlet("/filteringSpace.sp")
+public class AjaxSpaceListFilterController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SpaceKeywordSearchController() {
+    public AjaxSpaceListFilterController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,9 +32,12 @@ public class SpaceKeywordSearchController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String keyword = request.getParameter("keyword");
+		int pCount = Integer.parseInt(request.getParameter("pCount"));
+		String pInfo = request.getParameter("pInfo");
+		String pKind = request.getParameter("pKind");
+		String pOrder = request.getParameter("pOrder");
 		
-		ArrayList<Space> list = new SpaceService().KeywordSearchSpaceList(keyword);		
+		ArrayList<Space> list = new SpaceService().selectSpaceList(pInfo, pCount, pKind, pOrder);
 		
 		response.setContentType("application/json; charset=utf-8");
 		new Gson().toJson(list, response.getWriter());

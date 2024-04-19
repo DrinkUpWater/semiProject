@@ -17,7 +17,11 @@ import java.util.Properties;
 import com.kh.common.vo.PageInfo;
 import com.kh.space.model.vo.Reservation;
 import com.kh.space.model.vo.ReservationDate;
+<<<<<<< HEAD
 import com.kh.space.model.vo.ReservationInfo;
+=======
+import com.kh.space.model.vo.Review;
+>>>>>>> 755704c066a0130566fb665a445b33d7c8b49f90
 
 public class SpaceReservationDao {
 	private Properties pro =new Properties();
@@ -188,5 +192,7 @@ public class SpaceReservationDao {
 		
 		return result;
 	}
+
+	
 
 }
