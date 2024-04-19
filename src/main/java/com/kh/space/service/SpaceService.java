@@ -121,4 +121,24 @@ public class SpaceService {
 		return list;
 	}
 
+	public ArrayList<Space> selectSpaceList(String pInfo, int pCount, String pKind) {
+		Connection conn = getConnection();
+
+		ArrayList<Space> list = spaceDao.selectSpaceList(conn, pInfo, pCount, pKind);
+		
+		close(conn);
+		
+		return list;
+	}
+
+	public ArrayList<Space> selectSpaceList(String pInfo, int pCount, String pKind, String pOrder) {
+		Connection conn = getConnection();
+
+		ArrayList<Space> list = spaceDao.selectSpaceList(conn, pInfo, pCount, pKind, pOrder);
+		
+		close(conn);
+		
+		return list;
+	}
+
 }

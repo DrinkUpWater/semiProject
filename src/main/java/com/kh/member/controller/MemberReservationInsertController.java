@@ -82,7 +82,7 @@ public class MemberReservationInsertController extends HttpServlet {
 	         }
 	         else {
 	        	 session.setAttribute("alertMsg","예약실패" );
-	        	 response.sendRedirect(request.getContextPath()+"/detailview.sp?spaceNum"+spaceNum);
+	        	 response.sendRedirect(request.getContextPath()+"/detailview.sp?spaceNo="+spaceNum);
 	         }
 			 
 			 
