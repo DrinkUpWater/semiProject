@@ -39,7 +39,7 @@ public class mySpaceListController extends HttpServlet {
     	Member m=(Member)session.getAttribute("loginUser");
     	if(m==null) {
     		session.setAttribute("alertMsg", "로그인하세요");
-    		response.sendRedirect(request.getContextPath()+"/login.me");
+    		response.sendRedirect(request.getContextPath()+"/loginForm.me");
     		return;
     	}
  		int userNo=m.getUserNo();
