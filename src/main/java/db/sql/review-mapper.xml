@@ -30,7 +30,8 @@
    		REVIEW_NO,
    		CONTENT,
    		USER_NAME,
-   		INSERT_DATE
+   		INSERT_DATE,
+   		R.USER_NO
    		FROM REVIEW R
    		JOIN MEMBER M
    		ON (R.USER_NO=M.USER_NO)

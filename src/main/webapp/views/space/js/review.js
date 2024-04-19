@@ -21,7 +21,8 @@ $(function(){
                 review_no:r.reviewNo,
                 reviewContent:r.content,
                 reviewInsertDate:r.insertDate,
-                reviewUserName:r.userName
+                reviewUserName:r.userName,
+                reviewUserNo:r.userNo
             })
         }
         drawTableList( list,replyBody)
@@ -52,21 +53,53 @@ function getReplyList(spaceNo,callback){
 
 }
 
-
 //댓글 목록 그리기
 function drawTableList(reviewList,parentTag){
 
     for(let reply of reviewList){
         const replyRow=document.createElement('tr');
+        const replyRow1=document.createElement('tr');
+        const replyRow2=document.createElement('tr');
+
         replyRow.innerHTML=` <th class='nickName'>`+reply.reviewUserName+`</th>
                              <td class='mb-1'>`+reply.reviewContent+`</td>
-                             <td class='mb-1>`+reply.reviewInsertDate+`</td> `
+                          
+                             `
+        replyRow1.innerHTML=`
+                             <th class='clear'></th>
+                             <td class='mb-1 time'>`+reply.reviewInsertDate+`</td> 
+                             ` 
+        replyRow2.innerHTML=`
+                             <td colspan='2' id='comment_line'><hr></td>
+                            `                           
 
-        parentTag.appendChild(replyRow);   
+        parentTag.appendChild(replyRow);
+        parentTag.appendChild(replyRow1);
+        parentTag.appendChild(replyRow2);
+
         replyRow.className='comment_list';
-        
+        replyRow1.className='comment_list';
+        replyRow2.className='comment_list';
+      //  submitHostReplyBtn
+      
+       //리뷰를 쓴 등록되어있는 유저
 
+       let userNo=parseInt(document.querySelector("#userNo").value);
+       //let userId=parseInt(document.querySelector("#userId").value);
+
+        if((reply.reviewUserNo===userNo)){
+            const cancelTd=document.createElement('td');
+            const buttonTag=document.createElement('button');
+            buttonTag.className='submitHostReplyBtn';
+            buttonTag.type='button'
+
+            const cancelTdButton=cancelTd.appendChild(buttonTag);
+            cancelTdButton.innerText="삭제";
+            replyRow.append(cancelTdButton);
+        }
+        
     }
+
 
 }
 
