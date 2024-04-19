@@ -205,12 +205,6 @@ function commentList (commentTable,response){
 		});
 	}
     
-    
- 
-   
-	
-	
-   
      //호스트 리플라이 작성
     HostCommentInsert();
     
