@@ -8,23 +8,22 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import com.kh.common.Attachment;
+import com.google.gson.Gson;
 import com.kh.space.model.vo.Space;
 import com.kh.space.service.SpaceService;
 
 /**
- * Servlet implementation class mySpaceDetailViewController
+ * Servlet implementation class SpaceListPcountController
  */
-@WebServlet("/myspacedetail.sp")
-public class mySpaceDetailViewController extends HttpServlet {
+@WebServlet("/filteringSpace.sp")
+public class AjaxSpaceListFilterController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public mySpaceDetailViewController() {
+    public AjaxSpaceListFilterController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,34 +32,15 @@ public class mySpaceDetailViewController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	;
-		int spaceNo = Integer.parseInt(request.getParameter("spaceNo"));  
+		int pCount = Integer.parseInt(request.getParameter("pCount"));
+		String pInfo = request.getParameter("pInfo");
+		String pKind = request.getParameter("pKind");
+		String pOrder = request.getParameter("pOrder");
 		
-		Space space=new SpaceService().selectOneSpace(spaceNo);
-	    ArrayList<Attachment> attachments =new SpaceService().selectSpaceAttachment(spaceNo);
+		ArrayList<Space> list = new SpaceService().selectSpaceList(pInfo, pCount, pKind, pOrder);
 		
-		if(attachments.isEmpty()) {
-			 Attachment att=new Attachment();
-			 att.setFilePath("");
-			 attachments.add(att);
-		}
-	
-		if(space==null) {
-			request.getSession().setAttribute("alertMsg","공간조회실패");
-			response.sendRedirect(request.getContextPath());
-			
-		}else {
-			request.setAttribute("space", space);
-			request.setAttribute("spaceKind", "mySpace");
-			request.setAttribute("attachments", attachments);
-			request.getRequestDispatcher("views/space/spaceDetail.jsp")
-			.forward(request, response);
-		}
-		
-		
-		
-		
-		
+		response.setContentType("application/json; charset=utf-8");
+		new Gson().toJson(list, response.getWriter());
 	}
 
 	/**

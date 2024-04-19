@@ -199,7 +199,7 @@ public class SpaceDao {
 
 	public ArrayList<Space> selectMySpaces(Connection conn, int userNo) {
 		PreparedStatement pstmt = null;
-		ResultSet rset = null;
+		ResultSet rest = null;
 		ArrayList<Space> list = new ArrayList<>();
 		
 		String sql = pro.getProperty("myselectSpaceList");
@@ -207,24 +207,25 @@ public class SpaceDao {
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1,userNo);
-			rset = pstmt.executeQuery();
+			rest = pstmt.executeQuery();
 			
-			while (rset.next()) {
-				Space sp = new Space();
-				sp.setSpaceNo(rset.getInt("SPACE_NO"));
-				sp.setSpaceName(rset.getString("SPACE_NAME"));
-				sp.setSpaceTag(rset.getString("SPACE_TAG"));
-				sp.setSpaceAddress(rset.getString("SPACE_ADDRESS"));
-				sp.setSpacePrice(rset.getInt("SPACE_PRICE"));	
-				sp.setSpaceCapacity(rset.getInt("SPACE_CAPACITY"));
-				
+			while (rest.next()) {
+				Space sp = new Space(
+					rest.getInt("SPACE_NO"),
+					rest.getString("SPACE_NAME"),
+					rest.getString("SPACE_TAG"),
+					rest.getString("SPACE_MIMG"),
+					rest.getString("SPACE_ADDRESS"),
+					rest.getInt("SPACE_PRICE"),
+					rest.getInt("SPACE_CAPACITY")
+				);
 				list.add(sp);
 			}
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			close(rset);
+			close(rest);
 			close(pstmt);
 		}
 		
@@ -250,6 +251,36 @@ public class SpaceDao {
 				at.setRefSpaceNo(rset.getInt("REF_SNO"));
 				at.setOriginName(rset.getString("ORIGIN_NAME"));
 				at.setChangeName(rset.getString("CHANGE_NAME"));
+				at.setFilePath(rset.getString("FILE_PATH"));
+				
+				atList.add(at);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return atList;
+	}
+	
+	
+	public ArrayList<Attachment> selectSpaceAttachment(Connection conn,int spaceNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Attachment> atList = new ArrayList<>();
+		
+		String sql = pro.getProperty("selectSpaceAttachment");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1,spaceNo);
+			
+			rset = pstmt.executeQuery();
+			while (rset.next()) {
+				Attachment at = new Attachment();
+				at.setFileNo(rset.getInt("FILE_NO"));
 				at.setFilePath(rset.getString("FILE_PATH"));
 				
 				atList.add(at);
@@ -311,7 +342,7 @@ public class SpaceDao {
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, "%"+pInfo+"%");
+			pstmt.setString(1, pInfo);
 			
 			rset = pstmt.executeQuery();
 			
@@ -349,7 +380,130 @@ public class SpaceDao {
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, pCount);
-			pstmt.setString(2, "%"+pInfo+"%");
+			pstmt.setString(2, pInfo);
+			
+			rset = pstmt.executeQuery();
+			
+			while (rset.next()) {
+				Space sp = new Space();
+				sp.setSpaceNo(rset.getInt("SPACE_NO"));
+				sp.setSpaceName(rset.getString("SPACE_NAME"));
+				sp.setSpaceTag(rset.getString("SPACE_TAG"));
+				sp.setSpaceMimg(rset.getString("SPACE_MIMG"));
+				sp.setSpaceAddress(rset.getString("SPACE_ADDRESS"));
+				sp.setSpacePrice(rset.getInt("SPACE_PRICE"));	
+				sp.setSpaceCapacity(rset.getInt("SPACE_CAPACITY"));
+				
+				list.add(sp);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+
+
+	public ArrayList<Space> KeywordSearchSpaceList(Connection conn, String keyword) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Space> list = new ArrayList<>();
+		
+		String sql = pro.getProperty("selectKeywordSpaceList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, keyword);
+			pstmt.setString(2, keyword);
+			pstmt.setString(3, keyword);
+			pstmt.setString(4, keyword);
+			pstmt.setString(5, keyword);
+			pstmt.setString(6, keyword);
+			pstmt.setString(7, keyword);
+			pstmt.setString(8, keyword);
+			
+			rset = pstmt.executeQuery();
+			
+			while (rset.next()) {
+				Space sp = new Space();
+				sp.setSpaceNo(rset.getInt("SPACE_NO"));
+				sp.setSpaceName(rset.getString("SPACE_NAME"));
+				sp.setSpaceTag(rset.getString("SPACE_TAG"));
+				sp.setSpaceMimg(rset.getString("SPACE_MIMG"));
+				sp.setSpaceAddress(rset.getString("SPACE_ADDRESS"));
+				sp.setSpacePrice(rset.getInt("SPACE_PRICE"));	
+				sp.setSpaceCapacity(rset.getInt("SPACE_CAPACITY"));
+				
+				list.add(sp);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+
+
+	public ArrayList<Space> selectSpaceList(Connection conn, String pInfo, int pCount, String pKind) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Space> list = new ArrayList<>();
+		
+		String sql = pro.getProperty("selectSpaceListPCountPInfoPKind");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, pCount);
+			pstmt.setString(2, pInfo);
+			pstmt.setString(3, pKind);
+			
+			rset = pstmt.executeQuery();
+			
+			while (rset.next()) {
+				Space sp = new Space();
+				sp.setSpaceNo(rset.getInt("SPACE_NO"));
+				sp.setSpaceName(rset.getString("SPACE_NAME"));
+				sp.setSpaceTag(rset.getString("SPACE_TAG"));
+				sp.setSpaceMimg(rset.getString("SPACE_MIMG"));
+				sp.setSpaceAddress(rset.getString("SPACE_ADDRESS"));
+				sp.setSpacePrice(rset.getInt("SPACE_PRICE"));	
+				sp.setSpaceCapacity(rset.getInt("SPACE_CAPACITY"));
+				
+				list.add(sp);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+
+
+	public ArrayList<Space> selectSpaceList(Connection conn, String pInfo, int pCount, String pKind, String pOrder) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Space> list = new ArrayList<>();
+		
+		String sql = pro.getProperty("selectFilterSpaceList");
+		sql = sql + pOrder;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, pCount);
+			pstmt.setString(2, pInfo);
+			pstmt.setString(3, pKind);
 			
 			rset = pstmt.executeQuery();
 			

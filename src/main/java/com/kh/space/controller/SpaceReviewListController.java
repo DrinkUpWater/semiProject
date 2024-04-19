@@ -10,22 +10,23 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.google.gson.Gson;
 import com.kh.member.model.vo.Member;
-import com.kh.space.model.dto.SpaceThumbNail;
-import com.kh.space.model.vo.Space;
-import com.kh.space.service.SpaceService;
+import com.kh.space.model.vo.Review;
+import com.kh.space.service.SpaceReservationService;
+import com.kh.space.service.SpaceReviewService;
 
 /**
- * Servlet implementation class mySpaceListController
+ * Servlet implementation class SpaceReviewListController
  */
-@WebServlet("/myspace.sp")
-public class mySpaceListController extends HttpServlet {
+@WebServlet("/review.sp")
+public class SpaceReviewListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public mySpaceListController() {
+    public SpaceReviewListController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,28 +35,26 @@ public class mySpaceListController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		HttpSession session =request.getSession();
+	//	Member m = (Member)session.getAttribute("loginUser");
+		int spaceNum=Integer.parseInt(request.getParameter("spaceNum"));
+		System.out.println(spaceNum);
+//		if(m==null) {
+//		  // response.sendRedirect(request.getContextPath()+"/detailview?spaceNo="+spaceNum);
+//			session.setAttribute("alertMsg","로그인해주세요");
+//		    return;
+//		}
+//		
+		 
 	
-	    HttpSession session=request.getSession();
-    	Member m=(Member)session.getAttribute("loginUser");
-    	if(m==null) {
-    		session.setAttribute("alertMsg", "로그인하세요");
-    		response.sendRedirect(request.getContextPath()+"/loginForm.me");
-    		return;
-    	}
- 		int userNo=m.getUserNo();
-		
-		ArrayList<Space> mySpaces=new SpaceService().selectMySpaces(userNo);
-		
-		if(mySpaces.isEmpty()) {
-			session.setAttribute("alertMsg", "등록한 공간이 없습니다.");
-			response.sendRedirect(request.getContextPath());
-		}
-		else {
-			request.setAttribute("mySpace",mySpaces);
-			request.getRequestDispatcher("/views/space/mySpaceList.jsp").forward(request, response);
-		}
-		
-		
+			response.setContentType("application/json; charset=utf-8");
+			ArrayList<Review> reviews = new SpaceReviewService().selectReviews(spaceNum);
+			System.out.println(reviews);
+			new Gson().toJson(reviews,response.getWriter());
+			
+			//ArrayList<Review> reviews = new ArrayList<>()
+			
 		
 		
 	}

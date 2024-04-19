@@ -40,7 +40,7 @@ public class SpacePickedListController extends HttpServlet {
 	    if(member==null) {
 	    	
 	    	request.setAttribute("alertMsg", "로그인하세요");
-	    	response.sendRedirect(request.getContextPath()+"/loginForm.me");
+	    	//response.sendRedirect(request.getContextPath()+"/loginForm.me");
 	    	return;
 	    }
 	    
@@ -68,7 +68,7 @@ public class SpacePickedListController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		doGet(request,response);
 	}
 
 }

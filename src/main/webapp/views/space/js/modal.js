@@ -21,7 +21,7 @@
                                          
                                             e.preventDefault();
                                        
-                                            return false;
+                                            //return false;
                                         }
                                         if(choiced_time===""){
                                             alert("시간을 선택하세요")
@@ -30,8 +30,15 @@
                                             
                                             e.preventDefault();
                                          
-                                            return false;
+                                            //return false;
                                         }
+                                        
+                                        if(document.querySelector("#userNo").value==="-1"){
+											alert("로그인하세요");
+											e.preventDefault();
+                                            pay_button.disabled=true;
+                                            //return false;
+										}
             
                                        
             

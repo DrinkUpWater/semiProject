@@ -5,64 +5,73 @@ import java.sql.Date;
 public class Reservation {
 	private int reservationNo;
 	private int headCount; //예약인원
-	private String userName;
 	private int totalPrice;
-	private int time1;
-	private int time2;
-	private Date reservationDate;
-	private String spaceName;
-	private String resRequest;
 	private int userNo;
 	private int spaceNo;
-	
 	
 	public Reservation() {
 		super();
 	}
 
-	
-	
-	public Reservation(int reservationNo, int headCount, String userName, int totalPrice, int time1, int time2,
-			Date reservationDate, String spaceName, String resRequest) {
+	public Reservation(int reservationNo, int headCount, int totalPrice, int userNo, int spaceNo) {
 		super();
 		this.reservationNo = reservationNo;
 		this.headCount = headCount;
-		this.userName = userName;
 		this.totalPrice = totalPrice;
-		this.time1 = time1;
-		this.time2 = time2;
-		this.reservationDate = reservationDate;
-		this.spaceName = spaceName;
-		this.resRequest = resRequest;
-	}
-
-
-
-	public Reservation(int reservationNo, int headCount, String userName, int totalPrice, int time1, int time2,
-			Date reservationDate, String spaceName, String resRequest, int userNo, int spaceNo) {
-		super();
-		this.reservationNo = reservationNo;
-		this.headCount = headCount;
-		this.userName = userName;
-		this.totalPrice = totalPrice;
-		this.time1 = time1;
-		this.time2 = time2;
-		this.reservationDate = reservationDate;
-		this.spaceName = spaceName;
-		this.resRequest = resRequest;
 		this.userNo = userNo;
 		this.spaceNo = spaceNo;
 	}
 
+	public int getReservationNo() {
+		return reservationNo;
+	}
 
-	
+	public void setReservationNo(int reservationNo) {
+		this.reservationNo = reservationNo;
+	}
 
-	
-	
+	public int getHeadCount() {
+		return headCount;
+	}
 
-	
-	
+	public void setHeadCount(int headCount) {
+		this.headCount = headCount;
+	}
 
+	public int getTotalPrice() {
+		return totalPrice;
+	}
+
+	public void setTotalPrice(int totalPrice) {
+		this.totalPrice = totalPrice;
+	}
+
+	public int getUserNo() {
+		return userNo;
+	}
+
+	public void setUserNo(int userNo) {
+		this.userNo = userNo;
+	}
+
+	public int getSpaceNo() {
+		return spaceNo;
+	}
+
+	public void setSpaceNo(int spaceNo) {
+		this.spaceNo = spaceNo;
+	}
+
+	@Override
+	public String toString() {
+		return "Reservation [reservationNo=" + reservationNo + ", headCount=" + headCount + ", totalPrice=" + totalPrice
+				+ ", userNo=" + userNo + ", spaceNo=" + spaceNo + "]";
+	}
+	
+	
+	
+	
+	
 	
 	
 	

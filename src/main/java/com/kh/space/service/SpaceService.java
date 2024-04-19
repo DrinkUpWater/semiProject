@@ -69,6 +69,17 @@ public class SpaceService {
 		return atList;
 	}
 
+
+	 public ArrayList<Attachment> selectSpaceAttachment(int spaceNo) {
+		Connection conn = getConnection();
+		
+		ArrayList<Attachment> atList = spaceDao.selectSpaceAttachment(conn,spaceNo);
+		
+		close(conn);
+		
+		return atList;
+    }	
+
 	public ArrayList<Space> selectSpaceList(int pCount) {
 		Connection conn = getConnection();
 		
@@ -90,9 +101,40 @@ public class SpaceService {
 	}
 
 	public ArrayList<Space> selectSpaceList(String pInfo, int pCount) {
-Connection conn = getConnection();
-		
+
+		Connection conn = getConnection();
+
 		ArrayList<Space> list = spaceDao.selectSpaceList(conn, pInfo, pCount);
+		
+		close(conn);
+		
+		return list;
+
+	}
+
+	public ArrayList<Space> KeywordSearchSpaceList(String keyword) {
+		Connection conn = getConnection();
+		ArrayList<Space> list = spaceDao.KeywordSearchSpaceList(conn, keyword);
+		
+	    close(conn);	
+		
+		return list;
+	}
+
+	public ArrayList<Space> selectSpaceList(String pInfo, int pCount, String pKind) {
+		Connection conn = getConnection();
+
+		ArrayList<Space> list = spaceDao.selectSpaceList(conn, pInfo, pCount, pKind);
+		
+		close(conn);
+		
+		return list;
+	}
+
+	public ArrayList<Space> selectSpaceList(String pInfo, int pCount, String pKind, String pOrder) {
+		Connection conn = getConnection();
+
+		ArrayList<Space> list = spaceDao.selectSpaceList(conn, pInfo, pCount, pKind, pOrder);
 		
 		close(conn);
 		

@@ -4,7 +4,7 @@ import java.sql.Date;
 
 public class ReservationDate {
 	private int DateNo;
-	private Date ReservationDate;
+	private Date reservationDate;
 	private int time1;
 	private int time2;
 	private int ReservationNo;
@@ -16,7 +16,7 @@ public class ReservationDate {
 	public ReservationDate(int dateNo, Date reservationDate, int time1, int time2, int reservationNo) {
 		super();
 		this.DateNo = dateNo;
-		this.ReservationDate = reservationDate;
+		this.reservationDate = reservationDate;
 		this.time1 = time1;
 		this.time2 = time2;
 		this.ReservationNo = reservationNo;
@@ -36,11 +36,11 @@ public class ReservationDate {
 	}
 
 	public Date getReservationDate() {
-		return ReservationDate;
+		return reservationDate;
 	}
 
 	public void setReservationDate(Date reservationDate) {
-		ReservationDate = reservationDate;
+		this.reservationDate = reservationDate;
 	}
 
 	public int getTime1() {
@@ -69,7 +69,7 @@ public class ReservationDate {
 
 	@Override
 	public String toString() {
-		return "ReservationDate [DateNo=" + DateNo + ", ReservationDate=" + ReservationDate + ", Time1=" + time1
+		return "ReservationDate [DateNo=" + DateNo + ", ReservationDate=" + reservationDate + ", Time1=" + time1
 				+ ", Time2=" + time2 + ", ReservationNo=" + ReservationNo + "]";
 	}
 	

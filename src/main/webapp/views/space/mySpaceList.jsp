@@ -78,7 +78,7 @@
             <% for(Space space : mySpaces){ %>
             <div class="info-preview" onclick="detailView(<%=space.getSpaceNo()%>)" >
                 <div class="space-picture" style="border:  1px solid black;"> 
-                    <img src="#" alt="썸네일" width="100%" height="100%">
+                    <img src="<%=request.getContextPath()%>/<%=space.getSpaceMimg()%>" alt="썸네일" width="100%" height="100%">
                 </div>
                 <div class="space-info">
                     <b>

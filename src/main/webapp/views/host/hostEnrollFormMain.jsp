@@ -7,7 +7,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+	<script>
+	function searchAddr(){
+	    new daum.Postcode({
+	        oncomplete: function(data) {
+	            // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분입니다.
+	            console.log(data);
+	            $('#spaceAddress').val(data.address);
+	            // 예제를 참고하여 다양한 활용법을 확인해 보세요.
+	        }
+	    }).open();
+	}
+	</script>
     <style>
+    	
         *{
             box-sizing: border-box;
         }
@@ -192,7 +206,7 @@
                     <td colspan="2" align="right"><span class="textCount1">0</span>/18자</td>
                 </tr>
                 <tr>
-                    <td colspan="3"><input class="input-text input-host1" name="spaceName" type="text" maxlength="18" placeholder="고유 업체명을 입력해주세요. ex)인디워커스 하이브 회의실" required></td>
+                    <td colspan="3"><input id="input-name" class="input-text input-host1" name="spaceName" type="text" maxlength="18" placeholder="고유 업체명을 입력해주세요. ex)인디워커스 하이브 회의실" required></td>
                 </tr>
                 <tr><td colspan="3"></td></tr>
                 <tr>
@@ -236,7 +250,7 @@
                     <td colspan="2" align="right"><span class="textCount2">0</span>/27자</td>
                 </tr>
                 <tr>
-                    <td colspan="3"><input class="input-text input-host2" name="spaceOneIntroduce" type="text" maxlength="27" placeholder="공간의 특장점을 한 문자응로 작성해주세요." required></td>
+                    <td colspan="3"><input id="input-intro1" class="input-text input-host2" name="spaceOneIntroduce" type="text" maxlength="27" placeholder="공간의 특장점을 한 문자응로 작성해주세요." required></td>
                 </tr>
                 <tr><td colspan="3"></td></tr>
                 <tr>
@@ -244,7 +258,7 @@
                     <td colspan="2" align="right"><span class="textCount3">0</span>/500자</td>
                 </tr>
                 <tr>
-                    <td colspan="3"><input class="input-text input-host3" name="spaceIntroduce" type="text" maxlength="500" placeholder="게스트들에게 필요한 공간 정보를 상세하게 소개해주세요. 툴팁은 클릭해 작성 가이드를 확인할 수 있습니다." required></td>
+                    <td colspan="3"><input id="input-intro2" class="input-text input-host3" name="spaceIntroduce" type="text" maxlength="500" placeholder="게스트들에게 필요한 공간 정보를 상세하게 소개해주세요. 툴팁은 클릭해 작성 가이드를 확인할 수 있습니다." required></td>
                 </tr>
                 <tr><td colspan="3"></td></tr>
 
@@ -331,8 +345,8 @@
                     <td colspan="2" align="right"></td>
                 </tr>
                 <tr>
-                    <td colspan="2" ><input class="input-text" type="text" name="spaceAddress" placeholder="실제 서비스되는 공간의 주소를 입력해주세요." required></td>
-                    <td ><button type="button" disabled>주소 검색</button></td>
+                    <td colspan="2" ><input id="input-addr" id="spaceAddress" class="input-text" type="text" name="spaceAddress" placeholder="실제 서비스되는 공간의 주소를 입력해주세요." required readonly></td>
+                    <td ><button type="button" onclick="searchAddr()">주소 검색</button></td>
                 </tr>
                 <tr>
                     <td colspan="2" class="body80"><input class="input-text" name="spaceDetailAddress" type="text" placeholder="상세주소" required></td>
@@ -343,7 +357,7 @@
                     <th>가격(1인 1시간 가격)<span class="red-color">*</span></th>
                 </tr>
                 <tr>
-                    <td colspan="3"><input class="input-text" name="spacePrice" type="text" placeholder="ex) 1000" required></td>
+                    <td colspan="3"><input id="input-price" class="input-text" name="spacePrice" type="text" placeholder="ex) 1000" required></td>
                 </tr>
                 <tr><td colspan="3"></td></tr>
                 <tr>
@@ -351,7 +365,7 @@
                     <td colspan="2" align="right"><span class="textCount4">0</span>/20자</td>
                 </tr>
                 <tr>
-                    <td colspan="3"><input class="input-text input-host4" name="spaceLocation" type="text" maxlength="20" placeholder="ex) 동대문역사문화공원역 도보 1분 거리"></td>
+                    <td colspan="3"><input id="input-shortinfo" class="input-text input-host4" name="spaceLocation" type="text" maxlength="20" placeholder="ex) 동대문역사문화공원역 도보 1분 거리"></td>
                 </tr>
                 <tr>
                     <th></th>
@@ -361,7 +375,7 @@
                     <td colspan="1" align="right"><th>수용 인원<span class="red-color">*</span></th></td>
                 </tr>
                 <tr>
-                    <td colspan="2" ><input style="padding-right: 50px;" class="input-text" type="text" name="spaceTel" value="${loginUser.phone}" placeholder="'-' 없이 입력해주세요." required></td>
+                    <td colspan="2" ><input id="input-tel" style="padding-right: 50px;" class="input-text" type="text" name="spaceTel" value="${loginUser.phone}" placeholder="'-' 없이 입력해주세요." required></td>
                     <td  class="body80"><input class="input-text" name="spaceCapacity" type="number" placeholder="최대 인원" required></td>
                 </tr>
             </table>
@@ -537,7 +551,21 @@
             const imgInput = document.querySelector("#file" + num);
             imgInput.click();
         }
-
+        $('#spaceTag').keypress(function(event){
+            if(event.which === 13){
+                $('.tag-btn').click();
+            }
+        });
+        $('#spaceInformation-input').keypress(function(event){
+            if(event.which === 13){
+                $('.spaceInfo-btn').click();
+            }
+        });
+        $('#spaceCaution-input').keypress(function(event){
+            if(event.which === 13){
+                $('.caution-btn').click();
+            }
+        });
     </script>
 
 </body>

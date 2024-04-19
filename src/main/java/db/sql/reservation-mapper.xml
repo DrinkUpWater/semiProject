@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+
+<properties>
+
+
 <entry key="selectReservationCount">
 SELECT COUNT(*) AS COUNT
 	FROM RESERVATION 
@@ -8,22 +12,59 @@ SELECT COUNT(*) AS COUNT
 	AND STATUS ='Y'
 </entry>
 
-<entry key="selectReservation"> <!-- 예약내역 정보들 가져오기 -->
-	SELECT RESERVATION_NO, 
-		HEADCOUNT, 
-		USER_NAME, 
-		TOTAL_PRICE, 
-		RESERVATION_TIME1,
-		RESERVATION_TIME2, 
-		RESERVATION_DATE,
-		SPACE_NAME,
-		RES_REQUEST
-		FROM RESERVATION R
-		LEFT JOIN RESERVATION_DATE USING(RESERVATION_NO)
-		JOIN MEMBER M ON R.USER_NO = M.USER_NO
-		JOIN SPACE S ON R.SPACE_NO = S.SPACE_NO
-		WHERE USER_ID = ?
-		AND STATUS ='Y';
+
+<entry key="selectReservation">
+SELECT  
+    ROWNUM AS "RNUM",
+    A2.RESERVATION_NO,
+    A2.HEADCOUNT,
+    M2.USER_NAME,
+    A2.TOTAL_PRICE,
+    A2.RESERVATION_TIME1,
+    A2.RESERVATION_TIME2,
+    A2.RESERVATION_DATE,
+    A2.SPACE_NAME
+FROM
+    (
+        SELECT  
+            ROWNUM AS "RNUM",
+            A.RESERVATION_NO,
+            A.USER_NAME,
+            A.HEADCOUNT,
+            A.TOTAL_PRICE,
+            A.RESERVATION_TIME1,
+            A.RESERVATION_TIME2,
+            A.RESERVATION_DATE,
+            A.SPACE_NAME,
+            S2.USER_NO
+        FROM
+            (
+                SELECT  
+                    RESERVATION_NO,
+                    USER_NAME,
+                    HEADCOUNT,
+                    TOTAL_PRICE,
+                    RESERVATION_TIME1,
+                    RESERVATION_TIME2,
+                    RESERVATION_DATE,
+                    SPACE_NAME
+                FROM 
+                    RESERVATION R
+                    LEFT JOIN RESERVATION_DATE USING(RESERVATION_NO)
+                    JOIN MEMBER M ON R.USER_NO = M.USER_NO
+                    JOIN SPACE S ON R.SPACE_NO = S.SPACE_NO
+                WHERE 
+                    USER_ID = ?
+                    AND STATUS ='Y'
+                ORDER BY 
+                    RESERVATION_NO DESC
+            ) A
+            JOIN SPACE S2 ON A.SPACE_NAME = S2.SPACE_NAME
+    ) A2
+    JOIN MEMBER M2 ON A2.USER_NO = M2.USER_NO
+WHERE 
+RNUM BETWEEN ? AND ?
+
 </entry>
 
 
@@ -33,3 +74,7 @@ SELECT COUNT(*) AS COUNT
 	          FROM RESERVATION_DATE
 	          WHERE RESERVATION_DATE  like ?
 </entry>
+
+
+
+</properties>

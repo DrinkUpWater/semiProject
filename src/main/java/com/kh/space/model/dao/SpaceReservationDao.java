@@ -16,6 +16,7 @@ import java.util.Properties;
 import com.kh.common.vo.PageInfo;
 import com.kh.space.model.vo.Reservation;
 import com.kh.space.model.vo.ReservationDate;
+import com.kh.space.model.vo.Review;
 
 public class SpaceReservationDao {
 	private Properties pro =new Properties();
@@ -96,32 +97,35 @@ public class SpaceReservationDao {
 		return reservationCount;
 	}
 
-	public ArrayList<Reservation> selectReservation(Connection conn, PageInfo pi) {
+	public ArrayList<Reservation> selectReservation(Connection conn, PageInfo pi, String userId) {
 		ArrayList<Reservation> list = new ArrayList<Reservation>();
 		ResultSet rset = null;
 		PreparedStatement pstmt =null;
 		String sql = pro.getProperty("selectReservation");
+		
 		try {
 			pstmt=conn.prepareStatement(sql);
 			
 			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
 			int endRow = startRow + pi.getBoardLimit() - 1;
-			pstmt.setInt(1, startRow);
-			pstmt.setInt(2, endRow);
+			pstmt.setString(1, userId);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
 			
 			rset=pstmt.executeQuery();
 			while(rset.next()) {
+
 				list.add(new Reservation(
-						rset.getInt("RESERVATION_NO"),
-						rset.getInt("HEADCOUNT"),
-						rset.getString("USER_NAME"),
-						rset.getInt("TOTAL_PRICE"),
-						rset.getInt("RESERVATION_TIME1"),
-						rset.getInt("RESERVATION_TIME2"),
-						rset.getDate("RESERVATION_DATE"),
-						rset.getString("SPACE_NAME"),
-						rset.getString("RES_REQUEST")
+//						rset.getInt("RESERVATION_NO"),
+//						rset.getInt("HEADCOUNT"),
+//						rset.getString("USER_NAME"),
+//						rset.getInt("TOTAL_PRICE")
+//						rset.getInt("RESERVATION_TIME1"),
+//						rset.getInt("RESERVATION_TIME2"),
+//						rset.getDate("RESERVATION_DATE"),
+//						rset.getString("SPACE_NAME")			
 						));
+
 				
 		
 			}
@@ -134,5 +138,55 @@ public class SpaceReservationDao {
 		}
 		return list;
 	}
+
+	public int insertReservation(Connection conn, Reservation reservation) {
+		PreparedStatement pstmt =null;
+		String sql = pro.getProperty("insertReservation");
+		int result=0;
+		
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, reservation.getHeadCount());
+			pstmt.setInt(2, reservation.getTotalPrice());
+			pstmt.setInt(3, reservation.getUserNo());
+			pstmt.setInt(4, reservation.getSpaceNo());
+			
+			
+			result=pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		
+		
+		return result;
+	}
+
+	public int insertReservationDate(Connection conn, ReservationDate reservationDate) {
+		PreparedStatement pstmt =null;
+		String sql = pro.getProperty("insertReservationDate");
+		int result=0;
+
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setDate(1, reservationDate.getReservationDate());
+			pstmt.setInt(2, reservationDate.getTime1());
+			pstmt.setInt(3, reservationDate.getTime2());
+			
+			result=pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	
 
 }
