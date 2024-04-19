@@ -108,22 +108,24 @@ public class SpaceReservationDao {
 			
 			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
 			int endRow = startRow + pi.getBoardLimit() - 1;
-			pstmt.setInt(1, startRow);
-			pstmt.setInt(2, endRow);
-			pstmt.setString(3, userId);
+			pstmt.setString(1, userId);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
 			
 			rset=pstmt.executeQuery();
 			while(rset.next()) {
-//				list.add(new Reservation(
-//						rset.getInt("RNUM"),
+
+				list.add(new Reservation(
+//						rset.getInt("RESERVATION_NO"),
 //						rset.getInt("HEADCOUNT"),
 //						rset.getString("USER_NAME"),
-//						rset.getInt("TOTAL_PRICE"),
+//						rset.getInt("TOTAL_PRICE")
 //						rset.getInt("RESERVATION_TIME1"),
 //						rset.getInt("RESERVATION_TIME2"),
 //						rset.getDate("RESERVATION_DATE"),
 //						rset.getString("SPACE_NAME")			
-//						));
+						));
+
 				
 		
 			}
