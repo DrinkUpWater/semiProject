@@ -1,4 +1,4 @@
-package com.kh.space.controller;
+package com.kh.space.controller.reservation;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -10,21 +10,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
-import com.kh.space.model.vo.GuestComment;
-import com.kh.space.service.SpaceCommentService;
-
+import com.kh.space.model.vo.ReservationDate;
+import com.kh.space.service.SpaceReservationService;
 
 /**
- * Servlet implementation class SpaceCommentListController
+ * Servlet implementation class SpaceReservationTimeListController
  */
-@WebServlet("/colist.sp")
-public class SpaceCommentListController extends HttpServlet {
+@WebServlet("/time.sp")
+public class SpaceReservationTimeListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SpaceCommentListController() {
+    public SpaceReservationTimeListController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,19 +32,16 @@ public class SpaceCommentListController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int spaceNum=Integer.parseInt( request.getParameter("spaceNum"));     
+		String date=request.getParameter("date");
 		
-    	ArrayList<GuestComment>comments=new SpaceCommentService().selectComment(spaceNum);
-    	
-    	response.setContentType("application/json; charset=utf-8");
-		new Gson().toJson(comments,response.getWriter());
+		ArrayList<ReservationDate> dates=new SpaceReservationService().findDate(date);
 		
-	
+		response.setContentType("application/json; charset=utf-8");
+		new Gson().toJson(dates,response.getWriter());
+		
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);

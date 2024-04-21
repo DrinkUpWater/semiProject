@@ -184,4 +184,58 @@ public class SpaceCommentDao {
 		return count;
 	}
 
+
+	public int deleteHostComment(Connection conn, int commentNo) {
+		PreparedStatement pstmt=null;
+		int result=0;
+		String sql=pro.getProperty("deleteHostComment");
+		
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1,commentNo);
+			
+			result=pstmt.executeUpdate();
+		
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		finally {
+			
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+
+	public int deleteGuestComment(Connection conn, int commentNo, int userNo) {
+		PreparedStatement pstmt=null;
+		int result=0;
+		String sql=pro.getProperty("deleteGuestComment");
+		
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1,commentNo);
+			pstmt.setInt(2, userNo);
+			
+			result=pstmt.executeUpdate();
+		
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		finally {
+			
+			close(pstmt);
+		}
+		
+		return result;
+		
+	}
+
 }

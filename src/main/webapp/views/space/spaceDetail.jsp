@@ -105,6 +105,7 @@
         <script src="<%=request.getContextPath()%>/views/space/js/modal.js"></script>
         <script src="<%=request.getContextPath()%>/views/space/js/reservationNum.js"></script>
         <script src='<%=request.getContextPath()%>/views/space/fullcalendar/main.min.js'></script>
+        <!--<script src='<%=request.getContextPath()%>/views/space/js/comment.js'></script>-->
         <script src='<%=request.getContextPath()%>/views/space/js/comment.js'></script>
         <script src='<%=request.getContextPath()%>/views/space/js/review.js'></script>
 
@@ -560,7 +561,7 @@
           
             <nav id="main" class="navbar-light bg-light">
                  <input id="spaceNum" type="text" value="<%=space.getSpaceNo()%>" hidden> <!--공간번호--> 
-
+                 <input id="userNo" type="text" value="<%=userNo%>" hidden >
 				<% if(hostCheck==true){ %>
 				    <input id="hostCheck" type="text" value="true" hidden>
 					
@@ -569,7 +570,7 @@
 				    <input id="hostCheck" type="text" value="false" hidden>
 				 
 				 <%} %>
-				
+             
 
 
                 <div id="section_1">
@@ -807,7 +808,9 @@
                     
                             <table id="comment_table" class="list-group" >
 
-                                <tbody id="comment_body" class='review_body'></tbody>
+                                <tbody id="comment_body" class='qa_body'>
+
+                                </tbody>
                                     
                                     <!-- <tr class="comment_list">    
 
@@ -894,7 +897,7 @@
 
 
 
-                                    <div style=" width:100%; height:100%;"><button id="review_enroll" type="button" style="height:100%;" >등록하기</button></div>
+                                    <div style=" width:100%; height:100%;"><button id="qa_enroll" type="button" style="height:100%;" >등록하기</button></div>
 
                                 </div>
 
@@ -1232,7 +1235,7 @@
                        
                     </script>
 
-                       <input id="userNo" type="text" value="<%=userNo%>" hidden >
+                   
 
                        <!-- <% if (member!=null){ %>
                          <input id="userId" type="text" value="<%=member.getUserId()%>" hidden >
@@ -1341,7 +1344,7 @@
                      <!--유저가 호스트면-->
                    <% } 
      			    else { %>
-     			   
+                  
 					<div >
 
                         <div id="space_detail_select">

@@ -1,27 +1,30 @@
+
+//지역변수로 설정 ..
 //공간 정보 필요
 //컨텐츠내용
 //content
 
-const urlStr = window.location.href;
-const url = new URL(urlStr);
-
-const urlParams =url.searchParams
-const spaceNo= urlParams.get('spaceNo');
-console.log(spaceNo);
+const urlStrReview = window.location.href;
 
 $(function(){
 
-    
-    getReplyList(spaceNo,callbackData)
+    const url = new URL(urlStrReview);
+
+    const urlParams =url.searchParams
+    const spaceNo= urlParams.get('spaceNo');
+    console.log(spaceNo);
+
+    getReviewList(spaceNo,callbackReview)
+    insertReview(spaceNo);
   
 
-})
-$(function(){
-    insertReview();
-})
+
+// $(function(){
+//     insertReview();
+// })
 
 //콜백함수
-function callbackData(result){
+function callbackReview(result){
     const replyBody=document.querySelector("#space_review tbody")
     let list =[]
     for(let r of result){
@@ -39,11 +42,12 @@ function callbackData(result){
 
 
 
-function getReplyList(spaceNo,callback){
+function getReviewList(spaceNo,callback){
    
      $.ajax({
 
         url:"review.sp",
+        cache: false,
         data:{spaceNum : spaceNo},
         success:function(result){
             console.log(result);
@@ -119,25 +123,27 @@ function deleteButton(buttonTag,reviewNo){
     buttonTag.onclick=function(){
         $.ajax({
             url:"delete.re",
+            cache: false,
             data:{
                 reviewNo:reviewNo,
             },
             success(result){
                 alert(result);
+                document.querySelector("#review_body").innerHTML="";
+                getReviewList(spaceNo,callbackReview);
             },
             error(result){
                 alert(result);
             }
         })
-        document.querySelector("#review_body").innerHTML="";
-        getReplyList(spaceNo,callbackData);
+      
     }
    
 }
 
 
 
-function insertReview(){
+function insertReview(spaceNo){
 
    const reviewButton= document.querySelector("#reivew_enroll");
    const reviewContent=document.querySelector("#reivew_content");
@@ -145,6 +151,7 @@ function insertReview(){
    reviewButton.onclick=function(){
         $.ajax({
             url:"insert.re",
+            cache: false,
             method:"POST",
             data:{
                 spaceNum:spaceNo,
@@ -152,14 +159,17 @@ function insertReview(){
             },
             success(result){
                 alert(result)
+                reviewContent.value="";
+                document.querySelector("#review_body").innerHTML="";
+                getReviewList(spaceNo,callbackReview);
             },
             error(result){
                 alert(result)
             }
         })
-        reviewContent.value="";
-        document.querySelector("#review_body").innerHTML="";
-        getReplyList(spaceNo,callbackData);
+      
     }
 
 }
+
+})
