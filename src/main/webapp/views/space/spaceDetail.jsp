@@ -104,6 +104,7 @@
         <script src="<%=request.getContextPath()%>/views/space/js/reservationNum.js"></script>
         <script src='<%=request.getContextPath()%>/views/space/fullcalendar/main.min.js'></script>
         <script src='<%=request.getContextPath()%>/views/space/js/comment.js'></script>
+        <script src='<%=request.getContextPath()%>/views/space/js/review.js'></script>
 
         <style>
             @media (max-width: 1200px) {
@@ -370,14 +371,14 @@
                 background: none;
              }
 
-             button[type="button"] {
+             button[type="button"],button[type="submit"]{
                 background-color: #6623da;
                 color: white;
                 border: none;
                 padding: 6px 12px;
                 cursor: pointer;
             }
-            button[type="button"]:hover {
+            button[type="button"]:hover ,button[type="submit"]:hover{
              background-color: #0056b3;
             }
 
@@ -538,9 +539,12 @@
 
   
     <body>
+      
      
+
      
-         <%@ include file="../common/menubar.jsp" %>
+      
+     <%@ include file="../common/menubar.jsp"%>
      
         
             
@@ -908,60 +912,45 @@
      
                              <table id="review_table" class="list-group">
 
-
-                                <%for(int i=0; i<6; i++) {%>
-
-                                    <tr class="comment_list">    
-
-                                        <th class="nickName" style="width:20%">user<%=i%></th>
-                                        <td class="mb-1" > 리뷰내용<%=i%></td>
-            
-                                    </tr>
-            
-                                    <tr class="comment_list">
-                                            <th class="clear"></th>
-                                            <td class="time">2024-04-11</td>
-                                    </tr>
-            
-
-                                   <tr id="comment_margin">
-                                       <td colspan="2" id="comment_line"><hr></td>
-                                   </tr>
-                                 <% } %>
-
-                                  
-
-
+                                <tbody class='comment_body'></tbody>
+                       
                             </table>
 
 
 
                         </div>
 
+                        <% if(loginUser!=null) {%>
+                            <form action="<%=contextPath%>/reviewInsert.sp" method="POST">
+                                <input id="spaceNum" type="text" value="1" hidden> <!--공간번호--> 
+                            
+                                    <div id="comment_info" style="height:80px">
+                                        <th></th>
+                                        <td>
+                                            <div class="review" style="  font-size: 1.2rem; margin-top:30px">리뷰 등록하기</div>
 
-                        <input id="spaceNum" type="text" value="1" hidden> <!--공간번호--> 
-                        <div id="comment_info" style="height:80px">
-                            <th></th>
-                            <td>
-                                <div class="review" style="  font-size: 1.2rem; margin-top:30px">리뷰 등록하기</div>
+                                            <div id="comment div" style="width:100%; height:100%; display:flex; justify-content:center;">
 
-                                <div id="comment div" style="width:100%; height:100%; display:flex; justify-content:center;">
-                                    
-                                    <div style="width:100%">
-                                        <textarea id="content" placeholder="입력하세요" style="width:500px;"  ></textarea>
+                                                <input type="text" name="spaceNum"  value="<%=space.getSpaceNo()%>" hidden>
+                                                <div style="width:100%">
+                                                    <textarea id="content" placeholder="입력하세요" name="content" style="width:500px;" ></textarea>
+                                                </div>
+                                                <div style=" width:100%; height:100%;"><button id="comment_enroll" type="submit" style="height:100%;">등록하기</button></div>
+                                            </div>
                                        
+                                        
+                                              
+                                        </td>   
                                     </div>
+                            </form> 
+                        <% } %>
+                                        
+                                  
+                                   
 
-
-
-                                    <div style=" width:100%; height:100%;"><button id="comment_enroll" type="button" style="height:100%;" >등록하기</button></div>
-
-                                </div>
-
-                            </td>
-                        </div>
-
-
+                                   
+                            
+                      
 
                 </div>
               
@@ -1238,7 +1227,13 @@
                     </script>
 
                        <input id="userNo" type="text" value="<%=userNo%>" hidden >
-                  
+
+                       <!-- <% if (member!=null){ %>
+                         <input id="userId" type="text" value="<%=member.getUserId()%>" hidden >
+                        <% } else {%>
+                            <input id="userId" type="text" value="-1" hidden >
+                        <% } %> -->
+
                   		
                   		
                   
@@ -1247,7 +1242,7 @@
                         
                             <button  class="navbar-toggler" type="button" class="button" data-toggle="modal"  data-target="#pay-modal" 
                                 id="reservation_btn" style="color:white">예약하기</button>
-                            <button class="navbar-toggler" type="button" class="button" style="color:white">목록으로</button>
+                            <button class="navbar-toggler" type="button" class="button" style="color:white" onclick="location.href='<%=contextPath%>'">목록으로</button>
                             <%}else{%>
 						
 						       <button class="navbar-toggler" type="button" class="button" style="color:white">로그인하세요</button>
@@ -1413,20 +1408,19 @@
                             <div class="option_kind">10</div>
                             <div class="option_kind">11</div>
                             <div class="option_kind">12</div>
-                        </div>
+                        </div>  
 
                         <div align="center">
                             <form action="#" method="post" style="display: inline;">
-                                <button type="button" class="button">취소하기</button>
+                                <button type="button" class="button" onclick="location.href='<%=request.getContextPath()%>/delete.sp?spaceNum=<%=space.getSpaceNo()%>'">취소하기</button>
                             </form>
-                            <button type="button" class="button" onclick="location.href=history.back();">목록으로</button>
+                            <button type="button" class="button"     onclick="location.href='<%=request.getContextPath()%>/main.ho'">호스트 홈</button>
                         </div>
 
                     </div>
 
 
-
-
+                
 
                  </div>
                  
