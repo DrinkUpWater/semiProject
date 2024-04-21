@@ -47,7 +47,6 @@ function getReviewList(spaceNo,callback){
      $.ajax({
 
         url:"review.sp",
-        cache: false,
         data:{spaceNum : spaceNo},
         success:function(result){
             console.log(result);
@@ -123,7 +122,6 @@ function deleteButton(buttonTag,reviewNo){
     buttonTag.onclick=function(){
         $.ajax({
             url:"delete.re",
-            cache: false,
             data:{
                 reviewNo:reviewNo,
             },
@@ -151,7 +149,6 @@ function insertReview(spaceNo){
    reviewButton.onclick=function(){
         $.ajax({
             url:"insert.re",
-            cache: false,
             method:"POST",
             data:{
                 spaceNum:spaceNo,

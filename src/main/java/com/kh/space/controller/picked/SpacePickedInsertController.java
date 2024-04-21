@@ -32,24 +32,20 @@ public class SpacePickedInsertController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	    request.setCharacterEncoding("utf-8");
-		HttpSession session =request.getSession();
-		int spaceNum=Integer.parseInt(request.getParameter("spaceNum"));
-		
-		Member m=(Member)session.getAttribute("loginUser");
+		request.setCharacterEncoding("utf-8");
+		response.setContentType("application/json; charset=utf-8");
+
+		HttpSession session = request.getSession();
+		Member m = (Member) session.getAttribute("loginUser");
 		int result=0;
-		
-		if(m==null) {//필터 줄것
-			
-			session.setAttribute("alertMsg", "로그인하세요");
-			
-			response.sendRedirect(request.getContextPath()+"/detailview.sp?spaceNo="+spaceNum);
-			return;
+
+		if (m == null) {
+			new Gson().toJson("로그인하세요", response.getWriter());
 		}
-		
+
 		else {
 			
-		
+			int spaceNum=Integer.parseInt(request.getParameter("spaceNum"));
 			int userNo=m.getUserNo();
 			
 			//찜한 리스트에 추가
@@ -58,9 +54,7 @@ public class SpacePickedInsertController extends HttpServlet {
 			//찜한 리스트 확인
 			
 			Picked picked=service.selectOnePicked(spaceNum,userNo);
-			response.setContentType("application/json; charset=utf-8");
-			
-			
+
 			String check="";
 			if(picked==null) {
 				 result=service.insertPicked(spaceNum,userNo);
@@ -79,7 +73,7 @@ public class SpacePickedInsertController extends HttpServlet {
 						check="찜하기";
 					 }else {
 						 check="찜해제";
-					 }
+				 }
 					 
 			}
 			

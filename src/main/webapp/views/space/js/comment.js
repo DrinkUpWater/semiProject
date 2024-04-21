@@ -50,7 +50,6 @@ function getCommentList(spaceNo,callback){
      $.ajax({
 
         url:"select.gu",
-        cache: false,
         data:{spaceNum : spaceNo},
         success:function(result){
            // console.log(result);
@@ -206,16 +205,7 @@ function drawTableList(commentList,parentTag){
             //     this.value=replyText;
             // }
 
-            hostTitles.onclick=function(){
-                 //tr태그는 table-row임 주의!!!
-
-                if(replyRow3.style.display==="table-row"){
-                    replyRow3.style.display="none";
-                }
-                else{
-                    replyRow3.style.display="table-row";
-                }
-            }
+        
            
               insertHostComment(enrollBtn,textarea,reply.commentNo);
               deleteHostComment(deleteBtn,reply.commentNo)
@@ -223,7 +213,16 @@ function drawTableList(commentList,parentTag){
          
         }
         
-     
+        hostTitles.onclick=function(){
+            //tr태그는 table-row임 주의!!!
+
+           if(replyRow3.style.display==="table-row"){
+               replyRow3.style.display="none";
+           }
+           else{
+               replyRow3.style.display="table-row";
+           }
+     }
      
 
     
@@ -254,7 +253,6 @@ function deleteHostComment(buttonTag,commentNo){
     buttonTag.onclick=function(){
         $.ajax({
             url:"delete.ho",
-            cache: false,
             data:{
                 commentNo:commentNo,
             },
@@ -281,7 +279,6 @@ function insertHostComment(hostButton,hostreply,commentNo){
    hostButton.onclick=function(){
         $.ajax({
             url:"insert.ho",
-            cache: false,
             method:"POST",
             data:{
                 commentNo:commentNo,
@@ -311,7 +308,6 @@ function insertGuestComment(spaceNo){
    qaButton.onclick=function(){
         $.ajax({
             url:"insert.gu",
-            cache: false,
             method:"POST",
             data:{
                 spaceNum:spaceNo,
@@ -336,7 +332,6 @@ function deleteGuestComment( buttonTag,commentNo){
     buttonTag.onclick=function(){
         $.ajax({
             url:"delete.gu",
-            cache: false,
             data:{
                 commentNo:commentNo,
             },

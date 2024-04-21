@@ -108,7 +108,7 @@
         <!--<script src='<%=request.getContextPath()%>/views/space/js/comment.js'></script>-->
         <script src='<%=request.getContextPath()%>/views/space/js/comment.js'></script>
         <script src='<%=request.getContextPath()%>/views/space/js/review.js'></script>
-
+        <script src='<%=request.getContextPath()%>/views/space/js/picked.js'></script>
         <style>
             @media (max-width: 1200px) {
 
@@ -173,7 +173,7 @@
             .space {
             
                 display: grid;
-                grid-template-rows: repeat(2, 250px);
+                grid-template-rows: repeat(2, 200px);
                 /* grid-template-columns: repeat(3, 1fr); */
                 column-gap: 50px;
 
@@ -237,19 +237,54 @@
 
 
             }
+            /*     -----     */
 
-            #space_comment>div {
+            #space_comment {/*그리드 따로 줫다.*/
+                
+                display: grid;
+                grid-template-rows: repeat(1, 500px);
+                /* grid-template-columns: repeat(3, 1fr); */
+                column-gap: 50px;
+
+                /* border: solid 1px red;  */
+
+                /*margin: 30px; */
+                font-size: 20px;
                 height: 100%;
+                align-items: center;
+              
                 /* display: inline-block; */
             }
-           
+            #space_comment > .img_div{
+                width: calc(100%*(<%=attachment.size()+1%>)); /* 슬라이더의 너비를 화면에 꽉 차게 설정 */
+                overflow: hidden; /* 컨테이너 밖의 이미지는 숨김 처리 */
+                display: flex; /* 이미지들을 가로로 나열 */
+                animation: slide 60s linear infinite; /* 애니메이션 적용 */
+                height:100%;
+            }
+            #space_comment img{
 
+                 width: calc(100%/(<%=attachment.size()+1%>)); /* 각 이미지가 슬라이더 너비에 맞게 조정 */
+                 flex-shrink: 0; /* 이미지가 압축되지 않도록 설정 */
+                 height:100%;
+            }
+
+            @keyframes slide {
+                0% { transform: translateX(0); }
+                100% { transform: translateX(-85.7143%); } /* 총 너비의 100% 이동 */
+            }
+
+             /* --------  */
+
+
+            
             .img_div {
                 height: 100%;
                 width:100%;
                 /* border: solid brown; */
                 margin-bottom: 50px;
                 align-items: center;
+                transition: all 1s ease-in;
             }
 
             .img_div>img {
@@ -257,6 +292,10 @@
                  height: 100%;
 
             }
+           
+
+
+         
 
             .quest {
                 display: flex;
@@ -575,148 +614,42 @@
 
                 <div id="section_1">
 
+                    <!--찜하기-->
 
                     <div id="space_id" name="space_name" class="title">
                         <div class="text"><%=space.getSpaceName() %> </div> 
-                        <div id="picked_divs" onclick="picked(this)" >찜하기<i class='fa-regular fa-heart'></i></div>
+                        <div id="picked_divs">찜하기<i class='fa-regular fa-heart'></i></div>
                     </div>
 
 			      <script>
                 
-                        window.onload = function(){
                       
-                        	  pickedview();
-                          
-                          };
-                          
-                         
-                          
-                        function pickedview(){
-                         	 	
-                        	  <%if(member==null){%>
-                        	     
-                       	 	 	  return false;
-                       	 
-                       		  <% }%>  
-                        	
-                              let spaceNo=document.querySelector("#spaceNum").value;
-                              let picked=document.querySelector("#picked")
-                              let pickedText=document.querySelector("#picked_divs");
-                          	
-                              
-                              $.ajax({
-
-                                  url:'pickedcheck.sp',
-                                  type:'GET',
-                              
-                                  data:{
-                                      spaceNum:spaceNo
-                       
-                                  },
-
-                                  success:function(response){
-                                 
-                                  
-                                  if(response==="찜하기"){
-                                 	 pickedText.innerHTML=response+"<i class='fa-regular fa-heart'></i>"
-                                  
-                                  }
-                                  else{
-                                 	 pickedText.innerHTML=response+"<i class='fa-solid fa-heart' style='color:red'></i>"
-                                  }
-                                  
-                                 },
-                                  error:function(error){
-                                      console.log("error"+error);
-
-                                  }
+                 </script>
 
 
-                              })
-                         
-                         	 
-                         	 
-                         }
-                                 
-                                 
-                             
-                          
-                              function picked(_this){
-                            	
-                            	  <%if(member==null){%>
-                            	     alert("로그인해주세요");
-                              	 	 return false;
-                              	 
-                              	 <% }%>  
-                            	  
-                            	  
-                                let spaceNo=document.querySelector("#spaceNum").value;
-                                let picked=document.querySelector("#picked")
-                            
-                                
-                                $.ajax({
+                    <div id="space_comment" class="space">
 
-                                    url:'picked.sp',
-                                    type:'GET',
-                                
-                                    data:{
-                                        spaceNum:spaceNo
-                         
-                                    },
+                     
 
-                                    success:function(response){
-                                    console.log(response);
-                                    
-                                    if(response==="찜하기"){
-                                    	_this.innerHTML=response+"<i class='fa-regular fa-heart'></i>"
-                                    
-                                    }
-                                    else{
-                                    	_this.innerHTML=response+"<i class='fa-solid fa-heart' style='color:red'></i>"
-                                    }
-                                    
-                                   },
-                                    error:function(error){
-                                        console.log("error"+error);
-
-                                    }
+                             <div class="img_div" >
+                                <% for (Attachment at: attachment) { %>
+                                    <img src="<%=request.getContextPath()%>/<%=at.getFilePath()%>"/>
+                                    <img src="<%=request.getContextPath()%>/<%=at.getFilePath()%>"/>
+                                 <% } %>
+                             </div>
+                    
+                    </div>
+                    
+                    <div style="margin-bottom: 50px; font-size: 20px;" >
+                        <span>
+                            <%=space.getSpaceOneIntroduce() %>
+                            asdfasdf
+                            asdfasdfdsaf
+                            asdfasdfasdfasdfasdfasdfsadfas
+                        </span>
+                     </div>
 
 
-                                })
-                           
-                                
-
-                                // if(_this.innerText==="찜하기"){
-                                //     _this.innerText="찜해제";
-                                //     alert("찜해제되었습니다.")
-                                // }
-                                // else{
-                                //     _this.innerText="찜하기";
-                                //     alert("찜하기");
-                                // }
-
-
-
-                             }
-
-                       </script>
-
-
-			   <div id="space_comment" class="space">
-
-                        <div class="img_div" >
-
-                            <img src="<%=request.getContextPath()%>/<%=space.getSpaceMimg()%>"/>
-                            
-                         </div>
-
-                        <div style=" padding-top:20px; ">
-                            <span>
-                                <%=space.getSpaceOneIntroduce() %>
-                            </span>
-
-                        </div>
-                 </div>
                     <div id="list">
                         <ul>
                             <li><a href="#space_intro">공간소개</a></li>

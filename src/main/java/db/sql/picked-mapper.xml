@@ -30,7 +30,15 @@
 		</entry>
 		
 		
-		<entry key="selectPickedes">
+		<entry key="selectPicked">
+			SELECT 
+				   count(*) AS "count"
+				   FROM PICKED
+				   WHERE USER_NO = ? AND SPACE_NO = ?
+				   
+		</entry>
+		
+	    <entry key="selectPickedes">
 			SELECT 
 				   P.SPACE_NO,
 				   SPACE_NAME,
@@ -42,7 +50,7 @@
 				   FROM SPACE S
 				   JOIN PICKED P
 				   ON (S.SPACE_NO=P.SPACE_NO)
-				   WHERE P.USER_NO = ?
+				   WHERE P.USER_NO = ? 
 				   
 		</entry>
 		
