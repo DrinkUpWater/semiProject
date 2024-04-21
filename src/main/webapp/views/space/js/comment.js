@@ -104,26 +104,35 @@ function drawTableList(commentList,parentTag){
                              <th class='clear'></th>
                              <td class='mb-1 time'>`+reply.insertDate+`</td> 
                             `
+
         replyRow2.innerHTML= `
                               <th class='clear'></th>
-                              <td><button class='btn btn-link  p-0  host-reply-toggle' data-target='#hostReply' >호스트답글</button></td>
+                            
                              ` 
+ 
+
         replyRow3.innerHTML=`<th class='clear'> </th>
                              <td> <div  class='hostReplys' class='host-reply-content mt-2'>
                                     <p class='p_class'>`+reply.hostReply+`</p>
                                   </div>
                              </td> ` 
-                             
+
+                
                             
-
         replyRow5.innerHTML=`
-                             <td colspan='2' id='comment_line'><hr></td>
-                            `                           
-
-     
-   
-                            //html input태그에 값 저장해놈 (다른 방법 찾아볼것)
+              <td colspan='2' id='comment_line'><hr></td>
+         `                           
     
+
+         const titleTd=document.createElement("td");
+         const hostTitles =document.createElement("button");
+         hostTitles.className="btn btn-link  p-0 ";
+         hostTitles.innerText="호스트답글";
+         replyRow2.appendChild(titleTd).appendChild(hostTitles);
+
+        replyRow3.style.display="none";    
+   
+                                          
       
        parentTag.appendChild(replyRow);
        parentTag.appendChild(replyRow1);
@@ -131,8 +140,8 @@ function drawTableList(commentList,parentTag){
        parentTag.appendChild(replyRow3);
       
 
-          //host답글
-       //방의 주인만 QandA에 대한 답글을 달거나,삭제한다.
+         // host답글
+      // 방의 주인만 QandA에 대한 답글을 달거나,삭제한다.
         const hostCheck=document.querySelector("#hostCheck");
       
 
@@ -196,13 +205,23 @@ function drawTableList(commentList,parentTag){
             //      console.log(replyRow3.getElementsByClassName('hostReplys  p_class'));
             //     this.value=replyText;
             // }
+
+            hostTitles.onclick=function(){
+                 //tr태그는 table-row임 주의!!!
+
+                if(replyRow3.style.display==="table-row"){
+                    replyRow3.style.display="none";
+                }
+                else{
+                    replyRow3.style.display="table-row";
+                }
+            }
            
               insertHostComment(enrollBtn,textarea,reply.commentNo);
               deleteHostComment(deleteBtn,reply.commentNo)
           
          
         }
-
         
      
      

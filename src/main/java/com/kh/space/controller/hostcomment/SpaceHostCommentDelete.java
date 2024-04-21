@@ -32,8 +32,16 @@ public class SpaceHostCommentDelete extends HttpServlet {
 		
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("application/json; charset=utf-8");
-		int commentNo=Integer.parseInt(request.getParameter("commentNo"));
+		String commentN=request.getParameter("commentNo");
+		if(commentN==null) {
+			new Gson().toJson("답글이 없습니다.",response.getWriter());
+			
+		}else {
 		
+		
+		
+		
+		int commentNo=Integer.parseInt(commentN);
 		int result=new SpaceCommentService().deleteHostComment(commentNo);
 		
 		if(result>0) {
@@ -41,7 +49,7 @@ public class SpaceHostCommentDelete extends HttpServlet {
 		}else {
 			new Gson().toJson("삭제실패",response.getWriter());
 		}
-		
+	  }
 	}
 
 	/**
