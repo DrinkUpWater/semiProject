@@ -136,8 +136,10 @@
         margin: 0;
         padding: 0;
         font-size: 20px;
-        cursor: pointer;
     } 
+    .side-tohost {
+    	cursor: pointer;
+    }
     .side-menu{
         
     }
@@ -217,7 +219,7 @@
 		            </div>
 		            <h2 class="menubar-logo" >kH ROOMMOAH</h2>
 		            <div align="end" id="right-bar">
-		                <a href="">${loginUser.nickName}</a> | <a href="logout.me">로그아웃</a>
+		                <a href="myPage.me">${loginUser.nickName}</a> | <a href="logout.me">로그아웃</a>
 		            </div>
 		        </div>
         	</c:otherwise>

@@ -345,7 +345,7 @@
                     <td colspan="2" align="right"></td>
                 </tr>
                 <tr>
-                    <td colspan="2" ><input id="input-addr" id="spaceAddress" class="input-text" type="text" name="spaceAddress" placeholder="실제 서비스되는 공간의 주소를 입력해주세요." required readonly></td>
+                    <td colspan="2" ><input id="spaceAddress" class="input-text" type="text" name="spaceAddress" placeholder="실제 서비스되는 공간의 주소를 입력해주세요." required readonly></td>
                     <td ><button type="button" onclick="searchAddr()">주소 검색</button></td>
                 </tr>
                 <tr>
