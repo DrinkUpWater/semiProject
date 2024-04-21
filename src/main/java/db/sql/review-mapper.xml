@@ -42,6 +42,12 @@
 
 
 </entry>
+
+<entry key= "deleteReview">
+	DELETE FROM REVIEW 
+			WHERE REVIEW_NO = ? AND USER_NO = ?
+
+</entry>
 	
 
 

@@ -52,7 +52,9 @@ public class SpaceCommentDao {
 						rest.getString("USER_ID"),
 						rest.getString("게스트답글"),
 						rest.getDate("INSERT_DATE"),
-						rest.getString("호스트답글")
+						rest.getString("호스트답글"),
+						rest.getInt("USER_NO")
+						
 						));
 				
 			}

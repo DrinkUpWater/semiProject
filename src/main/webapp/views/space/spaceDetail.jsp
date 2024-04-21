@@ -99,6 +99,8 @@
         <link href="https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
 
 
+        <link rel="stylesheet" href="<%=request.getContextPath()%>/views/space/css/review.css"/>
+
         <script src="<%=request.getContextPath()%>/views/space/js/calenderClick.js"></script>
         <script src="<%=request.getContextPath()%>/views/space/js/modal.js"></script>
         <script src="<%=request.getContextPath()%>/views/space/js/reservationNum.js"></script>
@@ -801,9 +803,11 @@
 
                     <div id="space_qa_comment" class="space  container mt-4">
 
+                      
                     
                             <table id="comment_table" class="list-group" >
-                                
+
+                                <tbody id="comment_body" class='review_body'></tbody>
                                     
                                     <!-- <tr class="comment_list">    
 
@@ -890,7 +894,7 @@
 
 
 
-                                    <div style=" width:100%; height:100%;"><button id="comment_enroll" type="button" style="height:100%;" >등록하기</button></div>
+                                    <div style=" width:100%; height:100%;"><button id="review_enroll" type="button" style="height:100%;" >등록하기</button></div>
 
                                 </div>
 
@@ -912,7 +916,7 @@
      
                              <table id="review_table" class="list-group">
 
-                                <tbody class='comment_body'></tbody>
+                                <tbody id="review_body" class='review_body'></tbody>
                        
                             </table>
 
@@ -921,29 +925,31 @@
                         </div>
 
                         <% if(loginUser!=null) {%>
-                            <form action="<%=contextPath%>/reviewInsert.sp" method="POST">
-                                <input id="spaceNum" type="text" value="1" hidden> <!--공간번호--> 
+                           
+                               
                             
-                                    <div id="comment_info" style="height:80px">
+                                    <div id="reivew_info" style="height:80px">
                                         <th></th>
                                         <td>
                                             <div class="review" style="  font-size: 1.2rem; margin-top:30px">리뷰 등록하기</div>
 
-                                            <div id="comment div" style="width:100%; height:100%; display:flex; justify-content:center;">
+                                            <div id="reivew div" style="width:100%; height:100%; display:flex; justify-content:center;">
 
                                                 <input type="text" name="spaceNum"  value="<%=space.getSpaceNo()%>" hidden>
                                                 <div style="width:100%">
-                                                    <textarea id="content" placeholder="입력하세요" name="content" style="width:500px;" ></textarea>
+                                                    <textarea id="reivew_content" placeholder="입력하세요" name="content" style="width:500px;" ></textarea>
                                                 </div>
-                                                <div style=" width:100%; height:100%;"><button id="comment_enroll" type="submit" style="height:100%;">등록하기</button></div>
+                                                <div style=" width:100%; height:100%;"><button id="reivew_enroll" type="button" style="height:100%;">등록하기</button></div>
                                             </div>
                                        
                                         
                                               
                                         </td>   
                                     </div>
-                            </form> 
+                           
                         <% } %>
+
+                        
                                         
                                   
                                    

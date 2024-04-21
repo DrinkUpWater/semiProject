@@ -27,7 +27,8 @@
 	         USER_ID,
 	  		 G.CONTENT AS "게스트답글",
 	  		 INSERT_DATE,
-             NVL(H.CONTENT,' ') AS "호스트답글"
+             NVL(H.CONTENT,' ') AS "호스트답글",
+             G.USER_NO
 	  		 FROM GUESTCOMMENT G 
 	  		 JOIN MEMBER M
 	  		 ON(G.USER_NO=M.USER_NO)
