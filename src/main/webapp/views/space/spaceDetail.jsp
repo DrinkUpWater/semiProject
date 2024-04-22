@@ -112,6 +112,10 @@
         <script src='<%=request.getContextPath()%>/views/space/js/comment.js'></script>
         <script src='<%=request.getContextPath()%>/views/space/js/review.js'></script>
         <script src='<%=request.getContextPath()%>/views/space/js/picked.js'></script>
+
+        <!-- <script type="text/javascript" defer src="//dapi.kakao.com/v2/maps/sdk.js?appkey=24fbf0aa04ad80c31d8c0f4d004c6c37"></script>
+        <script src='<%=request.getContextPath()%>/views/space/js/map.js'></script> -->
+      
         <style>
             @media (max-width: 1200px) {
 
@@ -508,9 +512,7 @@
                     <div style="margin-bottom: 50px; font-size: 20px;" >
                         <span>
                             <%=space.getSpaceOneIntroduce() %>
-                            asdfasdf
-                            asdfasdfdsaf
-                            asdfasdfasdfasdfasdfasdfsadfas
+                        
                         </span>
                      </div>
 
@@ -554,13 +556,6 @@
                             </tbody>
 
                         </table>
-
-
-
-
-
-
-
                     </div>
 
 
@@ -579,16 +574,49 @@
                         <div class="text">길찾기</div>
                         <hr class="line2" style="background:rgb(235, 229, 229) ">
                     </div>
+
                     <div id="space_road_comment" class="space">
 
+                        <div id="map" style="width:1000px;height:500px;"></div>
+                        <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=&libraries=services,clusterer,drawing"></script>
+                        <script>
+                            let mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+                               mapOption = {
+                                center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+                                level: 3 // 지도의 확대 레벨
+                            };  
 
-                       <iframe
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3165.378379236162!2d127.03290899999996!3d37.49899300000002!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357c9ec255555555%3A0x3565475c3365c5bb!2zS0jsoJXrs7TqtZDsnKHsm5A!5e0!3m2!1sko!2skr!4v1712133003105!5m2!1sko!2skr"
-                            style="border:0; width:100%; height:200%;" allowfullscreen="" loading="lazy"
-                            referrerpolicy="no-referrer-when-downgrade" > </iframe>
+                            // 지도를 생성합니다    
+                            let map = new kakao.maps.Map(mapContainer, mapOption); 
 
-                        
+                            // 주소-좌표 변환 객체를 생성합니다
+                            let geocoder = new kakao.maps.services.Geocoder();
 
+                            // 주소로 좌표를 검색합니다
+                            geocoder.addressSearch("서울특별시 강남구 강남구 테헤란로14길 6", function(result, status) {
+
+                                // 정상적으로 검색이 완료됐으면 
+                                if (status === kakao.maps.services.Status.OK) {
+
+                                    let coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+
+                                    // 결과값으로 받은 위치를 마커로 표시합니다
+                                    let marker = new kakao.maps.Marker({
+                                        map: map,
+                                        position: coords
+                                    });
+
+                                    // 인포윈도우로 장소에 대한 설명을 표시합니다
+                                    let infowindow = new kakao.maps.InfoWindow({
+                                       content: '<div style="width:150px;text-align:center;padding:6px 0;">우리공간</div>'
+                                    });
+                                    infowindow.open(map, marker);
+
+                                    // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+                                    map.setCenter(coords);
+                                } 
+                            });    
+                        </script>
                     </div>
 
 
@@ -600,15 +628,13 @@
 
 
 
-                    <div id="space_qa_comment" class="space">
+                        <div id="space_qa_comment" class="space">
 
                       
                     
-                            <table id="comment_table"  class="list-group"  >
+                            <table id="comment_table"  class="list-group" >
 
-                                <tbody id="comment_body" class='qa_body'>
-
-                                </tbody>
+                                <tbody id="comment_body" class='qa_body'></tbody>
                                     
                                     <!-- <tr class="comment_list">    
 
@@ -667,17 +693,9 @@
                                 -->
                               
                             </table> 
+                        </div>
 
-                    </div>
-
-                    <script>
-                        // $(document).ready(function(){
-                        //     $(".host-reply-toggle").click(function(){
-                        //         let targetId = $(this).data("target");
-                        //         $(targetId).toggle();
-                        //     });
-                        // });
-                    </script>
+                   
 
 
 
@@ -702,7 +720,7 @@
                                        >
                                     </div>
                                 </div>
-
+                            </div>
                          <% } %>
 
 
@@ -721,48 +739,35 @@
                                 <tbody id="review_body" class='review_body'></tbody>
                        
                             </table>
-
-
-
                         </div>  <!--reivew_content  reivew_enroll-->
 
                         <% if(loginUser!=null) {%>
                            
-                               <input type="text" name="spaceNum"  value="<%=space.getSpaceNo()%>" hidden>
+                               <input type="text" name="spaceNum"  value="<%=space.getSpaceNo()%>" hidden/>
                             
                                <div class="container mt-4">
-                                <div class="card">
-                                    <div class="card-header bg-primary text-white">
-                                      리뷰등록
-                                    </div>
-                                    <div class="card-body">
-                                        <form>
-                                            <input type="hidden" name="spaceNum" value="<%=space.getSpaceNo()%>"> <!-- Ensure server-side template rendering supports this syntax -->
-                                            <div class="mb-3">
-                                                <label for="review_content" class="form-label">리뷰작성</label>
-                                                <textarea class="form-control" id="reivew_content" name="content" placeholder="입력하세요" rows="3" style="width: 100%;"></textarea>
-                                            </div>
-                                            <div class="d-grid">
-                                                <button type="button" id="reivew_enroll" class="btn btn-primary btn-block">리뷰등록하기</button>
-                                            </div>
-                                        </form>
+                                    <div class="card">
+                                        <div class="card-header bg-primary text-white">
+                                        리뷰등록
+                                        </div>
+                                        <div class="card-body">
+                                            <form>
+                                                <input type="hidden" name="spaceNum" value="<%=space.getSpaceNo()%>"> <!-- Ensure server-side template rendering supports this syntax -->
+                                                <div class="mb-3">
+                                                    <label for="review_content" class="form-label">리뷰작성</label>
+                                                    <textarea class="form-control" id="reivew_content" name="content" placeholder="입력하세요" rows="3" style="width: 100%;"></textarea>
+                                                </div>
+                                                <div class="d-grid">
+                                                    <button type="button" id="reivew_enroll" class="btn btn-primary btn-block">리뷰등록하기</button>
+                                                </div>
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
-                           
                         <% } %>
 
-                        
-                                        
-                                  
-                                   
-
-                                   
-                            
-                      
-
-                </div>
               
-
+                </div>
 
 
                 <div id="section_2">
@@ -795,10 +800,6 @@
 
                             <p>
                                 <span>서울대 입구..스터디룸 카페 예약
-                                    서울대 입구..스터디룸 카페 예약
-                                    서울대 입구..스터디룸 카페 예약
-                                    서울대 입구..스터디룸 카페 예약
-                                    서울대 입구..스터디룸 카페 예약
                                 </span>
                             </p>
 
