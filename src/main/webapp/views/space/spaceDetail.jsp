@@ -100,6 +100,9 @@
 
 
         <link rel="stylesheet" href="<%=request.getContextPath()%>/views/space/css/review.css"/>
+        <link rel="stylesheet" href="<%=request.getContextPath()%>/views/space/css/qa.css"/>
+
+
 
         <script src="<%=request.getContextPath()%>/views/space/js/calenderClick.js"></script>
         <script src="<%=request.getContextPath()%>/views/space/js/modal.js"></script>
@@ -137,6 +140,13 @@
             * {
                 border: border-box;
 
+            }
+
+            body {
+                font-family: Arial, sans-serif;
+                background-color: #f4f4f4;
+                margin: 0;
+                padding: 20px;
             }
 
             #temp {
@@ -293,178 +303,16 @@
 
             }
            
-
-
-         
-
             .quest {
                 display: flex;
                 justify-content: space-evenly;
                 list-style: none;
             }
-
-
-
-            #space_qa_comment{
-                overflow: auto;
-                /* border:solid blue; */
-               
-            }
-           
-            /*----------QA--------------*/
-            #comment_table{
-                height:100%;
-                width:100%;
-              
-            }
-
-            /* #comment_table tr th td{
-                width:100%;
-            } */
-
-            #comment_table td {
-                padding-top: 8px;
-                padding-bottom: 8px;
-            }
-
-             #comment_table th, #comment_table td {
-                /* vertical-align: top; */
-            }
-
-            #comment_table .time {
-                font-size: 0.8rem;
-                color: #666;
-            }
-
-            #review_table .time{
-                font-size: 0.8rem;
-                color: #666;
-            }
-
-            .time{
-                font-size: 0.8rem;
-                color: #666;
-            }
-
-
-            #comment_table .time {
-                font-size: 0.8rem;
-                color: #666;
-            }
-
-            
-            .comment_list{
-             /* resize:none; */
-             padding: 8px;
-           }
-           .comment_list >th{
-              width:200px;
-           }
-           .comment_list >td{
-              width:500px;
-           }
-          
-          
-
-           #hostReplyContent{
-             width:50px;
-           }
-            .clear {
-                width: 20%;
-            }
-            .mb-1 {
-                margin-bottom: .25rem;
-            }
-            textarea{
-               
-              resize:none;
-              /* resize:vertical; */
-              height: 100%;
-           
-            }
-
-            .comment_list:last-child {
-               border-bottom: none;
-             }
-         
-
-
-             .nickName {
-                 font-weight: bold;
-             }
-
-             #comment_info{
-                width:100%;
-             }
-           
-            .host-reply-content {
-                background-color: #f9f9f9;
-                padding: 8px;
-                margin-top: 5px;
-                border-left: 3px solid #007bff;
-            }
-
-            .host-reply-toggle {
-                font-size: 0.9rem;
-                color: #007bff;
-                cursor: pointer;
-                padding: 0;
-                border: none;
-                background: none;
-             }
-
-             button[type="button"],button[type="submit"]{
-                background-color: #6623da;
-                color: white;
-                border: none;
-                padding: 6px 12px;
-                cursor: pointer;
-            }
-            button[type="button"]:hover ,button[type="submit"]:hover{
-             background-color: #0056b3;
-            }
-
-
-            #comment_list{
-               /* display:none; */
-                
-               width:90%;
-                margin-left:10%;
-               border: solid 1px salmon;
-               
-              
-            }
-            #comment_list>ul{
-                text-align: center;
-                border: solid 1px rgb(216, 80, 65);
-            }
-            #comment_list li{
-                
-                list-style: none;
-            }
-
-
-            .comment_list{
-                margin-bottom: 100px;
-              
-            }
-            
-           
-            #comment_list li{
-                
-                list-style: none;
-            }
-
+       
         
 
             /*--------리뷰---------*/
-           
-            #space_review{
-                overflow: auto;
-                /* border:solid blue; */
-               
-            }
-
+         
 
 
 
@@ -571,6 +419,23 @@
         	color:red;
         
         }
+
+        #reservation_btn{
+                background-color: #2d10e6;
+                color: white;
+                border: none;
+                padding: 6px 12px;
+                cursor: pointer;
+        }
+
+        #category_btn{
+                background-color: #dabc23;
+                color: white;
+                border: none;
+                padding: 6px 12px;
+                cursor: pointer;
+        }
+
           
 
         </style>
@@ -735,11 +600,11 @@
 
 
 
-                    <div id="space_qa_comment" class="space  container mt-4">
+                    <div id="space_qa_comment" class="space">
 
                       
                     
-                            <table id="comment_table" class="list-group" >
+                            <table id="comment_table"  class="list-group"  >
 
                                 <tbody id="comment_body" class='qa_body'>
 
@@ -814,28 +679,29 @@
                         // });
                     </script>
 
+
+
+
+
                         <% if(member!=null) {%>
-                    
-                        <div id="comment_info" style="height:80px">
-                            <th></th>
-                            <td>
-                                <div class="QA" style="  font-size: 1.2rem; margin-top:30px">QA등록하기</div>
-
-                                <div id="comment div" style="width:100%; height:100%; display:flex; justify-content:center;">
-                                    
-                                    <div style="width:100%">
-                                        <textarea id="content" placeholder="입력하세요" style="width:500px;"  ></textarea>
-                                       
+                            <div class="container mt-4">
+                                <div class="card">
+                                    <div class="card-header bg-primary text-white">
+                                      QA등록
                                     </div>
-
-
-
-                                    <div style=" width:100%; height:100%;"><button id="qa_enroll" type="button" style="height:100%;" >등록하기</button></div>
-
+                                    <div class="card-body">
+                                      
+                                     
+                                            <div class="mb-3">
+                                                <label for="review_content" class="form-label">QA작성</label>
+                                                <textarea class="form-control" id="content" name="content" placeholder="입력하세요" rows="3" style="width: 100%;"></textarea>
+                                            </div>
+                                            <div class="d-grid">
+                                                <button type="button" id="qa_enroll" class="btn btn-primary btn-block">QA작성하기</button>
+                                            </div>
+                                       >
+                                    </div>
                                 </div>
-
-                            </td>
-                        </div>
 
                          <% } %>
 
@@ -858,30 +724,30 @@
 
 
 
-                        </div>
+                        </div>  <!--reivew_content  reivew_enroll-->
 
                         <% if(loginUser!=null) {%>
                            
-                               
+                               <input type="text" name="spaceNum"  value="<%=space.getSpaceNo()%>" hidden>
                             
-                                    <div id="reivew_info" style="height:80px">
-                                        <th></th>
-                                        <td>
-                                            <div class="review" style="  font-size: 1.2rem; margin-top:30px">리뷰 등록하기</div>
-
-                                            <div id="reivew div" style="width:100%; height:100%; display:flex; justify-content:center;">
-
-                                                <input type="text" name="spaceNum"  value="<%=space.getSpaceNo()%>" hidden>
-                                                <div style="width:100%">
-                                                    <textarea id="reivew_content" placeholder="입력하세요" name="content" style="width:500px;" ></textarea>
-                                                </div>
-                                                <div style=" width:100%; height:100%;"><button id="reivew_enroll" type="button" style="height:100%;">등록하기</button></div>
-                                            </div>
-                                       
-                                        
-                                              
-                                        </td>   
+                               <div class="container mt-4">
+                                <div class="card">
+                                    <div class="card-header bg-primary text-white">
+                                      리뷰등록
                                     </div>
+                                    <div class="card-body">
+                                        <form>
+                                            <input type="hidden" name="spaceNum" value="<%=space.getSpaceNo()%>"> <!-- Ensure server-side template rendering supports this syntax -->
+                                            <div class="mb-3">
+                                                <label for="review_content" class="form-label">리뷰작성</label>
+                                                <textarea class="form-control" id="reivew_content" name="content" placeholder="입력하세요" rows="3" style="width: 100%;"></textarea>
+                                            </div>
+                                            <div class="d-grid">
+                                                <button type="button" id="reivew_enroll" class="btn btn-primary btn-block">리뷰등록하기</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
                            
                         <% } %>
 
@@ -925,7 +791,7 @@
 
                         <div id="space_detail_comment">
 
-                            <div class="img_div"><img src="<%=request.getContextPath()%>/<%=attachment.get(0).getFilePath()%>" >세부공간이미지</div>
+                            <div class="img_div"><img src="<%=request.getContextPath()%>/<%=space.getSpaceMimg() %>" >세부공간이미지</div>
 
                             <p>
                                 <span>서울대 입구..스터디룸 카페 예약
@@ -1184,7 +1050,7 @@
                         
                             <button  class="navbar-toggler" type="button" class="button" data-toggle="modal"  data-target="#pay-modal" 
                                 id="reservation_btn" style="color:white">예약하기</button>
-                            <button class="navbar-toggler" type="button" class="button" style="color:white" onclick="location.href='<%=contextPath%>'">목록으로</button>
+                            <button  id="category_btn"   class="navbar-toggler" type="button" class="button" style="color:white" onclick="location.href='<%=contextPath%>'">목록으로</button>
                             <%}else{%>
 						
 						       <button class="navbar-toggler" type="button" class="button" style="color:white">로그인하세요</button>
@@ -1287,7 +1153,7 @@
 
                         <div id="space_detail_comment">
 
-                            <div class="img_div"><img src="<%=request.getContextPath()%>/<%=attachment.get(0).getFilePath()%>">세부공간이미지</div>
+                            <div class="img_div"><img src="<%=request.getContextPath()%>/<%=space.getSpaceMimg()%>">세부공간이미지</div>
                     
 
                             <p>

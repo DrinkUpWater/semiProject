@@ -142,7 +142,9 @@ function drawTableList(commentList,parentTag){
          // host답글
       // 방의 주인만 QandA에 대한 답글을 달거나,삭제한다.
         const hostCheck=document.querySelector("#hostCheck");
-      
+        const td=document.createElement('td');
+        td.className='commentTd';
+       
 
         console.log(hostCheck);
         if(hostCheck.value==="true"){
@@ -165,7 +167,7 @@ function drawTableList(commentList,parentTag){
             //         </td>
             //  `
             const th=document.createElement('th');
-            const td=document.createElement('td');
+           // const td=document.createElement('td');
             const hostReplydiv=document.createElement('div');
             const div1=document.createElement('div');
             const div2=document.createElement('div');
@@ -181,9 +183,11 @@ function drawTableList(commentList,parentTag){
             hostReplydiv.style.display='flex';
             textarea.className='hostReplyContents';
             enrollBtn.className='enrollHostReplyBtn'
+            enrollBtn.className='btn btn-success';
             enrollBtn.innerText='등록하기'
             enrollBtn.type='button'
             deleteBtn.className='deleteHostReplyBtn'
+            deleteBtn.className='btn btn-danger';
             deleteBtn.innerText='삭제하기'
             deleteBtn.type='button'
        
@@ -196,7 +200,7 @@ function drawTableList(commentList,parentTag){
             replyContent.appendChild(div1).appendChild(textarea)
             replyContent.appendChild(div2).appendChild(enrollBtn)
             replyContent.appendChild(div3).appendChild(deleteBtn)
-            parentTag.appendChild(replyRow4);
+           // parentTag.appendChild(replyRow4);
 
 
             // textarea.onclick=function(){
@@ -212,6 +216,13 @@ function drawTableList(commentList,parentTag){
           
          
         }
+        else{
+            replyRow4.appendChild(td);
+        }
+
+        parentTag.appendChild(replyRow4);
+
+
         
         hostTitles.onclick=function(){
             //tr태그는 table-row임 주의!!!
@@ -232,7 +243,10 @@ function drawTableList(commentList,parentTag){
         if(userNo===reply.userNo){
 
             const cancelTd=document.createElement('td');
+            cancelTd.className='gustCancelTd  mb-1';
             const cancelButton=document.createElement('button')
+            cancelButton.className='GustDeleteButton'
+            cancelButton.type='button'
             cancelButton.innerHTML='삭제'
 
            const guestButton= replyRow.appendChild(cancelTd).appendChild(cancelButton);

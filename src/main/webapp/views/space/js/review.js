@@ -98,20 +98,25 @@ function drawTableList(reviewList,parentTag){
 
        let userNo=parseInt(document.querySelector("#userNo").value);
        //let userId=parseInt(document.querySelector("#userId").value);
+       const cancelTd=document.createElement('td');
 
         if((reply.reviewUserNo===userNo)){
-            const cancelTd=document.createElement('td');
+           // const cancelTd=document.createElement('td');
             const buttonTag=document.createElement('button');
            // buttonTag.className='submitHostReplyBtn';
             buttonTag.type='button'
 
             const cancelTdButton=cancelTd.appendChild(buttonTag);
             cancelTdButton.innerText="삭제";
-            replyRow.append(cancelTdButton);
+            replyRow.appendChild(cancelTdButton);
 
             deleteButton(buttonTag,reply.reviewNo)
         }
+        else{
         
+            replyRow.appendChild(cancelTd);
+        }
+       
     }
 
 
