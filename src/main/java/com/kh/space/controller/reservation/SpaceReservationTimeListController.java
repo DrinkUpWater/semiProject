@@ -1,4 +1,4 @@
-package com.kh.space.controller;
+package com.kh.space.controller.reservation;
 
 import java.io.IOException;
 import java.util.ArrayList;

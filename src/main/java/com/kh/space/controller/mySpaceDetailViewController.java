@@ -39,11 +39,11 @@ public class mySpaceDetailViewController extends HttpServlet {
 		Space space=new SpaceService().selectOneSpace(spaceNo);
 	    ArrayList<Attachment> attachments =new SpaceService().selectSpaceAttachment(spaceNo);
 		
-		if(attachments.isEmpty()) {
-			 Attachment att=new Attachment();
-			 att.setFilePath("");
-			 attachments.add(att);
-		}
+//		if(attachments.isEmpty()) {
+//			 Attachment att=new Attachment();
+//			 att.setFilePath("");
+//			 attachments.add(att);
+//		}
 	
 		if(space==null) {
 			request.getSession().setAttribute("alertMsg","공간조회실패");

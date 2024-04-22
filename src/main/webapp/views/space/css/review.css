@@ -1,0 +1,25 @@
+#space_review{
+     overflow: auto;
+        /* border:solid blue; */
+               
+}
+
+
+
+.review_body{
+
+
+}
+
+.review_list{
+    padding: 8px;
+}
+
+
+#reivew_content,#content{
+    resize:none;
+    /* resize:vertical; */
+    height: 100%;
+}
+
+

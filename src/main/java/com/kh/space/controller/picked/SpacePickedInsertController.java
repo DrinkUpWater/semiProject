@@ -1,4 +1,4 @@
-package com.kh.space.controller;
+package com.kh.space.controller.picked;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -14,70 +14,85 @@ import com.kh.space.model.vo.Picked;
 import com.kh.space.service.SpacePickedService;
 
 /**
- * Servlet implementation class SpacePickedViewController
+ * Servlet implementation class spacePickedController
  */
-@WebServlet("/pickedcheck.sp")//비동기 처리
-public class SpacePickedViewController extends HttpServlet {
+@WebServlet("/picked.sp")
+public class SpacePickedInsertController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
     private  SpacePickedService service =new SpacePickedService();
+	
     
-    
-    public SpacePickedViewController() {
+    public SpacePickedInsertController() {
         super();
-        // TODO Auto-generated constructor stub
+
+
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		    HttpSession session =request.getSession();
-		   // request.setCharacterEncoding("utf-8");
-			response.setContentType("application/json; charset=utf-8");
-			
+		request.setCharacterEncoding("utf-8");
+		response.setContentType("application/json; charset=utf-8");
+
+		HttpSession session = request.getSession();
+		Member m = (Member) session.getAttribute("loginUser");
+		int result=0;
+
+		if (m == null) {
+			new Gson().toJson("로그인하세요", response.getWriter());
+		}
+
+		else {
 			
 			int spaceNum=Integer.parseInt(request.getParameter("spaceNum"));
+			int userNo=m.getUserNo();
 			
-			Member m=(Member)session.getAttribute("loginUser");
-			int result=0;
+			//찜한 리스트에 추가
+		
 			
-			if(m==null) {//필터 줄것
-				
-				//session.setAttribute("alertMsg", "로그인하세요");
-				
-				new Gson().toJson("찜하기",response.getWriter());
-				
+			//찜한 리스트 확인
+			
+			Picked picked=service.selectOnePicked(spaceNum,userNo);
+
+			String check="";
+			if(picked==null) {
+				 result=service.insertPicked(spaceNum,userNo);
+				 
+				 if(result>0) {
+					check="찜해제";
+				 }else {
+					check="찜하기";
+				 }
+				 
 			}
 			else {
-				int userNo=m.getUserNo();
-				Picked picked=service.selectOnePicked(spaceNum,userNo);
-			
-				
-				String check="";
-				if(picked==null) {
-					check="찜하기";
-				}
-				else {
-
-					check="찜해제";
-					
-				}
-				
-				 new Gson().toJson(check,response.getWriter());
+				 result=service.deletePicked(spaceNum,userNo);
 				 
-				
+				 if(result>0) {
+						check="찜하기";
+					 }else {
+						 check="찜해제";
+				 }
+					 
 			}
 			
+			 new Gson().toJson(check,response.getWriter());
+			 
+				
+			
+				
+		}
 		
 		
+	
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		
 		doGet(request, response);
 	}
 
