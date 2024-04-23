@@ -268,4 +268,29 @@ public class MemberDao {
 		return result;
 	}
 
+	public int pwdCheck(Connection conn, String userId, String checkPwd) {
+		int count=0;
+		ResultSet rset = null;
+		PreparedStatement pstmt =null;
+		String sql = prop.getProperty("checkPwd");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, checkPwd);
+			pstmt.setString(2, userId);
+			
+			rset =pstmt.executeQuery();
+			if(rset.next()) {
+				count = rset.getInt("count");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return count;
+	}
+
 }

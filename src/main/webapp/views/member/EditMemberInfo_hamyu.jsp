@@ -194,6 +194,10 @@
             .pwd-color{
                 color: #c2c0c0;
             }
+            #oldPwd-area{
+                display: none;
+                color: red;
+            }
         </style>
     </head>
 
@@ -217,17 +221,18 @@
                 <div class="join-user">
                     <form action="update.me" id="login-form" method="post">
 
-                        <input type="hidden" name="userId" value="${loginUser.userId }"> 
-                        <table width="100%" class="tb">
+                        <input id="uesrId" type="hidden" name="userId" value="${loginUser.userId }"> 
+                        <table width="100%" class="tb" border="1">
                             <tr>
                                 <input type="button" value="비밀번호 변경" onclick="pwdUpdate()" style="margin-right: 10px;">
                                 <input type="button" value="변경 취소" onclick="canclePwdUpdate()">
                             </tr>
                             <tr class="user-id">
                                 <th class="pwd-color">현재 비밀번호</th>
-                                <td colspan="2">
-                                    <div id="oldPwd-area"></div>
+                                <td colspan="2" id="oldPwd-area" align="right">
+                                    *틀린 비밀번호입니다.
                                 </td>
+                           
                             </tr>
                             <tr>
                                 <td colspan="3" class="input-id">
@@ -323,33 +328,39 @@
                 </div>
                 <script>
 
-                    let oldPwdArea = document.getElementById("oldPwd-area"); //현재 비밀번호 확인 영역(맞으면 HTMLinner띄움)
+                    // let oldPwdArea = document.getElementById("oldPwd-area"); //현재 비밀번호 확인 영역(맞으면 HTMLinner띄움)
 
-                    let oldPwd = document.getElementById("oldPwd"); //현 비밀번호
-                    let userPwd = document.getElementById("userPwd");          //변경할 비밀번호
-                    let userPwdCheck = document.getElementById("userPwdCheck"); //변경된 비밀번호 확인
-                    let userNickName = document.getElementById("userNickName");
-                    let phone = document.getElementById("phone");
-                    let birth = document.getElementById("birth");
-                    let email = document.getElementById("email");
-                    let select_email = document.querySelector(".select-email");
+                    // let oldPwd = document.getElementById("oldPwd"); //현 비밀번호
+                    // let userPwd = document.getElementById("userPwd");          //변경할 비밀번호
+                    // let userPwdCheck = document.getElementById("userPwdCheck"); //변경된 비밀번호 확인
+                    // let userNickName = document.getElementById("userNickName");
+                    // let phone = document.getElementById("phone");
+                    // let birth = document.getElementById("birth");
+                    // let email = document.getElementById("email");
+                    // let select_email = document.querySelector(".select-email");
 
 
 
                     function pwdUpdate(){//비밀번호 변경버튼 클릭시
-                     document.querySelectorAll(".pwd-color").forEach(function(el){ //모든 pwd-color 폰트색 검정으로 변경
-                        el.style.color="black"; 
-                     })
-                     oldPwd.removeAttribute("readonly");
-                     oldPwd.placeholder=" 비밀번호 입력(문자,숫자,특수문자 포함 8~20자)";
-                     userPwd.removeAttribute("readonly");
-                     userPwd.placeholder=" 비밀번호 입력(문자,숫자,특수문자 포함 8~20자)";
-                     
-                     userPwdCheck.removeAttribute("readonly");
-                     userPwdCheck.placeholder=" 비밀번호 재입력";
+                        let oldPwd = document.getElementById("oldPwd"); 
+                        let userPwd = document.getElementById("userPwd");   
+                        let userPwdCheck = document.getElementById("userPwdCheck");
+                        document.querySelectorAll(".pwd-color").forEach(function(el){ //모든 pwd-color 폰트색 검정으로 변경
+                            el.style.color="black"; 
+                        })
+                        oldPwd.removeAttribute("readonly");
+                        oldPwd.placeholder=" 비밀번호 입력(문자,숫자,특수문자 포함 8~20자)";
+                        userPwd.removeAttribute("readonly");
+                        userPwd.placeholder=" 비밀번호 입력(문자,숫자,특수문자 포함 8~20자)";
+                        
+                        userPwdCheck.removeAttribute("readonly");
+                        userPwdCheck.placeholder=" 비밀번호 재입력";
                     }
 
                     function canclePwdUpdate(){//비밀번호 변경 취소버튼 클릭시
+                        let oldPwd = document.getElementById("oldPwd"); 
+                        let userPwd = document.getElementById("userPwd");   
+                        let userPwdCheck = document.getElementById("userPwdCheck");
                         document.querySelectorAll(".pwd-color").forEach(function(el){ //모든 pwd-color 폰트색 검정으로 변경
                         el.style.color="#c2c0c0"; 
 
@@ -364,7 +375,54 @@
                     }
 
 
+                    $(function(){ //전 비밀번호 확인
+                        const pwdInput = document.getElementById("oldPwd");
+                        let eventFlage;
+                        pwdInput.onkeyup = function(ev){
+                            clearTimeout(eventFlage);	
+                            const str =ev.target.value;
+                            if(str.trim().length>=3){
+                                eventFlag = setTimeout(function(){
+                                    $.ajax({
+                                        url:"pwdCheck.me",
+                                        date:{
+                                            userId :document.getElementById("userId"),
+                                            oldPwd : ev.target.value                                   
+                                        },
+                                        success:function(result){
+                                            const checkResult =document.getElementById("oldPwd-area");
+                                            checkResult.style.display="block";
+                                            if(result==="NNNNN"){
+                                                checkResult.style.color="red";
+                                                checkResult.innerHTML="*틀린 비밀번호입니다."
+                                            }else{
+                                                checkResult.style.color="green";
+                                                checkResult.innerHTML="확인되었습니다."
+                                            }
+                                        },
+                                        error: function(){
+                                            console.log("비밀번호 중복체크 실패!");
+                                        }
+                                    })
+                                },500)
+                            }else{
+                                document.getElementById("oldPwd-area").style.display = "none";
+                            }
+                        }
+                    })
+
+
                     function editUser() {//빈칸 있을시 확인
+
+
+                        let oldPwd = document.getElementById("oldPwd"); //현 비밀번호
+                        let userPwd = document.getElementById("userPwd");          //변경할 비밀번호
+                        let userPwdCheck = document.getElementById("userPwdCheck"); //변경된 비밀번호 확인
+                        let userNickName = document.getElementById("userNickName");
+                        let phone = document.getElementById("phone");
+                        let birth = document.getElementById("birth");
+                        let email = document.getElementById("email");
+                        let select_email = document.querySelector(".select-email");
                     if(userPwd.readonly){                       
                         //비밀번호 조건 부분-------------------------------------------
                         if (oldPwd.value === "") { //나중에 loginUser 조건 비교 추가 (oldPwd.value ===loginUser.getPwd())
@@ -432,30 +490,28 @@
 
 
                     function onbcrt() { //현 비번과 변경할 비번이 동일한지 확인
-
+                        let oldPwd = document.getElementById("oldPwd");
+                        let userPwd = document.getElementById("userPwd");       
+                
                         let usealbePwd = document.querySelector(".usealbePwd");
                         let cantPwdCheck = document.querySelector(".cantPwdCheck");
                         let cantPwd = document.querySelector(".cantPwd");
                         cantPwd.style.color = "red";
 
-
                         if (oldPwd.value === userPwd.value) { //현재 비밀번호와 변경할 비밀번호가 같을 시
-
                             if ((oldPwd.value !== "" && userPwd.value !== "")) {   //각 비밀번호가 동일하면 th안에 있는 "*사용할 수 없는 비밀번호입니다." 대신             
                                 cantPwd.innerHTML = "*중복된 비번입니다";             //"중복된 비번입니다"로 변경 (단, 둘다 빈칸이 아니여야함)
                                 cantPwd.style.display = "block";
                                 return;
                             }
-
                         }
-
-
-
-
                     }
 
                     // 비밀번호 동일 여부 확인 + 유효가능 확인
                     function onb() { //onblur함수사용
+                        let oldPwd = document.getElementById("oldPwd");
+                        let userPwd = document.getElementById("userPwd");    
+
                         let usealbePwd = document.querySelector(".usealbePwd");
                         let cantPwdCheck = document.querySelector(".cantPwdCheck");
                         let cantPwd = document.querySelector(".cantPwd");
@@ -476,7 +532,7 @@
                         }
 
 
-                        if ((userPwd.value !== userPwdCheck.value)) { //'변경할 비밀번호'와 '비밀번호 확인'의 값이 다를시 
+                        if ((userPwd.value !== userPwdCheck.value) && cantPwd.style.display === "none") { //'변경할 비밀번호'와 '비밀번호 확인'의 값이 다를시 
                             cantPwdCheck.style.display = "block";          //*비밀번호가 일치하지 않습니다 (보이기)
                             usealbePwd.style.display = "none";            // 비밀번호 동일합니다(가리기)
                         } else if (userPwd.value === userPwdCheck.value && (userPwd.value !== "" && userPwdCheck.value !== "" && cantPwd.style.display === "none")) {
