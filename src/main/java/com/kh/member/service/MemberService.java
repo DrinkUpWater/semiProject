@@ -89,4 +89,16 @@ public class MemberService {
 		return result;
 	}
 
+	public int pwdCheck(String userId, String checkPwd) {
+		Connection conn =getConnection();
+		int count =new MemberDao().pwdCheck(conn,userId,checkPwd);
+		if(count>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return count;
+	}
+
 }
