@@ -345,7 +345,7 @@
                     <td colspan="2" align="right"></td>
                 </tr>
                 <tr>
-                    <td colspan="2" ><input id="input-addr" id="spaceAddress" class="input-text" type="text" name="spaceAddress" placeholder="실제 서비스되는 공간의 주소를 입력해주세요." required readonly></td>
+                    <td colspan="2" ><input id="spaceAddress" class="input-text" type="text" name="spaceAddress" placeholder="실제 서비스되는 공간의 주소를 입력해주세요." required readonly></td>
                     <td ><button type="button" onclick="searchAddr()">주소 검색</button></td>
                 </tr>
                 <tr>
@@ -461,6 +461,7 @@
                 a.value = spaceInfoCheck + ". " + tag;
                 a.classList.add("input-text");
                 a.name = "spaceInformation";
+                a.readOnly = true;
                 document.querySelector('.hidden-spaceinfo').appendChild(a);
                 document.querySelector("#spaceInformation-input").value = "";
                 spaceInfoCheck++;
@@ -493,6 +494,7 @@
                 a.value = spaceCaution + ". " + tag;
                 a.classList.add("input-text");
                 a.name = "spaceCaution";
+                a.readOnly = true;
                 document.querySelector('.hidden-caution').appendChild(a);
                 document.querySelector("#spaceCaution-input").value = "";
                 spaceCaution++;
@@ -554,6 +556,7 @@
         $('#spaceTag').keypress(function(event){
             if(event.which === 13){
                 $('.tag-btn').click();
+                $('#spaceTag').focus();
             }
         });
         $('#spaceInformation-input').keypress(function(event){

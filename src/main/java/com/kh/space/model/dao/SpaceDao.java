@@ -12,6 +12,7 @@ import java.util.InvalidPropertiesFormatException;
 import java.util.Properties;
 
 import com.kh.common.Attachment;
+import com.kh.common.PageInfo;
 import com.kh.space.model.dto.SpaceThumbNail;
 import com.kh.space.model.vo.Space;
 import static com.kh.common.JDBCTemplate.close;
@@ -553,6 +554,156 @@ public class SpaceDao {
 		}
 		
 		return result;
+	}
+
+
+	public int selectListCount(Connection conn) {
+		int listCount = 0;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = pro.getProperty("selectListCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt("count");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+	
+		return listCount;
+	}
+
+	public ArrayList<Space> selectSpaceList(Connection conn, PageInfo pi) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Space> list = new ArrayList<>();
+		
+		String sql = pro.getProperty("selectSpaceListPaging");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			/*
+			 * currentPage : 1 = > 1~9
+			 * currentPage : 2 = > 10~18
+			 * currentPage : 3 = > 19~27
+			 */
+			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() - 1;
+			
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			while (rset.next()) {
+				Space sp = new Space();
+				sp.setSpaceNo(rset.getInt("SPACE_NO"));
+				sp.setSpaceName(rset.getString("SPACE_NAME"));
+				sp.setSpaceTag(rset.getString("SPACE_TAG"));
+				sp.setSpaceMimg(rset.getString("SPACE_MIMG"));
+				sp.setSpaceAddress(rset.getString("SPACE_ADDRESS"));
+				sp.setSpacePrice(rset.getInt("SPACE_PRICE"));	
+				sp.setSpaceCapacity(rset.getInt("SPACE_CAPACITY"));
+				
+				list.add(sp);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+
+
+	public ArrayList<Space> selectSpaceListPaging(Connection conn, String pInfo, int pCount, String pKind,
+			String pOrder, PageInfo pi) {
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Space> list = new ArrayList<>();
+		
+		int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+		int endRow = startRow + pi.getBoardLimit() - 1;
+		
+		String sql = pro.getProperty("selectFilterSpaceListPaging");
+		sql = sql + pOrder;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, pCount);
+			pstmt.setString(2, pInfo);
+			pstmt.setString(3, pKind);
+			pstmt.setInt(4, startRow);
+			pstmt.setInt(5, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			while (rset.next()) {
+				Space sp = new Space();
+				sp.setSpaceNo(rset.getInt("SPACE_NO"));
+				sp.setSpaceName(rset.getString("SPACE_NAME"));
+				sp.setSpaceTag(rset.getString("SPACE_TAG"));
+				sp.setSpaceMimg(rset.getString("SPACE_MIMG"));
+				sp.setSpaceAddress(rset.getString("SPACE_ADDRESS"));
+				sp.setSpacePrice(rset.getInt("SPACE_PRICE"));	
+				sp.setSpaceCapacity(rset.getInt("SPACE_CAPACITY"));
+				
+				list.add(sp);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+
+
+	public int selectListCountPaging(Connection conn, int pCount, String pInfo, String pKind) {
+		int listCount = 0;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = pro.getProperty("selectListCountPaging");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, pCount);
+			pstmt.setString(2, pInfo);
+			pstmt.setString(3, pKind);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt("count");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return listCount;
 	}
 	
 }
