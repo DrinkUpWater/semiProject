@@ -361,6 +361,11 @@
                     }
 
                     function canclePwdUpdate(){//비밀번호 변경 취소버튼 클릭시
+                        let checkResult =document.getElementById("oldPwd-area");
+                        let usealbePwd = document.querySelector(".usealbePwd");
+                        let cantPwdCheck = document.querySelector(".cantPwdCheck");
+                        let cantPwd = document.querySelector(".cantPwd");
+
                         let oldPwd = document.getElementById("oldPwd"); 
                         let userPwd = document.getElementById("userPwd");   
                         let userPwdCheck = document.getElementById("userPwdCheck");
@@ -369,11 +374,20 @@
 
                             oldPwd.setAttribute("readonly",true);
                             oldPwd.placeholder="";
+                            oldPwd.value="";
+
                             userPwd.setAttribute("readonly",true);
                             userPwd.placeholder="";
+                            userPwd.value="";
                             
                             userPwdCheck.setAttribute("readonly",true);
                             userPwdCheck.placeholder="";
+                            userPwdCheck.value="";
+
+                            checkResult.style.display="none";
+                            usealbePwd.style.display="none";
+                            cantPwdCheck.style.display="none";
+                            cantPwd.style.display="none";
                         })
                     }
 
