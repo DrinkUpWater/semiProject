@@ -72,8 +72,9 @@ FROM
 JOIN 
     MEMBER M2 ON A2.USER_NO = M2.USER_NO
 WHERE 
-    RNUM BETWEEN ? AND ?
+RNUM BETWEEN ? AND ?
 ORDER BY CREATE_DATE DESC
+
 
 </entry>
 
@@ -86,43 +87,5 @@ ORDER BY CREATE_DATE DESC
 </entry>
 
 
-<entry key="insertReservation">
-    INSERT INTO RESERVATION 
-    (RESERVATION_NO,
-    HEADCOUNT,
-    TOTAL_PRICE,
-    USER_NO,
-    SPACE_NO
-    )
-    VALUES
-    (SEQ_RNO.NEXTVAL,
-    ?,
-    ?,
-    ?,
-    ?
-    )
-
-</entry>
-
-<entry key = "insertReservationDate">
-	INSERT INTO 
-	RESERVATION_DATE 
-	(DATE_NO,
-	 RESERVATION_DATE,
-	 RESERVATION_TIME1,
-	 RESERVATION_TIME2,
-	 RESERVATION_NO
-	)
-	VALUES
-	(SEQ_RDNO.NEXTVAL,
-	?,
-	?,
-	?,
-	SEQ_RNO.CURRVAL
-	)
-
-
-
-</entry>
 
 </properties>

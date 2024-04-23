@@ -35,6 +35,15 @@ public class Review {
 		this.insertDate = insertDate;
 		this.userName = userName;
 	}
+	public Review(int reviewNo, String content, Date insertDate, String userName,int userNo) {
+		super();
+		this.reviewNo = reviewNo;
+		this.content = content;
+		this.insertDate = insertDate;
+		this.userName = userName;
+		this.userNo=userNo;
+	}
+
 
 
 	public int getReviewNo() {

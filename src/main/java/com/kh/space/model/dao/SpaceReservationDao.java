@@ -131,8 +131,8 @@ public class SpaceReservationDao {
 						rset.getString("SPACE_NAME"),		
 						rset.getString("SPACE_MIMG")			
 						));
-				
-		
+
+
 			}
 		} catch (SQLException e) {
 			
