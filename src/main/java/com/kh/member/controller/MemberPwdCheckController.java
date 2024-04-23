@@ -30,8 +30,8 @@ public class MemberPwdCheckController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String userId =request.getParameter("userId");
 		String checkPwd =request.getParameter("oldPwd");
-		System.out.println(userId);
-		System.out.println(checkPwd);
+		System.out.println("1."+userId);
+		System.out.println("2."+checkPwd);
 		int result =new MemberService().pwdCheck(userId,checkPwd);
 		if(result>0) { //비밀번호 중복일 때
 			response.getWriter().print("NNNNY");
