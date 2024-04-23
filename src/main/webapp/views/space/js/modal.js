@@ -43,9 +43,16 @@
                                        
             
                                       document.querySelector("#reservationDate").value=choiced_date
+                                      document.querySelector("#reservationDateDiv").innerText=choiced_date
+
                                       document.querySelector("#reservationTime").value=choiced_time
+                                      document.querySelector("#reservationTimeDiv").innerText=choiced_time
+
                                       document.querySelector("#payment").value=choiced_price
+                                      document.querySelector("#paymentDiv").innerText=choiced_price
+
                                       document.querySelector("#personalCount").value=choiced_count
+                                      document.querySelector("#personalCountDiv").innerText=choiced_count
                                       pay_button.disabled=false;
                                      // $('#pay-modal').modal('show');
                                     })

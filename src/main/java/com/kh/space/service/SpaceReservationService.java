@@ -14,9 +14,9 @@ import com.kh.space.model.vo.Review;
 
 public class SpaceReservationService {
 
-	public ArrayList<ReservationDate> findDate(String date) {
+	public ArrayList<ReservationDate> findDate(String date,int spaceNo) {
 		Connection conn =getConnection();
-		ArrayList<ReservationDate> dates=new SpaceReservationDao().findDate(conn,date);
+		ArrayList<ReservationDate> dates=new SpaceReservationDao().findDate(conn,date,spaceNo);
 		close(conn);
 		
 		return dates;
