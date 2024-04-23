@@ -82,8 +82,50 @@ ORDER BY CREATE_DATE DESC
 <entry key="findDate">
 	  SELECT  RESERVATION_TIME1,
 	          RESERVATION_TIME2
-	          FROM RESERVATION_DATE
-	          WHERE RESERVATION_DATE  like ?
+	          FROM RESERVATION_DATE D
+	          JOIN RESERVATION R ON (D.RESERVATION_NO=R.RESERVATION_NO)
+	          JOIN  SPACE S ON (S.SPACE_NO=R.SPACE_NO)
+	          WHERE RESERVATION_DATE  like ? AND S.SPACE_NO = ?
+	          
+</entry>
+
+<entry key="insertReservation">
+    INSERT INTO RESERVATION 
+    (RESERVATION_NO,
+    HEADCOUNT,
+    TOTAL_PRICE,
+    USER_NO,
+    SPACE_NO
+    )
+    VALUES
+    (SEQ_RNO.NEXTVAL,
+    ?,
+    ?,
+    ?,
+    ?
+    )
+
+</entry>
+
+<entry key = "insertReservationDate">
+	INSERT INTO 
+	RESERVATION_DATE 
+	(DATE_NO,
+	 RESERVATION_DATE,
+	 RESERVATION_TIME1,
+	 RESERVATION_TIME2,
+	 RESERVATION_NO
+	)
+	VALUES
+	(SEQ_RDNO.NEXTVAL,
+	?,
+	?,
+	?,
+	SEQ_RNO.CURRVAL
+	)
+
+
+
 </entry>
 
 

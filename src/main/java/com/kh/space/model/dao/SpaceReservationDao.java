@@ -47,7 +47,7 @@ public class SpaceReservationDao {
 		
 	}
 
-	public ArrayList<ReservationDate> findDate(Connection conn, String date) {
+	public ArrayList<ReservationDate> findDate(Connection conn, String date, int spacNo) {
 	   PreparedStatement pstmt=null;
 	   ResultSet reset=null;
 	   ArrayList<ReservationDate> dates=new ArrayList<>();
@@ -58,6 +58,7 @@ public class SpaceReservationDao {
 	   try {
 		pstmt=conn.prepareStatement(sql);
 		pstmt.setDate(1,date_);
+		pstmt.setInt(2,spacNo);
 		
 		reset=pstmt.executeQuery();
 		

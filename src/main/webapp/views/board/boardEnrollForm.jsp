@@ -1,204 +1,58 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <!DOCTYPE html>
-<html lang="ko">
-
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>일반게시판 작성</title>
-    <style>
-        #board-wrapper{
-            width: 1200px;
-            margin: auto;
-        }
-        #main{
-            border-top: 1px solid #927f69;
-            height: 90%;
-            box-sizing: border-box;
-        }
-        h1{
-            border-bottom: 1px solid #927f69;
-            padding-bottom: 10px;
-        }
-        #name-wrapper{
-            height: 50px;
-            display: flex;
-            margin-top: 20px;
-        }
-        #name{
-            width: 8%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            font-size: 20px;
-            font-weight: 600;
-            box-sizing: border-box;
-        }
-        #name-input{
-            border: 1px solid rgb(196, 194, 194);
-            width: 100%;
-            padding: 10px;
-            font-size: 15px;
-            box-sizing: border-box;
-        }
-        #title-wrapper{
-            height: 50px;
-            display: flex;
-            margin-top: 20px;
-        }
-        #title{
-            width: 8%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            font-size: 20px;
-            font-weight: 600;
-            box-sizing: border-box;
-        }
-        #title-input{
-            border: 1px solid rgb(196, 194, 194);
-            width: 100%;
-            padding: 10px;
-            font-size: 15px;
-            box-sizing: border-box;
-        }
-        #content-wrapper{
-            margin-top: 20px;
-            display: flex;
-            
-        }
-        #content{
-            width: 8%;
-            display: flex;
-            font-size: 20px;
-            font-weight: 600;
-            padding-top: 5px;
-            box-sizing: border-box;
-        }
-        #content-input{
-            border: 1px solid rgb(196, 194, 194);
-            width: 100%;
-            padding: 10px;
-            font-size: 15px;
-            box-sizing: border-box;
-        }
-        #img-wrapper{
-            height: 150px;
-            display: flex;
-        }
-        #img{  
-            width: 8%;
-            display: flex;
-            font-size: 20px;
-            font-weight: 600;
-            padding-top: 5px;
-            box-sizing: border-box;
-        }
-        #img-input{
-            border: 1px solid rgb(196, 194, 194);
-            border-top: 0;
-            background-color: rgb(233, 233, 233);
-            width: 100%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-        }
-        #a1{
-            border: 1px solid rebeccapurple;
-            width: 100px;
-            height: 100px;
-            text-decoration: none;
-            background-color: #fff;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-left: 30px;
-        }
-        #a2, #a3{
-            border: 1px solid rgb(196, 194, 194);
-            width: 100px;
-            height: 100%;
-            text-decoration: none;
-            font-size: 15px;
-            font-weight: 550;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-			margin-left: 10px;
-            box-sizing: border-box;
-        }
-        #regist-area{
-            height: 58px; 
-            display: flex;
-            flex-direction: row;
-            justify-content: end;
-            padding-top: 17px;
-            box-sizing: border-box; 
-        }
-
-    </style>
+<meta charset="UTF-8">
+<title>게시글 작성</title>
+<style>
+	#enrollForm>table {width:100%;}
+	#enrollForm>table * {margin:5px;}
+</style>
 </head>
 <body>
-    <%@ include file="../common/menubar.jsp" %>
-    <div id="board-wrapper">
-        <!-- <div id="h1"></div> -->
-        <h3 style="color: #927f69">일반게시판</h3>
 
-       	<form action="" id="enroll-form" method="POST" enctype="multipart/form-data">
-	       	<div id="main">       
-                <div id="name-wrapper">
-                    <div id="name">
-                        이름
-                    </div> 
-                    <input id="name-input" type="text" placeholder="회원이름이 들어가야함 (input태그 말고 div로 바꿔야함)">
+	<jsp:include page="../common/header.jsp" />
+
+    <div class="content">
+        <br><br>
+        <div class="innerOuter">
+            <h2>게시글 작성하기</h2>
+            <br>
+
+            <form id="enrollForm" method="post" action="insert.bo" enctype="multipart/form-data">
+                <table align="center">
+                    <tr>
+                        <th><label for="title">제목</label></th>
+                        <td><input type="text" id="title" class="form-control" name="boardTitle" required></td>
+                    </tr>
+                    <tr>
+                        <th><label for="writer">작성자</label></th>
+                        <td><input type="text" id="writer" class="form-control" value="${loginUser.userId }" name="boardWriter" readonly></td>
+                    </tr>
+                    <tr>
+                        <th><label for="upfile">첨부파일</label></th>
+                        <td><input type="file" id="upfile" class="form-control-file border" name="upfile"></td>
+                    </tr>
+                    <tr>
+                        <th><label for="content">내용</label></th>
+                        <td><textarea id="content" class="form-control" rows="10" style="resize:none;" name="boardContent" required></textarea></td>
+                    </tr>
+                </table>
+                <br>
+
+                <div align="center">
+                    <button type="submit" class="btn btn-primary">등록하기</button>
+                    <button type="reset" class="btn btn-danger">취소하기</button>
                 </div>
-
-	            <div id="title-wrapper">
-	                <div id="title">
-	                    제목 *
-	                </div>
-	                <input id="title-input" type="text" name="title" placeholder="제목을 입력해주세요" required>
-	            </div>
-	
-	            <div id="content-wrapper">
-	                <div id="content">
-	                    내용 *
-	                </div>
-	                <textarea id="content-input" name="content" rows="20" placeholder="내용을 입력해주세요" required></textarea>  
-	            </div>
-
-	            <div id="img-wrapper">
-	                <div id="img">
-	                    이미지
-	                </div>
-	                <div id="img-input">
-	                    <!-- <a href="" id="a1"></a> -->
-                        <input id="a1" type="file" name="file">
-	                </div>
-	            </div>
-
-	            <div id="regist-area">
-	                <div id="regist" >
-	                    <a href="<%=contextPath%>/list.bo" id="a2">취소</a>
-	                </div>
-	                <div id="cancle" >
-	                    <a href="<%=contextPath%>/insert.bo" id="a3">등록</a>
-	                </div>
-	            </div>
-	
-	        </div>
-       	</form>
+            </form>
+        </div>
+        <br><br>
+ 
     </div>
-    <script>
-        function chooseFile(){
-            const imgInput = document.querySelector("#file" + num);
-                    imgInput.click();
-        }
-    </script>
-
-
+    
+    <jsp:include page="../common/footer.jsp" />
 
 </body>
 </html>

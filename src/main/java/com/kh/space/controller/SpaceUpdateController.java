@@ -1,29 +1,28 @@
 package com.kh.space.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-import com.google.gson.Gson;
+import com.kh.member.model.vo.Member;
 import com.kh.space.model.vo.Space;
 import com.kh.space.service.SpaceService;
 
 /**
- * Servlet implementation class SpaceListPinfoController
+ * Servlet implementation class SpaceUpdateController
  */
-@WebServlet("/pinfo.sp")
-public class SpaceListPinfoController extends HttpServlet {
+@WebServlet("/update.sp")
+public class SpaceUpdateController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SpaceListPinfoController() {
+    public SpaceUpdateController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,12 +31,26 @@ public class SpaceListPinfoController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String pInfo = request.getParameter("pInfo");
 		
-		ArrayList<Space> list = new SpaceService().selectSpaceList(pInfo);	
+		HttpSession s = request.getSession();
+		int spaceNum= Integer.parseInt(request.getParameter("spaceNum"));   
 		
-		response.setContentType("application/json; charset=utf-8");
-		new Gson().toJson(list, response.getWriter());
+		
+		Space mySpace=new SpaceService().selectOneSpace(spaceNum);
+		if(mySpace==null) {
+			s.setAttribute("alertMsg", "공간이 없습니다.");
+			response.sendRedirect(request.getContextPath()+"/myspacedetail.sp?spaceNo="+spaceNum);
+			
+		}else {
+			request.setAttribute("mySpace", mySpace);
+			request.getRequestDispatcher("views/host/hostUpdateForm.jsp")
+		    .forward(request, response);
+		}
+		
+	
+		
+		
+		
 	}
 
 	/**

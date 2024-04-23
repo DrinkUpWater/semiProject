@@ -182,12 +182,15 @@ function drawTableList(commentList,parentTag){
             hostReplydiv.className='hostReplyDiv';
             hostReplydiv.style.display='flex';
             textarea.className='hostReplyContents';
-            enrollBtn.className='enrollHostReplyBtn'
-            enrollBtn.className='btn btn-success';
+            enrollBtn.className='enrollHostReplyBtn  btn btn-success';
+           // enrollBtn.classList.add("enrollHostReplyBtn","btn btn-success");
+     
+         
+
             enrollBtn.innerText='등록하기'
             enrollBtn.type='button'
             deleteBtn.className='deleteHostReplyBtn'
-            deleteBtn.className='btn btn-danger';
+            deleteBtn.className='enrollHostReplyBtn btn btn-danger';
             deleteBtn.innerText='삭제하기'
             deleteBtn.type='button'
        

@@ -21,7 +21,7 @@
                                          
                                             e.preventDefault();
                                        
-                                            //return false;
+                                            return false;
                                         }
                                         if(choiced_time===""){
                                             alert("시간을 선택하세요")
@@ -30,22 +30,30 @@
                                             
                                             e.preventDefault();
                                          
-                                            //return false;
+                                            return false;
                                         }
                                         
                                         if(document.querySelector("#userNo").value==="-1"){
 											alert("로그인하세요");
-											e.preventDefault();
+											
                                             pay_button.disabled=true;
-                                            //return false;
+                                            e.preventDefault();
+                                            return false;
 										}
             
                                        
             
                                       document.querySelector("#reservationDate").value=choiced_date
+                                      document.querySelector("#reservationDateDiv").innerText=choiced_date
+
                                       document.querySelector("#reservationTime").value=choiced_time
+                                      document.querySelector("#reservationTimeDiv").innerText=choiced_time
+
                                       document.querySelector("#payment").value=choiced_price
+                                      document.querySelector("#paymentDiv").innerText=choiced_price
+
                                       document.querySelector("#personalCount").value=choiced_count
+                                      document.querySelector("#personalCountDiv").innerText=choiced_count
                                       pay_button.disabled=false;
                                      // $('#pay-modal').modal('show');
                                     })
