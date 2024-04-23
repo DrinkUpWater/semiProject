@@ -99,13 +99,23 @@
         <link href="https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
 
 
+        <link rel="stylesheet" href="<%=request.getContextPath()%>/views/space/css/review.css"/>
+        <link rel="stylesheet" href="<%=request.getContextPath()%>/views/space/css/qa.css"/>
+
+
+
         <script src="<%=request.getContextPath()%>/views/space/js/calenderClick.js"></script>
         <script src="<%=request.getContextPath()%>/views/space/js/modal.js"></script>
         <script src="<%=request.getContextPath()%>/views/space/js/reservationNum.js"></script>
         <script src='<%=request.getContextPath()%>/views/space/fullcalendar/main.min.js'></script>
+        <!--<script src='<%=request.getContextPath()%>/views/space/js/comment.js'></script>-->
         <script src='<%=request.getContextPath()%>/views/space/js/comment.js'></script>
         <script src='<%=request.getContextPath()%>/views/space/js/review.js'></script>
+        <script src='<%=request.getContextPath()%>/views/space/js/picked.js'></script>
 
+        <!-- <script type="text/javascript" defer src="//dapi.kakao.com/v2/maps/sdk.js?appkey=24fbf0aa04ad80c31d8c0f4d004c6c37"></script>
+        <script src='<%=request.getContextPath()%>/views/space/js/map.js'></script> -->
+      
         <style>
             @media (max-width: 1200px) {
 
@@ -134,6 +144,13 @@
             * {
                 border: border-box;
 
+            }
+
+            body {
+                font-family: Arial, sans-serif;
+                background-color: #f4f4f4;
+                margin: 0;
+                padding: 20px;
             }
 
             #temp {
@@ -170,7 +187,7 @@
             .space {
             
                 display: grid;
-                grid-template-rows: repeat(2, 250px);
+                grid-template-rows: repeat(2, 200px);
                 /* grid-template-columns: repeat(3, 1fr); */
                 column-gap: 50px;
 
@@ -234,19 +251,54 @@
 
 
             }
+            /*     -----     */
 
-            #space_comment>div {
+            #space_comment {/*그리드 따로 줫다.*/
+                
+                display: grid;
+                grid-template-rows: repeat(1, 500px);
+                /* grid-template-columns: repeat(3, 1fr); */
+                column-gap: 50px;
+
+                /* border: solid 1px red;  */
+
+                /*margin: 30px; */
+                font-size: 20px;
                 height: 100%;
+                align-items: center;
+              
                 /* display: inline-block; */
             }
-           
+            #space_comment > .img_div{
+                width: calc(100%*(<%=attachment.size()+1%>)); /* 슬라이더의 너비를 화면에 꽉 차게 설정 */
+                overflow: hidden; /* 컨테이너 밖의 이미지는 숨김 처리 */
+                display: flex; /* 이미지들을 가로로 나열 */
+                animation: slide 60s linear infinite; /* 애니메이션 적용 */
+                height:100%;
+            }
+            #space_comment img{
 
+                 width: calc(100%/(<%=attachment.size()+1%>)); /* 각 이미지가 슬라이더 너비에 맞게 조정 */
+                 flex-shrink: 0; /* 이미지가 압축되지 않도록 설정 */
+                 height:100%;
+            }
+
+            @keyframes slide {
+                0% { transform: translateX(0); }
+                100% { transform: translateX(-85.7143%); } /* 총 너비의 100% 이동 */
+            }
+
+             /* --------  */
+
+
+            
             .img_div {
                 height: 100%;
                 width:100%;
                 /* border: solid brown; */
                 margin-bottom: 50px;
                 align-items: center;
+                transition: all 1s ease-in;
             }
 
             .img_div>img {
@@ -254,175 +306,17 @@
                  height: 100%;
 
             }
-
+           
             .quest {
                 display: flex;
                 justify-content: space-evenly;
                 list-style: none;
             }
-
-
-
-            #space_qa_comment{
-                overflow: auto;
-                /* border:solid blue; */
-               
-            }
-           
-            /*----------QA--------------*/
-            #comment_table{
-                height:100%;
-                width:100%;
-              
-            }
-
-            /* #comment_table tr th td{
-                width:100%;
-            } */
-
-            #comment_table td {
-                padding-top: 8px;
-                padding-bottom: 8px;
-            }
-
-             #comment_table th, #comment_table td {
-                /* vertical-align: top; */
-            }
-
-            #comment_table .time {
-                font-size: 0.8rem;
-                color: #666;
-            }
-
-            #review_table .time{
-                font-size: 0.8rem;
-                color: #666;
-            }
-
-            .time{
-                font-size: 0.8rem;
-                color: #666;
-            }
-
-
-            #comment_table .time {
-                font-size: 0.8rem;
-                color: #666;
-            }
-
-            
-            .comment_list{
-             /* resize:none; */
-             padding: 8px;
-           }
-           .comment_list >th{
-              width:200px;
-           }
-           .comment_list >td{
-              width:500px;
-           }
-          
-          
-
-           #hostReplyContent{
-             width:50px;
-           }
-            .clear {
-                width: 20%;
-            }
-            .mb-1 {
-                margin-bottom: .25rem;
-            }
-            textarea{
-               
-              resize:none;
-              /* resize:vertical; */
-              height: 100%;
-           
-            }
-
-            .comment_list:last-child {
-               border-bottom: none;
-             }
-         
-
-
-             .nickName {
-                 font-weight: bold;
-             }
-
-             #comment_info{
-                width:100%;
-             }
-           
-            .host-reply-content {
-                background-color: #f9f9f9;
-                padding: 8px;
-                margin-top: 5px;
-                border-left: 3px solid #007bff;
-            }
-
-            .host-reply-toggle {
-                font-size: 0.9rem;
-                color: #007bff;
-                cursor: pointer;
-                padding: 0;
-                border: none;
-                background: none;
-             }
-
-             button[type="button"],button[type="submit"]{
-                background-color: #6623da;
-                color: white;
-                border: none;
-                padding: 6px 12px;
-                cursor: pointer;
-            }
-            button[type="button"]:hover ,button[type="submit"]:hover{
-             background-color: #0056b3;
-            }
-
-
-            #comment_list{
-               /* display:none; */
-                
-               width:90%;
-                margin-left:10%;
-               border: solid 1px salmon;
-               
-              
-            }
-            #comment_list>ul{
-                text-align: center;
-                border: solid 1px rgb(216, 80, 65);
-            }
-            #comment_list li{
-                
-                list-style: none;
-            }
-
-
-            .comment_list{
-                margin-bottom: 100px;
-              
-            }
-            
-           
-            #comment_list li{
-                
-                list-style: none;
-            }
-
+       
         
 
             /*--------리뷰---------*/
-           
-            #space_review{
-                overflow: auto;
-                /* border:solid blue; */
-               
-            }
-
+         
 
 
 
@@ -529,6 +423,23 @@
         	color:red;
         
         }
+
+        #reservation_btn{
+                background-color: #2d10e6;
+                color: white;
+                border: none;
+                padding: 6px 12px;
+                cursor: pointer;
+        }
+
+        #category_btn{
+                background-color: #dabc23;
+                color: white;
+                border: none;
+                padding: 6px 12px;
+                cursor: pointer;
+        }
+
           
 
         </style>
@@ -558,7 +469,7 @@
           
             <nav id="main" class="navbar-light bg-light">
                  <input id="spaceNum" type="text" value="<%=space.getSpaceNo()%>" hidden> <!--공간번호--> 
-
+                 <input id="userNo" type="text" value="<%=userNo%>" hidden >
 				<% if(hostCheck==true){ %>
 				    <input id="hostCheck" type="text" value="true" hidden>
 					
@@ -567,153 +478,45 @@
 				    <input id="hostCheck" type="text" value="false" hidden>
 				 
 				 <%} %>
-				
+             
 
 
                 <div id="section_1">
 
+                    <!--찜하기-->
 
                     <div id="space_id" name="space_name" class="title">
                         <div class="text"><%=space.getSpaceName() %> </div> 
-                        <div id="picked_divs" onclick="picked(this)" >찜하기<i class='fa-regular fa-heart'></i></div>
+                        <div id="picked_divs">찜하기<i class='fa-regular fa-heart'></i></div>
                     </div>
 
 			      <script>
                 
-                        window.onload = function(){
                       
-                        	  pickedview();
-                          
-                          };
-                          
-                         
-                          
-                        function pickedview(){
-                         	 	
-                        	  <%if(member==null){%>
-                        	     
-                       	 	 	  return false;
-                       	 
-                       		  <% }%>  
-                        	
-                              let spaceNo=document.querySelector("#spaceNum").value;
-                              let picked=document.querySelector("#picked")
-                              let pickedText=document.querySelector("#picked_divs");
-                          	
-                              
-                              $.ajax({
-
-                                  url:'pickedcheck.sp',
-                                  type:'GET',
-                              
-                                  data:{
-                                      spaceNum:spaceNo
-                       
-                                  },
-
-                                  success:function(response){
-                                 
-                                  
-                                  if(response==="찜하기"){
-                                 	 pickedText.innerHTML=response+"<i class='fa-regular fa-heart'></i>"
-                                  
-                                  }
-                                  else{
-                                 	 pickedText.innerHTML=response+"<i class='fa-solid fa-heart' style='color:red'></i>"
-                                  }
-                                  
-                                 },
-                                  error:function(error){
-                                      console.log("error"+error);
-
-                                  }
+                 </script>
 
 
-                              })
-                         
-                         	 
-                         	 
-                         }
-                                 
-                                 
-                             
-                          
-                              function picked(_this){
-                            	
-                            	  <%if(member==null){%>
-                            	     alert("로그인해주세요");
-                              	 	 return false;
-                              	 
-                              	 <% }%>  
-                            	  
-                            	  
-                                let spaceNo=document.querySelector("#spaceNum").value;
-                                let picked=document.querySelector("#picked")
-                            
-                                
-                                $.ajax({
+                    <div id="space_comment" class="space">
 
-                                    url:'picked.sp',
-                                    type:'GET',
-                                
-                                    data:{
-                                        spaceNum:spaceNo
-                         
-                                    },
+                     
 
-                                    success:function(response){
-                                    console.log(response);
-                                    
-                                    if(response==="찜하기"){
-                                    	_this.innerHTML=response+"<i class='fa-regular fa-heart'></i>"
-                                    
-                                    }
-                                    else{
-                                    	_this.innerHTML=response+"<i class='fa-solid fa-heart' style='color:red'></i>"
-                                    }
-                                    
-                                   },
-                                    error:function(error){
-                                        console.log("error"+error);
-
-                                    }
+                             <div class="img_div" >
+                                <% for (Attachment at: attachment) { %>
+                                    <img src="<%=request.getContextPath()%>/<%=at.getFilePath()%>"/>
+                                    <img src="<%=request.getContextPath()%>/<%=at.getFilePath()%>"/>
+                                 <% } %>
+                             </div>
+                    
+                    </div>
+                    
+                    <div style="margin-bottom: 50px; font-size: 20px;" >
+                        <span>
+                            <%=space.getSpaceOneIntroduce() %>
+                        
+                        </span>
+                     </div>
 
 
-                                })
-                           
-                                
-
-                                // if(_this.innerText==="찜하기"){
-                                //     _this.innerText="찜해제";
-                                //     alert("찜해제되었습니다.")
-                                // }
-                                // else{
-                                //     _this.innerText="찜하기";
-                                //     alert("찜하기");
-                                // }
-
-
-
-                             }
-
-                       </script>
-
-
-			   <div id="space_comment" class="space">
-
-                        <div class="img_div" >
-
-                            <img src="<%=request.getContextPath()%>/<%=space.getSpaceMimg()%>"/>
-                            
-                         </div>
-
-                        <div style=" padding-top:20px; ">
-                            <span>
-                                <%=space.getSpaceOneIntroduce() %>
-                            </span>
-
-                        </div>
-                 </div>
                     <div id="list">
                         <ul>
                             <li><a href="#space_intro">공간소개</a></li>
@@ -753,13 +556,6 @@
                             </tbody>
 
                         </table>
-
-
-
-
-
-
-
                     </div>
 
 
@@ -778,16 +574,49 @@
                         <div class="text">길찾기</div>
                         <hr class="line2" style="background:rgb(235, 229, 229) ">
                     </div>
+
                     <div id="space_road_comment" class="space">
 
+                        <div id="map" style="width:1000px;height:500px;"></div>
+                        <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=&libraries=services,clusterer,drawing"></script>
+                        <script>
+                            let mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+                               mapOption = {
+                                center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+                                level: 3 // 지도의 확대 레벨
+                            };  
 
-                       <iframe
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3165.378379236162!2d127.03290899999996!3d37.49899300000002!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357c9ec255555555%3A0x3565475c3365c5bb!2zS0jsoJXrs7TqtZDsnKHsm5A!5e0!3m2!1sko!2skr!4v1712133003105!5m2!1sko!2skr"
-                            style="border:0; width:100%; height:200%;" allowfullscreen="" loading="lazy"
-                            referrerpolicy="no-referrer-when-downgrade" > </iframe>
+                            // 지도를 생성합니다    
+                            let map = new kakao.maps.Map(mapContainer, mapOption); 
 
-                        
+                            // 주소-좌표 변환 객체를 생성합니다
+                            let geocoder = new kakao.maps.services.Geocoder();
 
+                            // 주소로 좌표를 검색합니다
+                            geocoder.addressSearch("서울특별시 강남구 강남구 테헤란로14길 6", function(result, status) {
+
+                                // 정상적으로 검색이 완료됐으면 
+                                if (status === kakao.maps.services.Status.OK) {
+
+                                    let coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+
+                                    // 결과값으로 받은 위치를 마커로 표시합니다
+                                    let marker = new kakao.maps.Marker({
+                                        map: map,
+                                        position: coords
+                                    });
+
+                                    // 인포윈도우로 장소에 대한 설명을 표시합니다
+                                    let infowindow = new kakao.maps.InfoWindow({
+                                       content: '<div style="width:150px;text-align:center;padding:6px 0;">우리공간</div>'
+                                    });
+                                    infowindow.open(map, marker);
+
+                                    // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+                                    map.setCenter(coords);
+                                } 
+                            });    
+                        </script>
                     </div>
 
 
@@ -799,11 +628,13 @@
 
 
 
-                    <div id="space_qa_comment" class="space  container mt-4">
+                        <div id="space_qa_comment" class="space">
 
+                      
                     
-                            <table id="comment_table" class="list-group" >
-                                
+                            <table id="comment_table"  class="list-group" >
+
+                                <tbody id="comment_body" class='qa_body'></tbody>
                                     
                                     <!-- <tr class="comment_list">    
 
@@ -862,41 +693,34 @@
                                 -->
                               
                             </table> 
-
-                    </div>
-
-                    <script>
-                        // $(document).ready(function(){
-                        //     $(".host-reply-toggle").click(function(){
-                        //         let targetId = $(this).data("target");
-                        //         $(targetId).toggle();
-                        //     });
-                        // });
-                    </script>
-
-                        <% if(member!=null) {%>
-                    
-                        <div id="comment_info" style="height:80px">
-                            <th></th>
-                            <td>
-                                <div class="QA" style="  font-size: 1.2rem; margin-top:30px">QA등록하기</div>
-
-                                <div id="comment div" style="width:100%; height:100%; display:flex; justify-content:center;">
-                                    
-                                    <div style="width:100%">
-                                        <textarea id="content" placeholder="입력하세요" style="width:500px;"  ></textarea>
-                                       
-                                    </div>
-
-
-
-                                    <div style=" width:100%; height:100%;"><button id="comment_enroll" type="button" style="height:100%;" >등록하기</button></div>
-
-                                </div>
-
-                            </td>
                         </div>
 
+                   
+
+
+
+
+
+                        <% if(member!=null) {%>
+                            <div class="container mt-4">
+                                <div class="card">
+                                    <div class="card-header bg-primary text-white">
+                                      QA등록
+                                    </div>
+                                    <div class="card-body">
+                                      
+                                     
+                                            <div class="mb-3">
+                                                <label for="review_content" class="form-label">QA작성</label>
+                                                <textarea class="form-control" id="content" name="content" placeholder="입력하세요" rows="3" style="width: 100%;"></textarea>
+                                            </div>
+                                            <div class="d-grid">
+                                                <button type="button" id="qa_enroll" class="btn btn-primary btn-block">QA작성하기</button>
+                                            </div>
+                                       >
+                                    </div>
+                                </div>
+                            </div>
                          <% } %>
 
 
@@ -912,49 +736,38 @@
      
                              <table id="review_table" class="list-group">
 
-                                <tbody class='comment_body'></tbody>
+                                <tbody id="review_body" class='review_body'></tbody>
                        
                             </table>
-
-
-
-                        </div>
+                        </div>  <!--reivew_content  reivew_enroll-->
 
                         <% if(loginUser!=null) {%>
-                            <form action="<%=contextPath%>/reviewInsert.sp" method="POST">
-                                <input id="spaceNum" type="text" value="1" hidden> <!--공간번호--> 
+                           
+                               <input type="text" name="spaceNum"  value="<%=space.getSpaceNo()%>" hidden/>
                             
-                                    <div id="comment_info" style="height:80px">
-                                        <th></th>
-                                        <td>
-                                            <div class="review" style="  font-size: 1.2rem; margin-top:30px">리뷰 등록하기</div>
-
-                                            <div id="comment div" style="width:100%; height:100%; display:flex; justify-content:center;">
-
-                                                <input type="text" name="spaceNum"  value="<%=space.getSpaceNo()%>" hidden>
-                                                <div style="width:100%">
-                                                    <textarea id="content" placeholder="입력하세요" name="content" style="width:500px;" ></textarea>
+                               <div class="container mt-4">
+                                    <div class="card">
+                                        <div class="card-header bg-primary text-white">
+                                        리뷰등록
+                                        </div>
+                                        <div class="card-body">
+                                            <form>
+                                                <input type="hidden" name="spaceNum" value="<%=space.getSpaceNo()%>"> <!-- Ensure server-side template rendering supports this syntax -->
+                                                <div class="mb-3">
+                                                    <label for="review_content" class="form-label">리뷰작성</label>
+                                                    <textarea class="form-control" id="reivew_content" name="content" placeholder="입력하세요" rows="3" style="width: 100%;"></textarea>
                                                 </div>
-                                                <div style=" width:100%; height:100%;"><button id="comment_enroll" type="submit" style="height:100%;">등록하기</button></div>
-                                            </div>
-                                       
-                                        
-                                              
-                                        </td>   
+                                                <div class="d-grid">
+                                                    <button type="button" id="reivew_enroll" class="btn btn-primary btn-block">리뷰등록하기</button>
+                                                </div>
+                                            </form>
+                                        </div>
                                     </div>
-                            </form> 
+                                </div>
                         <% } %>
-                                        
-                                  
-                                   
 
-                                   
-                            
-                      
-
-                </div>
               
-
+                </div>
 
 
                 <div id="section_2">
@@ -983,14 +796,10 @@
 
                         <div id="space_detail_comment">
 
-                            <div class="img_div"><img src="<%=request.getContextPath()%>/<%=attachment.get(0).getFilePath()%>" >세부공간이미지</div>
+                            <div class="img_div"><img src="<%=request.getContextPath()%>/<%=space.getSpaceMimg() %>" >세부공간이미지</div>
 
                             <p>
                                 <span>서울대 입구..스터디룸 카페 예약
-                                    서울대 입구..스터디룸 카페 예약
-                                    서울대 입구..스터디룸 카페 예약
-                                    서울대 입구..스터디룸 카페 예약
-                                    서울대 입구..스터디룸 카페 예약
                                 </span>
                             </p>
 
@@ -1226,7 +1035,7 @@
                        
                     </script>
 
-                       <input id="userNo" type="text" value="<%=userNo%>" hidden >
+                   
 
                        <!-- <% if (member!=null){ %>
                          <input id="userId" type="text" value="<%=member.getUserId()%>" hidden >
@@ -1242,7 +1051,7 @@
                         
                             <button  class="navbar-toggler" type="button" class="button" data-toggle="modal"  data-target="#pay-modal" 
                                 id="reservation_btn" style="color:white">예약하기</button>
-                            <button class="navbar-toggler" type="button" class="button" style="color:white" onclick="location.href='<%=contextPath%>'">목록으로</button>
+                            <button  id="category_btn"   class="navbar-toggler" type="button" class="button" style="color:white" onclick="location.href='<%=contextPath%>'">목록으로</button>
                             <%}else{%>
 						
 						       <button class="navbar-toggler" type="button" class="button" style="color:white">로그인하세요</button>
@@ -1335,7 +1144,7 @@
                      <!--유저가 호스트면-->
                    <% } 
      			    else { %>
-     			   
+                  
 					<div >
 
                         <div id="space_detail_select">
@@ -1345,7 +1154,7 @@
 
                         <div id="space_detail_comment">
 
-                            <div class="img_div"><img src="<%=request.getContextPath()%>/<%=attachment.get(0).getFilePath()%>">세부공간이미지</div>
+                            <div class="img_div"><img src="<%=request.getContextPath()%>/<%=space.getSpaceMimg()%>">세부공간이미지</div>
                     
 
                             <p>
