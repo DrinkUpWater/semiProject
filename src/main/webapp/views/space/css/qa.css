@@ -132,6 +132,7 @@
                 border: none;
                 padding: 6px 12px;
                 cursor: pointer;
+                height:100%;
             
             
             }
@@ -141,8 +142,8 @@
             }
 
             .GustDeleteButton{
-                background-color: #da3b23;
-                color: white;
+                background-color: #f9f9f9;
+                color:red;
                 border: none;
                 padding: 6px 12px;
                 cursor: pointer;
@@ -214,7 +215,7 @@
 
 
             #qa_enroll{
-                background-color: #6623da;
+                /* background-color: #6623da; */
                 color: white;
                 border: none;
                 padding: 6px 12px;
@@ -245,9 +246,16 @@
                  display:flex; 
                  justify-content:center;
             }
+
+       
+
+          
             /* #content{
                 width:500px;
             }  */
+
+
+            
 
              
 

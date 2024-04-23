@@ -99,6 +99,7 @@ function drawTableList(reviewList,parentTag){
        let userNo=parseInt(document.querySelector("#userNo").value);
        //let userId=parseInt(document.querySelector("#userId").value);
        const cancelTd=document.createElement('td');
+       cancelTd.className="gustCancelTd  mb-1";
 
         if((reply.reviewUserNo===userNo)){
            // const cancelTd=document.createElement('td');
@@ -108,7 +109,8 @@ function drawTableList(reviewList,parentTag){
 
             const cancelTdButton=cancelTd.appendChild(buttonTag);
             cancelTdButton.innerText="삭제";
-            replyRow.appendChild(cancelTdButton);
+            cancelTdButton.className='GuestReviewButon'
+            replyRow.appendChild(cancelTd);
 
             deleteButton(buttonTag,reply.reviewNo)
         }
