@@ -29,7 +29,7 @@
    SELECT 
    		REVIEW_NO,
    		CONTENT,
-   		USER_NAME,
+   		USER_ID,
    		INSERT_DATE,
    		R.USER_NO
    		FROM REVIEW R

@@ -363,7 +363,7 @@
                 border: none;
             }
 
-            #detail_space_choice {
+            #detail_space_choice ,#detail_myspace {
 
                 border: solid 1px #704DE4;
                 padding: 15px;
@@ -616,7 +616,7 @@
                             let geocoder = new kakao.maps.services.Geocoder();
 
                             // 주소로 좌표를 검색합니다
-                            geocoder.addressSearch(<%=space.getSpaceLocation()%>, function(result, status) {
+                            geocoder.addressSearch("<%=space.getSpaceAddress()%>" , function(result, status) {
 
                                 // 정상적으로 검색이 완료됐으면 
                                 if (status === kakao.maps.services.Status.OK) {
@@ -631,7 +631,7 @@
 
                                     // 인포윈도우로 장소에 대한 설명을 표시합니다
                                     let infowindow = new kakao.maps.InfoWindow({
-                                       content: '<div style="width:150px;text-align:center;padding:6px 0;">우리공간</div>'
+                                       content: '<div style="width:150px;text-align:center;padding:6px 0;">내공간</div>'
                                     });
                                     infowindow.open(map, marker);
 
@@ -740,7 +740,7 @@
                                             <div class="d-grid">
                                                 <button type="button" id="qa_enroll" class="btn btn-primary btn-block">QA작성하기</button>
                                             </div>
-                                       >
+                                       
                                     </div>
                                 </div>
                             </div>
@@ -796,7 +796,7 @@
                 <div id="section_2">
 
 
-     			  <% if(spaceKind.equals("spaces")) {%>
+     			  <% if(spaceKind.equals("spaces")&&(loginUser.getUserNo()!=space.getUserNo())) {%>
 
 
                     <!-- 유저가 게스트면-->
@@ -1191,7 +1191,7 @@
                    <% } 
      			    else { %>
                   
-					<div >
+					<div id="detail_myspace" >
 
                         <div id="space_detail_select">
                             <div class="text2"> 공간유형</div>
@@ -1248,51 +1248,40 @@
 
                         <div id="space_option_kind">
                             <div class="option_kind">
-                                <i class="sp_icon ico_table"></i>
+                                <i class="fa-solid fa-chair"></i>
                                 <span class>의자/테이블</span>
                             </div>
                             <div class="option_kind">
-                                <i class="sp_icon ico_table"></i>
+                                <i class="fa-solid fa-toolbox"></i>
                                 <span class>장비대여</span>
                             </div>
                             <div class="option_kind">
-                                <i class="sp_icon ico_table"></i>
+                                <i class="fa-solid fa-plug"></i>
                                 <span class>전기</span>
                             </div>
                             <div class="option_kind">
-                                <i class="sp_icon ico_table"></i>
+                                <i class="fa-solid fa-bowl-rice"></i>
                                 <span class>취사시설</span>
                             </div>
                             <div class="option_kind">
-                                <i class="sp_icon ico_table"></i>
+                                <i class="fa-solid fa-burger"></i>
                                 <span class>음식물 반입가능</span>
                             </div>
                             <div class="option_kind">
-                                <i class="sp_icon ico_table"></i>
+                                <i class="fa-solid fa-water"></i>
                                 <span class>온수</span>
                             </div>
                             <div class="option_kind">
-                                <i class="sp_icon ico_table"></i>
+                                <i class="fa-solid fa-restroom"></i>
                                 <span class>내부화장실</span>
                             </div>
                             <div class="option_kind">
-                                <i class="sp_icon ico_table"></i>
+                                <i class="fa-solid fa-bars-progress"></i>
                                 <span class>TV 프로젝터</span>
                             </div>
+                            
                             <div class="option_kind">
-                                <i class="sp_icon ico_table"></i>
-                                <span class>화이트보드</span>
-                            </div>
-                            <div class="option_kind">
-                                <i class="sp_icon ico_table"></i>
-                                <span class>취사시설</span>
-                            </div>
-                            <div class="option_kind">
-                                <i class="sp_icon ico_table"></i>
-                                <span class>취사시설</span>
-                            </div>
-                            <div class="option_kind">
-                                <i class="bi bi-wifi-2"></i>
+                                <i class="fa-solid fa-wifi"></i>
                                 <span class>WI-FI</span>
                             </div>
                         </div>
@@ -1300,11 +1289,24 @@
                         <div align="center">
                             <button type="button" class="button"   onclick="location.href='<%=request.getContextPath()%>/update.sp?spaceNum=<%=space.getSpaceNo()%>'">수정하기</button>
                             <form action="#" method="post" style="display: inline;">
-                                <button type="button" class="button" onclick="location.href='<%=request.getContextPath()%>/delete.sp?spaceNum=<%=space.getSpaceNo()%>'">삭제하기</button>
+                                <button type="button" class="button" onclick="cancelReservation(<%=space.getSpaceNo()%>)">삭제하기</button>
                             </form>
                             <button type="button" class="button"     onclick="location.href='<%=request.getContextPath()%>/main.ho'">호스트 홈</button>
                         
                         </div>
+                        <script>
+
+                             function cancelReservation(spaceNo){
+                                let confirmCheck=confirm("등록취소하시겠습니까?");
+                                if(confirmCheck){
+                                   location.href=`<%=request.getContextPath()%>/delete.sp?spaceNum=`+spaceNo+` `
+                                }
+                                else{
+                                    return false;
+                                }
+                             }
+
+                        </script>
 
                     </div>
 

@@ -205,6 +205,28 @@ public class SpaceReservationDao {
 		return result;
 	}
 
+	public int deleteReservation(Connection conn, int reservationNo) {
+		PreparedStatement pstmt =null;
+		String sql = pro.getProperty("deleteReservation");
+		int result=0;
+		
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, reservationNo);
+			
+			result=pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
 	
 
 }

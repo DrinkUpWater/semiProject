@@ -193,6 +193,7 @@
                         <th>호스트명</th>
                         <th>금액</th>
                         <th>예약 신청일</th>
+                        <th></th>
                     </tr>
                 </thead>
 				<tbody>
@@ -272,6 +273,7 @@
 									<!-- host이름으로 수정해야함 -->
 									<td>${p.totalPrice}</td>
 									<td>${p.createDate}</td>
+                                    <td ><a style="color:red" onclick="cancelConfirm(${p.reservationNo})">취소하기</a></td>
                                 </tr>
 								</c:forEach>
 						</c:otherwise>
@@ -280,6 +282,20 @@
 					
 			</table>
             <br><br>
+            <script>
+
+                function cancelConfirm(reservationNum){
+
+                    let confirmCancel=confirm("취소하시겠습니까?");
+                    if(confirmCancel){
+                        location.href="<%=request.getContextPath()%>/cancel.re?reservationNo="+reservationNum;
+
+                    }else{
+                        return false;
+                    }
+                }
+
+            </script>
 
 			<div class="paging-area" align="center">
 
