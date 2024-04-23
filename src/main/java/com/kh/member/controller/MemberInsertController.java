@@ -42,10 +42,19 @@ public class MemberInsertController extends HttpServlet {
 		String email = request.getParameter("email") + "@" + request.getParameter("select-email");
 		String userHost = request.getParameter("userHost");
 		
-		
+//		if(phone.length() !=11 || phone.contains("-")) {
+//			 request.getSession().setAttribute("alertMsg", "전화번호를 옳바르게 입력하지않았습니다.");
+//			 response.sendRedirect(request.getContextPath()+"/enrollForm.me");
+//			 return;
+//		}
+//		if(birth.length() != 6) {
+//			request.getSession().setAttribute("alertMsg", "생년월일을 다시 입력해주세요.");
+//			 response.sendRedirect(request.getContextPath()+"/enrollForm.me");
+//			 return;
+//		}
 		
 		Member m = new Member(userId,userPwd,userName,nickName,gender,phone,birth,email,userHost);
-		
+		System.out.println(m);
 		int result = new MemberService().insertMember(m);
 		
 		if (result > 0) {

@@ -240,7 +240,8 @@
         <%@ include file="../common/menubar.jsp" %>
             <div id="wrapper">
                 <div class="join-user">
-                    <form action="insert.me" id="login-form" method="post">
+                    <!-- insert.me -->
+                    <form action="insert.me" id="login-form" method="post"> 
                         <h4 class="text-header">회원가입</h4>
                         <h7 class="text-header2">회원이 되어 다양한 혜택을 받으세요! </h7>
 
@@ -266,8 +267,9 @@
 
                             <tr>
                                 <td colspan="2" class="input-id">
+                                    <!--  onblur="obrid()" -->
                                     <input type="text" name="userId" id="userId" minlength="6" maxlength="20"
-                                        onblur="obrid()" placeholder=" 아이디입력 6~20자" required>
+                                        placeholder=" 아이디입력 6~20자" required>
                                 </td>
                                 <td>
                                     <button type="button" class="idCheck" onclick="idCheck()">중복 확인</button>
@@ -370,7 +372,7 @@
                             <label class="host-label"><input type="radio" name="userHost" value="G"><b class="bb">게스트</b></label>
                         </div>
                         <div class="btn-area">
-                            <button type="submit" class="join-btn" onclick="return joinUser()">가입하기</button>
+                            <input type="submit" class="join-btn" value="가입하기" onclick="return joinUser();"></input>
                             <a href="#" onclick="history.back();" type="button" class="cancle">가입취소</a>
                         </div>
 
@@ -380,24 +382,13 @@
 
                 <script>
 
-                    let maleRadio = document.querySelector('input[name="gender"][value="남"]');
-                    let femaleRadio = document.querySelector('input[name="gender"][value="여"]');
-
-                    let userName = document.getElementById("userName");
-                    let userId = document.getElementById("userId");
-                    let userPwd = document.getElementById("userPwd");
-                    let userPwdCheck = document.getElementById("userPwdCheck");
-                    let nickName = document.getElementById("nickName");
-                    let phone = document.getElementById("phone");
-                    let birth = document.getElementById("birth");
-                    let email = document.getElementById("email");
-                    let select_email = document.querySelector(".select-email");
-
-                    const cantid =document.querySelector(".cantid"); 
-                    const useableid=document.querySelector(".useableid");
+                    
+            
 
                     function idCheck(){ //아이디 중복 확인 함수
-                       console.log(userId);
+                        let userId = document.getElementById("userId");
+                        let cantid =document.querySelector(".cantid"); 
+                        let useableid=document.querySelector(".useableid");
                        $.ajax({
                         type:"POST",
                         url : "idCheck.me",
@@ -437,7 +428,21 @@
 
 
                     function joinUser() { //빈칸 있을시 확인
-                        let cantid = document.querySelector(".cantid");
+
+      
+                        let maleRadio = document.querySelector('input[name="gender"][value="남"]');
+                        let femaleRadio = document.querySelector('input[name="gender"][value="여"]');
+                        let cantid =document.querySelector(".cantid"); 
+                        let userName = document.getElementById("userName");
+                        let userId = document.getElementById("userId");
+                        let userPwd = document.getElementById("userPwd");
+                        let userPwdCheck = document.getElementById("userPwdCheck");
+                        let nickName = document.getElementById("nickName");
+                        let phone = document.getElementById("phone");
+                        let birth = document.getElementById("birth");
+                        let email = document.getElementById("email");
+                        let select_email = document.querySelector(".select-email");
+
 
                         if (userName.value === "") {
                             alert("이름을 입력해주세요.");
@@ -495,7 +500,7 @@
                         // 전화번호 조건 부분-------------------------------------------
                         else if (phone.value === "") {
                             alert("전화번호를 입력해주세요.");
-                            phon.focus();
+                            phone.focus();
                             return false;
                         }
                         else if (!isValidPhoneNumber(phone.value)) {
@@ -531,11 +536,10 @@
                             return false;
                         }
 						
-                        else{ //빈칸없이 서버에서 보내졌으나 에러 발생시
-                            alert(request.getAttribute('alertMsg'));
-                        	return false;
-                        }
-
+                        // else{ //모든 조건을 충족할 시
+                        //     document.getElementById("login-form").submit();
+                        //     return true;
+                        // }
 
                     }
 
@@ -543,6 +547,8 @@
 
                     // 비밀번호 동일 여부 확인 + 유효가능 확인
                     function onb() {
+                        let userPwd = document.getElementById("userPwd");
+                        let userPwdCheck = document.getElementById("userPwdCheck");
                         let usealbePwd = document.querySelector(".usealbePwd");
                         let cantPwdCheck = document.querySelector(".cantPwdCheck");
                         let cantPwd = document.querySelector(".cantPwd");

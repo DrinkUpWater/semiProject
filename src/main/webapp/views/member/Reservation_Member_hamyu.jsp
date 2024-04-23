@@ -240,7 +240,7 @@
 																</tr>
 																<tr>
 																	<td class="trtd">예약내용</td>
-																	<td align="center">${p.time1 }-${p.time2 }</td>
+																	<td align="center">${p.time1 }시 ~ ${p.time2 }시</td>
 																</tr>
 																<tr>
 																	<td class="trtd">예약인원</td>

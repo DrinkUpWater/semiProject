@@ -9,8 +9,11 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+
 import java.util.InvalidPropertiesFormatException;
 import java.util.Properties;
 
@@ -118,15 +121,24 @@ public class SpaceReservationDao {
 			
 			rset=pstmt.executeQuery();
 			while(rset.next()) {
-		
-		        list.add(new ReservationInfo(
+				System.out.println(rset.getString("RESERVATION_DATE"));
+				String formattedDate=null;
+				if(rset.getDate("RESERVATION_DATE") !=null) {
+					Date reservationDate = rset.getDate("RESERVATION_DATE");
+					System.out.println(reservationDate);
+					SimpleDateFormat newSdf = new SimpleDateFormat("yyyy년 MM월 dd일 (E)");
+					formattedDate = newSdf.format(reservationDate);
+				}
+				
+				list.add(new ReservationInfo(
 						rset.getInt("RESERVATION_NO"),
 						rset.getInt("HEADCOUNT"),
 						rset.getString("USER_NAME"),
 						rset.getInt("TOTAL_PRICE"),
 						rset.getInt("RESERVATION_TIME1"), 
 						rset.getInt("RESERVATION_TIME2"),
-						rset.getString("RESERVATION_DATE"),
+//						rset.getString("RESERVATION_DATE"),
+						formattedDate,
 						rset.getDate("CREATE_DATE"),
 						rset.getString("SPACE_NAME"),		
 						rset.getString("SPACE_MIMG")			
