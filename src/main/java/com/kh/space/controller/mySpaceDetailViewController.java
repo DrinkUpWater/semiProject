@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.kh.common.API;
 import com.kh.common.Attachment;
 import com.kh.space.model.vo.Space;
 import com.kh.space.service.SpaceService;
@@ -39,17 +40,19 @@ public class mySpaceDetailViewController extends HttpServlet {
 		Space space=new SpaceService().selectOneSpace(spaceNo);
 	    ArrayList<Attachment> attachments =new SpaceService().selectSpaceAttachment(spaceNo);
 		
-		if(attachments.isEmpty()) {
-			 Attachment att=new Attachment();
-			 att.setFilePath("");
-			 attachments.add(att);
-		}
+//		if(attachments.isEmpty()) {
+//			 Attachment att=new Attachment();
+//			 att.setFilePath("");
+//			 attachments.add(att);
+//		}
 	
 		if(space==null) {
 			request.getSession().setAttribute("alertMsg","공간조회실패");
 			response.sendRedirect(request.getContextPath());
 			
 		}else {
+			request.setAttribute("api", API.getAPI());
+			System.out.println(API.getAPI());
 			request.setAttribute("space", space);
 			request.setAttribute("spaceKind", "mySpace");
 			request.setAttribute("attachments", attachments);

@@ -1,8 +1,6 @@
-package com.kh.space.controller;
+package com.kh.space.controller.hostcomment;
 
 import java.io.IOException;
-import java.util.ArrayList;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -12,20 +10,19 @@ import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
 import com.kh.member.model.vo.Member;
-import com.kh.space.model.vo.Review;
-import com.kh.space.service.SpaceReviewService;
+import com.kh.space.service.SpaceCommentService;
 
 /**
- * Servlet implementation class SpaceReivewInsertController
+ * Servlet implementation class SpaceHostCommentInsert
  */
-@WebServlet("/reviewInsert.sp")
-public class SpaceReivewInsertController extends HttpServlet {
+@WebServlet("/insert.ho")
+public class SpaceHostCommentInsert extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SpaceReivewInsertController() {
+    public SpaceHostCommentInsert() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -35,30 +32,43 @@ public class SpaceReivewInsertController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
+		response.setContentType("application/json; charset=utf-8");
 		
 		HttpSession session =request.getSession();
-		Member m = (Member) session.getAttribute("loginUser");
-		int spaceNum = Integer.parseInt(request.getParameter("spaceNum"));
-		String content=request.getParameter("content");
-	
-		if (m == null) {
-			session.setAttribute("alert", "로그인하세요");
-			response.sendRedirect(request.getContextPath()+"/loginForm.me");
-			return;
-		}
-
-		else {
+		Member member= (Member)session.getAttribute("loginUser");
+		if(member==null) {
+			new Gson().toJson("로그인하세요",response.getWriter());
 			
-
-			int result = new SpaceReviewService().insertReviews(m.getUserNo() ,spaceNum,content);
-			if(result<0) {
-				session.setAttribute("alertMsg", "리뷰등록실패");
-				response.sendRedirect(request.getContextPath()+"/detailview.sp?spaceNo="+spaceNum);
-			}else {
-				response.sendRedirect(request.getContextPath()+"/detailview.sp?spaceNo="+spaceNum);
+		}else {
+			int commentNo=Integer.parseInt(request.getParameter("commentNo"));
+			String hostReply=request.getParameter("hostReply");
+			
+			
+			
+			
+			if(hostReply==null) {
+				hostReply="";
 			}
-             
+			
+			int result=0;
+			int count=new SpaceCommentService().findHostComment(commentNo);
+			
+			
+			if(count==0) {
+				 result=new SpaceCommentService().insertHostComment(commentNo,hostReply);
+			}else {
+				 result=new SpaceCommentService().updateHostComment(commentNo,hostReply);
+			}
+		
+			
+			if(result<0) {
+				new Gson().toJson("답글등록실패",response.getWriter());
+			}
+			else {
+				new Gson().toJson("답글이 등록되었습니다.",response.getWriter());
+			}
 		}
+		
 		
 		
 	}

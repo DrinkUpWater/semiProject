@@ -8,13 +8,15 @@ import com.kh.common.vo.PageInfo;
 import com.kh.space.model.dao.SpaceReservationDao;
 import com.kh.space.model.vo.Reservation;
 import com.kh.space.model.vo.ReservationDate;
+import com.kh.space.model.vo.ReservationInfo;
 import com.kh.space.model.vo.Review;
+
 
 public class SpaceReservationService {
 
-	public ArrayList<ReservationDate> findDate(String date) {
+	public ArrayList<ReservationDate> findDate(String date,int spaceNo) {
 		Connection conn =getConnection();
-		ArrayList<ReservationDate> dates=new SpaceReservationDao().findDate(conn,date);
+		ArrayList<ReservationDate> dates=new SpaceReservationDao().findDate(conn,date,spaceNo);
 		close(conn);
 		
 		return dates;
@@ -31,10 +33,11 @@ public class SpaceReservationService {
 	}
 
 
-	public ArrayList<Reservation> selectReservation(PageInfo pi, String userId) {
+	public ArrayList<ReservationInfo> selectReservation(PageInfo pi, String userId) {
 		Connection conn =getConnection();
-		ArrayList<Reservation> list = new SpaceReservationDao().selectReservation(conn,pi,userId);
-
+		
+		ArrayList<ReservationInfo> list = new SpaceReservationDao().selectReservation(conn,pi,userId);
+		
 		return list;
 	}
 

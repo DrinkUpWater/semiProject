@@ -84,6 +84,34 @@ public class SpaceCommentService {
 		
 		
 	}
+
+	public int deleteHostComment(int commentNo) {
+		Connection conn =getConnection();
+		int result=new SpaceCommentDao().deleteHostComment(conn,commentNo);
+		if(result>0) {
+			commit(conn);
+		}
+		else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		return result;
+	}
+
+	public int deleteGuestComment(int commentNo, int userNo) {
+		Connection conn =getConnection();
+		int result=new SpaceCommentDao().deleteGuestComment(conn,commentNo,userNo);
+		if(result>0) {
+			commit(conn);
+		}
+		else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		return result;
+	}
 	
 	
 	

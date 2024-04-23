@@ -157,7 +157,8 @@
 	
 	<entry key="selectSpaceAttachment">
 		SELECT  FILE_NO,
-				FILE_PATH
+				FILE_PATH,
+				CHANGE_NAME
 			FROM ATTACHMENT A
 			JOIN SPACE S ON (A.REF_SNO=S.SPACE_NO)
 	  WHERE FILE_LEVEL = 2  AND  S.SPACE_NO =  ?

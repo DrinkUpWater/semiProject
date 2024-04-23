@@ -9,6 +9,7 @@ public class GuestComment {
 	private Date insertDate;
 	private String hostReply;
 	private int spaceNum;
+	private int userNo;
 	
 
 	public GuestComment() {
@@ -32,6 +33,28 @@ public class GuestComment {
 		this.commentContent = commentContent;
 		this.insertDate = insertDate;
 		this.hostReply = hostReply;
+	}
+	
+	
+	
+	
+	public GuestComment(int commentNo, String userId, String commentContent, Date insertDate, String hostReply,
+			int userNo) {
+		super();
+		this.commentNo = commentNo;
+		this.userId = userId;
+		this.commentContent = commentContent;
+		this.insertDate = insertDate;
+		this.hostReply = hostReply;
+		this.userNo = userNo;
+	}
+
+
+	public int getUserNo() {
+		return this.userNo;
+	}
+	public void setUserNo(int userNo) {
+		this.userNo=userNo;
 	}
 
 

@@ -9,14 +9,21 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+
 import java.util.InvalidPropertiesFormatException;
 import java.util.Properties;
 
 import com.kh.common.vo.PageInfo;
 import com.kh.space.model.vo.Reservation;
 import com.kh.space.model.vo.ReservationDate;
+
+import com.kh.space.model.vo.ReservationInfo;
 import com.kh.space.model.vo.Review;
+
 
 public class SpaceReservationDao {
 	private Properties pro =new Properties();
@@ -40,7 +47,7 @@ public class SpaceReservationDao {
 		
 	}
 
-	public ArrayList<ReservationDate> findDate(Connection conn, String date) {
+	public ArrayList<ReservationDate> findDate(Connection conn, String date, int spacNo) {
 	   PreparedStatement pstmt=null;
 	   ResultSet reset=null;
 	   ArrayList<ReservationDate> dates=new ArrayList<>();
@@ -51,6 +58,7 @@ public class SpaceReservationDao {
 	   try {
 		pstmt=conn.prepareStatement(sql);
 		pstmt.setDate(1,date_);
+		pstmt.setInt(2,spacNo);
 		
 		reset=pstmt.executeQuery();
 		
@@ -97,11 +105,11 @@ public class SpaceReservationDao {
 		return reservationCount;
 	}
 
-	public ArrayList<Reservation> selectReservation(Connection conn, PageInfo pi, String userId) {
-		ArrayList<Reservation> list = new ArrayList<Reservation>();
+	public ArrayList<ReservationInfo> selectReservation(Connection conn, PageInfo pi, String userId) {
+		ArrayList<ReservationInfo> list = new ArrayList<ReservationInfo>();
 		ResultSet rset = null;
 		PreparedStatement pstmt =null;
-		String sql = pro.getProperty("selectReservation");
+		String sql = pro.getProperty("selectReservationInfo");
 		
 		try {
 			pstmt=conn.prepareStatement(sql);
@@ -114,20 +122,30 @@ public class SpaceReservationDao {
 			
 			rset=pstmt.executeQuery();
 			while(rset.next()) {
-
-				list.add(new Reservation(
-//						rset.getInt("RESERVATION_NO"),
-//						rset.getInt("HEADCOUNT"),
-//						rset.getString("USER_NAME"),
-//						rset.getInt("TOTAL_PRICE")
-//						rset.getInt("RESERVATION_TIME1"),
-//						rset.getInt("RESERVATION_TIME2"),
-//						rset.getDate("RESERVATION_DATE"),
-//						rset.getString("SPACE_NAME")			
+				System.out.println(rset.getString("RESERVATION_DATE"));
+				String formattedDate=null;
+				if(rset.getDate("RESERVATION_DATE") !=null) {
+					Date reservationDate = rset.getDate("RESERVATION_DATE");
+					System.out.println(reservationDate);
+					SimpleDateFormat newSdf = new SimpleDateFormat("yyyy년 MM월 dd일 (E)");
+					formattedDate = newSdf.format(reservationDate);
+				}
+				
+				list.add(new ReservationInfo(
+						rset.getInt("RESERVATION_NO"),
+						rset.getInt("HEADCOUNT"),
+						rset.getString("USER_NAME"),
+						rset.getInt("TOTAL_PRICE"),
+						rset.getInt("RESERVATION_TIME1"), 
+						rset.getInt("RESERVATION_TIME2"),
+//						rset.getString("RESERVATION_DATE"),
+						formattedDate,
+						rset.getDate("CREATE_DATE"),
+						rset.getString("SPACE_NAME"),		
+						rset.getString("SPACE_MIMG")			
 						));
 
-				
-		
+
 			}
 		} catch (SQLException e) {
 			
