@@ -37,21 +37,12 @@ public class SpaceReviewListController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		HttpSession session =request.getSession();
-	//	Member m = (Member)session.getAttribute("loginUser");
 		int spaceNum=Integer.parseInt(request.getParameter("spaceNum"));
-		System.out.println(spaceNum);
-//		if(m==null) {
-//		  // response.sendRedirect(request.getContextPath()+"/detailview?spaceNo="+spaceNum);
-//			session.setAttribute("alertMsg","로그인해주세요");
-//		    return;
-//		}
-//		
+
 		 
-	
-			response.setContentType("application/json; charset=utf-8");
-			ArrayList<Review> reviews = new SpaceReviewService().selectReviews(spaceNum);
-			System.out.println(reviews);
-			new Gson().toJson(reviews,response.getWriter());
+		response.setContentType("application/json; charset=utf-8");
+		ArrayList<Review> reviews = new SpaceReviewService().selectReviews(spaceNum);
+		new Gson().toJson(reviews, response.getWriter());
 			
 			//ArrayList<Review> reviews = new ArrayList<>()
 			

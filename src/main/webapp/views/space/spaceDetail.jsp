@@ -458,6 +458,64 @@
                 cursor: pointer;
         }
 
+        #count_person{
+            display: inline-block;
+            height: 40px;
+            padding: 0 10px;
+            vertical-align: middle;
+            border: 1px solid #dddddd;
+            width: 60%;
+            color: #999999;
+            border-radius: 5px;
+            text-align: center;
+        }
+        #plus{
+            padding: 10px 20px;
+            font-size: 16px;
+            color: white;
+            background-image: linear-gradient(to right, #6a11cb, #2575fc);
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            outline: none;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        #plus:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        #plus:active {
+            transform: translateY(1px);
+            box-shadow: 0 3px 5px rgba(0, 0, 0, 0.12);
+        }
+
+
+
+        #minus{
+            padding: 10px 20px;
+            font-size: 16px;
+            color: white;
+            background-image: linear-gradient(to right, #f53505, rgb(204, 157, 148));
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            outline: none;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        #minus:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        #minus:active {
+            transform: translateY(1px);
+            box-shadow: 0 3px 5px rgba(0, 0, 0, 0.12);
+        }
+
           
 
         </style>
@@ -802,7 +860,7 @@
                     <!-- 유저가 게스트면-->
                     <div id="detail_space" class="title">
                         <div class="text2"> 세부공간선택</div>
-                        <div id="icon">아이콘 아이콘</div>
+                        <div id="icon"><i class="fa-solid fa-heart-circle-bolt"></i></div>
                     </div>
 
                     <div id="detail_space_choice">
@@ -819,7 +877,9 @@
 
                         <div id="space_detail_comment">
 
-                            <div class="img_div"><img src="<%=request.getContextPath()%>/<%=space.getSpaceMimg() %>" >세부공간이미지</div>
+                            <div class="img_div"><img src="<%=request.getContextPath()%>/<%=space.getSpaceMimg() %>" ></div>
+                            <div>세부공간이미지</div>
+                            <br>
 
                              <table>
                                 <th>연략처:</th>
@@ -1061,7 +1121,6 @@
                         <div id="reservation_checked">예약여부
                             <hr class="line2">
                             <div>예약가능합니다.</div>
-                            <div>예약불가합니다.</div>
                         </div>
 
                         <div id="count" class="title">총 예약인원</div>
@@ -1200,8 +1259,9 @@
 
                         <div id="space_detail_comment">
 
-                            <div class="img_div"><img src="<%=request.getContextPath()%>/<%=space.getSpaceMimg()%>">세부공간이미지</div>
-                    
+                            <div class="img_div"><img src="<%=request.getContextPath()%>/<%=space.getSpaceMimg()%>"></div>
+                            <div>세부공간이미지</div>
+                            <br>
                             <table>
                                 <th>연략처:</th>
                                 <td><%=space.getSpaceTel()%></td>
