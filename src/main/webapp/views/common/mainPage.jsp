@@ -157,6 +157,15 @@
         #search-btn, #place-Info, #people-count, #place-kind, #map-info {
         	cursor: pointer;
         }
+        .paging-area button{
+        	background-color : white;
+        	border: 1px solid rgb(180, 180, 180);
+        	width: 30px;
+        	height: 30px;
+      	    text-align: center;
+      	    padding-bottom: 4px;
+      	    font-weight : 500;
+        }
 
     </style>
 </head>
@@ -226,7 +235,6 @@
         <br>
         <section class="main-grid">
            
-			
             <c:forEach var="sp" items="${list}">
                 <div class="info-preview" onclick="detailView('${sp.spaceNo}')">
                     <div class="space-picture"> 
@@ -249,9 +257,30 @@
                     </div>
                 </div>
             </c:forEach>
+            
+           
                         
         </section>
-		
+        <br>
+        <div class="paging-area" align="center" >
+        	<c:if test="${pi.currentPage != 1}">
+        		<button onclick="location.href='<%=contextPath%>/main?cpage=${pi.currentPage - 1}'"><i class="fa-solid fa-chevron-left"></i></button>
+        	</c:if>
+	        <c:forEach begin="${pi.startPage}" end="${pi.endPage}" var="p">
+	       		<c:choose>
+		       		<c:when test="${pi.currentPage == p}">
+		        		<button disabled>${p}</button>
+		       		</c:when >
+		       		<c:otherwise>
+		       			<button onclick="location.href='<%=contextPath%>/main?cpage=${p}'">${p}</button>
+		       		</c:otherwise>
+	       		</c:choose>
+	        </c:forEach>
+	        <c:if test="${pi.currentPage != pi.endPage}">
+        		<button onclick="location.href='<%=contextPath%>/main?cpage=${pi.currentPage + 1}'"><i class="fa-solid fa-chevron-right"></i></button>
+        	</c:if>
+        </div> 
+		<br><br>
     </div>
     <script>
     	

@@ -1,6 +1,7 @@
 package com.kh.space.service;
 
 import com.kh.common.Attachment;
+import com.kh.common.PageInfo;
 import com.kh.space.model.dao.SpaceDao;
 import com.kh.space.model.dto.SpaceThumbNail;
 import com.kh.space.model.vo.Space;
@@ -48,6 +49,27 @@ public class SpaceService {
 		
 		return list;
 	}
+	
+	public int selectListCount() {
+		Connection conn = getConnection();
+		
+		int result = spaceDao.selectListCount(conn);
+		
+		close(conn);
+		
+		return result;
+	}
+	
+	public ArrayList<Space> selectSpaceList(PageInfo pi) {
+		Connection conn = getConnection();
+		
+		ArrayList<Space> list = spaceDao.selectSpaceList(conn, pi);
+		
+		close(conn);
+		
+		return list;
+	}
+
 
 	public ArrayList<Space> selectMySpaces(int userNo) {
 		Connection conn = getConnection();
@@ -140,5 +162,7 @@ public class SpaceService {
 		
 		return list;
 	}
+
+	
 
 }

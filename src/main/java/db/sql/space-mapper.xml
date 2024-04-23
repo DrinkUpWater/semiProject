@@ -277,5 +277,26 @@
 	  		WHERE SPACE_NO = ? AND USER_NO = ? 
 	
 	</entry>
-
+	
+	<entry key="selectListCount">
+		SELECT COUNT(*) AS COUNT 
+			FROM SPACE
+			WHERE SPACE_ENROLL_STATUS = 'Y'
+	</entry>
+	
+	<entry key="selectSpaceListPaging">
+		SELECT * 
+		FROM (SELECT ROWNUM RNUM, A.*
+			  FROM (SELECT SPACE_NO, 
+						   SPACE_NAME, 
+						   SPACE_TAG,
+					       SPACE_MIMG, 
+					       SPACE_ADDRESS, 
+						   SPACE_PRICE, 
+						   SPACE_CAPACITY 
+				    FROM SPACE  
+				    WHERE SPACE_ENROLL_STATUS = 'Y'  
+				    ORDER BY SPACE_NO DESC) A )
+		WHERE RNUM BETWEEN ? AND ?
+	</entry>
 </properties>
