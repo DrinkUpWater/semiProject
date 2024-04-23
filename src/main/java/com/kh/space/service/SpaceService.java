@@ -163,6 +163,26 @@ public class SpaceService {
 		return list;
 	}
 
+	public ArrayList<Space> selectSpaceListPaging(String pInfo, int pCount, String pKind, String pOrder, PageInfo pi) {
+		Connection conn = getConnection();
+
+		ArrayList<Space> list = spaceDao.selectSpaceListPaging(conn, pInfo, pCount, pKind, pOrder, pi);
+		
+		close(conn);
+		
+		return list;
+	}
+
+	public int selectListCountPaging(int pCount, String pInfo, String pKind) {
+		Connection conn = getConnection();
+		
+		int result = spaceDao.selectListCountPaging(conn, pCount, pInfo, pKind);
+		
+		close(conn);
+		
+		return result;
+	}
+
 	
 
 }

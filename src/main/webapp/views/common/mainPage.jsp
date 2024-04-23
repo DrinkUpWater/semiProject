@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="com.kh.space.model.vo.Space, com.kh.common.PageInfo" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -264,7 +265,7 @@
         <br>
         <div class="paging-area" align="center" >
         	<c:if test="${pi.currentPage != 1}">
-        		<button onclick="location.href='<%=contextPath%>/main?cpage=${pi.currentPage - 1}'"><i class="fa-solid fa-chevron-left"></i></button>
+        		<button onclick="location.href='<%=contextPath%>/main.sp?cpage=${pi.currentPage - 1}'"><i class="fa-solid fa-chevron-left"></i></button>
         	</c:if>
 	        <c:forEach begin="${pi.startPage}" end="${pi.endPage}" var="p">
 	       		<c:choose>
@@ -272,12 +273,12 @@
 		        		<button disabled>${p}</button>
 		       		</c:when >
 		       		<c:otherwise>
-		       			<button onclick="location.href='<%=contextPath%>/main?cpage=${p}'">${p}</button>
+		       			<button onclick="location.href='<%=contextPath%>/main.sp?cpage=${p}'">${p}</button>
 		       		</c:otherwise>
 	       		</c:choose>
 	        </c:forEach>
 	        <c:if test="${pi.currentPage != pi.endPage}">
-        		<button onclick="location.href='<%=contextPath%>/main?cpage=${pi.currentPage + 1}'"><i class="fa-solid fa-chevron-right"></i></button>
+        		<button onclick="location.href='<%=contextPath%>/main.sp?cpage=${pi.currentPage + 1}'"><i class="fa-solid fa-chevron-right"></i></button>
         	</c:if>
         </div> 
 		<br><br>
@@ -304,18 +305,19 @@
         });
         
         $('#people-count, #place-Info, #place-kind, #place-order').change(function(){
-        	console.log("1");
         	$.ajax({
                 url: "filteringSpace.sp",
                 data : {
                     pCount: $("#people-count").val(),
                     pInfo: $("#place-Info").val(),
                     pKind: $("#place-kind").val(),
-                    pOrder: $("#place-order").val()
+                    pOrder: $("#place-order").val(),
+                    cpage: '1'
                 },
                 success : function(res){
-                	console.log("2");
-                	drawSpaceList(res);
+                	console.log((res.pi));
+         			console.log((res.pi).boardLimit);
+                	drawSpaceList(res.list);
                 	$("#keyword").val("");
                 },
                 error : function(){

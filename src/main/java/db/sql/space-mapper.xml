@@ -232,4 +232,34 @@
 				    ORDER BY SPACE_NO DESC) A )
 		WHERE RNUM BETWEEN ? AND ?
 	</entry>
+	
+	<entry key="selectFilterSpaceListPaging">
+		SELECT * 
+		FROM (SELECT ROWNUM RNUM, A.*
+			 FROM ( SELECT SPACE_NO, 
+				       SPACE_NAME, 
+				  	   SPACE_TAG,
+				       SPACE_MIMG, 
+				       SPACE_ADDRESS, 
+				       SPACE_PRICE, 
+				       SPACE_CAPACITY 
+				   FROM SPACE  
+			 WHERE SPACE_ENROLL_STATUS = 'Y'
+			  	AND SPACE_CAPACITY >= ? 
+				AND SPACE_ADDRESS LIKE '%'||?||'%'
+				AND SPACE_KIND LIKE '%'||?||'%') A )
+	  	WHERE RNUM BETWEEN ? AND ?
+	  	ORDER BY 
+	</entry>
+	
+	<entry key="selectListCountPaging">
+		SELECT COUNT(*) AS COUNT 
+		FROM SPACE  
+		WHERE SPACE_ENROLL_STATUS = 'Y' 
+		  	AND SPACE_CAPACITY >= ?  
+			AND SPACE_ADDRESS LIKE '%'||?||'%' 
+			AND SPACE_KIND LIKE '%'||?||'%'  
+	</entry>
+	
+	
 </properties>

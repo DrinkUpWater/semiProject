@@ -16,7 +16,7 @@ import com.kh.space.service.SpaceService;
 /**
  * Servlet implementation class SpaceSelectListController
  */
-@WebServlet("/main")
+@WebServlet("/main.sp")
 public class SpaceSelectListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
