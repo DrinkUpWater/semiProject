@@ -154,7 +154,7 @@
         .space-info>b {
             margin-bottom: 15px;
         }
-        #search-btn {
+        #search-btn, #place-Info, #people-count, #place-kind, #map-info {
         	cursor: pointer;
         }
 
@@ -175,10 +175,10 @@
                         <option value="서울" name="pInfo">서울</option>
                         <option value="경기" name="pInfo">경기</option>
                     </select>
-                    <input type="text" name="pInfo" style="display: none;">
                     <select id="people-count" class="people-count" >
                         <option value="0" >인원</option>
-                        <option value="1" name="pCount">1명</option>                        <option value="2" name="pCount">2명</option>
+                        <option value="1" name="pCount">1명</option>                        
+                        <option value="2" name="pCount">2명</option>
                         <option value="3" name="pCount">3명</option>
                         <option value="4" name="pCount">4명</option>
                         <option value="5" name="pCount">5명</option>
@@ -188,7 +188,6 @@
                         <option value="9" name="pCount">9명</option>
                         <option value="10" name="pCount">10명 이상</option>
                     </select>
-                    <input type="text" name="pCount" style="display: none;">
                     <select id="place-kind" class="place-kind" >
                     	<option value="">유형</option>
                     	<option value="파티룸">파티룸</option>
@@ -201,7 +200,7 @@
                 </section>
                 <div class="option2">
                     
-                    <div>지도</div>
+                    <div id="map-info">지도</div>
                 </div>
                 
             </div>
