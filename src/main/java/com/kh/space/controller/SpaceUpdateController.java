@@ -39,9 +39,10 @@ public class SpaceUpdateController extends HttpServlet {
 		Space mySpace=new SpaceService().selectOneSpace(spaceNum);
 		if(mySpace==null) {
 			s.setAttribute("alertMsg", "공간이 없습니다.");
+			response.sendRedirect(request.getContextPath()+"/myspacedetail.sp?spaceNo="+spaceNum);
+			
 		}else {
 			request.setAttribute("mySpace", mySpace);
-			
 			request.getRequestDispatcher("views/host/hostUpdateForm.jsp")
 		    .forward(request, response);
 		}
