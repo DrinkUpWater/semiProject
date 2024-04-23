@@ -14,11 +14,11 @@ public class JDBCTemplate {
 
 	// 1. Connection 객체 생성한 후 Connection객체 반환시켜주는 getConnection메소드
 	public static Connection getConnection() {
-		Connection conn = null;
-		Properties prop = new Properties();
+		 Connection conn = null;
+		 Properties prop = new Properties();
 
 		// 읽어들이고자하는 classes폴더내의 driver.properties파일의 물리적인 경로 가져오기
-		String filePath = JDBCTemplate.class.getResource("/db/driver/driver.properties").getPath();
+		 String filePath = JDBCTemplate.class.getResource("/db/driver/driver.properties").getPath();
 		//System.out.println(filePath);
 
 		try {

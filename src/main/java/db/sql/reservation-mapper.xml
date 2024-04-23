@@ -75,6 +75,45 @@ RNUM BETWEEN ? AND ?
 	          WHERE RESERVATION_DATE  like ?
 </entry>
 
+<entry key="insertReservation">
+    INSERT INTO RESERVATION 
+    (RESERVATION_NO,
+    HEADCOUNT,
+    TOTAL_PRICE,
+    USER_NO,
+    SPACE_NO
+    )
+    VALUES
+    (SEQ_RNO.NEXTVAL,
+    ?,
+    ?,
+    ?,
+    ?
+    )
+
+</entry>
+
+<entry key = "insertReservationDate">
+	INSERT INTO 
+	RESERVATION_DATE 
+	(DATE_NO,
+	 RESERVATION_DATE,
+	 RESERVATION_TIME1,
+	 RESERVATION_TIME2,
+	 RESERVATION_NO
+	)
+	VALUES
+	(SEQ_RDNO.NEXTVAL,
+	?,
+	?,
+	?,
+	SEQ_RNO.CURRVAL
+	)
+
+
+
+</entry>
+
 
 
 </properties>

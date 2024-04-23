@@ -166,10 +166,13 @@ document.addEventListener('DOMContentLoaded', function () {
                           type:'checkbox',
                           name: 'times[]',
                           value:t,
-                          checked:true
+                          checked:true,
+                          hidden:true
+                        
+                          
                          
                       })
-                  ).append(' '+t+'<br>')
+                  )            //.append(' '+t+'<br>')
               }
 
           }

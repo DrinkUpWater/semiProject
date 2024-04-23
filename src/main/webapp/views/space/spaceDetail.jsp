@@ -10,6 +10,7 @@
    		   HttpSession s=request.getSession();
 		   String []tags=null;
 		   String []guides=null;
+           String []caution=null;
 		   Member member=null;
 		   int userNo=-1;
 		   
@@ -33,7 +34,7 @@
 		    
 		    Space space= (Space)request.getAttribute("space");
 		
-		   
+            space.getSpaceCaution();
 		 
 		   
 		   if(space.getSpaceTag()!=null){
@@ -45,12 +46,20 @@
 		   
 		   
 		   if(space.getSpaceInformation()!=null){
-			 guides=space.getSpaceInformation().split(",");
+			 guides=space.getSpaceInformation().split("/");
 		   }
 		   else{
 			  guides=new String[1];
 			  guides[0]=" ";
 		   }
+
+           if(space.getSpaceCaution()!=null){
+              caution=space.getSpaceCaution().split("/");
+           }
+           else{
+            caution=new String[1];
+            caution[0]=" ";
+          }
 		   
 		 
 		  
@@ -61,9 +70,11 @@
 		  } 
     	
          
-    	 
-    	
-       
+    	 String imgPercent=((attachment.size()*100)/(attachment.size()+1))+"%";
+         
+         String plus=imgPercent;
+         String min="-"+imgPercent;
+         
     
     
     %>
@@ -103,18 +114,20 @@
         <link rel="stylesheet" href="<%=request.getContextPath()%>/views/space/css/qa.css"/>
 
 
-
+        <script src='<%=request.getContextPath()%>/views/space/js/comment.js'></script>
         <script src="<%=request.getContextPath()%>/views/space/js/calenderClick.js"></script>
         <script src="<%=request.getContextPath()%>/views/space/js/modal.js"></script>
         <script src="<%=request.getContextPath()%>/views/space/js/reservationNum.js"></script>
         <script src='<%=request.getContextPath()%>/views/space/fullcalendar/main.min.js'></script>
-        <!--<script src='<%=request.getContextPath()%>/views/space/js/comment.js'></script>-->
-        <script src='<%=request.getContextPath()%>/views/space/js/comment.js'></script>
+    
         <script src='<%=request.getContextPath()%>/views/space/js/review.js'></script>
         <script src='<%=request.getContextPath()%>/views/space/js/picked.js'></script>
 
-        <!-- <script type="text/javascript" defer src="//dapi.kakao.com/v2/maps/sdk.js?appkey=24fbf0aa04ad80c31d8c0f4d004c6c37"></script>
-        <script src='<%=request.getContextPath()%>/views/space/js/map.js'></script> -->
+
+        <script src='<%=request.getContextPath()%>/views/space/fullcalendar/main.min.js'></script>
+      
+      
+       
       
         <style>
             @media (max-width: 1200px) {
@@ -259,11 +272,11 @@
                 grid-template-rows: repeat(1, 500px);
                 /* grid-template-columns: repeat(3, 1fr); */
                 column-gap: 50px;
-
+                scrollbar-width: none;
                 /* border: solid 1px red;  */
 
                 /*margin: 30px; */
-                font-size: 20px;
+                font-size: 50px;
                 height: 100%;
                 align-items: center;
               
@@ -273,7 +286,8 @@
                 width: calc(100%*(<%=attachment.size()+1%>)); /* 슬라이더의 너비를 화면에 꽉 차게 설정 */
                 overflow: hidden; /* 컨테이너 밖의 이미지는 숨김 처리 */
                 display: flex; /* 이미지들을 가로로 나열 */
-                animation: slide 60s linear infinite; /* 애니메이션 적용 */
+                animation: slide infinite 60s linear ; /* 애니메이션 적용 */
+             
                 height:100%;
             }
             #space_comment img{
@@ -285,7 +299,11 @@
 
             @keyframes slide {
                 0% { transform: translateX(0); }
-                100% { transform: translateX(-85.7143%); } /* 총 너비의 100% 이동 */
+                100%{ transform: translateX(<%=min%>);  
+            } 
+               
+
+                    
             }
 
              /* --------  */
@@ -502,20 +520,28 @@
 
                              <div class="img_div" >
                                 <% for (Attachment at: attachment) { %>
-                                    <img src="<%=request.getContextPath()%>/<%=at.getFilePath()%>"/>
-                                    <img src="<%=request.getContextPath()%>/<%=at.getFilePath()%>"/>
+                                    <img src="<%=request.getContextPath()%>/<%=at.getFilePath()%><%=at.getChangeName()%>"/>
+
+                                 <% } %>
+                                 <% if(!attachment.isEmpty()){%>
+                                    <img src="<%=request.getContextPath()%>/<%=attachment.get(0).getFilePath()%><%=attachment.get(0).getChangeName()%>"/>
                                  <% } %>
                              </div>
                     
                     </div>
                     
-                    <div style="margin-bottom: 50px; font-size: 20px;" >
-                        <span>
-                            <%=space.getSpaceOneIntroduce() %>
-                        
-                        </span>
+                    <div style="margin-bottom: 50px; font-size: 25px;" >
+                        <div><%=space.getSpaceOneIntroduce() %></div>
+
+                         <div id="spaceTage" style="font-size:17px; ">
+                            <% for(String tag:tags){ %>
+                                <span ><a href="#" style="color: #2d10e6;"><%=tag%></a><span>&nbsp;
+                            <% } %>
+                          </div>
+
                      </div>
 
+                   
 
                     <div id="list">
                         <ul>
@@ -534,11 +560,7 @@
                     </div>
                     <div id="space_intro_comment" class="space">
                          <%=space.getSpaceIntroduce() %><br>
-                        <table>
-                          <% for(String tag:tags){ %>
-                              <span><a href="#"><%=tag%></a><span>&nbsp;
-                          <% } %>
-                        </table>
+                      
                     </div>
 
                     <div id="space_guide" name="space_guide" class="title">
@@ -547,15 +569,12 @@
                     </div>
 
                     <div id="space_guide_comment" class="space">
-                        <table>
-                            <tbody>
+                       
                                <% for(String guide:guides){%>
-                                  <tr><td><%=guide%></td></tr>
+                                  <tr><td><%=guide%></td></tr><br>
                                <% } %>
 
-                            </tbody>
-
-                        </table>
+                         
                     </div>
 
 
@@ -566,7 +585,11 @@
 
 
                     <div id="reservation_warn_comment" class="space">
-                          <%=space.getSpaceCaution()%>
+                        <%for(String c:caution){ %>
+                            <tr><td><%=c%></td></tr><br>
+                       <% } %>
+
+                        
                     </div>
 
 
@@ -578,7 +601,7 @@
                     <div id="space_road_comment" class="space">
 
                         <div id="map" style="width:1000px;height:500px;"></div>
-                        <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=&libraries=services,clusterer,drawing"></script>
+                        <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=${api}&libraries=services,clusterer,drawing"></script>
                         <script>
                             let mapContainer = document.getElementById('map'), // 지도를 표시할 div 
                                mapOption = {
@@ -593,7 +616,7 @@
                             let geocoder = new kakao.maps.services.Geocoder();
 
                             // 주소로 좌표를 검색합니다
-                            geocoder.addressSearch("서울특별시 강남구 강남구 테헤란로14길 6", function(result, status) {
+                            geocoder.addressSearch(<%=space.getSpaceLocation()%>, function(result, status) {
 
                                 // 정상적으로 검색이 완료됐으면 
                                 if (status === kakao.maps.services.Status.OK) {
@@ -842,7 +865,9 @@
                         </div>
 
                         <div id="space_option_kind">
-                            <div class="option_kind">1</div>
+                            <div class="option_kind">
+                                <i class="sp_icon ico_table"></i>
+                            </div>
                             <div class="option_kind">2</div>
                             <div class="option_kind">3</div>
                             <div class="option_kind">4</div>
@@ -1054,7 +1079,7 @@
                             <button  id="category_btn"   class="navbar-toggler" type="button" class="button" style="color:white" onclick="location.href='<%=contextPath%>'">목록으로</button>
                             <%}else{%>
 						
-						       <button class="navbar-toggler" type="button" class="button" style="color:white">로그인하세요</button>
+						       <button class="navbar-toggler" type="button" class="button" >로그인하세요</button>
 						
 							<%}%>
                             
@@ -1088,40 +1113,41 @@
                                      
                                          <table>
                                             <tr>
-                                                <td>사용자이름</td>
-                                                <td><input id="userName" type="text" name="name" value="<%=(loginUser!=null)?loginUser.getUserName():"none"%>"></td>
+                                                <th>사용자이름</th>
+                                                <td><%=(loginUser!=null)?loginUser.getUserName():"none" %></td>
                                             </tr>
                                             <tr>
-                                                <td>예약날짜</td>
-                                                <td><input type="text" id="reservationDate" name="date" id="re_time" ></td>
+                                                <th>예약날짜</th>
+                                                <td id="reservationDateDiv"></td> 
                                             </tr>
                                             <tr>
-                                                <td>예약시간</td>
-                                                <td><input type="text" id="reservationTime" name="time" >
-                                            
+                                                <th>예약시간</th>
+                                                <td id="reservationTimeDiv"></td>  
+                                               
                                             </tr>
                                             <tr>
-                                                <td id ="AddTime" >
-															
-
-                                                </td>
-
+                                                <th>예약인원</th>
+                                                <td id="personalCountDiv"></td>  
+                            
                                             </tr>
                                             <tr>
-                                                <td>예약인원</td>
-                                                <td><input type="text" id="personalCount" name="count" ></td>
-                                            </tr>
-                                            <tr>
-                                                <td>결재금액</td>
-                                                <td><input type="text"  id="payment" name="payment"  ></td>
+                                                <th>결재금액</th>
+                                                <td id="paymentDiv"></td>  
                                             </tr>
                                            
                                         </table>
+
                                         <br>
                                         <button id="edit-pwd-btn" type="submit" class="btn btn-sm btn-secondary">
                                             결재하기
                                         </button>
 
+                                        <div id ="AddTime" ></div>
+                                        <input id="userName" type="text" name="name" value="<%=(loginUser!=null)?loginUser.getUserName():"none" %>" hidden>
+                                        <input type="text"  id="payment" name="payment" hidden >
+                                        <input type="text" id="personalCount" name="count" hidden>
+                                        <input type="text" id="reservationTime" name="time" hidden>
+                                        <input type="text" id="reservationDate" name="date" id="re_time" hidden >
                                     </form>
                               
                 

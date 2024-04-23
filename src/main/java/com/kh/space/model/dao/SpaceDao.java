@@ -282,6 +282,7 @@ public class SpaceDao {
 				Attachment at = new Attachment();
 				at.setFileNo(rset.getInt("FILE_NO"));
 				at.setFilePath(rset.getString("FILE_PATH"));
+				at.setChangeName(rset.getString("CHANGE_NAME"));
 				
 				atList.add(at);
 			}
