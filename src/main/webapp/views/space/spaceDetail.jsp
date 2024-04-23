@@ -422,7 +422,7 @@
 
                 padding: 3px 3px;
                 text-align: center;
-                border: solid 1px rgb(223, 219, 219);
+              
                 /* border: 1px solid gray;
             */
             }
@@ -821,10 +821,10 @@
 
                             <div class="img_div"><img src="<%=request.getContextPath()%>/<%=space.getSpaceMimg() %>" >세부공간이미지</div>
 
-                            <p>
-                                <span>서울대 입구..스터디룸 카페 예약
-                                </span>
-                            </p>
+                             <table>
+                                <th>연략처:</th>
+                                <td><%=space.getSpaceTel()%></td>
+                             </table>
 
                         </div>
 
@@ -866,19 +866,42 @@
 
                         <div id="space_option_kind">
                             <div class="option_kind">
-                                <i class="sp_icon ico_table"></i>
+                                <i class="fa-solid fa-chair"></i>
+                                <span class>의자/테이블</span>
                             </div>
-                            <div class="option_kind">2</div>
-                            <div class="option_kind">3</div>
-                            <div class="option_kind">4</div>
-                            <div class="option_kind">5</div>
-                            <div class="option_kind">6</div>
-                            <div class="option_kind">7</div>
-                            <div class="option_kind">8</div>
-                            <div class="option_kind">9</div>
-                            <div class="option_kind">10</div>
-                            <div class="option_kind">11</div>
-                            <div class="option_kind">12</div>
+                            <div class="option_kind">
+                                <i class="fa-solid fa-toolbox"></i>
+                                <span class>장비대여</span>
+                            </div>
+                            <div class="option_kind">
+                                <i class="fa-solid fa-plug"></i>
+                                <span class>전기</span>
+                            </div>
+                            <div class="option_kind">
+                                <i class="fa-solid fa-bowl-rice"></i>
+                                <span class>취사시설</span>
+                            </div>
+                            <div class="option_kind">
+                                <i class="fa-solid fa-burger"></i>
+                                <span class>음식물 반입가능</span>
+                            </div>
+                            <div class="option_kind">
+                                <i class="fa-solid fa-water"></i>
+                                <span class>온수</span>
+                            </div>
+                            <div class="option_kind">
+                                <i class="fa-solid fa-restroom"></i>
+                                <span class>내부화장실</span>
+                            </div>
+                            <div class="option_kind">
+                                <i class="fa-solid fa-bars-progress"></i>
+                                <span class>TV 프로젝터</span>
+                            </div>
+                            
+                            <div class="option_kind">
+                                <i class="fa-solid fa-wifi"></i>
+                                <span class>WI-FI</span>
+                            </div>
                         </div>
 
                         <hr class="line2">
@@ -890,10 +913,7 @@
                                 <label for="time">시간단위 예약하기</label>
                             </div>
 
-                            <div>
-                                <input type="radio" name="reservation" id="pack" value="pack">
-                                <label for="pack">패키지로 예약하기</label>
-                            </div>
+                          
 
                         </div>
 
@@ -1182,15 +1202,11 @@
 
                             <div class="img_div"><img src="<%=request.getContextPath()%>/<%=space.getSpaceMimg()%>">세부공간이미지</div>
                     
-
-                            <p>
-                                <span>서울대 입구..스터디룸 카페 예약
-                                    서울대 입구..스터디룸 카페 예약
-                                    서울대 입구..스터디룸 카페 예약
-                                    서울대 입구..스터디룸 카페 예약
-                                    서울대 입구..스터디룸 카페 예약
-                                </span>
-                            </p>
+                            <table>
+                                <th>연략처:</th>
+                                <td><%=space.getSpaceTel()%></td>
+                            </table>
+                              
 
                         </div>
 
@@ -1231,25 +1247,63 @@
                         </div>
 
                         <div id="space_option_kind">
-                            <div class="option_kind">1</div>
-                            <div class="option_kind">2</div>
-                            <div class="option_kind">3</div>
-                            <div class="option_kind">4</div>
-                            <div class="option_kind">5</div>
-                            <div class="option_kind">6</div>
-                            <div class="option_kind">7</div>
-                            <div class="option_kind">8</div>
-                            <div class="option_kind">9</div>
-                            <div class="option_kind">10</div>
-                            <div class="option_kind">11</div>
-                            <div class="option_kind">12</div>
-                        </div>  
+                            <div class="option_kind">
+                                <i class="sp_icon ico_table"></i>
+                                <span class>의자/테이블</span>
+                            </div>
+                            <div class="option_kind">
+                                <i class="sp_icon ico_table"></i>
+                                <span class>장비대여</span>
+                            </div>
+                            <div class="option_kind">
+                                <i class="sp_icon ico_table"></i>
+                                <span class>전기</span>
+                            </div>
+                            <div class="option_kind">
+                                <i class="sp_icon ico_table"></i>
+                                <span class>취사시설</span>
+                            </div>
+                            <div class="option_kind">
+                                <i class="sp_icon ico_table"></i>
+                                <span class>음식물 반입가능</span>
+                            </div>
+                            <div class="option_kind">
+                                <i class="sp_icon ico_table"></i>
+                                <span class>온수</span>
+                            </div>
+                            <div class="option_kind">
+                                <i class="sp_icon ico_table"></i>
+                                <span class>내부화장실</span>
+                            </div>
+                            <div class="option_kind">
+                                <i class="sp_icon ico_table"></i>
+                                <span class>TV 프로젝터</span>
+                            </div>
+                            <div class="option_kind">
+                                <i class="sp_icon ico_table"></i>
+                                <span class>화이트보드</span>
+                            </div>
+                            <div class="option_kind">
+                                <i class="sp_icon ico_table"></i>
+                                <span class>취사시설</span>
+                            </div>
+                            <div class="option_kind">
+                                <i class="sp_icon ico_table"></i>
+                                <span class>취사시설</span>
+                            </div>
+                            <div class="option_kind">
+                                <i class="bi bi-wifi-2"></i>
+                                <span class>WI-FI</span>
+                            </div>
+                        </div>
 
                         <div align="center">
+                            <button type="button" class="button"   onclick="location.href='<%=request.getContextPath()%>/update.sp?spaceNum=<%=space.getSpaceNo()%>'">수정하기</button>
                             <form action="#" method="post" style="display: inline;">
-                                <button type="button" class="button" onclick="location.href='<%=request.getContextPath()%>/delete.sp?spaceNum=<%=space.getSpaceNo()%>'">취소하기</button>
+                                <button type="button" class="button" onclick="location.href='<%=request.getContextPath()%>/delete.sp?spaceNum=<%=space.getSpaceNo()%>'">삭제하기</button>
                             </form>
                             <button type="button" class="button"     onclick="location.href='<%=request.getContextPath()%>/main.ho'">호스트 홈</button>
+                        
                         </div>
 
                     </div>

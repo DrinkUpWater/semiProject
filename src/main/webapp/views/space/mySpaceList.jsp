@@ -43,10 +43,10 @@
      }
 
 
-    #wrapper{
+     #wrapper{
          width: 1200px;
          margin: 10px auto;    
-         text-align: center;
+        /* text-align: center;*/
     }
 
     .pickedMain{
@@ -55,11 +55,52 @@
         column-gap: 16px;
         row-gap: 40px;
     }
-   .info-preview {
+    .info-preview {
             border: 1px solid black;
             width: 360px;
-            height: 340px;
-     }
+            height: 360px;
+        }
+        .space-picture{
+            height: 220px;
+            padding: 0;
+            margin: 0;
+            border: none;
+        }
+        .space-info{
+            padding : 0 10px;
+            padding-top: 10px;
+            border-top: 1px solid black;
+        }
+        /* .space-info p span {
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+        } */
+        .price-info{
+            display: flex;
+            justify-content: space-between;
+            align-items:baseline
+        }
+        .price-info>div>b{
+            font-size: 20px;
+            color: #704DE4;
+        }
+        .calender-select{
+            position: relative;
+        }
+
+        .calender {
+            width: 300px;
+            position: absolute;
+            top : 140px;
+            left: 48%
+        }
+        .info-preview{
+            cursor: pointer;
+        }
+        .space-info>b {
+            margin-bottom: 15px;
+        }
 
 </style>
 
