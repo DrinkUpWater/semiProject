@@ -21,6 +21,15 @@ public class Reservation {
 		this.userNo = userNo;
 		this.spaceNo = spaceNo;
 	}
+	
+	
+	
+	public Reservation(int reservationNo, int headCount, int totalPrice) {
+		super();
+		this.reservationNo = reservationNo;
+		this.headCount = headCount;
+		this.totalPrice = totalPrice;
+	}
 
 	public int getReservationNo() {
 		return reservationNo;
