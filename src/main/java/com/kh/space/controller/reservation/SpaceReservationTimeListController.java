@@ -33,8 +33,9 @@ public class SpaceReservationTimeListController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String date=request.getParameter("date");
+		int spaceNum= Integer.parseInt(request.getParameter("spaceNo"));
 		
-		ArrayList<ReservationDate> dates=new SpaceReservationService().findDate(date);
+		ArrayList<ReservationDate> dates=new SpaceReservationService().findDate(date,spaceNum);
 		
 		response.setContentType("application/json; charset=utf-8");
 		new Gson().toJson(dates,response.getWriter());

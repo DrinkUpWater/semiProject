@@ -82,8 +82,11 @@ ORDER BY CREATE_DATE DESC
 <entry key="findDate">
 	  SELECT  RESERVATION_TIME1,
 	          RESERVATION_TIME2
-	          FROM RESERVATION_DATE
-	          WHERE RESERVATION_DATE  like ?
+	          FROM RESERVATION_DATE D
+	          JOIN RESERVATION R ON (D.RESERVATION_NO=R.RESERVATION_NO)
+	          JOIN  SPACE S ON (S.SPACE_NO=R.SPACE_NO)
+	          WHERE RESERVATION_DATE  like ? AND S.SPACE_NO = ?
+	          
 </entry>
 
 <entry key="insertReservation">
