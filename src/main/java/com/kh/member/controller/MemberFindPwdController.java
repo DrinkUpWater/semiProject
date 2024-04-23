@@ -34,6 +34,9 @@ public class MemberFindPwdController extends HttpServlet {
 		
 		String userId = request.getParameter("userId");
 		String phone = request.getParameter("phone");
+		if(phone.contains("-")) { //만약 -가 포함되어있을시
+			phone = phone.replace("-", "");
+		}		
 		String email = request.getParameter("email");		
 	
 		String findPwd= new MemberService().findPwd(userId,phone,email);

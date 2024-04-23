@@ -196,8 +196,11 @@
             }
             #oldPwd-area{
                 display: none;
-                color: red;
+         
             }
+            /* .head-btn{
+                border: 1px;
+            } */
         </style>
     </head>
 
@@ -221,16 +224,16 @@
                 <div class="join-user">
                     <form action="update.me" id="login-form" method="post">
 
-                        <input id="uesrId" type="hidden" name="userId" value="${loginUser.userId }"> 
-                        <table width="100%" class="tb" border="1">
+                        <input id="userId" type="hidden" name="userId" value="${loginUser.userId}"> 
+                        <table width="100%" class="tb">
                             <tr>
-                                <input type="button" value="비밀번호 변경" onclick="pwdUpdate()" style="margin-right: 10px;">
-                                <input type="button" value="변경 취소" onclick="canclePwdUpdate()">
+                                <input type="button" class="head-btn" value="비밀번호 변경" onclick="pwdUpdate()" style="margin-right: 10px;">
+                                <input type="button" class="head-btn" value="변경 취소" onclick="canclePwdUpdate()">
                             </tr>
                             <tr class="user-id">
                                 <th class="pwd-color">현재 비밀번호</th>
                                 <td colspan="2" id="oldPwd-area" align="right">
-                                    *틀린 비밀번호입니다.
+                             
                                 </td>
                            
                             </tr>
@@ -362,37 +365,39 @@
                         let userPwd = document.getElementById("userPwd");   
                         let userPwdCheck = document.getElementById("userPwdCheck");
                         document.querySelectorAll(".pwd-color").forEach(function(el){ //모든 pwd-color 폰트색 검정으로 변경
-                        el.style.color="#c2c0c0"; 
+                            el.style.color="#c2c0c0"; 
 
-                        oldPwd.setAttribute("readonly",true);
-                        oldPwd.placeholder="";
-                        userPwd.setAttribute("readonly",true);
-                        userPwd.placeholder="";
-                        
-                        userPwdCheck.setAttribute("readonly",true);
-                        userPwdCheck.placeholder="";
-                     })
+                            oldPwd.setAttribute("readonly",true);
+                            oldPwd.placeholder="";
+                            userPwd.setAttribute("readonly",true);
+                            userPwd.placeholder="";
+                            
+                            userPwdCheck.setAttribute("readonly",true);
+                            userPwdCheck.placeholder="";
+                        })
                     }
 
 
-                    $(function(){ //전 비밀번호 확인
+                    $(function(){ //비밀번호 확인
                         const pwdInput = document.getElementById("oldPwd");
                         let eventFlage;
                         pwdInput.onkeyup = function(ev){
                             clearTimeout(eventFlage);	
                             const str =ev.target.value;
-                            if(str.trim().length>=3){
+                            if(str.trim().length>=5){
                                 eventFlag = setTimeout(function(){
+                                    console.log("전송");
                                     $.ajax({
                                         url:"pwdCheck.me",
-                                        date:{
-                                            userId :document.getElementById("userId"),
-                                            oldPwd : ev.target.value                                   
+                                        data:{
+                                            userId: document.getElementById("userId").value,
+                                            oldPwd : ev.target.value                                  
                                         },
                                         success:function(result){
                                             const checkResult =document.getElementById("oldPwd-area");
                                             checkResult.style.display="block";
                                             if(result==="NNNNN"){
+                                               
                                                 checkResult.style.color="red";
                                                 checkResult.innerHTML="*틀린 비밀번호입니다."
                                             }else{
