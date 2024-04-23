@@ -126,7 +126,6 @@
             margin: auto;
             padding: 40px 100px;
             justify-content: space-between;
-            border: 1px solid;
         }
         #Reservation_details{
             height: 42px;

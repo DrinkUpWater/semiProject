@@ -8,7 +8,9 @@ import com.kh.common.vo.PageInfo;
 import com.kh.space.model.dao.SpaceReservationDao;
 import com.kh.space.model.vo.Reservation;
 import com.kh.space.model.vo.ReservationDate;
+import com.kh.space.model.vo.ReservationInfo;
 import com.kh.space.model.vo.Review;
+
 
 public class SpaceReservationService {
 
@@ -31,10 +33,11 @@ public class SpaceReservationService {
 	}
 
 
-	public ArrayList<Reservation> selectReservation(PageInfo pi, String userId) {
+	public ArrayList<ReservationInfo> selectReservation(PageInfo pi, String userId) {
 		Connection conn =getConnection();
-		ArrayList<Reservation> list = new SpaceReservationDao().selectReservation(conn,pi,userId);
-
+		
+		ArrayList<ReservationInfo> list = new SpaceReservationDao().selectReservation(conn,pi,userId);
+		
 		return list;
 	}
 
