@@ -215,15 +215,11 @@
                 height: 35px;
             }
             .bb{
-
                 padding-left: 5px;
                 padding-top: 17px;
-
             }
             .host-label{
-
-                display: flex;
-                
+                display: flex;             
             }
        
             .userhost-header{
@@ -232,6 +228,19 @@
                 margin-top: 20px;
                 height: 100%;
                 width: 280px;
+            }
+         
+            .idCheck{
+                border: 0px solid;
+                background: rgb(96,9,240);
+                background: linear-gradient(0deg, rgba(96,9,240,1) 0%, rgba(129,5,240,1) 100%);
+                /* width: 120px; */
+                color: #F2F6FF;
+                border-radius: 5px;
+                /* height: 46px;  */
+            }
+            .idCheck:hover{
+                opacity: 0.85;
             }
         </style>
     </head>
@@ -245,7 +254,7 @@
                         <h4 class="text-header">회원가입</h4>
                         <h7 class="text-header2">회원이 되어 다양한 혜택을 받으세요! </h7>
 
-                        <table width="100%" class="tb" >
+                        <table width="100%" class="tb">
                             <!-- 이름 -->
                             <tr>
                                 <th colspan="3">이름</th>
@@ -253,7 +262,7 @@
 
                             <tr>
                                 <td colspan="3">
-                                    <input type="text" id="userName" name ="userName" placeholder=" 이름" style="width: 64%; ">
+                                    <input type="text" id="userName" name ="userName" placeholder=" 이름" style="width: 70%; ">
                                 </td>
                             </tr>
 
@@ -267,12 +276,12 @@
 
                             <tr>
                                 <td colspan="2" class="input-id">
-                                    <!--  onblur="obrid()" -->
                                     <input type="text" name="userId" id="userId" minlength="6" maxlength="20"
-                                        placeholder=" 아이디입력 6~20자" required>
+                                        placeholder=" 아이디입력 6~20자"   required>
                                 </td>
                                 <td>
                                     <button type="button" class="idCheck" onclick="idCheck()">중복 확인</button>
+                                    
                                 </td>
                             </tr>
                             <script>
@@ -389,6 +398,8 @@
                         let userId = document.getElementById("userId");
                         let cantid =document.querySelector(".cantid"); 
                         let useableid=document.querySelector(".useableid");
+                       
+                        
                        $.ajax({
                         type:"POST",
                         url : "idCheck.me",
@@ -408,6 +419,7 @@
                                     cantid.style.display="none";
                                     if(confirm("이 아이디를 사용하시겠습니까?")){ 
                                         useableid.style.display ="block";
+                                        userId.style.width="127%";
                                     }else{ 
                                         useableid.style.display ="none";
                                         userId.focus(); //false클릭시 다시 아이디입력 창으로 이동
@@ -417,6 +429,7 @@
                             }else{
                                 cantid.style.display="block";
                                 useableid.style.display="none";
+                                userId.style.width="120%";
                                 userId.focus();
                             }
                         },
@@ -430,8 +443,10 @@
                     function joinUser() { //빈칸 있을시 확인
 
       
-                        let maleRadio = document.querySelector('input[name="gender"][value="남"]');
-                        let femaleRadio = document.querySelector('input[name="gender"][value="여"]');
+                        let maleRadio = document.querySelector('input[name="gender"][value="M"]');
+                        let femaleRadio = document.querySelector('input[name="gender"][value="F"]');
+                        let host = document.querySelector('input[name="userHost"][value="H"]');
+                        let guest = document.querySelector('input[name="userHost"][value="G"]');
                         let cantid =document.querySelector(".cantid"); 
                         let userName = document.getElementById("userName");
                         let userId = document.getElementById("userId");
@@ -442,8 +457,7 @@
                         let birth = document.getElementById("birth");
                         let email = document.getElementById("email");
                         let select_email = document.querySelector(".select-email");
-
-
+               
                         if (userName.value === "") {
                             alert("이름을 입력해주세요.");
                             userName.focus();
@@ -536,10 +550,16 @@
                             return false;
                         }
 						
-                        // else{ //모든 조건을 충족할 시
-                        //     document.getElementById("login-form").submit();
-                        //     return true;
-                        // }
+
+                        else if (!host.checked && !guest.checked) {
+                            alert("사용자를 선택해주세요");
+                            return false;
+                        }
+
+                        else{ //모든 조건을 충족할 시
+                            document.getElementById("login-form").submit();
+                            return true;
+                        }
 
                     }
 

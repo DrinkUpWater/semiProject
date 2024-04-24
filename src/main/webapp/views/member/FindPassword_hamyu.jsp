@@ -36,7 +36,7 @@
             .pwd-top h2 {
                 color: #FFFFFF;
                 text-align: center;
-                margin-top: 15px;
+                margin-top: 7px;
                 font-weight: 500;
                 font-size: 25px;
 

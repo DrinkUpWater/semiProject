@@ -37,14 +37,17 @@ public class MemberUpdateController extends HttpServlet {
 		String newPwd = request.getParameter("userPwd"); //변경된 패스워드
 		String nickName = request.getParameter("nickName");
 		String phone =request.getParameter("phone");
-		phone = phone.replace("-", "");
-		
+		if(phone.contains("-")) { //만약 -가 포함되어있을시
+			phone = phone.replace("-", "");
+		}		
 		String birth =request.getParameter("birth");
 		String email =request.getParameter("email")+"@"+request.getParameter("select-email");
 		
 		System.out.println(userId+","+oldPwd +","+newPwd+","+ nickName +","+phone+","+ birth +","+email);
 		
+		
 		Member m = new Member(userId,nickName,phone,birth,email);
+		
 		if(oldPwd == "") { //비밀번호변경(버튼) 클릭안하고 수정할시
 			Member updateMem = new MemberService().updateMember(m);
 			System.out.println("상태:"+updateMem);

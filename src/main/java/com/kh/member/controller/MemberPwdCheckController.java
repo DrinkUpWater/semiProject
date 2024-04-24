@@ -1,32 +1,25 @@
-package com.kh.space.controller.review;
+package com.kh.member.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import com.google.gson.Gson;
-import com.kh.member.model.vo.Member;
-import com.kh.space.model.vo.Review;
-import com.kh.space.service.SpaceReservationService;
-import com.kh.space.service.SpaceReviewService;
+import com.kh.member.service.MemberService;
 
 /**
- * Servlet implementation class SpaceReviewListController
+ * Servlet implementation class MemberPwdCheckController
  */
-@WebServlet("/review.sp")
-public class SpaceReviewListController extends HttpServlet {
+@WebServlet("/pwdCheck.me")
+public class MemberPwdCheckController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SpaceReviewListController() {
+    public MemberPwdCheckController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -35,19 +28,16 @@ public class SpaceReviewListController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		HttpSession session =request.getSession();
-		int spaceNum=Integer.parseInt(request.getParameter("spaceNum"));
-
-		 
-		response.setContentType("application/json; charset=utf-8");
-		ArrayList<Review> reviews = new SpaceReviewService().selectReviews(spaceNum);
-		new Gson().toJson(reviews, response.getWriter());
-			
-			//ArrayList<Review> reviews = new ArrayList<>()
-			
-		
-		
+		String userId =request.getParameter("userId");
+		String checkPwd =request.getParameter("oldPwd");
+		System.out.println("1."+userId);
+		System.out.println("2."+checkPwd);
+		int result =new MemberService().pwdCheck(userId,checkPwd);
+		if(result>0) { //비밀번호 중복일 때
+			response.getWriter().print("NNNNY");
+		}else {
+			response.getWriter().print("NNNNN");
+		}
 	}
 
 	/**
