@@ -1298,7 +1298,7 @@
                         </div>
 
                         <div align="center">
-                            <button type="button" class="button"   onclick="location.href='<%=request.getContextPath()%>/update.sp?spaceNum=<%=space.getSpaceNo()%>'">수정하기</button>
+                            <button type="button" class="button"   onclick="location.href='<%=request.getContextPath()%>/updateForm.sp?spaceNum=<%=space.getSpaceNo()%>'">수정하기</button>
                             <form action="#" method="post" style="display: inline;">
                                 <button type="button" class="button" onclick="location.href='<%=request.getContextPath()%>/delete.sp?spaceNum=<%=space.getSpaceNo()%>'">삭제하기</button>
                             </form>

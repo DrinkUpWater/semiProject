@@ -152,7 +152,7 @@
             padding: 0;
             margin: 0;
         }
-        .hidden-tag, .hidden-spaceinfo, .hidden-spaceinfo-btn, .hidden-caution, .hidden-caution-btn {
+        .hidden-spaceinfo, .hidden-spaceinfo-btn, .hidden-caution, .hidden-caution-btn {
             display: none;
         }
         .detail-area{
@@ -189,10 +189,10 @@
     <%@ include file="../common/menubarHost.jsp"%>
     <div id="wrapper">
     	<br>
-        <form action="spaceEnroll.sp" method="POST" enctype="multipart/form-data">
+        <form action="update.sp" method="POST" enctype="multipart/form-data">
             <input style="display: none;" type="text" name="userNo" value="${loginUser.userNo}">
             <div class="login-top">
-                <h2>시설물 등록</h2>
+                <h2>시설물 수정</h2>
             </div>
             
             <br>
@@ -211,7 +211,7 @@
                     <td colspan="2" align="right"><span class="textCount1">0</span>/18자</td>
                 </tr>
                 <tr>
-                    <td colspan="3"><input id="input-name" class="input-text input-host1" name="spaceName" type="text" maxlength="18" placeholder="고유 업체명을 입력해주세요. ex)인디워커스 하이브 회의실" required></td>
+                    <td colspan="3"><input id="input-name" class="input-text input-host1" name="spaceName" type="text" maxlength="18" value="${sp.spaceName }" placeholder="고유 업체명을 입력해주세요. ex)인디워커스 하이브 회의실" required></td>
                 </tr>
                 <tr><td colspan="3"></td></tr>
                 <tr>
@@ -255,7 +255,7 @@
                     <td colspan="2" align="right"><span class="textCount2">0</span>/27자</td>
                 </tr>
                 <tr>
-                    <td colspan="3"><input id="input-intro1" class="input-text input-host2" name="spaceOneIntroduce" type="text" maxlength="27" placeholder="공간의 특장점을 한 문자응로 작성해주세요." required></td>
+                    <td colspan="3"><input id="input-intro1" class="input-text input-host2" name="spaceOneIntroduce" type="text" maxlength="27" value="${sp.spaceOneIntroduce}" placeholder="공간의 특장점을 한 문자응로 작성해주세요." required></td>
                 </tr>
                 <tr><td colspan="3"></td></tr>
                 <tr>
@@ -263,7 +263,7 @@
                     <td colspan="2" align="right"><span class="textCount3">0</span>/500자</td>
                 </tr>
                 <tr>
-                    <td colspan="3"><input id="input-intro2" class="input-text input-host3" name="spaceIntroduce" type="text" maxlength="500" placeholder="게스트들에게 필요한 공간 정보를 상세하게 소개해주세요." required></td>
+                    <td colspan="3"><input id="input-intro2" class="input-text input-host3" name="spaceIntroduce" type="text" maxlength="500" value="${sp.spaceIntroduce}" placeholder="게스트들에게 필요한 공간 정보를 상세하게 소개해주세요." required></td>
                 </tr>
                 <tr><td colspan="3"></td></tr>
 
@@ -277,7 +277,7 @@
                     <td><button class="tag-btn" type="button" onclick="insertTag()">추가 ▼</button></td>
                 </tr>
                 <tr class="hidden-tag">
-                    <td colspan="2" class="body80"> <input class="input-text" type="text" name="spaceTag" readonly required></td>
+                    <td colspan="2" class="body80"> <input class="input-text" type="text" name="spaceTag" value="${sp.spaceTag}" readonly required></td>
                     <td><button type="button" onclick="deleteTag()">삭제</button></td>
                 </tr>
                 <tr><td colspan="3"></td></tr>
@@ -350,11 +350,11 @@
                     <td colspan="2" align="right"></td>
                 </tr>
                 <tr>
-                    <td colspan="2" ><input id="spaceAddress" class="input-text" type="text" name="spaceAddress" placeholder="실제 서비스되는 공간의 주소를 입력해주세요." required readonly></td>
+                    <td colspan="2" ><input id="spaceAddress" class="input-text" type="text" name="spaceAddress" value="${sp.spaceAddress }" required readonly></td>
                     <td ><button type="button" onclick="searchAddr()">주소 검색</button></td>
                 </tr>
                 <tr>
-                    <td colspan="2" class="body80"><input class="input-text" name="spaceDetailAddress" type="text" placeholder="상세주소" required></td>
+                    <td colspan="2" class="body80"><input class="input-text" name="spaceDetailAddress" type="text" value="${sp.spaceDetailAddress }" placeholder="상세주소" required></td>
                     
                 </tr>
                 <tr><td colspan="3"></td></tr>
@@ -362,7 +362,7 @@
                     <th>가격(1인 1시간 가격)<span class="red-color">*</span></th>
                 </tr>
                 <tr>
-                    <td colspan="3"><input id="input-price" class="input-text" name="spacePrice" type="number" placeholder="숫자만 입력해주세요. ex) 1000" required></td>
+                    <td colspan="3"><input id="input-price" class="input-text" name="spacePrice" type="number" value="${sp.spacePrice }" placeholder="숫자만 입력해주세요." required></td>
                 </tr>
                 <tr><td colspan="3"></td></tr>
                 <tr>
@@ -370,7 +370,7 @@
                     <td colspan="2" align="right"><span class="textCount4">0</span>/20자</td>
                 </tr>
                 <tr>
-                    <td colspan="3"><input id="input-shortinfo" class="input-text input-host4" name="spaceLocation" type="text" maxlength="20" placeholder="ex) 동대문역사문화공원역 도보 1분 거리"></td>
+                    <td colspan="3"><input id="input-shortinfo" class="input-text input-host4" name="spaceLocation" type="text" maxlength="20" value="${sp.spaceLocation }" placeholder="ex) 동대문역사문화공원역 도보 1분 거리"></td>
                 </tr>
                 <tr>
                     <th></th>
@@ -381,7 +381,7 @@
                 </tr>
                 <tr>
                     <td colspan="2" ><input id="input-tel" style="padding-right: 50px;" class="input-text" type="text" name="spaceTel" value="${loginUser.phone}" placeholder="'-' 없이 입력해주세요." required></td>
-                    <td  class="body80"><input class="input-text" name="spaceCapacity" type="number" placeholder="최대 인원" required></td>
+                    <td  class="body80"><input class="input-text" name="spaceCapacity" type="number" value="${sp.spaceCapacity }" placeholder="최대 인원" required></td>
                 </tr>
             </table>
 
@@ -396,8 +396,8 @@
 
             <br><br>
             <div class="last-btns">
-                <button class="back-btn" type="button" onclick="backPage()">이&nbsp&nbsp&nbsp&nbsp전</button>
-                <button class="save-btn" type="submit">저&nbsp&nbsp&nbsp&nbsp장</button>
+                <button class="back-btn" type="button" onclick="history.back()">취&nbsp&nbsp&nbsp&nbsp소</button>
+                <button class="save-btn" type="submit">수&nbsp&nbsp&nbsp&nbsp정</button>
             </div>
         </form>
     </div>
@@ -424,7 +424,7 @@
         });
         
        	
-        const spaceKind = "${spaceKind}";
+        const spaceKind = "${sp.spaceKind}";
        	const inputArr = document.querySelectorAll("input[name=spaceKind]");
        	for (let input of inputArr) {
        		if (spaceKind.includes(input.value)){

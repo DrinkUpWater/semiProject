@@ -410,12 +410,15 @@ public class SpaceDao {
 	}
 
 
-	public ArrayList<Space> KeywordSearchSpaceList(Connection conn, String keyword) {
+	public ArrayList<Space> KeywordSearchSpaceList(Connection conn, String keyword, PageInfo pi) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		ArrayList<Space> list = new ArrayList<>();
 		
-		String sql = pro.getProperty("selectKeywordSpaceList");
+		int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+		int endRow = startRow + pi.getBoardLimit() - 1;
+		
+		String sql = pro.getProperty("selectKeywordSpaceListPaging");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -427,6 +430,9 @@ public class SpaceDao {
 			pstmt.setString(6, keyword);
 			pstmt.setString(7, keyword);
 			pstmt.setString(8, keyword);
+			
+			pstmt.setInt(9, startRow);
+			pstmt.setInt(10, endRow);
 			
 			rset = pstmt.executeQuery();
 			
@@ -639,8 +645,25 @@ public class SpaceDao {
 		int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
 		int endRow = startRow + pi.getBoardLimit() - 1;
 		
-		String sql = pro.getProperty("selectFilterSpaceListPaging");
-		sql = sql + pOrder;
+		String sql = "SELECT * " +
+						"FROM (SELECT ROWNUM RNUM, A.* " +
+								 "FROM ( SELECT SPACE_NO, " +
+									       "SPACE_NAME, " + 
+									  	   "SPACE_TAG, " +
+									       "SPACE_MIMG, " + 
+									       "SPACE_ADDRESS, " + 
+									       "SPACE_PRICE, " +
+									       "SPACE_CAPACITY, " +
+									       "SPACE_COUNT " + 
+									   "FROM SPACE " +  
+								 "WHERE SPACE_ENROLL_STATUS = 'Y' " +
+								  	"AND SPACE_CAPACITY >= ? " +  
+									"AND SPACE_ADDRESS LIKE '%'||?||'%' " +
+									"AND SPACE_KIND LIKE '%'||?||'%' " +
+											"ORDER BY " + pOrder + " ) A ) " +
+						  	"WHERE RNUM BETWEEN ? AND ? "; 
+				  	
+		
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -689,6 +712,42 @@ public class SpaceDao {
 			pstmt.setInt(1, pCount);
 			pstmt.setString(2, pInfo);
 			pstmt.setString(3, pKind);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt("count");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return listCount;
+	}
+
+
+	public int selectListCountPagingKeyword(Connection conn, String keyword) {
+		int listCount = 0;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = pro.getProperty("selectListCountPagingKeyword");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, keyword);
+			pstmt.setString(2, keyword);
+			pstmt.setString(3, keyword);
+			pstmt.setString(4, keyword);
+			pstmt.setString(5, keyword);
+			pstmt.setString(6, keyword);
+			pstmt.setString(7, keyword);
+			pstmt.setString(8, keyword);
 			
 			rset = pstmt.executeQuery();
 			

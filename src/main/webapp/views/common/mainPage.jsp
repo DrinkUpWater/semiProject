@@ -293,10 +293,12 @@
         	$.ajax({
                 url: "search.sp",
                 data : {
-                    keyword: $('#keyword').val()
+                    keyword: $('#keyword').val(),
+                    cpage: '1'
                 },
                 success : function(res){
-                	drawSpaceList(res);
+                	drawSpaceList(res.list);
+                	drawPagingBarKey(res.pi, res.list);
                 },
                 error : function(){
                 	alert("실패")
@@ -315,10 +317,10 @@
                     cpage: '1'
                 },
                 success : function(res){
-                	console.log((res.pi));
-         			console.log((res.pi).boardLimit);
                 	drawSpaceList(res.list);
+                	drawPagingBar(res.pi, res.list);
                 	$("#keyword").val("");
+                	
                 },
                 error : function(){
                 	alert("실패")
@@ -364,6 +366,88 @@
 	        	
 	      
             document.querySelector(".main-grid").innerHTML = str;
+        }
+        
+        function drawPagingBar(pi, list) {
+        	let str =""; 
+        	if (list.length == 0){
+        	} else {
+			    if (pi.currentPage != 1){
+				   str = `<button onclick="ajaxPage(` + (pi.currentPage - 1) + `)"><i class="fa-solid fa-chevron-left"></i></button> \n`
+			    }
+			    for (let p = pi.startPage; p <= pi.endPage; p++){
+				   if(pi.currentPage == p) {
+					   str += `<button disabled>`+ p + `</button>\n` 
+				   } else {
+					   str += `<button onclick="ajaxPage(` + p + `)">` + p + `</button>\n` 
+				   }
+			    }
+			    if (pi.currentPage != pi.endPage ){
+				   str += `<button onclick="ajaxPage(` + (pi.currentPage + 1) + `)"><i class="fa-solid fa-chevron-right"></i></button> \n`
+			    }
+        	}
+		  
+		   document.querySelector(".paging-area").innerHTML = str;
+        }
+        
+        function drawPagingBarKey(pi, list) {
+        	let str =""; 
+        	if (list.length == 0){
+        	} else {
+			    if (pi.currentPage != 1){
+				   str = `<button onclick="ajaxPageKey(` + (pi.currentPage - 1) + `)"><i class="fa-solid fa-chevron-left"></i></button> \n`
+			    }
+			    for (let p = pi.startPage; p <= pi.endPage; p++){
+				   if(pi.currentPage == p) {
+					   str += `<button disabled>`+ p + `</button>\n` 
+				   } else {
+					   str += `<button onclick="ajaxPageKey(` + p + `)">` + p + `</button>\n` 
+				   }
+			    }
+			    if (pi.currentPage != pi.endPage ){
+				   str += `<button onclick="ajaxPageKey(` + (pi.currentPage + 1) + `)"><i class="fa-solid fa-chevron-right"></i></button> \n`
+			    }
+        	}
+		  
+		   document.querySelector(".paging-area").innerHTML = str;
+        }
+        
+        function ajaxPage(p) {
+	        $.ajax({
+	            url: "filteringSpace.sp",
+	            data : {
+	                pCount: $("#people-count").val(),
+	                pInfo: $("#place-Info").val(),
+	                pKind: $("#place-kind").val(),
+	                pOrder: $("#place-order").val(),
+	                cpage: p
+	            },
+	            success : function(res){
+	            	drawSpaceList(res.list);
+	            	drawPagingBar(res.pi, res.list);
+	            	$("#keyword").val("");
+	            },
+	            error : function(){
+	            	alert("실패")
+	            }
+	        })
+        }
+        
+        function ajaxPageKey(p) {
+	        $.ajax({
+	        	url: "search.sp",
+                data : {
+                    keyword: $('#keyword').val(),
+                    cpage: p
+                },
+	            success : function(res){
+	            	drawSpaceList(res.list);
+	            	drawPagingBarKey(res.pi, res.list);
+	            },
+	            error : function(){
+	            	alert("실패")
+	            }
+	        })
         }
     </script>
     
