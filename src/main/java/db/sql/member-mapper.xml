@@ -127,5 +127,9 @@
 		WHERE USER_ID = ?
 </entry>
 
-
+<entry key="deleteSpace">
+	UPDATE SPACE
+    SET SPACE_ENROLL_STATUS = 'N'
+    WHERE USER_NO = ?
+</entry>
 </properties>
