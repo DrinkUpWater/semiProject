@@ -242,6 +242,17 @@
             .idCheck:hover{
                 opacity: 0.85;
             }
+            .star{
+                color: rgb(230, 6, 43);
+                /* border: 1px solid; */
+                position: relative;
+                top: 4px;
+            }
+            .genra{
+                position: relative;
+                top: -3px;
+                margin-left: 7px;              
+            }
         </style>
     </head>
 
@@ -254,10 +265,10 @@
                         <h4 class="text-header">회원가입</h4>
                         <h7 class="text-header2">회원이 되어 다양한 혜택을 받으세요! </h7>
 
-                        <table width="100%" class="tb">
+                        <table width="100%" class="tb" >
                             <!-- 이름 -->
                             <tr>
-                                <th colspan="3">이름</th>
+                                <th colspan="3"><span class ="star">* </span>이름</th>
                             </tr>
 
                             <tr>
@@ -269,7 +280,7 @@
                             
                             <!-- 아이디 -->
                             <tr class="user-id">
-                                <th>아이디</th>
+                                <th><span class ="star">* </span>아이디</th>
                                 <td class="cantid" align="center">*사용할 수 없는 아이디입니다</td>
                                 <td class="useableid" align="right">사용가능한 아이디입니다</td>
                             </tr>
@@ -290,7 +301,7 @@
                             </script>
                             <!-- 비밀번호 -->
                             <tr>
-                                <th>비밀번호</th>
+                                <th><span class ="star">* </span>비밀번호</th>
                                 <td class="cantPwd" colspan="2">*사용할 수 없는 비밀번호입니다.</td>
                             </tr>
                             <tr>
@@ -304,7 +315,7 @@
 
                             <!-- 비밀번호 확인 -->
                             <tr class="user-pwd-check">
-                                <th>비밀번호 확인</th>
+                                <th><span class ="star">* </span>비밀번호 확인</th>
                                 <td class="cantPwdCheck">*비밀번호가 일치하지 않습니다</td>
                                 <td class="usealbePwd" align="right">사용가능한 비밀번호입니다</td>
                             </tr>
@@ -318,7 +329,7 @@
 
                             <!-- 닉네임 -->
                             <tr class="user-nickname">
-                                <th colspan="3">닉네임</th>
+                                <th colspan="3"><span class ="star">* </span>닉네임</th>
                             </tr>
                             <tr>
                                 <td colspan="3" class="input-nickname">
@@ -329,16 +340,20 @@
 
                             <!-- 성별 -->
                             <tr class="user-gender">
-                                <th colspan="2">성별</th>
+                                <th colspan="2"><span class ="star">* </span>성별</th>
                                 <td align="center" class="ck-gender">
-                                    <label><input type="radio" name="gender" value="M"><b>남</b></label>
-                                    <label><input type="radio" name="gender" value="F"><b>여</b></label>
+                                    <label><input type="radio" name="gender" value="M"><b class="genra">남</b></label>
+                                    <label><input type="radio" name="gender" value="F"><b class="genra">여</b></label>
                                 </td>
                             </tr>
-                   
+
+                            <tr>
+                                <td style="height: 10px;"></td>
+                            </tr>
+
                             <!-- 전화번호 -->
                             <tr>
-                                <th colspan="3">전화번호</th>
+                                <th colspan="3"><span class ="star">* </span>전화번호</th>
                             </tr>
 
                             <tr>
@@ -349,7 +364,7 @@
 
                             <!-- 생년월일 -->
                             <tr>
-                                <th colspan="3">생년월일</th>
+                                <th colspan="3"><span class ="star">* </span>생년월일</th>
                             </tr>
 
                             <tr>
@@ -360,7 +375,7 @@
                         </table>
 
                         <!-- 이메일  -->
-                        <h4 class="email-header">이메일</h4>
+                        <h4 class="email-header"><span class ="star">* </span>이메일</h4>
                         <input type="text" id="email" name="email" class="u-email" placeholder="">
                         <b>@</b>
                         <select class="select-email" name="select-email">
@@ -376,7 +391,7 @@
                         
                         <!-- 사용자 선택 -->
                         <div class="userhost-area">
-                            <h4 class="userhost-header">사용자 선택</h4>
+                            <h4 class="userhost-header"><span class ="star">* </span>사용자 선택</h4>
                             <label class="host-label"><input type="radio" name="userHost" value="H"><b class="bb">호스트</b></label>
                             <label class="host-label"><input type="radio" name="userHost" value="G"><b class="bb">게스트</b></label>
                         </div>
@@ -579,12 +594,12 @@
                         }
 
 
-                        //새로운 비밀번호와 변경할 비밀번호가 동일하지 않을 경우
-                        if ((userPwd.value !== userPwdCheck.value)) {                            
+                        //비밀번호와 비밀번호 확인이 동일하지 않을 경우
+                        if ((userPwd.value !== userPwdCheck.value) && cantPwd.style.display==="none") {                            
                             cantPwdCheck.style.display = "block";    //*비밀번호가 일치하지 않습니다 (보이기)
                             usealbePwd.style.display = "none";       // 비밀번호 동일합니다(가리기)
                         } else if(userPwd.value === userPwdCheck.value && (userPwd.value !== "" && userPwdCheck.value !== "" && cantPwd.style.display === "none")) {
-                            //새로운 비밀번호와 변경할 비밀번호가 동일하고 둘다 빈칸이 아닐경우
+                            // 비밀번호와 비밀번호 확인이 동일하고 둘다 빈칸이 아닐경우
                             usealbePwd.style.display = "block";     // 비밀번호 동일합니다(보이기)
                             cantPwdCheck.style.display = "none";    // *비밀번호가 일치하지 않습니다 (가리기)
                         }

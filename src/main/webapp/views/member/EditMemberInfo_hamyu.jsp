@@ -35,7 +35,7 @@
                 width: 600px;
                 height: 100%;
                 /* height: 850px; */
-                border: 1px solid;
+                border: 1px solid #212529;
                 border-radius: 20px;
                 background: #F2F6FF;
                 padding: 30px;
@@ -198,9 +198,28 @@
                 display: none;
          
             }
-            /* .head-btn{
+            .head-btn{
                 border: 1px;
-            } */
+                color: #F2F6FF;
+                height: 34px;
+            }
+
+            #hbtn1{
+                /* background: rgb(96,9,240); */
+                background: linear-gradient(0deg, rgba(96,9,240,1) 0%, rgba(129,5,240,1) 100%);
+                border-radius: 5px;
+            }
+            #hbtn1:hover{
+                opacity: 0.75;
+            }
+            #hbtn2{
+                /* background: rgb(224, 54, 2); */
+                background: linear-gradient(0deg, rgb(201, 1, 191) 0%, rgb(240, 5, 209) 100%);
+                border-radius: 5px;
+            }
+            #hbtn2:hover{
+                opacity: 0.75;
+            }
         </style>
     </head>
 
@@ -227,8 +246,8 @@
                         <input id="userId" type="hidden" name="userId" value="${loginUser.userId}"> 
                         <table width="100%" class="tb">
                             <tr>
-                                <input type="button" class="head-btn" value="비밀번호 변경" onclick="pwdUpdate()" style="margin-right: 10px;">
-                                <input type="button" class="head-btn" value="변경 취소" onclick="canclePwdUpdate()">
+                                <input type="button" id ="hbtn1" class="head-btn" value="비밀번호 변경" onclick="pwdUpdate()" style="margin-right: 10px;">
+                                <input type="button" id ="hbtn2" class="head-btn" value="변경 취소" onclick="canclePwdUpdate()">
                             </tr>
                             <tr class="user-id">
                                 <th class="pwd-color">현재 비밀번호</th>
@@ -291,7 +310,7 @@
 
                             <tr>
                                 <td colspan="3">
-                                    <input type="text" id="phone" name="phone" placeholder=" 휴대폰 번호 입력(‘-’제외 11자리 입력)" 
+                                    <input type="text" id="phone" name="phone" placeholder=" 휴대폰 번호 입력" 
                                         value="<%=ph%>">
                                 </td>
                             </tr>
@@ -431,7 +450,7 @@
 
 
                     function editUser() {//빈칸 있을시 확인
-
+                        const checkResult =document.getElementById("oldPwd-area");
 
                         let oldPwd = document.getElementById("oldPwd"); //현 비밀번호
                         let userPwd = document.getElementById("userPwd");          //변경할 비밀번호
@@ -441,7 +460,7 @@
                         let birth = document.getElementById("birth");
                         let email = document.getElementById("email");
                         let select_email = document.querySelector(".select-email");
-                    if(userPwd.readonly){                       
+                    if(!userPwd.readOnly){                       
                         //비밀번호 조건 부분-------------------------------------------
                         if (oldPwd.value === "") { //나중에 loginUser 조건 비교 추가 (oldPwd.value ===loginUser.getPwd())
                             alert("현재 비밀번호를 입력해주세요.");
@@ -465,6 +484,10 @@
                             userPwdCheck.focus();
                             return false;
                         }
+                        else if(checkResult.style.display="block" && userPwd.value ===oldPwd.value){
+                            alert("기존의 비밀번호와 동일합니다. 다시 입력해주세요.");
+                            return false;
+                        }
                         else if (userPwd.value !== userPwdCheck.value) {
                             alert("비밀번호가 동일하지않습니다. 다시 입력해주세요.");
                             return false;
@@ -477,12 +500,16 @@
                             userNickName.focus();
                             return false;
                         }
-
+                        if(!isVailidNickName(userNickName.value)){
+                            alert("부적절한 닉네임입니다. 다시 입력해주세요.");
+                            userNickName.focus();
+                            return false;
+                        }
 
                         // 전화번호 조건 부분-------------------------------------------
                         else if (phone.value === "") {
                             alert("전화번호를 입력해주세요.");
-                            phon.focus();
+                            phone.focus();
                             return false;
                         }
                         // else if (!isValidPhoneNumber(phone.value)) {
@@ -533,6 +560,10 @@
                         let usealbePwd = document.querySelector(".usealbePwd");
                         let cantPwdCheck = document.querySelector(".cantPwdCheck");
                         let cantPwd = document.querySelector(".cantPwd");
+
+                        if(userPwd.readOnly){ //비밀번호 변경 버튼을 클릭하지 않은 상태라면 div문 띄우지않기
+                            return;
+                        }
 
                         //'변경할 비밀번호'가 정규식에 합당하지못하면 사용할 수 없는 비밀번호입니다.창 띄우기
                         if (!isValidPassword(userPwd.value)) {
@@ -600,6 +631,14 @@
                     //정규식 이메일조건 확인 
                     function isVailidEmail(email) {
                         return /^[^\s!@#$%^&*()\-_=+[\]{};:'",.<>/?\\|`~]*$/i.test(email);
+                    }
+
+                    //정규식 닉네임조건 확인
+                    function isVailidNickName(nickname){
+                        if(!/^[\uAC00-\uD7AF\u1100-\u11FF\u3130-\u318F\uAC01-\uD7A3a-zA-Z]{0,16}$|^[^`~!@#$%^&*()_+={}\[\]|\\:;\"'<>,.?/]{0,8}$/.test(nickname)){
+                            return false; 
+                        }
+                        return true;
                     }
                 </script>
             </div>
