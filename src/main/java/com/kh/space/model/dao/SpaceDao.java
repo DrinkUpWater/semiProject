@@ -12,6 +12,7 @@ import java.util.InvalidPropertiesFormatException;
 import java.util.Properties;
 
 import com.kh.common.Attachment;
+import com.kh.common.PageInfo;
 import com.kh.space.model.dto.SpaceThumbNail;
 import com.kh.space.model.vo.Space;
 import static com.kh.common.JDBCTemplate.close;
@@ -282,6 +283,7 @@ public class SpaceDao {
 				Attachment at = new Attachment();
 				at.setFileNo(rset.getInt("FILE_NO"));
 				at.setFilePath(rset.getString("FILE_PATH"));
+				at.setChangeName(rset.getString("CHANGE_NAME"));
 				
 				atList.add(at);
 			}
@@ -408,12 +410,15 @@ public class SpaceDao {
 	}
 
 
-	public ArrayList<Space> KeywordSearchSpaceList(Connection conn, String keyword) {
+	public ArrayList<Space> KeywordSearchSpaceList(Connection conn, String keyword, PageInfo pi) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		ArrayList<Space> list = new ArrayList<>();
 		
-		String sql = pro.getProperty("selectKeywordSpaceList");
+		int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+		int endRow = startRow + pi.getBoardLimit() - 1;
+		
+		String sql = pro.getProperty("selectKeywordSpaceListPaging");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -425,6 +430,9 @@ public class SpaceDao {
 			pstmt.setString(6, keyword);
 			pstmt.setString(7, keyword);
 			pstmt.setString(8, keyword);
+			
+			pstmt.setInt(9, startRow);
+			pstmt.setInt(10, endRow);
 			
 			rset = pstmt.executeQuery();
 			
@@ -528,6 +536,318 @@ public class SpaceDao {
 		}
 		
 		return list;
+	}
+
+
+	public int spaceDelete(Connection conn, int spaceNum, int userNo) {
+		PreparedStatement pstmt = null;
+		int result=0;
+		
+		String sql=pro.getProperty("deleteSpace");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, spaceNum);
+			pstmt.setInt(2, userNo);
+			
+			result=pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+
+	public int selectListCount(Connection conn) {
+		int listCount = 0;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = pro.getProperty("selectListCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt("count");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+	
+		return listCount;
+	}
+
+	public ArrayList<Space> selectSpaceList(Connection conn, PageInfo pi) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Space> list = new ArrayList<>();
+		
+		String sql = pro.getProperty("selectSpaceListPaging");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			/*
+			 * currentPage : 1 = > 1~9
+			 * currentPage : 2 = > 10~18
+			 * currentPage : 3 = > 19~27
+			 */
+			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() - 1;
+			
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			while (rset.next()) {
+				Space sp = new Space();
+				sp.setSpaceNo(rset.getInt("SPACE_NO"));
+				sp.setSpaceName(rset.getString("SPACE_NAME"));
+				sp.setSpaceTag(rset.getString("SPACE_TAG"));
+				sp.setSpaceMimg(rset.getString("SPACE_MIMG"));
+				sp.setSpaceAddress(rset.getString("SPACE_ADDRESS"));
+				sp.setSpacePrice(rset.getInt("SPACE_PRICE"));	
+				sp.setSpaceCapacity(rset.getInt("SPACE_CAPACITY"));
+				
+				list.add(sp);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+
+
+	public ArrayList<Space> selectSpaceListPaging(Connection conn, String pInfo, int pCount, String pKind,
+			String pOrder, PageInfo pi) {
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Space> list = new ArrayList<>();
+		
+		int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+		int endRow = startRow + pi.getBoardLimit() - 1;
+		
+		String sql = "SELECT * " +
+						"FROM (SELECT ROWNUM RNUM, A.* " +
+								 "FROM ( SELECT SPACE_NO, " +
+									       "SPACE_NAME, " + 
+									  	   "SPACE_TAG, " +
+									       "SPACE_MIMG, " + 
+									       "SPACE_ADDRESS, " + 
+									       "SPACE_PRICE, " +
+									       "SPACE_CAPACITY, " +
+									       "SPACE_COUNT " + 
+									   "FROM SPACE " +  
+								 "WHERE SPACE_ENROLL_STATUS = 'Y' " +
+								  	"AND SPACE_CAPACITY >= ? " +  
+									"AND SPACE_ADDRESS LIKE '%'||?||'%' " +
+									"AND SPACE_KIND LIKE '%'||?||'%' " +
+											"ORDER BY " + pOrder + " ) A ) " +
+						  	"WHERE RNUM BETWEEN ? AND ? "; 
+				  	
+		
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, pCount);
+			pstmt.setString(2, pInfo);
+			pstmt.setString(3, pKind);
+			pstmt.setInt(4, startRow);
+			pstmt.setInt(5, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			while (rset.next()) {
+				Space sp = new Space();
+				sp.setSpaceNo(rset.getInt("SPACE_NO"));
+				sp.setSpaceName(rset.getString("SPACE_NAME"));
+				sp.setSpaceTag(rset.getString("SPACE_TAG"));
+				sp.setSpaceMimg(rset.getString("SPACE_MIMG"));
+				sp.setSpaceAddress(rset.getString("SPACE_ADDRESS"));
+				sp.setSpacePrice(rset.getInt("SPACE_PRICE"));	
+				sp.setSpaceCapacity(rset.getInt("SPACE_CAPACITY"));
+				
+				list.add(sp);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+
+
+	public int selectListCountPaging(Connection conn, int pCount, String pInfo, String pKind) {
+		int listCount = 0;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = pro.getProperty("selectListCountPaging");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, pCount);
+			pstmt.setString(2, pInfo);
+			pstmt.setString(3, pKind);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt("count");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return listCount;
+	}
+
+
+	public int selectListCountPagingKeyword(Connection conn, String keyword) {
+		int listCount = 0;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = pro.getProperty("selectListCountPagingKeyword");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, keyword);
+			pstmt.setString(2, keyword);
+			pstmt.setString(3, keyword);
+			pstmt.setString(4, keyword);
+			pstmt.setString(5, keyword);
+			pstmt.setString(6, keyword);
+			pstmt.setString(7, keyword);
+			pstmt.setString(8, keyword);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt("count");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return listCount;
+	}
+
+
+	public int deleteAttachment(Connection conn, int spaceNo, int i) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String sql=pro.getProperty("deleteAttachment");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, spaceNo);
+			pstmt.setInt(2, i);
+			
+			result=pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+
+	public int insertAttachmentOne(Connection conn, int spaceNo, int i, Attachment at) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String sql=pro.getProperty("insertAttachmentOne");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, spaceNo);
+			pstmt.setString(2, at.getOriginName());
+			pstmt.setString(3, at.getChangeName());
+			pstmt.setString(4, at.getFilePath());
+			pstmt.setInt(5, i);
+			
+			result=pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+
+	public int updateSpace(Connection conn, Space sp) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String sql = pro.getProperty("updateSpace");
+		System.out.println(sp);
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, sp.getSpaceName());
+			pstmt.setString(2, sp.getSpaceKind());
+			pstmt.setString(3, sp.getSpaceOneIntroduce());
+			pstmt.setString(4, sp.getSpaceIntroduce());
+			pstmt.setString(5, sp.getSpaceTag());
+			pstmt.setString(6, sp.getSpaceInformation());
+			pstmt.setString(7, sp.getSpaceCaution());
+			pstmt.setString(8, sp.getSpaceMimg());
+			pstmt.setString(9, sp.getSpaceAddress());
+			pstmt.setString(10, sp.getSpaceDetailAddress());
+			pstmt.setInt(11, sp.getSpacePrice());
+			pstmt.setString(12, sp.getSpaceLocation());
+			pstmt.setString(13, sp.getSpaceTel());
+			pstmt.setInt(14, sp.getSpaceCapacity());
+			pstmt.setInt(15, sp.getSpaceNo());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
 	}
 	
 }

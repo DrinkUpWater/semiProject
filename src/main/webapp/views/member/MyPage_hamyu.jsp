@@ -126,7 +126,6 @@
             margin: auto;
             padding: 40px 100px;
             justify-content: space-between;
-            border: 1px solid;
         }
         #Reservation_details{
             height: 42px;
@@ -179,14 +178,15 @@
         <div class="login-top" align="center">
             <h2 class="mypage-header">마이페이지</h2>
         </div>
-<!-- 
-        <div class="user-profile">
+        
+  <!-- 프로필 보여주는 영역 (임시로 잠깐 주석처리했음) -->
+        <!-- <div class="user-profile">
             <div class="user-image-area">
                 <img src="" alt="" id="user_profile">
             </div>
             <br>
             <div class="user-id-area">
-                <h5 align="center">user01</h5>
+                <h5 align="center">${loginUser.userId}</h5>
             </div>
             <br>
             <div class="user-image_edit-area" align="center">
@@ -195,8 +195,13 @@
                 </label>
                 <input type="file" name="file" id="image-change" class="btn-image"  onchange="loadImg(this)">
             </div>
-        </div> -->
-        
+        </div>
+        <script>
+            $.ajax({
+                url : "profile.me",
+                data :
+            })
+        </script> -->
         <!-- 유저 프로필사진 등록-->
         <!-- <script>
             function changeImg(){

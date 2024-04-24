@@ -1,6 +1,17 @@
+const cUrlStr = window.location.href;
+
+
 let date = new Date();
 let currentDate = null;
 document.addEventListener('DOMContentLoaded', function () {
+
+    const url = new URL(cUrlStr);
+
+    const urlParams =url.searchParams
+    const spaceNo= urlParams.get('spaceNo');
+
+
+
     let calendarEl = document.getElementById('calendar');
     let calendar = new FullCalendar.Calendar(calendarEl, {
         height: '1000px',
@@ -13,7 +24,7 @@ document.addEventListener('DOMContentLoaded', function () {
             console.log(currentDate);
             console.log(typeof (currentDate));
            // console.log(typeof (info));
-            fetchBookedTimes(currentDate);
+            fetchBookedTimes(currentDate,spaceNo);
             //disableBookedTimes1(currentDate,[15,16,20,21]);
             
         }
@@ -33,14 +44,15 @@ document.addEventListener('DOMContentLoaded', function () {
           
             //날짜 데이터를 서버에보내서 특정날짜의 예약된 시간 값을 가져온다.
             
-            function fetchBookedTimes(currentDate){
+            function fetchBookedTimes(currentDate,spaceNo){
 
                 $.ajax({
                    // url:'test.sp',
                     url:'time.sp',
                     type:'GET',
                   
-                    data:{date:currentDate},
+                    data:{date:currentDate,
+                         spaceNo:spaceNo},
 
                     success:function(response){
                         //서버에서 시간을 받는다.
@@ -66,7 +78,7 @@ document.addEventListener('DOMContentLoaded', function () {
             function disableBookedTimes1(currentDate,datetimes) {
                 let priceColor="rgb(255, 255, 255)"
                 let reservatedPriceColor='rgb(128, 128, 128)'
-                let selectedColor="rgb(0, 0, 255)"
+                let selectedColor="rgb(100, 100, 255)"
                
             
                 const existTime= [];
@@ -85,6 +97,7 @@ document.addEventListener('DOMContentLoaded', function () {
                    
                     if(existTime.includes(parseInt(time))){
                         $(this).find('.price').css("backgroundColor",reservatedPriceColor);
+                        $(this).find('.price').text("마감")
                         $(this).find('.price').attr("disabled",true);
                     }
                     else{
@@ -146,7 +159,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
                     transmitTime(timeArr);//시간 전송
 
-                    
 
                  
 
@@ -166,10 +178,13 @@ document.addEventListener('DOMContentLoaded', function () {
                           type:'checkbox',
                           name: 'times[]',
                           value:t,
-                          checked:true
+                          checked:true,
+                          hidden:true
+                        
+                          
                          
                       })
-                  ).append(' '+t+'<br>')
+                  )            //.append(' '+t+'<br>')
               }
 
           }

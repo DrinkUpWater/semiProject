@@ -177,6 +177,11 @@
             cursor: pointer;
             scale: 0.98;
         }
+        input::-webkit-outer-spin-button,
+		input::-webkit-inner-spin-button {
+		  -webkit-appearance: none;
+		  margin: 0;
+		}
 
     </style>
 </head>
@@ -193,7 +198,7 @@
             <br>
 
             <div class="top-area">
-                <p>공간 유형을 선택해주세요.</p>
+                <p>공간 정보를 입력해주세요.</p>
                 <span style="color: red; font-size: 20px;">*필수입력</span>
             </div>
             
@@ -258,7 +263,7 @@
                     <td colspan="2" align="right"><span class="textCount3">0</span>/500자</td>
                 </tr>
                 <tr>
-                    <td colspan="3"><input id="input-intro2" class="input-text input-host3" name="spaceIntroduce" type="text" maxlength="500" placeholder="게스트들에게 필요한 공간 정보를 상세하게 소개해주세요. 툴팁은 클릭해 작성 가이드를 확인할 수 있습니다." required></td>
+                    <td colspan="3"><input id="input-intro2" class="input-text input-host3" name="spaceIntroduce" type="text" maxlength="500" placeholder="게스트들에게 필요한 공간 정보를 상세하게 소개해주세요." required></td>
                 </tr>
                 <tr><td colspan="3"></td></tr>
 
@@ -345,7 +350,7 @@
                     <td colspan="2" align="right"></td>
                 </tr>
                 <tr>
-                    <td colspan="2" ><input id="input-addr" id="spaceAddress" class="input-text" type="text" name="spaceAddress" placeholder="실제 서비스되는 공간의 주소를 입력해주세요." required readonly></td>
+                    <td colspan="2" ><input id="spaceAddress" class="input-text" type="text" name="spaceAddress" placeholder="실제 서비스되는 공간의 주소를 입력해주세요." required readonly></td>
                     <td ><button type="button" onclick="searchAddr()">주소 검색</button></td>
                 </tr>
                 <tr>
@@ -357,7 +362,7 @@
                     <th>가격(1인 1시간 가격)<span class="red-color">*</span></th>
                 </tr>
                 <tr>
-                    <td colspan="3"><input id="input-price" class="input-text" name="spacePrice" type="text" placeholder="ex) 1000" required></td>
+                    <td colspan="3"><input id="input-price" class="input-text" name="spacePrice" type="number" placeholder="숫자만 입력해주세요. ex) 1000" required></td>
                 </tr>
                 <tr><td colspan="3"></td></tr>
                 <tr>
@@ -426,11 +431,34 @@
        			input.checked = true;
        		}
        	}
+		
+       	function validateInput1(inputString) {
+            var pattern = /#/;
 
+            if (pattern.test(inputString)) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+       	function validateInput2(inputString) {
+            var pattern = /\//;
+
+            if (pattern.test(inputString)) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+       	
         // 공간태그 입력 및 삭제
         function insertTag() {
             const tag = document.querySelector("#spaceTag").value;
-            if (tag != ""){
+            
+            if (!validateInput1(tag)){
+            	alert("공간 태그에 # 은 입력할 수 없습니다.");
+                $('#spaceTag').focus();
+            } else if (tag != "") {
                 $(".hidden-tag input").val($(".hidden-tag input").val()+'#'+tag+' ');
                 document.querySelector("#spaceTag").value = "";
                 $(".hidden-tag").css('display', 'table-row');
@@ -454,13 +482,18 @@
         let spaceInfoCheck = 1;
         function insertSpaceInfo() {
             const tag = document.querySelector("#spaceInformation-input").value;
-            if (tag != ""){
+            
+            if (!validateInput2(tag)){
+            	alert("시설 안내에 / 은 입력할 수 없습니다.");
+                $('#spaceInformation-input').focus();
+            } else if (tag != ""){
                 $(".hidden-spaceinfo").css('display', 'table-row');
                 $(".hidden-spaceinfo-btn").css('display', 'table-row');
                 let a = document.createElement('input');
                 a.value = spaceInfoCheck + ". " + tag;
                 a.classList.add("input-text");
                 a.name = "spaceInformation";
+                a.readOnly = true;
                 document.querySelector('.hidden-spaceinfo').appendChild(a);
                 document.querySelector("#spaceInformation-input").value = "";
                 spaceInfoCheck++;
@@ -486,13 +519,17 @@
         let spaceCaution = 1;
         function insertCaution() {
             const tag = document.querySelector("#spaceCaution-input").value;
-            if (tag != ""){
+            if (!validateInput2(tag)){
+            	alert("주의 사항에 / 은 입력할 수 없습니다.");
+                $('#spaceInformation-input').focus();
+            } else if (tag != ""){
                 $(".hidden-caution").css('display', 'table-row');
                 $(".hidden-caution-btn").css('display', 'table-row');
                 let a = document.createElement('input');
                 a.value = spaceCaution + ". " + tag;
                 a.classList.add("input-text");
                 a.name = "spaceCaution";
+                a.readOnly = true;
                 document.querySelector('.hidden-caution').appendChild(a);
                 document.querySelector("#spaceCaution-input").value = "";
                 spaceCaution++;
@@ -512,7 +549,7 @@
             $(".caution-btn").css("background-color", "#704DE4");
             spaceCaution = 1;
         }
-
+		
         //이미지 관련 script
         function loadImg(inputFile, num){
             
@@ -554,6 +591,7 @@
         $('#spaceTag').keypress(function(event){
             if(event.which === 13){
                 $('.tag-btn').click();
+                $('#spaceTag').focus();
             }
         });
         $('#spaceInformation-input').keypress(function(event){
@@ -566,6 +604,9 @@
                 $('.caution-btn').click();
             }
         });
+        
+        
+        
     </script>
 
 </body>

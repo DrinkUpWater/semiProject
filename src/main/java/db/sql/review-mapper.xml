@@ -29,16 +29,24 @@
    SELECT 
    		REVIEW_NO,
    		CONTENT,
-   		USER_NAME,
-   		INSERT_DATE
+   		USER_ID,
+   		INSERT_DATE,
+   		R.USER_NO
    		FROM REVIEW R
    		JOIN MEMBER M
    		ON (R.USER_NO=M.USER_NO)
    		JOIN SPACE S ON (S.SPACE_NO=R.SPACE_NO)
    		WHERE S.SPACE_NO = ?
+   		ORDER BY REVIEW_NO DESC
    
   
 
+
+</entry>
+
+<entry key= "deleteReview">
+	DELETE FROM REVIEW 
+			WHERE REVIEW_NO = ? AND USER_NO = ?
 
 </entry>
 	

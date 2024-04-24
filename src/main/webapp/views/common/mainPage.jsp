@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="com.kh.space.model.vo.Space, com.kh.common.PageInfo" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -154,8 +155,17 @@
         .space-info>b {
             margin-bottom: 15px;
         }
-        #search-btn {
+        #search-btn, #place-Info, #people-count, #place-kind, #map-info {
         	cursor: pointer;
+        }
+        .paging-area button{
+        	background-color : white;
+        	border: 1px solid rgb(180, 180, 180);
+        	width: 30px;
+        	height: 30px;
+      	    text-align: center;
+      	    padding-bottom: 4px;
+      	    font-weight : 500;
         }
 
     </style>
@@ -175,10 +185,10 @@
                         <option value="서울" name="pInfo">서울</option>
                         <option value="경기" name="pInfo">경기</option>
                     </select>
-                    <input type="text" name="pInfo" style="display: none;">
                     <select id="people-count" class="people-count" >
                         <option value="0" >인원</option>
-                        <option value="1" name="pCount">1명</option>                        <option value="2" name="pCount">2명</option>
+                        <option value="1" name="pCount">1명</option>                        
+                        <option value="2" name="pCount">2명</option>
                         <option value="3" name="pCount">3명</option>
                         <option value="4" name="pCount">4명</option>
                         <option value="5" name="pCount">5명</option>
@@ -188,7 +198,6 @@
                         <option value="9" name="pCount">9명</option>
                         <option value="10" name="pCount">10명 이상</option>
                     </select>
-                    <input type="text" name="pCount" style="display: none;">
                     <select id="place-kind" class="place-kind" >
                     	<option value="">유형</option>
                     	<option value="파티룸">파티룸</option>
@@ -201,7 +210,7 @@
                 </section>
                 <div class="option2">
                     
-                    <div>지도</div>
+                    <div id="map-info">지도</div>
                 </div>
                 
             </div>
@@ -227,7 +236,6 @@
         <br>
         <section class="main-grid">
            
-			
             <c:forEach var="sp" items="${list}">
                 <div class="info-preview" onclick="detailView('${sp.spaceNo}')">
                     <div class="space-picture"> 
@@ -250,9 +258,30 @@
                     </div>
                 </div>
             </c:forEach>
+            
+           
                         
         </section>
-		
+        <br>
+        <div class="paging-area" align="center" >
+        	<c:if test="${pi.currentPage != 1}">
+        		<button onclick="location.href='<%=contextPath%>/main.sp?cpage=${pi.currentPage - 1}'"><i class="fa-solid fa-chevron-left"></i></button>
+        	</c:if>
+	        <c:forEach begin="${pi.startPage}" end="${pi.endPage}" var="p">
+	       		<c:choose>
+		       		<c:when test="${pi.currentPage == p}">
+		        		<button disabled>${p}</button>
+		       		</c:when >
+		       		<c:otherwise>
+		       			<button onclick="location.href='<%=contextPath%>/main.sp?cpage=${p}'">${p}</button>
+		       		</c:otherwise>
+	       		</c:choose>
+	        </c:forEach>
+	        <c:if test="${pi.currentPage != pi.endPage}">
+        		<button onclick="location.href='<%=contextPath%>/main.sp?cpage=${pi.currentPage + 1}'"><i class="fa-solid fa-chevron-right"></i></button>
+        	</c:if>
+        </div> 
+		<br><br>
     </div>
     <script>
     	
@@ -264,10 +293,12 @@
         	$.ajax({
                 url: "search.sp",
                 data : {
-                    keyword: $('#keyword').val()
+                    keyword: $('#keyword').val(),
+                    cpage: '1'
                 },
                 success : function(res){
-                	drawSpaceList(res);
+                	drawSpaceList(res.list);
+                	drawPagingBarKey(res.pi, res.list);
                 },
                 error : function(){
                 	alert("실패")
@@ -276,19 +307,20 @@
         });
         
         $('#people-count, #place-Info, #place-kind, #place-order').change(function(){
-        	console.log("1");
         	$.ajax({
                 url: "filteringSpace.sp",
                 data : {
                     pCount: $("#people-count").val(),
                     pInfo: $("#place-Info").val(),
                     pKind: $("#place-kind").val(),
-                    pOrder: $("#place-order").val()
+                    pOrder: $("#place-order").val(),
+                    cpage: '1'
                 },
                 success : function(res){
-                	console.log("2");
-                	drawSpaceList(res);
+                	drawSpaceList(res.list);
+                	drawPagingBar(res.pi, res.list);
                 	$("#keyword").val("");
+                	
                 },
                 error : function(){
                 	alert("실패")
@@ -334,6 +366,88 @@
 	        	
 	      
             document.querySelector(".main-grid").innerHTML = str;
+        }
+        
+        function drawPagingBar(pi, list) {
+        	let str =""; 
+        	if (list.length == 0){
+        	} else {
+			    if (pi.currentPage != 1){
+				   str = `<button onclick="ajaxPage(` + (pi.currentPage - 1) + `)"><i class="fa-solid fa-chevron-left"></i></button> \n`
+			    }
+			    for (let p = pi.startPage; p <= pi.endPage; p++){
+				   if(pi.currentPage == p) {
+					   str += `<button disabled>`+ p + `</button>\n` 
+				   } else {
+					   str += `<button onclick="ajaxPage(` + p + `)">` + p + `</button>\n` 
+				   }
+			    }
+			    if (pi.currentPage != pi.endPage ){
+				   str += `<button onclick="ajaxPage(` + (pi.currentPage + 1) + `)"><i class="fa-solid fa-chevron-right"></i></button> \n`
+			    }
+        	}
+		  
+		   document.querySelector(".paging-area").innerHTML = str;
+        }
+        
+        function drawPagingBarKey(pi, list) {
+        	let str =""; 
+        	if (list.length == 0){
+        	} else {
+			    if (pi.currentPage != 1){
+				   str = `<button onclick="ajaxPageKey(` + (pi.currentPage - 1) + `)"><i class="fa-solid fa-chevron-left"></i></button> \n`
+			    }
+			    for (let p = pi.startPage; p <= pi.endPage; p++){
+				   if(pi.currentPage == p) {
+					   str += `<button disabled>`+ p + `</button>\n` 
+				   } else {
+					   str += `<button onclick="ajaxPageKey(` + p + `)">` + p + `</button>\n` 
+				   }
+			    }
+			    if (pi.currentPage != pi.endPage ){
+				   str += `<button onclick="ajaxPageKey(` + (pi.currentPage + 1) + `)"><i class="fa-solid fa-chevron-right"></i></button> \n`
+			    }
+        	}
+		  
+		   document.querySelector(".paging-area").innerHTML = str;
+        }
+        
+        function ajaxPage(p) {
+	        $.ajax({
+	            url: "filteringSpace.sp",
+	            data : {
+	                pCount: $("#people-count").val(),
+	                pInfo: $("#place-Info").val(),
+	                pKind: $("#place-kind").val(),
+	                pOrder: $("#place-order").val(),
+	                cpage: p
+	            },
+	            success : function(res){
+	            	drawSpaceList(res.list);
+	            	drawPagingBar(res.pi, res.list);
+	            	$("#keyword").val("");
+	            },
+	            error : function(){
+	            	alert("실패")
+	            }
+	        })
+        }
+        
+        function ajaxPageKey(p) {
+	        $.ajax({
+	        	url: "search.sp",
+                data : {
+                    keyword: $('#keyword').val(),
+                    cpage: p
+                },
+	            success : function(res){
+	            	drawSpaceList(res.list);
+	            	drawPagingBarKey(res.pi, res.list);
+	            },
+	            error : function(){
+	            	alert("실패")
+	            }
+	        })
         }
     </script>
     

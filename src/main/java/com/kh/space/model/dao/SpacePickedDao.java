@@ -131,18 +131,61 @@ public class SpacePickedDao {
 	}
 
 
-	public ArrayList<Space> findUserPicked(Connection conn, int userNo) {
+	public int findUserPicked(Connection conn, int userNo, int spaceNo) {
 		
 		PreparedStatement pstmt=null;
 		ResultSet rest=null;
 		Space picked=null;
-		String sql=pro.getProperty("selectPickedes");
+		String sql=pro.getProperty("selectPicked");
+		int count=0;
 		
 		
-		ArrayList<Space> pickeds=new ArrayList<>();
+		
 		try {
 			pstmt=conn.prepareStatement(sql);
 			pstmt.setInt(1,userNo);
+			pstmt.setInt(2, spaceNo);
+			rest=pstmt.executeQuery();
+			
+			if(rest.next()) {
+				
+				count=rest.getInt("count");
+				
+			}
+			
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		finally {
+			close(rest);
+			close(pstmt);
+			
+		}
+		
+		
+		return count;
+		
+		
+	
+	}
+
+
+	public ArrayList<Space> findUserPickeds(Connection conn, int userNo) {
+
+		PreparedStatement pstmt=null;
+		ResultSet rest=null;
+		String sql=pro.getProperty("selectPickedes");
+		ArrayList<Space> pickeds= new ArrayList<>();
+		
+		
+		
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1,userNo);
+		   
 			rest=pstmt.executeQuery();
 			
 			while(rest.next()) {
@@ -175,8 +218,6 @@ public class SpacePickedDao {
 		
 		return pickeds;
 		
-		
-	
 	}
 
 }

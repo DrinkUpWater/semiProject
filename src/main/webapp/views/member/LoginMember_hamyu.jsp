@@ -89,7 +89,7 @@
         .userlogin {
             width: 300px;
             height: 50px;
-            padding: 5px;
+            padding: 2px;
             background-color: #704DE4;
             color: #FFFFFF;
             /* font-weight: bold; */
@@ -137,8 +137,8 @@
         h7{
             color:#7B7676;
             font-weight: 500;
-            margin-right: 10px; 
-           padding-left: 150px;
+            margin-right: 6px; 
+           padding-left: 163px;
         }
         .join-user{color:#6076AF;}
         .join-user:hover{ 
@@ -187,9 +187,9 @@
         </div>
     </div>
     <script>
-        let userId =document.getElementById("userId");
-        let userPwd =document.getElementById("userPwd");
-        function loginuser(){
+        function loginuser(){ //빈칸체크 함수
+            let userId =document.getElementById("userId");
+            let userPwd =document.getElementById("userPwd");
             if(userId.value===""){
                 alert("아이디를 입력해주세요.");
                 userId.focus();
@@ -202,10 +202,7 @@
                 return false;
             }
     
-           else{
-                //alert("");
-                //return false;
-            }
+
         }
         
       

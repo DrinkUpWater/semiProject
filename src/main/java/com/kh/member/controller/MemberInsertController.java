@@ -42,10 +42,10 @@ public class MemberInsertController extends HttpServlet {
 		String email = request.getParameter("email") + "@" + request.getParameter("select-email");
 		String userHost = request.getParameter("userHost");
 		
-		
+
 		
 		Member m = new Member(userId,userPwd,userName,nickName,gender,phone,birth,email,userHost);
-		
+		System.out.println(m);
 		int result = new MemberService().insertMember(m);
 		
 		if (result > 0) {

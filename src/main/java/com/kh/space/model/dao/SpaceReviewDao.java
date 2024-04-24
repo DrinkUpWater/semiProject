@@ -55,7 +55,8 @@ public class SpaceReviewDao {
 						rset.getInt("REVIEW_NO"),
 						rset.getString("CONTENT"),
 						rset.getDate("INSERT_DATE"),
-						rset.getString("USER_NAME")
+						rset.getString("USER_ID"),
+						rset.getInt("USER_NO")
 				));
 				
 				
@@ -97,6 +98,31 @@ public class SpaceReviewDao {
 		}
 		
 		
+		return result;
+	}
+
+	public int deleteReviews(Connection conn, int reviewNo, int userNo) {
+	    PreparedStatement pstmt=null;
+	    String sql=pro.getProperty("deleteReview");
+	    int result=0;
+	    
+	    try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, reviewNo);
+			pstmt.setInt(2, userNo);
+			
+			result=pstmt.executeUpdate();
+			
+			
+			
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+	    
+	    
 		return result;
 	}
 

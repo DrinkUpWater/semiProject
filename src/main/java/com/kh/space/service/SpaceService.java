@@ -1,6 +1,7 @@
 package com.kh.space.service;
 
 import com.kh.common.Attachment;
+import com.kh.common.PageInfo;
 import com.kh.space.model.dao.SpaceDao;
 import com.kh.space.model.dto.SpaceThumbNail;
 import com.kh.space.model.vo.Space;
@@ -48,6 +49,27 @@ public class SpaceService {
 		
 		return list;
 	}
+	
+	public int selectListCount() {
+		Connection conn = getConnection();
+		
+		int result = spaceDao.selectListCount(conn);
+		
+		close(conn);
+		
+		return result;
+	}
+	
+	public ArrayList<Space> selectSpaceList(PageInfo pi) {
+		Connection conn = getConnection();
+		
+		ArrayList<Space> list = spaceDao.selectSpaceList(conn, pi);
+		
+		close(conn);
+		
+		return list;
+	}
+
 
 	public ArrayList<Space> selectMySpaces(int userNo) {
 		Connection conn = getConnection();
@@ -112,9 +134,9 @@ public class SpaceService {
 
 	}
 
-	public ArrayList<Space> KeywordSearchSpaceList(String keyword) {
+	public ArrayList<Space> KeywordSearchSpaceList(String keyword, PageInfo pi) {
 		Connection conn = getConnection();
-		ArrayList<Space> list = spaceDao.KeywordSearchSpaceList(conn, keyword);
+		ArrayList<Space> list = spaceDao.KeywordSearchSpaceList(conn, keyword, pi);
 		
 	    close(conn);	
 		
@@ -140,5 +162,68 @@ public class SpaceService {
 		
 		return list;
 	}
+
+	public ArrayList<Space> selectSpaceListPaging(String pInfo, int pCount, String pKind, String pOrder, PageInfo pi) {
+		Connection conn = getConnection();
+
+		ArrayList<Space> list = spaceDao.selectSpaceListPaging(conn, pInfo, pCount, pKind, pOrder, pi);
+		
+		close(conn);
+		
+		return list;
+	}
+
+	public int selectListCountPaging(int pCount, String pInfo, String pKind) {
+		Connection conn = getConnection();
+		
+		int result = spaceDao.selectListCountPaging(conn, pCount, pInfo, pKind);
+		
+		close(conn);
+		
+		return result;
+	}
+
+	public int selectListCountPagingKeyword(String keyword) {
+		Connection conn = getConnection();
+		
+		int result = spaceDao.selectListCountPagingKeyword(conn, keyword);
+		
+		close(conn);
+		
+		return result;
+	}
+
+	public int updateAttachment(int spaceNo, int i, Attachment at) {
+		Connection conn = getConnection();
+		
+		int result1 = spaceDao.deleteAttachment(conn, spaceNo, i);
+		int result2 = spaceDao.insertAttachmentOne(conn, spaceNo, i, at);
+		
+		if (result1 * result2 > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result1 * result2;
+	}
+
+	public int updateSpace(Space sp) {
+		Connection conn = getConnection();
+		
+		int result = spaceDao.updateSpace(conn, sp);
+		
+		if (result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		return result;
+	}
+
+	
 
 }

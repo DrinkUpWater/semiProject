@@ -54,13 +54,23 @@ public class SpacePickedService {
 		return result;
 	}
 
-	public ArrayList<Space> findUserPicked(int userNo) {
+	public int findUserPicked(int userNo, int spaceNo) {
 		Connection conn =getConnection();
-		ArrayList<Space> spaces=sDao.findUserPicked(conn,userNo);
+		int count=sDao.findUserPicked(conn,userNo,spaceNo);
 		
 		 close(conn);
 		 
-		return spaces;
+		return count;
+	}
+
+	public ArrayList<Space> findUserPickedes(int userNo) {
+		Connection conn =getConnection();
+		ArrayList<Space> pickeds=sDao.findUserPickeds(conn,userNo);
+		
+		 close(conn);
+		 
+		return pickeds;
+	
 	}
 	
 }

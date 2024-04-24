@@ -13,17 +13,19 @@ SELECT COUNT(*) AS COUNT
 </entry>
 
 
-<entry key="selectReservation">
+<entry key="selectReservationInfo">
 SELECT  
     ROWNUM AS "RNUM",
+    A2.RESERVATION_DATE,
     A2.RESERVATION_NO,
     A2.HEADCOUNT,
     M2.USER_NAME,
     A2.TOTAL_PRICE,
     A2.RESERVATION_TIME1,
     A2.RESERVATION_TIME2,
-    A2.RESERVATION_DATE,
-    A2.SPACE_NAME
+    A2.SPACE_NAME,
+    A2.CREATE_DATE,
+    A2.SPACE_MIMG
 FROM
     (
         SELECT  
@@ -36,7 +38,9 @@ FROM
             A.RESERVATION_TIME2,
             A.RESERVATION_DATE,
             A.SPACE_NAME,
-            S2.USER_NO
+            S2.USER_NO,
+            A.CREATE_DATE,
+            A.SPACE_MIMG
         FROM
             (
                 SELECT  
@@ -47,23 +51,30 @@ FROM
                     RESERVATION_TIME1,
                     RESERVATION_TIME2,
                     RESERVATION_DATE,
-                    SPACE_NAME
+                    SPACE_NAME,
+                    CREATE_DATE,
+                    SPACE_MIMG
                 FROM 
                     RESERVATION R
-                    LEFT JOIN RESERVATION_DATE USING(RESERVATION_NO)
-                    JOIN MEMBER M ON R.USER_NO = M.USER_NO
-                    JOIN SPACE S ON R.SPACE_NO = S.SPACE_NO
+                LEFT JOIN 
+                    RESERVATION_DATE USING(RESERVATION_NO)
+                JOIN 
+                    MEMBER M ON R.USER_NO = M.USER_NO
+                JOIN 
+                    SPACE S ON R.SPACE_NO = S.SPACE_NO
                 WHERE 
                     USER_ID = ?
                     AND STATUS ='Y'
-                ORDER BY 
-                    RESERVATION_NO DESC
             ) A
-            JOIN SPACE S2 ON A.SPACE_NAME = S2.SPACE_NAME
+        JOIN 
+            SPACE S2 ON A.SPACE_NAME = S2.SPACE_NAME
     ) A2
-    JOIN MEMBER M2 ON A2.USER_NO = M2.USER_NO
+JOIN 
+    MEMBER M2 ON A2.USER_NO = M2.USER_NO
 WHERE 
 RNUM BETWEEN ? AND ?
+ORDER BY CREATE_DATE DESC
+
 
 </entry>
 
@@ -71,10 +82,58 @@ RNUM BETWEEN ? AND ?
 <entry key="findDate">
 	  SELECT  RESERVATION_TIME1,
 	          RESERVATION_TIME2
-	          FROM RESERVATION_DATE
-	          WHERE RESERVATION_DATE  like ?
+	          FROM RESERVATION_DATE D
+	          JOIN RESERVATION R ON (D.RESERVATION_NO=R.RESERVATION_NO)
+	          JOIN  SPACE S ON (S.SPACE_NO=R.SPACE_NO)
+	          WHERE RESERVATION_DATE  like ? AND S.SPACE_NO = ?
+	          
 </entry>
 
+<entry key="insertReservation">
+    INSERT INTO RESERVATION 
+    (RESERVATION_NO,
+    HEADCOUNT,
+    TOTAL_PRICE,
+    USER_NO,
+    SPACE_NO
+    )
+    VALUES
+    (SEQ_RNO.NEXTVAL,
+    ?,
+    ?,
+    ?,
+    ?
+    )
+
+</entry>
+
+<entry key = "insertReservationDate">
+	INSERT INTO 
+	RESERVATION_DATE 
+	(DATE_NO,
+	 RESERVATION_DATE,
+	 RESERVATION_TIME1,
+	 RESERVATION_TIME2,
+	 RESERVATION_NO
+	)
+	VALUES
+	(SEQ_RDNO.NEXTVAL,
+	?,
+	?,
+	?,
+	SEQ_RNO.CURRVAL
+	)
+
+
+
+</entry>
+
+<entry key = "deleteReservation">
+
+	 DELETE FROM RESERVATION 
+	 WHERE RESERVATION_NO  = ?
+
+</entry>
 
 
 </properties>

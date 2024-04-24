@@ -4,6 +4,7 @@ import java.sql.Connection;
 import static com.kh.common.JDBCTemplate.*;
 import com.kh.member.model.dao.MemberDao;
 import com.kh.member.model.vo.Member;
+import com.kh.space.service.SpaceReservationService;
 
 public class MemberService {
 
@@ -88,5 +89,20 @@ public class MemberService {
 		close(conn);
 		return result;
 	}
+
+	public int pwdCheck(String userId, String checkPwd) {
+		Connection conn =getConnection();
+		int count =new MemberDao().pwdCheck(conn,userId,checkPwd);
+		if(count>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return count;
+	}
+
+	
+	
 
 }

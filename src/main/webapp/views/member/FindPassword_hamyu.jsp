@@ -36,7 +36,7 @@
             .pwd-top h2 {
                 color: #FFFFFF;
                 text-align: center;
-                margin-top: 15px;
+                margin-top: 7px;
                 font-weight: 500;
                 font-size: 25px;
 
@@ -246,7 +246,7 @@
         let phone = document.getElementById("phone");
         let email = document.getElementById("email");
 
-        function finduser() {
+        function finduser() { //빈칸 여부 체크 함수
            
           
             if (userId.value === "") {
