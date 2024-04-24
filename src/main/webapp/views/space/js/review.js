@@ -82,16 +82,16 @@ function drawTableList(reviewList,parentTag){
                              <td class='mb-1 time'>`+reply.reviewInsertDate+`</td> 
                              ` 
         replyRow2.innerHTML=`
-                             <td colspan='2' id='comment_line'><hr></td>
+                             <td colspan='3' id='comment_line'><hr></td>
                             `                           
 
         parentTag.appendChild(replyRow);
         parentTag.appendChild(replyRow1);
         parentTag.appendChild(replyRow2);
 
-        replyRow.className='review_body';
-        replyRow1.className='review_body';
-        replyRow2.className='review_body';
+        replyRow.className='comment_list';
+        replyRow1.className='comment_list';
+        replyRow2.className='comment_margin';
       //  submitHostReplyBtn
       
        //리뷰를 쓴 등록되어있는 유저

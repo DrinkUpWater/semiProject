@@ -817,7 +817,7 @@
      
                              <table id="review_table" class="list-group">
 
-                                <tbody id="review_body" class='review_body'></tbody>
+                                <tbody id="review_body" ></tbody>
                        
                             </table>
                         </div>  <!--reivew_content  reivew_enroll-->
