@@ -88,7 +88,7 @@ public class SpaceEnrollController extends HttpServlet {
 					at.setOriginName(multiRequest.getOriginalFileName(key));
 					at.setChangeName(multiRequest.getFilesystemName(key));
 					at.setFilePath("/resources/space_img/");
-					at.setFileLevel(i == 1 ? 1 : 2); 
+					at.setFileLevel(i); 
 					
 					if(at.getFileLevel() == 1) {
 						spaceMimg = at.getFilePath() + at.getChangeName();

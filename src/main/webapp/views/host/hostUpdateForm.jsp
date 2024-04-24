@@ -1,6 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.ArrayList" %>
+<%@ page import="com.kh.common.Attachment" %>
+
+<%
+	ArrayList<Attachment> list = (ArrayList<Attachment>)request.getAttribute("list");
+%>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -191,6 +197,8 @@
     	<br>
         <form action="update.sp" method="POST" enctype="multipart/form-data">
             <input style="display: none;" type="text" name="userNo" value="${loginUser.userNo}">
+            <input style="display: none;" type="text" name="spaceNo" value="${sp.spaceNo}">
+            <input style="display: none;" type="text" name="spaceMimg" value="${sp.spaceMimg}">
             <div class="login-top">
                 <h2>시설물 수정</h2>
             </div>
@@ -316,12 +324,8 @@
                     <th>대표 이미지<span class="red-color">*</span></th>
                     <td colspan="2" align="right">2048*1158 권장, 최대 3MB</td>
                 </tr>
-                <tr class="main-img">
-                    <td colspan="2" class="body80"><input class="input-text" name="spaceMimg" type="text" placeholder="이미지 파일을 추가해 주세요. (JPG, JPEG, png)" disabled></td>
-                    <td><button style="height: 50px;" type="button" onclick="chooseFile(1)">파일 첨부</button></td>
-                </tr>
-                <tr class="main-img-hidden">
-                    <td colspan="2" class="body80"><img id="title-img" width="25%" height="170"></td>
+                <tr>
+                    <td colspan="2" class="body80"><img src="<%=contextPath%>${sp.spaceMimg} " id="title-img" width="25%" height="170"></td>
                     <td><button style="height: 50px;" type="button" onclick="chooseFile(1)">파일 수정</button></td>
                 </tr>
                 <tr><td colspan="3"></td></tr>
@@ -331,17 +335,13 @@
                     <th>이미지<span class="red-color">*</span></th>
                     <td colspan="2" align="right">2048*1158 권장, 최대 3MB(최대 5장)</td>
                 </tr>
-                <tr class="detail-img">
-                    <td colspan="2" class="body80"><input class="input-text" name="spaceImg" type="text" placeholder="이미지 파일을 추가해 주세요. (JPG, JPEG, png)" disabled></td>
-                    <td><button style="height: 50px;" type="button" onclick="chooseFile(2)" >파일 첨부</button></td>
-                </tr>
-                <tr class="detail-img-hidden">
+                <tr>
                     <td colspan="3" class="img-area">
-                        <img id="content-img1" width="19%" height="160;" onclick="chooseFile(2)">
-                        <img id="content-img2" width="19%" height="160;" onclick="chooseFile(3)">
-                        <img id="content-img3" width="19%" height="160;" onclick="chooseFile(4)">
-                        <img id="content-img4" width="19%" height="160;" onclick="chooseFile(5)">
-                        <img id="content-img5" width="19%" height="160;" onclick="chooseFile(6)">
+	                        <img id="content-img1" width="19%" height="160;" onclick="chooseFile(2)">
+	                        <img id="content-img2" width="19%" height="160;" onclick="chooseFile(3)">
+	                        <img id="content-img3" width="19%" height="160;" onclick="chooseFile(4)">
+	                        <img id="content-img4" width="19%" height="160;" onclick="chooseFile(5)">
+	                        <img id="content-img5" width="19%" height="160;" onclick="chooseFile(6)">
                     </td>
                 </tr>
                 <tr><td colspan="3"></td></tr>
@@ -386,7 +386,7 @@
             </table>
 
             <div style="display: none;">
-                <input type="file" name="file1" id="file1" required onchange="loadImg(this, 1)">
+                <input type="file" name="file1" id="file1" onchange="loadImg(this, 1)">
                 <input type="file" name="file2" id="file2" onchange="loadImg(this, 2)">
                 <input type="file" name="file3" id="file3" onchange="loadImg(this, 3)">
                 <input type="file" name="file4" id="file4" onchange="loadImg(this, 4)">
@@ -402,6 +402,14 @@
         </form>
     </div>
     <script>
+    	
+    	$(function(){
+    		<% for (int i = 0; i < list.size(); i++) { %>
+    			$("#content-img" + <%=i+1%>).attr("src", "<%=request.getContextPath()%><%=list.get(i).getFilePath()%><%=list.get(i).getChangeName()%>");
+	        <% } %>
+    	})
+    	
+    
         function backPage() {
             location.href="enrollPre.ho";
         }
@@ -431,7 +439,13 @@
        			input.checked = true;
        		}
        	}
-
+       	const spaceTagg = "<c:out value='${sp.spaceTag}'/>"
+       	let spaceTaggArr = spaceTagg.split('#');
+       	if(spaceTaggArr.length >= 5){
+       		$(".tag-btn").attr("disabled", true);
+            $(".tag-btn").css("background-color", "gray");
+       	}
+       	
         // 공간태그 입력 및 삭제
         function insertTag() {
             const tag = document.querySelector("#spaceTag").value;
@@ -455,10 +469,31 @@
             $(".tag-btn").css("background-color", "#704DE4");
         }
         
+        const spaceInfo = "<c:out value='${sp.spaceInformation}'/>"
+        let spaceInfoArr = spaceInfo.split('/');
+        
+        if(spaceInfoArr.length >= 10){
+        	$(".spaceInfo-btn").attr("disabled", true);
+            $(".spaceInfo-btn").css("background-color", "gray");
+        }
+        
         // 시설안내 입력 및 삭제
         let spaceInfoCheck = 1;
+        for(let info of spaceInfoArr){
+        	$(".hidden-spaceinfo").css('display', 'table-row');
+            $(".hidden-spaceinfo-btn").css('display', 'table-row');
+            let a = document.createElement('input');
+            a.value = info;
+            a.classList.add("input-text");
+            a.name = "spaceInformation";
+            a.readOnly = true;
+            document.querySelector('.hidden-spaceinfo').appendChild(a);
+            document.querySelector("#spaceInformation-input").value = "";
+            spaceInfoCheck++;
+        }
         function insertSpaceInfo() {
             const tag = document.querySelector("#spaceInformation-input").value;
+            
             if (tag != ""){
                 $(".hidden-spaceinfo").css('display', 'table-row');
                 $(".hidden-spaceinfo-btn").css('display', 'table-row');
@@ -487,9 +522,31 @@
             $(".spaceInfo-btn").css("background-color", "#704DE4");
             spaceInfoCheck = 1;
         }
-
+	
+        const spaceCautions = "<c:out value='${sp.spaceCaution}'/>"
+        let spaceCautionArr = spaceCautions.split('/');	
+        
+		if(spaceCautionArr.length >= 10){
+			$(".caution-btn").attr("disabled", true);
+            $(".caution-btn").css("background-color", "gray");
+        }
+        
         // 주의사항 입력 및 삭제
         let spaceCaution = 1;
+        
+        for(let caution of spaceCautionArr){
+        	$(".hidden-caution").css('display', 'table-row');
+            $(".hidden-caution-btn").css('display', 'table-row');
+            let a = document.createElement('input');
+            a.value = caution;
+            a.classList.add("input-text");
+            a.name = "spaceCaution";
+            a.readOnly = true;
+            document.querySelector('.hidden-caution').appendChild(a);
+            document.querySelector("#spaceCaution-input").value = "";
+            spaceCaution++;
+        }
+        
         function insertCaution() {
             const tag = document.querySelector("#spaceCaution-input").value;
             if (tag != ""){

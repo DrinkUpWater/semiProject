@@ -764,5 +764,90 @@ public class SpaceDao {
 		
 		return listCount;
 	}
+
+
+	public int deleteAttachment(Connection conn, int spaceNo, int i) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String sql=pro.getProperty("deleteAttachment");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, spaceNo);
+			pstmt.setInt(2, i);
+			
+			result=pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+
+	public int insertAttachmentOne(Connection conn, int spaceNo, int i, Attachment at) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String sql=pro.getProperty("insertAttachmentOne");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, spaceNo);
+			pstmt.setString(2, at.getOriginName());
+			pstmt.setString(3, at.getChangeName());
+			pstmt.setString(4, at.getFilePath());
+			pstmt.setInt(5, i);
+			
+			result=pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+
+	public int updateSpace(Connection conn, Space sp) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String sql = pro.getProperty("updateSpace");
+		System.out.println(sp);
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, sp.getSpaceName());
+			pstmt.setString(2, sp.getSpaceKind());
+			pstmt.setString(3, sp.getSpaceOneIntroduce());
+			pstmt.setString(4, sp.getSpaceIntroduce());
+			pstmt.setString(5, sp.getSpaceTag());
+			pstmt.setString(6, sp.getSpaceInformation());
+			pstmt.setString(7, sp.getSpaceCaution());
+			pstmt.setString(8, sp.getSpaceMimg());
+			pstmt.setString(9, sp.getSpaceAddress());
+			pstmt.setString(10, sp.getSpaceDetailAddress());
+			pstmt.setInt(11, sp.getSpacePrice());
+			pstmt.setString(12, sp.getSpaceLocation());
+			pstmt.setString(13, sp.getSpaceTel());
+			pstmt.setInt(14, sp.getSpaceCapacity());
+			pstmt.setInt(15, sp.getSpaceNo());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
 	
 }

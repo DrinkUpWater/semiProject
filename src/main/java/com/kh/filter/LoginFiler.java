@@ -17,7 +17,7 @@ import com.kh.member.model.vo.Member;
 /**
  * Servlet Filter implementation class LoginFiler
  */
-@WebFilter(urlPatterns= {"/detailview.sp","/myspace.sp","/pickedview.sp","/review.sp"})
+@WebFilter(urlPatterns= {"/myspace.sp","/pickedview.sp"})
 public class LoginFiler implements Filter {
 
     /**

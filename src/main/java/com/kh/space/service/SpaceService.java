@@ -193,6 +193,37 @@ public class SpaceService {
 		return result;
 	}
 
+	public int updateAttachment(int spaceNo, int i, Attachment at) {
+		Connection conn = getConnection();
+		
+		int result1 = spaceDao.deleteAttachment(conn, spaceNo, i);
+		int result2 = spaceDao.insertAttachmentOne(conn, spaceNo, i, at);
+		
+		if (result1 * result2 > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result1 * result2;
+	}
+
+	public int updateSpace(Space sp) {
+		Connection conn = getConnection();
+		
+		int result = spaceDao.updateSpace(conn, sp);
+		
+		if (result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		return result;
+	}
+
 	
 
 }
