@@ -262,6 +262,7 @@
     <div id="wrapper">
         <form action="delete.me" method="post">
             <input type="hidden" id="userId" name="userId" value="${loginUser.userId }">
+            <input type="hidden" id="userNo" name="userNo" value="${loginUser.userNo }">
             <div class="secss-member">
                 <p class="head-text1">서비스 탈퇴전에 꼭 확인하세요!</p>
                 <p class="head-text2">서비스 탈퇴시 내 프로필,예약내역 등의 모든 정보가 삭제되며 이후 복구가 불가능합니다.</p>
