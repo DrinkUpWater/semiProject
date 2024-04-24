@@ -15,7 +15,7 @@ import com.kh.space.service.SpaceService;
 /**
  * Servlet implementation class SpaceUpdateController
  */
-@WebServlet("/update.sp")
+@WebServlet("/updateForm.sp")
 public class SpaceUpdateController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -36,13 +36,13 @@ public class SpaceUpdateController extends HttpServlet {
 		int spaceNum= Integer.parseInt(request.getParameter("spaceNum"));   
 		
 		
-		Space mySpace=new SpaceService().selectOneSpace(spaceNum);
-		if(mySpace==null) {
+		Space sp = new SpaceService().selectOneSpace(spaceNum);
+		if(sp==null) {
 			s.setAttribute("alertMsg", "공간이 없습니다.");
 			response.sendRedirect(request.getContextPath()+"/myspacedetail.sp?spaceNo="+spaceNum);
 			
 		}else {
-			request.setAttribute("mySpace", mySpace);
+			request.setAttribute("sp", sp);
 			request.getRequestDispatcher("views/host/hostUpdateForm.jsp")
 		    .forward(request, response);
 		}

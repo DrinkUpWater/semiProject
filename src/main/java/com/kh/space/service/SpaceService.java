@@ -134,9 +134,9 @@ public class SpaceService {
 
 	}
 
-	public ArrayList<Space> KeywordSearchSpaceList(String keyword) {
+	public ArrayList<Space> KeywordSearchSpaceList(String keyword, PageInfo pi) {
 		Connection conn = getConnection();
-		ArrayList<Space> list = spaceDao.KeywordSearchSpaceList(conn, keyword);
+		ArrayList<Space> list = spaceDao.KeywordSearchSpaceList(conn, keyword, pi);
 		
 	    close(conn);	
 		
@@ -177,6 +177,16 @@ public class SpaceService {
 		Connection conn = getConnection();
 		
 		int result = spaceDao.selectListCountPaging(conn, pCount, pInfo, pKind);
+		
+		close(conn);
+		
+		return result;
+	}
+
+	public int selectListCountPagingKeyword(String keyword) {
+		Connection conn = getConnection();
+		
+		int result = spaceDao.selectListCountPagingKeyword(conn, keyword);
 		
 		close(conn);
 		
