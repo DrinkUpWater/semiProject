@@ -369,10 +369,10 @@
                         let oldPwd = document.getElementById("oldPwd"); 
                         let userPwd = document.getElementById("userPwd");   
                         let userPwdCheck = document.getElementById("userPwdCheck");
-                        document.querySelectorAll(".pwd-color").forEach(function(el){ //모든 pwd-color 폰트색 검정으로 변경
+                        document.querySelectorAll(".pwd-color").forEach(function(el){ //모든 pwd-color 폰트색 회색으로 변경
                             el.style.color="#c2c0c0"; 
 
-                            oldPwd.setAttribute("readonly",true);
+                            oldPwd.setAttribute("readonly",true);        //이 아래부터는 싹다 전 모습으로 되돌리기
                             oldPwd.placeholder="";
                             oldPwd.value="";
 
@@ -392,7 +392,7 @@
                     }
 
 
-                    $(function(){ //비밀번호 확인
+                    $(function(){ //현재 비밀번호 일치하는지 확인 (0.5초) 
                         const pwdInput = document.getElementById("oldPwd");
                         let eventFlage;
                         pwdInput.onkeyup = function(ev){
@@ -400,7 +400,7 @@
                             const str =ev.target.value;
                             if(str.trim().length>=5){
                                 eventFlag = setTimeout(function(){
-                                    console.log("전송");
+                                    console.log("전송");  
                                     $.ajax({
                                         url:"pwdCheck.me",
                                         data:{
@@ -410,17 +410,16 @@
                                         success:function(result){
                                             const checkResult =document.getElementById("oldPwd-area");
                                             checkResult.style.display="block";
-                                            if(result==="NNNNN"){
-                                               
+                                            if(result==="NNNNN"){      //만약 비밀번호가 동일하지 않을 시
                                                 checkResult.style.color="red";
                                                 checkResult.innerHTML="*틀린 비밀번호입니다."
-                                            }else{
-                                                checkResult.style.color="green";
+                                            }else{                      //비밀번호가 동일할 시
+                                             checkResult.style.color="green";
                                                 checkResult.innerHTML="확인되었습니다."
                                             }
                                         },
                                         error: function(){
-                                            console.log("비밀번호 중복체크 실패!");
+                                            console.log("비밀번호 체크 실패!");
                                         }
                                     })
                                 },500)
@@ -511,14 +510,14 @@
                     function onbcrt() { //현 비번과 변경할 비번이 동일한지 확인
                         let oldPwd = document.getElementById("oldPwd");
                         let userPwd = document.getElementById("userPwd");       
-                
+                        const checkResult =document.getElementById("oldPwd-area");
                         let usealbePwd = document.querySelector(".usealbePwd");
                         let cantPwdCheck = document.querySelector(".cantPwdCheck");
                         let cantPwd = document.querySelector(".cantPwd");
                         cantPwd.style.color = "red";
 
                         if (oldPwd.value === userPwd.value) { //현재 비밀번호와 변경할 비밀번호가 같을 시
-                            if ((oldPwd.value !== "" && userPwd.value !== "")) {   //각 비밀번호가 동일하면 th안에 있는 "*사용할 수 없는 비밀번호입니다." 대신             
+                            if ((oldPwd.value !== "" && userPwd.value !== "") && checkResult.style.color==="green") {   //각 비밀번호가 동일하면 th안에 있는 "*사용할 수 없는 비밀번호입니다." 대신             
                                 cantPwd.innerHTML = "*중복된 비번입니다";             //"중복된 비번입니다"로 변경 (단, 둘다 빈칸이 아니여야함)
                                 cantPwd.style.display = "block";
                                 return;
@@ -541,20 +540,22 @@
                             cantPwd.innerHTML = "사용할 수 없는 비밀번호입니다.";
                             cantPwdCheck.style.display = "none";
                         }
-                        else { //정규식에 합당한 '변경할 비번'이 '현재비밀번호'와 같으면 "중복된 비번입니다"를 보이게하기 (단, 둘다 빈칸이 아닐시에만)
+                        else { //정규식에 합당한 '변경할 비밀번호'가 '현재비밀번호'와 같으면 "중복된 비번입니다"를 보이게하기 (단, 둘다 빈칸이 아닐시에만)
                             if (oldPwd.value === userPwd.value && (oldPwd.value !== "" && userPwd.value !== "")) {
                                 cantPwd.style.display = "block";
+                                usealbePwd.style.display="none";
                             }
                             else { //그렇지 않으면 none
                                 cantPwd.style.display = "none";
                             }
                         }
 
-
-                        if ((userPwd.value !== userPwdCheck.value) && cantPwd.style.display === "none") { //'변경할 비밀번호'와 '비밀번호 확인'의 값이 다를시 
+                        //새로운 비밀번호와 변경할 비밀번호가 동일하지 않을 경우
+                        if ((userPwd.value !== userPwdCheck.value) && cantPwd.style.display === "none") { 
                             cantPwdCheck.style.display = "block";          //*비밀번호가 일치하지 않습니다 (보이기)
                             usealbePwd.style.display = "none";            // 비밀번호 동일합니다(가리기)
-                        } else if (userPwd.value === userPwdCheck.value && (userPwd.value !== "" && userPwdCheck.value !== "" && cantPwd.style.display === "none")) {
+                        } else if (userPwd.value === userPwdCheck.value && (userPwd.value !== "" && userPwdCheck.value !== "" && cantPwd.style.display === "none")) { 
+                            //새로운 비밀번호와 변경할 비밀번호가 동일하고 둘다 빈킨이 아닐 경우
                             usealbePwd.style.display = "block";
                             cantPwdCheck.style.display = "none";
                         }
@@ -588,7 +589,7 @@
 
                     //정규식 전화번호조건 확인
                     function isValidPhoneNumber(phoneNumber) {
-                        // 휴대전화 번호는 숫자로만 이루어져
+                        // 전화번호는 숫자로만 이루어져 있음
                         if (!/^\d{11}$/.test(phoneNumber) || phoneNumber.includes("-")) {
                             return false;
                         }

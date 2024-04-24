@@ -178,7 +178,8 @@
         <div class="login-top" align="center">
             <h2 class="mypage-header">마이페이지</h2>
         </div>
-<!-- 
+        
+<!--   프로필 보여주는 영역 (임시로 잠깐 주석처리했음)
         <div class="user-profile">
             <div class="user-image-area">
                 <img src="" alt="" id="user_profile">
