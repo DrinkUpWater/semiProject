@@ -161,7 +161,8 @@
 				CHANGE_NAME
 			FROM ATTACHMENT A
 			JOIN SPACE S ON (A.REF_SNO=S.SPACE_NO)
-	  WHERE FILE_LEVEL = 2  AND  S.SPACE_NO =  ?
+	  WHERE FILE_LEVEL != 1  AND  S.SPACE_NO =  ? 
+	  ORDER BY FILE_LEVEL 
 		
 	</entry>
 
@@ -302,4 +303,49 @@
 						ORDER BY SPACE_NO DESC) A )
 		WHERE RNUM BETWEEN ? AND ? 
 	</entry>
+	
+	<entry key="deleteAttachment">
+	  	DELETE FROM ATTACHMENT
+	  		WHERE REF_SNO = ? 
+	  			AND FILE_LEVEL = ? 
+	</entry>
+	
+	<entry key="insertAttachmentOne">
+	INSERT INTO ATTACHMENT ( 	
+								FILE_NO,
+								REF_SNO, 
+								ORIGIN_NAME, 
+								CHANGE_NAME,  
+								FILE_PATH,
+								FILE_LEVEL
+								)
+						VALUES (
+								SEQ_ATNO.NEXTVAL, 
+								?,
+								?,  
+								?,  
+								?, 
+								?  
+								) 
+	</entry>
+	
+	<entry key="updateSpace">
+	  	 UPDATE SPACE
+		        SET SPACE_NAME = ?,
+					SPACE_KIND = ?,
+					SPACE_ONE_INTRODUCE = ?,
+					SPACE_INTRODUCE = ?,
+					SPACE_TAG = ?,
+					SPACE_INFORMATION = ?,
+					SPACE_CAUTION = ?,
+					SPACE_MIMG = ?,
+					SPACE_ADDRESS = ?,
+					SPACE_DETAIL_ADDRESS = ?,
+					SPACE_PRICE = ?,
+					SPACE_LOCATION = ?,
+					SPACE_TEL = ?,
+					SPACE_CAPACITY = ? 
+		WHERE SPACE_NO = ?
+	</entry>	
+	
 </properties>
