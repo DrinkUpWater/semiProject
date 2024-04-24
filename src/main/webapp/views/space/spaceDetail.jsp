@@ -19,10 +19,14 @@
            String spaceKind=(String)request.getAttribute("spaceKind");
            ArrayList<Attachment> attachment = (ArrayList<Attachment>)request.getAttribute("attachments");
            //System.out.println(spaceKind);
-           member=(Member)s.getAttribute("loginUser");
+           member=(Member)(s.getAttribute("loginUser"));
            if(member!=null){
-		    	 userNo=member.getUserNo();
+                userNo=member.getUserNo();
 		    }
+            else{
+                member=new Member();
+                member.setUserNo(-1);
+            }
 		 
 		    
 		    String pickedMsg=(String)s.getAttribute("pickedMsg");
@@ -782,7 +786,7 @@
 
 
 
-                        <% if(member!=null) {%>
+                        <% if(member.getUserId()!=null) {%>
                             <div class="container mt-4">
                                 <div class="card">
                                     <div class="card-header bg-primary text-white">
@@ -822,7 +826,7 @@
                             </table>
                         </div>  <!--reivew_content  reivew_enroll-->
 
-                        <% if(loginUser!=null) {%>
+                        <% if(member.getUserId()!=null) {%>
                            
                                <input type="text" name="spaceNum"  value="<%=space.getSpaceNo()%>" hidden/>
                             
@@ -847,14 +851,14 @@
                                 </div>
                         <% } %>
 
-              
+                      
                 </div>
 
 
                 <div id="section_2">
 
 
-     			  <% if(spaceKind.equals("spaces")&&(loginUser.getUserNo()!=space.getUserNo())) {%>
+     			  <% if(spaceKind.equals("spaces")&&(member.getUserNo()!=space.getUserNo())) {%>
 
 
                     <!-- 유저가 게스트면-->
@@ -1026,93 +1030,14 @@
 
                         <div id="time_choice">
                             <ul class="list-group list-group-horizontal" >
-                                <li class="list-group-item">
-                                    <div class="time_box">
-                                        <div class="time" style="display:inline;">9</div>
-                                        <div class="price">1000</div>
-                                    </div>
-                                </li>
-                                <li  class="list-group-item">
-                                    <div class="time_box">
-                                        <div class="time">10</div>
-                                        <div class="price">1000</div>
-                                    </div>
-                                </li>
-                                <li class="list-group-item">
-                                    <div class="time_box">
-                                        <div class="time">11</div>
-                                        <div class="price">1000</div>
-                                    </div>
-                                </li>
-                                <li class="list-group-item">
-                                    <div class="time_box">
-                                        <div class="time">12</div>
-                                        <div class="price">2000</div>
-                                    </div>
-                                </li>
-                                <li class="list-group-item">
-                                    <div class="time_box">
-                                        <div class="time">13</div>
-                                        <div class="price">2000</div>
-                                    </div>
-                                </li>
-                                <li class="list-group-item">
-                                    <div class="time_box">
-                                        <div class="time">14</div>
-                                        <div class="price">3000</div>
-                                    </div>
-                                </li>
-                                <li class="list-group-item">
-                                    <div class="time_box">
-                                        <div class="time">15</div>
-                                        <div class="price">1000</div>
-                                    </div>
-                                </li>
-                                <li class="list-group-item">
-                                    <div class="time_box">
-                                        <div class="time">16</div>
-                                        <div class="price">1000</div>
-                                    </div>
-                                </li>
-                                <li class="list-group-item">
-                                    <div class="time_box">
-                                        <div class="time">17</div>
-                                        <div class="price">1000</div>
-                                    </div>
-                                </li>
-                                <li class="list-group-item">
-                                    <div class="time_box">
-                                        <div class="time">18</div>
-                                        <div class="price">1000</div>
-                                    </div>
-                                </li>
-                                <li class="list-group-item">
-                                    <div class="time_box">
-                                        <div class="time">19</div>
-                                        <div class="price">1000</div>
-                                    </div>
-                                </li>
-                                <li class="list-group-item">
-                                    <div class="time_box">
-                                        <div class="time">20</div>
-                                        <div class="price">1000</div>
-                                    </div>
-                                </li>
-
-                                <li class="list-group-item">
-                                    <div class="time_box">
-                                        <div class="time">21</div>
-                                        <div class="price">1000</div>
-                                    </div>
-                                </li>
-
-                                <li class="list-group-item">
-                                    <div class="time_box">
-                                        <div class="time">22</div>
-                                        <div class="price">1000</div>
-                                    </div>
-                                </li>
-
+                                <% for(int i=9; i<=21; i++){ %>
+                                    <li class="list-group-item">
+                                        <div class="time_box">
+                                            <div class="time" style="display:inline;"><%=i%></div>
+                                            <div class="price"><%=space.getSpacePrice()%></div>
+                                        </div>
+                                    </li>
+                                <% } %>
 
                             </ul>
 
@@ -1151,7 +1076,7 @@
                   		
                   
                         <div align="center" style="margin-top:0px;">
-                            <% if(loginUser!=null){ %>
+                            <% if( member.getUserId()!=null){ %>
                         
                             <button  class="navbar-toggler" type="button" class="button" data-toggle="modal"  data-target="#pay-modal" 
                                 id="reservation_btn" style="color:white">예약하기</button>
@@ -1193,7 +1118,7 @@
                                          <table>
                                             <tr>
                                                 <th>사용자이름</th>
-                                                <td><%=(loginUser!=null)?loginUser.getUserName():"none" %></td>
+                                                <td><%=( member.getUserId()!=null)? member.getUserName():"none" %></td>
                                             </tr>
                                             <tr>
                                                 <th>예약날짜</th>
@@ -1222,7 +1147,7 @@
                                         </button>
 
                                         <div id ="AddTime" ></div>
-                                        <input id="userName" type="text" name="name" value="<%=(loginUser!=null)?loginUser.getUserName():"none" %>" hidden>
+                                        <input id="userName" type="text" name="name" value="<%=(member.getUserId()!=null)? member.getUserName():"none" %>" hidden>
                                         <input type="text"  id="payment" name="payment" hidden >
                                         <input type="text" id="personalCount" name="count" hidden>
                                         <input type="text" id="reservationTime" name="time" hidden>

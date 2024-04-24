@@ -49,11 +49,13 @@
                                       document.querySelector("#reservationTime").value=choiced_time
                                       document.querySelector("#reservationTimeDiv").innerText=choiced_time
 
-                                      document.querySelector("#payment").value=choiced_price
-                                      document.querySelector("#paymentDiv").innerText=choiced_price
-
                                       document.querySelector("#personalCount").value=choiced_count
-                                      document.querySelector("#personalCountDiv").innerText=choiced_count
+                                      document.querySelector("#personalCountDiv").innerText=choiced_count+"명"
+
+                                      document.querySelector("#payment").value=(parseInt(choiced_price)*parseInt(choiced_count))+""
+                                      document.querySelector("#paymentDiv").innerText=(parseInt(choiced_price)*parseInt(choiced_count))+"원"
+
+                                     
                                       pay_button.disabled=false;
                                      // $('#pay-modal').modal('show');
                                     })
