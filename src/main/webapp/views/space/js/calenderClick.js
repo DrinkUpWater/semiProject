@@ -78,7 +78,7 @@ document.addEventListener('DOMContentLoaded', function () {
             function disableBookedTimes1(currentDate,datetimes) {
                 let priceColor="rgb(255, 255, 255)"
                 let reservatedPriceColor='rgb(128, 128, 128)'
-                let selectedColor="rgb(0, 0, 255)"
+                let selectedColor="rgb(100, 100, 255)"
                
             
                 const existTime= [];
@@ -97,6 +97,7 @@ document.addEventListener('DOMContentLoaded', function () {
                    
                     if(existTime.includes(parseInt(time))){
                         $(this).find('.price').css("backgroundColor",reservatedPriceColor);
+                        $(this).find('.price').text("마감")
                         $(this).find('.price').attr("disabled",true);
                     }
                     else{
@@ -158,7 +159,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
                     transmitTime(timeArr);//시간 전송
 
-                    
 
                  
 

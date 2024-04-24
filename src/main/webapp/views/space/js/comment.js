@@ -119,7 +119,7 @@ function drawTableList(commentList,parentTag){
                 
                             
         replyRow5.innerHTML=`
-              <td colspan='2' id='comment_line'><hr></td>
+              <td colspan='3' id='comment_line'><hr></td>
          `                           
     
 

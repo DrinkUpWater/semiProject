@@ -11,36 +11,67 @@
 # 개발 기간
 - 개발 기획 :2024-03-13~2024.03.29
 - 개발 기간 : 2024-04-01~2024.04-28
+    - 1차 개발 기간 : 2024-04-01 ~ 2024-04-17
+        - UI 개발
+            - 메인
+                - 메인페이지
+                - 메뉴바페이지
+            - 유저
+                - 회원가입페이지
+                - 로그인페이지
+                - 마이페이지
+                - 회원탈퇴페이지
+            - 공간
+                - 호스트 메인페이지
+                - 호스트 메뉴바 페이지
+                - 공간등록페이지
+                - 공간상세페이지
+                - 내공간 페이지
+                - 찜한공간 페이지
+            - 게시판
+                - 공지사항 페이지
+            -
+
+
+    - 2차 개발 기간 : 2024-04-18 ~ 2024-04-25
+        - 페이지연결,기능구현
 
 <br><br>
 
+
+# 이슈
+ 
+
+
 # 팀원 구성 및 역할
 
-<div style="display:flex;  justify-content:space-between; ">
-    <div >
+<div>
+   <ul style="display:flex;  justify-content:space-between; ">
+    <li>
         <h3>조장</h3>
         <div><img src="https://github.com/DrinkUpWater/semiProject/assets/86289260/c1b017a9-67e7-480c-9625-c2a3adc5e3a1"></div>
         <div>신형우</div><br>
         <div>공간 상세페이지,공간 예약기능,댓글기능,찜기능</div>
-    </div><br>
-    <div>
+    </li><br>
+    <li>
         <h3>형상관리자</h3>
         <div><img src="https://github.com/DrinkUpWater/semiProject/assets/86289260/f194d1d2-85af-4397-bc29-7eb8bb11dfd6"></div>
         <div>박성호</div><br>
         <div>메인페이지,호스트 페이지,공간 등록기능,공간 수정기능</div>
-    </div><br>
-    <div>
+    </li><br>
+    <li>
         <h3>DB관리자</h3>
         <div><img src="https://github.com/DrinkUpWater/semiProject/assets/86289260/4845e3ca-eae7-4eb8-bc44-2b927bb66b2a"></div>
         <div>이경주</div><br>
         <div>게시판 페이지,게시판 등록기능 , 게시판 댓글 기능</div>
-    </div><br>
-    <div>
+    </li><br>
+    <li>
         <h3>이슈관리자</h3>
         <div><img src="https://github.com/DrinkUpWater/semiProject/assets/86289260/bd97b5a0-81af-433e-b5e2-8a877b751e3b"></div>
         <div>함유철</div><br>
         <div>로그인페이지, 회원가입페이지, 예약리스트 페이지, </div>
-    </div>
+    </li>
+    </ul>
 </div>
 <br><br>
 
@@ -105,7 +136,7 @@
 
 - 등록된 공간 조회기능
 
-- 찜한 공간 기능
+- 공간 찜 기능
 
 - 찜한 공간 조회 기능
 
@@ -124,6 +155,11 @@
 
 </div>
 
+
+<div>
+    <img>
+
+</div>
 
 
 
