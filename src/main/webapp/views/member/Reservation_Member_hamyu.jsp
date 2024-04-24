@@ -189,13 +189,13 @@ int maxPage = pi.getMaxPage();
             <table class="table table-striped" border="1"  >
                 <thead class="thead-dark">
                     <tr>
-                        <th>No.</th>
+                        <th>예약번호</th>
                         <th>예약공간</th>
                         <th>예약인원</th>
                         <th>호스트명</th>
                         <th>금액</th>
                         <th>예약 신청일</th>
-                        <th></th>
+                        <th>예약취소</th>
                     </tr>
                 </thead>
 				<tbody>
