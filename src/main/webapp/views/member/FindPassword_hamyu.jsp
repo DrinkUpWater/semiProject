@@ -246,7 +246,7 @@
         let phone = document.getElementById("phone");
         let email = document.getElementById("email");
 
-        function finduser() {
+        function finduser() { //빈칸 여부 체크 함수
            
           
             if (userId.value === "") {

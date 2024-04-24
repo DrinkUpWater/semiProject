@@ -187,7 +187,7 @@
         </div>
     </div>
     <script>
-        function loginuser(){
+        function loginuser(){ //빈칸체크 함수
             let userId =document.getElementById("userId");
             let userPwd =document.getElementById("userPwd");
             if(userId.value===""){
