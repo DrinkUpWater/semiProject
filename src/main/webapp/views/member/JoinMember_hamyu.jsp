@@ -335,9 +335,7 @@
                                     <label><input type="radio" name="gender" value="F"><b>여</b></label>
                                 </td>
                             </tr>
-
-                            
-
+                   
                             <!-- 전화번호 -->
                             <tr>
                                 <th colspan="3">전화번호</th>
@@ -361,6 +359,7 @@
                             </tr>
                         </table>
 
+                        <!-- 이메일  -->
                         <h4 class="email-header">이메일</h4>
                         <input type="text" id="email" name="email" class="u-email" placeholder="">
                         <b>@</b>
@@ -375,6 +374,7 @@
                             <option value="yahoo.com">yahoo.com</option>
                         </select>
                         
+                        <!-- 사용자 선택 -->
                         <div class="userhost-area">
                             <h4 class="userhost-header">사용자 선택</h4>
                             <label class="host-label"><input type="radio" name="userHost" value="H"><b class="bb">호스트</b></label>
@@ -391,9 +391,6 @@
 
                 <script>
 
-                    
-            
-
                     function idCheck(){ //아이디 중복 확인 함수
                         let userId = document.getElementById("userId");
                         let cantid =document.querySelector(".cantid"); 
@@ -408,27 +405,27 @@
                         },
                         success :function(res){
                             
-                            if(!isVailId(userId.value)){ //정규식조건에 부적절할 시
+                            if(!isVailId(userId.value)){ // 정규식조건에 부적절할 시
                                 cantid.style.display="block";
                                 useableid.style.display="none";
                                 return;
                             }
 
-                            if(res ==="NNNNY"){ //db확인 후 사용 가능할시
+                            if(res ==="NNNNY"){ // db에서 확인 후 ->아이디 사용 가능할 경우
                               
                                     cantid.style.display="none";
                                     if(confirm("이 아이디를 사용하시겠습니까?")){ 
-                                        useableid.style.display ="block";
+                                        useableid.style.display ="block"; // confirm조건에 '네(true)' 라고 클릭하면 '사용가능한 아이디' 보여줌
                                         userId.style.width="127%";
                                     }else{ 
-                                        useableid.style.display ="none";
-                                        userId.focus(); //false클릭시 다시 아이디입력 창으로 이동
+                                        useableid.style.display ="none";  // confirm조건에 '아니요(false)' 라고 클릭하면 '사용가능한 아이디' 가림
+                                        userId.focus();                   // 다시 아이디입력 창으로 이동
                                     }
             
 
-                            }else{
-                                cantid.style.display="block";
-                                useableid.style.display="none";
+                            }else{   //아이디 사용할 수 없을 경우 
+                                cantid.style.display="block";     //'사용할 수 없는 아이디' 보여줌
+                                useableid.style.display="none";   //'사용가능한 아이디' 가림
                                 userId.style.width="120%";
                                 userId.focus();
                             }
@@ -440,23 +437,23 @@
                     }
 
 
-                    function joinUser() { //빈칸 있을시 확인
+                    function joinUser() { //입력을 안한 빈칸 체크  OR  정규식 조건 체크
 
       
-                        let maleRadio = document.querySelector('input[name="gender"][value="M"]');
-                        let femaleRadio = document.querySelector('input[name="gender"][value="F"]');
-                        let host = document.querySelector('input[name="userHost"][value="H"]');
-                        let guest = document.querySelector('input[name="userHost"][value="G"]');
-                        let cantid =document.querySelector(".cantid"); 
-                        let userName = document.getElementById("userName");
-                        let userId = document.getElementById("userId");
-                        let userPwd = document.getElementById("userPwd");
-                        let userPwdCheck = document.getElementById("userPwdCheck");
-                        let nickName = document.getElementById("nickName");
-                        let phone = document.getElementById("phone");
-                        let birth = document.getElementById("birth");
-                        let email = document.getElementById("email");
-                        let select_email = document.querySelector(".select-email");
+                        let maleRadio = document.querySelector('input[name="gender"][value="M"]');    // 남자
+                        let femaleRadio = document.querySelector('input[name="gender"][value="F"]');  // 여자
+                        let host = document.querySelector('input[name="userHost"][value="H"]');       // 호스트
+                        let guest = document.querySelector('input[name="userHost"][value="G"]');      // 게스트
+                        let cantid =document.querySelector(".cantid");                                // '사용할수 없는 아이디' 보여주는 구문 
+                        let userName = document.getElementById("userName");                           // 사용자 이름
+                        let userId = document.getElementById("userId");                               // 사용자 아이디
+                        let userPwd = document.getElementById("userPwd");                             // 사용자 비밀번호
+                        let userPwdCheck = document.getElementById("userPwdCheck");                   // 사용자 비밀번호 확인
+                        let nickName = document.getElementById("nickName");                           // 닉네임
+                        let phone = document.getElementById("phone");                                 // 전화번호
+                        let birth = document.getElementById("birth");                                 // 생년월일 ex) 991024
+                        let email = document.getElementById("email");                                 // 이메일 (@ 기준 앞 부분)
+                        let select_email = document.querySelector(".select-email");                   // 이메일 (@ 기준 뒷 부분 ) ex) @naver.com
                
                         if (userName.value === "") {
                             alert("이름을 입력해주세요.");
@@ -573,23 +570,23 @@
                         let cantPwdCheck = document.querySelector(".cantPwdCheck");
                         let cantPwd = document.querySelector(".cantPwd");
 
-                        // cantPwd.style.display = "block";
-
-                        if (!isValidPassword(userPwd.value)) {
-                            cantPwd.style.display = "block";
-                            cantPwdCheck.style.display = "none";
+                        if (!isValidPassword(userPwd.value)) { //새로운 비밀번호가 정규식에 합당하는지 체크
+                            cantPwd.style.display = "block";    //정규식 합당하지 못했다면 '*비밀번호 사용할 수 없음' 을 띄움
+                            cantPwdCheck.style.display = "none";  //하나만 띄우기(여러차례 조건으로 인해 아래도 같이 띄워지면 지저분해보였음)
                         }
-                        else {
-                            cantPwd.style.display = "none";
+                        else {  
+                            cantPwd.style.display = "none";  //정규식에 합당하면 '*비밀번호 사용할 수 없음' 가림
                         }
 
 
-                        if ((userPwd.value !== userPwdCheck.value)) {
-                            cantPwdCheck.style.display = "block";
-                            usealbePwd.style.display = "none";
-                        } else if (userPwd.value === userPwdCheck.value && (userPwd.value !== "" && userPwdCheck.value !== "" && cantPwd.style.display === "none")) {
-                            usealbePwd.style.display = "block";
-                            cantPwdCheck.style.display = "none";
+                        //새로운 비밀번호와 변경할 비밀번호가 동일하지 않을 경우
+                        if ((userPwd.value !== userPwdCheck.value)) {                            
+                            cantPwdCheck.style.display = "block";    //*비밀번호가 일치하지 않습니다 (보이기)
+                            usealbePwd.style.display = "none";       // 비밀번호 동일합니다(가리기)
+                        } else if(userPwd.value === userPwdCheck.value && (userPwd.value !== "" && userPwdCheck.value !== "" && cantPwd.style.display === "none")) {
+                            //새로운 비밀번호와 변경할 비밀번호가 동일하고 둘다 빈칸이 아닐경우
+                            usealbePwd.style.display = "block";     // 비밀번호 동일합니다(보이기)
+                            cantPwdCheck.style.display = "none";    // *비밀번호가 일치하지 않습니다 (가리기)
                         }
 
 

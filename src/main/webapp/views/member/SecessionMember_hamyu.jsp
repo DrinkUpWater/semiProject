@@ -294,10 +294,6 @@
     </div>
     <script>
 
-        // function ckchecked(checkId){
-        //    return checkId.checked;
-        // }
-
         function testConfirm(){ //회원 탈퇴
        
              if (!document.getElementById("cbtest-19").checked){
