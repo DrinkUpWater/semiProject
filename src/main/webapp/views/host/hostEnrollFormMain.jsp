@@ -519,7 +519,7 @@
             $(".caution-btn").css("background-color", "#704DE4");
             spaceCaution = 1;
         }
-
+		
         //이미지 관련 script
         function loadImg(inputFile, num){
             
