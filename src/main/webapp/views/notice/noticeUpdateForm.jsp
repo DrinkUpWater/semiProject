@@ -1,16 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="controller.notice.model.vo.Notice"%>
+    pageEncoding="UTF-8" import="controller.notice.model.vo.Notice, com.kh.common.NoticeAttachment" %>
 <%
-	Notice n =(Notice)request.getAttribute("notice");
+	Notice n = (Notice)request.getAttribute("notice");
+	NoticeAttachment nat = (NoticeAttachment)request.getAttribute("nat");
 %>
 
 <!DOCTYPE html>
 <html lang="ko">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>공지사항 작성</title>
+    <title>공지사항 수정</title>
     <style>
         #notice-wrapper{
             width: 1200px;
@@ -108,7 +108,7 @@
             display: flex;
             align-items: center;
         }
-        #a1{
+        #content-img{
             border: 1px solid rebeccapurple;
             width: 100px;
             height: 100px;
@@ -118,8 +118,9 @@
             justify-content: center;
             align-items: center;
             margin-left: 30px;
+            cursor: pointer;
         }
-        #a2, #btn{
+        #a1, #btn{
             border: 1px solid rgb(196, 194, 194);
             width: 100px;
             height: 100%;
@@ -140,6 +141,15 @@
             padding-top: 17px;
             box-sizing: border-box; 
         }
+        
+        /* 툴팁 하려다가 실패*/
+        /* [data-tooltip]{position:relative;}
+        [data-tooltip]:before,
+        [data-tooltip]:after{visibility:hidden;opacity:0;position:absolute;left:50%;transform:translateX(-50%);white-space:nowrap;transition:all .2s ease;font-size:11px;font-family:dotum;letter-spacing:-1px;}
+        [data-tooltip]:before{content:attr(data-tooltip);height:20px;position:absolute;top:-20px;padding:5px 10px;border-radius:5px;color:#fff;background:#025272;box-shadow:0 3px 8px rgba(165, 165, 165, 0.5);}
+        [data-tooltip]:after{content: '';border-left:5px solid transparent;top:2px;border-right:5px solid transparent;border-top:5px solid #025272;}
+        [data-tooltip]:not([data-tooltip=""]):hover:before{visibility:visible;opacity:1;top:-30px}
+        [data-tooltip]:not([data-tooltip=""]):hover:after{visibility:visible;opacity:1;top:-8px} */
 
     </style>
 </head>
@@ -147,10 +157,9 @@
     <%@ include file="../common/menubar.jsp" %>
     <div id="notice-wrapper">
         <!-- <div id="h1"></div> -->
-        <h3 style="color: #927f69">공지사항</h3>
+        <h3 style="color: #927f69">공지사항 수정</h3>
 
-       	<form action="<%=contextPath%>/update.no" id="enroll-form" method="POST" >
-       		<input type="hidden" name="num" value="<%=n.getNoticeNo() %>">
+       	<form action="<%=contextPath%>/update.no?num=<%=n.getNoticeNo() %>" id="update-form" method="post" enctype="multipart/form-data">
 	       	<div id="main">       
                 <div id="name-wrapper">
                     <div id="name">이름</div> 
@@ -170,13 +179,22 @@
 	            <div id="img-wrapper">
 	                <div id="img">이미지</div>
 	                <div id="img-input">
-                        <!--  <input id="a1" type="file" name="file"> -->
+	                	<%if(nat != null) {%>
+	                		<input type="hidden" name="originFileNo" value="<%=nat.getFileNo()%>">
+	                	<%} %>
+                    	<img id="content-img" name="content-img" onclick="chooseFile();">
 	                </div>
 	            </div>
-
+	            
+	            
+	            <div style="display:none">
+	            	<input type="file" name="file" id="file" onchange="loadImg(this)">
+				</div>
+				 
+				
 	            <div id="regist-area">
 	                <div id="cancle" >
-	                    <a href="<%=contextPath%>/detail.no?num=<%=n.getNoticeNo() %>" id="a2">취소</a>
+	                    <a href="<%=contextPath%>/detail.no?num=<%=n.getNoticeNo() %>" id="a1">취소</a>
 	                </div>
 	                <div id="regist" >
 	                    <button type="submit" id="btn">등록</button>
@@ -187,11 +205,24 @@
        	</form>
     </div>
     <script>
+    	function loadImg(inputFile){
+    		if(inputFile.files.length == 1){
+    			const reader = new FileReader();
+    			
+    			reader.readAsDataURL(inputFile.files[0]);
+    			
+    			reader.onload = function(ev){
+    				document.getElementById("content-img").src = ev.target.result;
+    			}
+    		} else {
+    			document.getElementById("content-img").src = null;
+    		}
+    	}
+    
         function chooseFile(){
-            const imgInput = document.querySelector("#file" + num);
+            const imgInput = document.querySelector("#file");
                     imgInput.click();
         }
     </script>
-
 </body>
 </html>

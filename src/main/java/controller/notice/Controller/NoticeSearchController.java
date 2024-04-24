@@ -1,6 +1,7 @@
 package controller.notice.Controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -8,22 +9,23 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kh.common.NoticeAttachment;
+import com.kh.common.PageInfo;
+import com.kh.common.Pagination;
 
 import controller.notice.model.vo.Notice;
 import controller.notice.service.NoticeService;
 
 /**
- * Servlet implementation class NoticeUpdateFormController
+ * Servlet implementation class BoardSearchController
  */
-@WebServlet("/updateForm.no")
-public class NoticeUpdateFormController extends HttpServlet {
+@WebServlet("/search.no")
+public class NoticeSearchController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public NoticeUpdateFormController() {
+    public NoticeSearchController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,15 +34,25 @@ public class NoticeUpdateFormController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String condition = request.getParameter("condition");		
+		String keyword = request.getParameter("keyword");
 		
-		int noticeNo = Integer.parseInt(request.getParameter("num"));
+//		HashMap<String, String> map = new HashMap<>();
+//		map.put("condition", condition);
+//		map.put("keyword", keyword);
 		
-		Notice n = new NoticeService().selectNotice(noticeNo);
-		NoticeAttachment nat = new NoticeService().selectNoticeAttachment(noticeNo);
+		int searchCount = new NoticeService().selectSearchCount(condition, keyword);
+		int currentPage = Integer.parseInt(request.getParameter("cpage"));
 		
-		request.setAttribute("notice", n);
-		request.setAttribute("nat", nat);
-		request.getRequestDispatcher("views/notice/noticeUpdateForm.jsp").forward(request, response);;
+		PageInfo pi = Pagination.getPageInfo(searchCount, currentPage, 10, 8);
+		ArrayList<Notice> list = new NoticeService().selectSearchList(condition, keyword, pi);
+		
+		request.setAttribute("list", list);
+		request.setAttribute("pi", pi);
+		request.setAttribute("condition", condition);
+		request.setAttribute("keyword", keyword);
+		
+		request.getRequestDispatcher("views/notice/noticeListView.jsp").forward(request, response);
 	}
 
 	/**

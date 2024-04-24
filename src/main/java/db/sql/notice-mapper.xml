@@ -7,6 +7,7 @@
 	FROM NOTICE
 	WHERE STATUS = 'Y'
 </entry>
+
 <entry key="selectNoticeList">
 	SELECT *
 		FROM( SELECT ROWNUM RNUM, A.*
@@ -31,7 +32,7 @@
 		NOTICE_WRITER
 	)
 	VALUES(
-		SEQ_UNO.NEXTVAL,
+		SEQ_NNO.NEXTVAL,
 		?,
 		?,
 		?
@@ -57,7 +58,8 @@
 <entry key="updateNotice">
 	UPDATE NOTICE
 	SET NOTICE_TITLE = ?,
-		NOTICE_CONTENT =?
+		NOTICE_CONTENT =?,
+		COUNT = 0
 	WHERE NOTICE_NO = ?
 </entry>
 <entry key="deleteNotice">
@@ -65,6 +67,83 @@
 	SET STATUS = 'N'
 	WHERE NOTICE_NO = ?
 </entry>
+<entry key="updateNoticeAttachment">
+	UPDATE NOTICEATTACHMENT
+	SET ORIGIN_NAME = ?,
+		CHANGE_NAME = ?,
+		FILE_PATH = ?
+	WHERE FILE_NO = ?
+</entry>
+<entry key="insertNewNoticeAttachment">
+	INSERT
+	INTO NOTICEATTACHMENT(
+			    FILE_NO,
+			    REF_NNO,
+			    ORIGIN_NAME,
+			    CHANGE_NAME,
+			    FILE_PATH,
+			  )
+		VALUES(
+			    SEQ_NATNO.NEXTVAL
+			   ,?
+			   ,?
+			   ,?
+			   ,?
+			  )
+</entry>
+<entry key="insertAttachment">
+		INSERT
+		INTO NOTICEATTACHMENT(
+				    FILE_NO
+				   ,REF_NNO
+				   ,ORIGIN_NAME
+				   ,CHANGE_NAME
+				   ,FILE_PATH
+				  )
+			VALUES(
+				    SEQ_NATNO.NEXTVAL
+				   ,SEQ_NNO.CURRVAL
+				   ,?
+				   ,?
+				   ,?
+				  )
+</entry>
+<entry key="selectNoticeAttachment">
+	SELECT FILE_NO
+		 , ORIGIN_NAME
+		 , CHANGE_NAME
+		 , FILE_PATH
+	  FROM NOTICEATTACHMENT
+	 WHERE REF_NNO = ?
+</entry>
+<!--  
+<entry key="selectSearchCount">
+	SELECT COUNT(*)
+	FROM NOTICE N
+	JOIN MEMBER ON (NOTICE_WRITER = USER_NO)
+	WHERE N.STATUS = 'Y'
+	AND ? LIKE '%' || ? || '%'
+</entry>
+-->
+<!--
+<entry key="selectSearchList">
+	SELECT *
+		FROM( SELECT ROWNUM RNUM, A.*
+			FROM(SELECT NOTICE_NO,
+					   NOTICE_TITLE,
+					   USER_ID,
+					   COUNT,
+					   CREATE_DATE
+				FROM NOTICE N
+				JOIN MEMBER ON (NOTICE_WRITER = USER_NO)
+				WHERE N.STATUS = 'Y'
+				AND (?) LIKE '%' || ? || '%'
+				ORDER BY NOTICE_NO DESC
+			) A
+		)
+	WHERE RNUM BETWEEN ? AND ?
+</entry>
+-->
 <entry key="insertReply">
 	INSERT INTO NOTICE_REPLY
 	(
@@ -81,6 +160,15 @@
 		?
 	)
 </entry>
+
+<entry key="selectReplyCount">
+	SELECT COUNT(*)
+	FROM NOTICE_REPLY NR
+	JOIN NOTICE ON (NOTICE_NO = REF_NNO)
+	WHERE NR.STATUS = 'Y'
+	AND REF_NNO = ?
+</entry>
+
 <entry key="selectReplyList">
 	SELECT REPLY_NO,
 		   REPLY_CONTENT,
@@ -92,5 +180,35 @@
 	AND REF_NNO = ?
 	ORDER BY REPLY_NO DESC
 </entry>
+
+<entry key="selectReplyList">
+	SELECT STATUS
+	FROM NOTICE
+	WHERE NOTICE_NO = ?
+</entry>
+
+
+<!-- 
+<entry key="findNextNum">
+
+	SELECT NOTICE_NO
+		FROM NOTICE
+		WHERE NOTICE_NO > ?
+		ORDER BY NOTICE_NO ASC
+	FETCH FIRST 1 ROW ONLY
+
+</entry>
+
+<entry key="findNextNum">
+
+	SELECT NOTICE_NO
+			LEAD(NOTICE_NO) OVER (ORDER BY NOTICE_NO) AS NEXTNNO
+	FROM NOTICE
+	WHERE NOTICE_NO = ? 
+	ORDER BY NOTICE_NO 
+
+</entry>
+ -->
 	
+
 </properties>
