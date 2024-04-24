@@ -16,6 +16,7 @@ import com.kh.common.PageInfo;
 
 import controller.notice.model.vo.Notice;
 import controller.notice.model.vo.Reply;
+import oracle.net.aso.q;
 
 public class NoticeDao {
 	private Properties prop = new Properties();
@@ -68,8 +69,8 @@ public class NoticeDao {
 		try {
 			pstmt = conn.prepareStatement(sql);
 			
-			int startRow = (pi.getCurrentPage() -1) * pi.getNoticeLimit() + 1;
-			int endRow = startRow + pi.getNoticeLimit() -1;
+			int startRow = (pi.getCurrentPage() -1) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() -1;
 			
 			pstmt.setInt(1, startRow);
 			pstmt.setInt(2, endRow);
@@ -213,8 +214,56 @@ public class NoticeDao {
 		return result;
 	}
 	
-	public int insertAttachment(Connection conn, NoticeAttachment at) {
+	public int updateNoticeAttachment(Connection conn, NoticeAttachment nat) {
 		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateNoticeAttachment");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, nat.getOriginName());
+			pstmt.setString(2, nat.getChangeName());
+			pstmt.setString(3, nat.getFilePath());
+			pstmt.setInt(4, nat.getFileNo());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	
+	public int insertNewNoticeAttachment(Connection conn, NoticeAttachment nat) {
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertNewNoticeAttachment");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, nat.getRefNoticeNo());
+			pstmt.setString(2, nat.getOriginName());
+			pstmt.setString(3, nat.getChangeName());
+			pstmt.setString(4, nat.getFilePath());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	
+	public int insertAttachment(Connection conn, NoticeAttachment at) {
+		int result = 1;
 		
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("insertAttachment");
@@ -226,6 +275,8 @@ public class NoticeDao {
 			pstmt.setString(2, at.getChangeName());
 			pstmt.setString(3, at.getFilePath());
 			
+			result = result * pstmt.executeUpdate();
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -235,13 +286,13 @@ public class NoticeDao {
 		return result;
 	}
 	
-	public NoticeAttachment selectAttachment(Connection conn, int noticeNo) {
+	public NoticeAttachment selectNoticeAttachment(Connection conn, int noticeNo) {
 		
 		NoticeAttachment nat = null;
 		
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String sql = prop.getProperty("selectAttachment");
+		String sql = prop.getProperty("selectNoticeAttachment");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -267,12 +318,114 @@ public class NoticeDao {
 		
 		return nat;
 	}
-
-	public int insertReply(Connection conn, Reply r) {
+	
+	public int selectSearchCount(Connection conn, String condition, String keyword) {
 		int result = 0;
 		
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
+//		String sql = prop.getProperty("selectSearchCount");  
+		String searchType = null;
+		
+		if(condition.equals("title")) {
+			searchType = "notice_title";
+		} else if(condition.equals("content")){
+			searchType = "notice_content";
+		} else if(condition.equals("writer")){
+			searchType = "user_id";
+		}
+		
+		String sql = "SELECT COUNT(*) "
+				+	 "FROM NOTICE N "
+				+	 "JOIN MEMBER ON (NOTICE_WRITER = USER_NO) "
+				+	 "WHERE N.STATUS = 'Y' "
+				+	 "AND " + searchType + " LIKE '%" + keyword + "%'";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+		
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				result = rset.getInt("count(*)");
+			}
+			System.out.println(result);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return result;
+	}
+	
+	// mybatis없이 property객체를 이용해 매개변수를 담은 변수를 notice_mapper에 집어넣을려고 하니
+	// searchType(notice_title)이 sql문에서 따옴표를 포함하여 적용되어 select가 안되서 property객체 안쓰고 sql문 직접 작성함
+	public ArrayList<Notice> selectSearchList(Connection conn, String condition, String keyword, PageInfo pi){
+		ArrayList<Notice> list = new ArrayList<>();
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String searchType = null;
+//		String sql = prop.getProperty("selectSearchList");
+		
+		if(condition.equals("title")) {
+			searchType = "notice_title";
+		} else if(condition.equals("content")){
+			searchType = "notice_content";
+		} else if(condition.equals("writer")){
+			searchType = "user_id";
+			System.out.println(searchType);
+		}
+		
+		int startRow = (pi.getCurrentPage() -1) * pi.getBoardLimit() + 1;
+		int endRow = startRow + pi.getBoardLimit() -1;
+		
+		String sql = "	SELECT *"
+				+ "		FROM( SELECT ROWNUM RNUM, A.*"
+				+ "			FROM(SELECT NOTICE_NO,"
+				+ "					   NOTICE_TITLE,"
+				+ "					   USER_ID,"
+				+ "					   COUNT,"
+				+ "					   CREATE_DATE"
+				+ "				FROM NOTICE N"
+				+ "				JOIN MEMBER ON (NOTICE_WRITER = USER_NO)"
+				+ "				WHERE N.STATUS = 'Y'"
+				+ "				AND " + searchType + " LIKE '%" + keyword + "%' "
+				+ "				ORDER BY NOTICE_NO DESC"
+				+ "			) A"
+				+ "		)"
+				+ "		WHERE RNUM BETWEEN " + startRow + " AND " + endRow;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+				
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Notice(
+							rset.getInt("notice_no"),
+							rset.getString("notice_title"),
+							rset.getString("user_id"),
+							rset.getInt("count"),
+							rset.getDate("create_date")
+						));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+	
+	public int insertReply(Connection conn, Reply r) {
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("insertReply");
 		
 		try {
@@ -286,6 +439,33 @@ public class NoticeDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	
+	public int selectReplyCount(Connection conn, int noticeNo) {
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectReplyCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, noticeNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				result = rset.getInt("count(*)");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
 			close(pstmt);
 		}
 		
@@ -323,5 +503,85 @@ public class NoticeDao {
 		
 		return list;
 	}
+	
+	public String statusCheck(Connection conn, int noticeNo) {
+		String statusCheck = null;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("statusCheck");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, noticeNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				statusCheck = rset.getString("status");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return statusCheck;
+	}
+
+//	public int findNextNum(Connection conn, int noticeNo) {
+//		PreparedStatement pstmt = null;
+//		ResultSet rset = null;
+//		int nextNum=0;
+//		String sql = prop.getProperty("findNextNum");
+//		try {
+//			pstmt = conn.prepareStatement(sql);
+//			pstmt.setInt(1, noticeNo);
+//			
+//			rset = pstmt.executeQuery();
+//			
+//			if(rset.next()) {
+//				nextNum=rset.getInt("NEXTNNO");
+//			}
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}finally {
+//			close(rset);
+//			close(pstmt);
+//			
+//		}
+//	
+//		return nextNum;
+//	}
+//
+//	public int findpreNum(Connection conn, int noticeNo) {
+//		PreparedStatement pstmt = null;
+//		ResultSet rset = null;
+//		int preNum=0;
+//		String sql = prop.getProperty("findPreNum");
+//		try {
+//			pstmt = conn.prepareStatement(sql);
+//			pstmt.setInt(1, noticeNo);
+//			
+//			rset = pstmt.executeQuery();
+//			
+//			if(rset.next()) {
+//				preNum=rset.getInt("NOTICE_NO");
+//			}
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}finally {
+//			close(rset);
+//			close(pstmt);
+//			
+//		}
+//	
+//		return preNum;
+//		
+//	}
 	
 }

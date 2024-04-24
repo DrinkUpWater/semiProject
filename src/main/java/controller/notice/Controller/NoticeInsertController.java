@@ -40,22 +40,21 @@ public class NoticeInsertController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		System.out.println(request.getParameter("title"));
-		System.out.println(request.getParameter("content"));
+		
+
 
 		
 		if(ServletFileUpload.isMultipartContent(request)) {
+			
 			int maxSize = 1024 * 1024 * 10;
-//			System.out.println(request.getParameter("title"));
-//			System.out.println(request.getParameter("content"));
+
 			
 			String savePath =  request.getSession().getServletContext().getRealPath("/resources/notice_sample_img/");
 		
 			MultipartRequest multiRequest = new MultipartRequest(request, savePath, maxSize, "UTF-8", new MyFileRenamePolicy());
-		
-		
-			String noticeTitle = request.getParameter("title");
-			String noticeContent = request.getParameter("content");
+					
+			String noticeTitle = multiRequest.getParameter("title");
+			String noticeContent = multiRequest.getParameter("content");
 			
 			HttpSession session = request.getSession();
 	
@@ -72,20 +71,18 @@ public class NoticeInsertController extends HttpServlet {
 				nat = new NoticeAttachment();
 				nat.setOriginName(multiRequest.getOriginalFileName(key));
 				nat.setChangeName(multiRequest.getFilesystemName(key));
-				nat.setFilePath("/resources/notice_sample_img/");
-				System.out.println(nat);
+				nat.setFilePath("resources/notice_sample_img/");
 			}
 			
 			int result = new NoticeService().insertNotice(n, nat);
-			
+			System.out.println(result);
 			if(result == 0) {
-				request.setAttribute("errorMsg", "공지사항에 등록에 실패하였습니다.");
-				request.getRequestDispatcher("views/common/errorPage.jsp");
-			} else {
 				if(nat != null) {
 					new File(savePath + nat.getChangeName()).delete();
 				}
-				
+				request.setAttribute("errorMsg", "공지사항에 등록에 실패하였습니다.");
+				request.getRequestDispatcher("views/common/errorPage.jsp");
+			} else {
 				session.setAttribute("alertMsg", "공지사항이 등록되었습니다.");
 				response.sendRedirect(request.getContextPath() + "/list.no?cpage=1");
 			}

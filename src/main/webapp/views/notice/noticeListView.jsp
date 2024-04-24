@@ -127,7 +127,7 @@
                 			<tr>
 		                        <td><%=n.getNoticeNo() %></td>
 		                        <td class="title"><%=n.getNoticeTitle() %></td>
-		                        <td><!--<%=n.getNoticeWriter() %> --> 관리자</td>
+		                        <td><%=n.getNoticeWriter() %></td>
 		                        <td><%=n.getCreateDate() %></td>
 		                        <td><%=n.getCount() %></td>
                     		</tr>
@@ -162,14 +162,16 @@
                 </div>
         </div>
          
-        <form action="">
-            <div id="search-area" align="center">
-                <select name="selectbar" id="selectbar">
-                    <option value="">제목</option>
-                    <option value="">내용</option>
+        <form action="search.no" method="get">
+            <div id="search-area" align="center" >
+            	<input type="hidden" name="cpage" value="1">
+                <select name="condition" id="selectbar">
+                    <option value="title">제목</option>
+                    <option value="content">내용</option>
+                    <option value="writer">작성자</option>
                 </select>
-                <input type="text" id="search-input">
-                <a href="" id="search-btn">검색</a>
+                <input type="text" id="search-input" name="keyword" value="${keyword}">
+                <button type="submit" id="search-btn">검색</button>
             </div>
         </form>
     </div>
@@ -177,7 +179,7 @@
          $(function(){
              $("#table > tbody > tr").click(function(){
                  const noticeNo = $(this).children().eq(0).text();
-                 location.href="<%=contextPath%>/detail.no?num=" + noticeNo;
+                 location.href="<%=contextPath%>/detail.no?num="+noticeNo;
              })
          })
 

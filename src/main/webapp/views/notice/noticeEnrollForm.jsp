@@ -154,9 +154,9 @@
     <%@ include file="../common/menubar.jsp" %>
     <div id="notice-wrapper">
         <!-- <div id="h1"></div> -->
-        <h3 style="color: #927f69">공지사항</h3>
+        <h3 style="color: #927f69">공지사항 작성</h3>
 
-       	<form action="<%=contextPath%>/insert.no" id="enroll-form" method="POST">
+       	<form action="<%=contextPath%>/insert.no" id="enroll-form" method="post" enctype="multipart/form-data">
 	       	<div id="main">       
                 <div id="name-wrapper">
                     <div id="name">이름</div> 
@@ -176,21 +176,25 @@
 	            <div id="img-wrapper">
 	                <div id="img">이미지</div>
 	                <div id="img-input">
+	               			<!--  
                             <a href="#" id="content-img" onclick="chooseFile();">
-                                <!-- <span class="tooltip-container">
+                                <span class="tooltip-container">
                                     <div><span data-tooltip="가나다라마바사">@</span></div>
-                                </span>  툴팁하려다가 실패 -->
+                                </span>  툴팁하려다가 실패
                                 @
                             </a>
-                            <!--  <input id="a1" type="file" name="file"> -->
-                            <!-- <img id="content-img" onclick="chooseFile();"> -->
+                            -->
+                            <!-- <input id="img-content" type="file" name="file" onclick="chooseFile();">  -->
+                            <img id="content-img" name="content-img" onclick="chooseFile();">
 
 	                </div>
 	            </div>
 	            
+	            
 	            <div style="display:none">
 	            	<input type="file" name="file" id="file" onchange="loadImg(this)">
 				</div>
+				 
 				
 	            <div id="regist-area">
 	                <div id="cancle" >
