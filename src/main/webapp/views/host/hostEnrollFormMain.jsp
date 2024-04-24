@@ -431,11 +431,34 @@
        			input.checked = true;
        		}
        	}
+		
+       	function validateInput1(inputString) {
+            var pattern = /#/;
 
+            if (pattern.test(inputString)) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+       	function validateInput2(inputString) {
+            var pattern = /\//;
+
+            if (pattern.test(inputString)) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+       	
         // 공간태그 입력 및 삭제
         function insertTag() {
             const tag = document.querySelector("#spaceTag").value;
-            if (tag != ""){
+            
+            if (!validateInput1(tag)){
+            	alert("공간 태그에 # 은 입력할 수 없습니다.");
+                $('#spaceTag').focus();
+            } else if (tag != "") {
                 $(".hidden-tag input").val($(".hidden-tag input").val()+'#'+tag+' ');
                 document.querySelector("#spaceTag").value = "";
                 $(".hidden-tag").css('display', 'table-row');
@@ -459,7 +482,11 @@
         let spaceInfoCheck = 1;
         function insertSpaceInfo() {
             const tag = document.querySelector("#spaceInformation-input").value;
-            if (tag != ""){
+            
+            if (!validateInput2(tag)){
+            	alert("시설 안내에 / 은 입력할 수 없습니다.");
+                $('#spaceInformation-input').focus();
+            } else if (tag != ""){
                 $(".hidden-spaceinfo").css('display', 'table-row');
                 $(".hidden-spaceinfo-btn").css('display', 'table-row');
                 let a = document.createElement('input');
@@ -492,7 +519,10 @@
         let spaceCaution = 1;
         function insertCaution() {
             const tag = document.querySelector("#spaceCaution-input").value;
-            if (tag != ""){
+            if (!validateInput2(tag)){
+            	alert("주의 사항에 / 은 입력할 수 없습니다.");
+                $('#spaceInformation-input').focus();
+            } else if (tag != ""){
                 $(".hidden-caution").css('display', 'table-row');
                 $(".hidden-caution-btn").css('display', 'table-row');
                 let a = document.createElement('input');
@@ -574,6 +604,9 @@
                 $('.caution-btn').click();
             }
         });
+        
+        
+        
     </script>
 
 </body>
