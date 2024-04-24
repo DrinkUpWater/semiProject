@@ -32,8 +32,8 @@ public class MemberDeleteController extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		
 		String userId = request.getParameter("userId");
-		
-		int result = new MemberService().deleteMember(userId);
+		int userNo =Integer.parseInt(request.getParameter("userNo"));
+		int result = new MemberService().deleteMember(userId,userNo);
 		HttpSession session = request.getSession();
 		if(result>0) {
 			session.setAttribute("alertMsg", "회원이 성공적으로 탈퇴되셨습니다. 이용해주셔서 감사합니다.");
