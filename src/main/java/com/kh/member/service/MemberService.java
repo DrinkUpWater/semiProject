@@ -4,6 +4,7 @@ import java.sql.Connection;
 import static com.kh.common.JDBCTemplate.*;
 import com.kh.member.model.dao.MemberDao;
 import com.kh.member.model.vo.Member;
+import com.kh.space.service.SpaceReservationService;
 
 public class MemberService {
 
@@ -100,5 +101,8 @@ public class MemberService {
 		close(conn);
 		return count;
 	}
+
+	
+	
 
 }

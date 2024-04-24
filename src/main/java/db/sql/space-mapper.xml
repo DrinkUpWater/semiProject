@@ -243,13 +243,14 @@
 				       SPACE_MIMG, 
 				       SPACE_ADDRESS, 
 				       SPACE_PRICE, 
-				       SPACE_CAPACITY 
+				       SPACE_CAPACITY,
+				       SPACE_COUNT 
 				   FROM SPACE  
 			 WHERE SPACE_ENROLL_STATUS = 'Y'
 			  	AND SPACE_CAPACITY >= ? 
 				AND SPACE_ADDRESS LIKE '%'||?||'%'
 				AND SPACE_KIND LIKE '%'||?||'%') A )
-	  	WHERE RNUM BETWEEN ? AND ?
+	  	WHERE RNUM BETWEEN ? AND ? 
 	  	ORDER BY 
 	</entry>
 	
@@ -262,5 +263,43 @@
 			AND SPACE_KIND LIKE '%'||?||'%'  
 	</entry>
 	
+	<entry key="selectListCountPagingKeyword">
+		SELECT COUNT(*) AS COUNT 
+		FROM SPACE  
+		WHERE SPACE_ENROLL_STATUS = 'Y'  
+			AND (SPACE_NAME LIKE '%'||?||'%'
+			 or  SPACE_TAG LIKE '%'||?||'%'
+			 or  SPACE_ADDRESS LIKE '%'||?||'%'
+			 or  SPACE_KIND LIKE '%'||?||'%'
+			 or  SPACE_INFORMATION LIKE '%'||?||'%'
+			 or  SPACE_ONE_INTRODUCE LIKE '%'||?||'%'
+			 or  SPACE_INTRODUCE LIKE '%'||?||'%'
+			 or  SPACE_PRICE LIKE '%'||?||'%'
+				)  
+	</entry>
 	
+	<entry key="selectKeywordSpaceListPaging">
+		SELECT * 
+		FROM(SELECT ROWNUM RNUM, A.*
+				FROM(SELECT SPACE_NO, 
+					       SPACE_NAME, 
+					   	   SPACE_TAG,
+						   SPACE_MIMG, 
+						   SPACE_ADDRESS, 
+						   SPACE_PRICE, 
+						   SPACE_CAPACITY 
+					FROM SPACE  
+					WHERE SPACE_ENROLL_STATUS = 'Y'  
+							AND (SPACE_NAME LIKE '%'||?||'%'
+							 or  SPACE_TAG LIKE '%'||?||'%'
+							 or  SPACE_ADDRESS LIKE '%'||?||'%'
+							 or  SPACE_KIND LIKE '%'||?||'%'
+							 or  SPACE_INFORMATION LIKE '%'||?||'%'
+							 or  SPACE_ONE_INTRODUCE LIKE '%'||?||'%'
+							 or  SPACE_INTRODUCE LIKE '%'||?||'%'
+							 or  SPACE_PRICE LIKE '%'||?||'%'
+								)
+						ORDER BY SPACE_NO DESC) A )
+		WHERE RNUM BETWEEN ? AND ? 
+	</entry>
 </properties>

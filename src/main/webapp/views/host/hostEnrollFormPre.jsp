@@ -33,7 +33,12 @@
             border-bottom: 2px solid #704DE4;
             font-size: 30px;
             height: 45px;
-            font: bold;
+            font-weight: bold;
+            padding-left: 15px;
+            padding-right: 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
         }
         li {
             font-size: 20px;

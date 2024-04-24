@@ -178,24 +178,28 @@ int maxPage = pi.getMaxPage();
         예약 내역
     </div>
 
-    <div class="reservation-body">
-        <div class="total-rsvt-area">
-            <p>총 예약권 : ${pi.listCount}건</p>
-        </div>
 
-        <hr>
-        <table class="table table-striped" border="1"  >
-            <thead class="thead-dark">
-                <tr>
-                    <th>No.</th>
-                    <th>예약공간</th>
-                    <th>예약인원</th>
-                    <th>호스트명</th>
-                    <th>금액</th>
-                    <th>예약 신청일</th>
-                </tr>
-            </thead>
-            <tbody>
+
+        <div class="reservation-body">
+            <div class="total-rsvt-area">
+                <p>총 예약권 : ${pi.listCount}건</p>
+            </div>
+    
+            <hr>
+            <table class="table table-striped" border="1"  >
+                <thead class="thead-dark">
+                    <tr>
+                        <th>No.</th>
+                        <th>예약공간</th>
+                        <th>예약인원</th>
+                        <th>호스트명</th>
+                        <th>금액</th>
+                        <th>예약 신청일</th>
+                        <th></th>
+                    </tr>
+                </thead>
+				<tbody>
+
 
                 <c:choose>
                     <c:when test="${empty pi.listCount }">
@@ -265,21 +269,36 @@ int maxPage = pi.getMaxPage();
                                         </div>
                                     </div>
 
-                                    </div>
-                                </td>
-                                <td>${p.headCount}명</td>
-                                <td>${p.userName }</td>
-                                <!-- host이름으로 수정해야함 -->
-                                <td>${p.totalPrice}</td>
-                                <td>${p.createDate}</td>
-                            </tr>
-                            </c:forEach>
-                    </c:otherwise>
-                </c:choose>
-            </tbody>
-                
-        </table>
-        <br><br>
+										</div>
+									</td>
+									<td>${p.headCount}명</td>
+									<td>${p.userName }</td>
+									<td>${p.totalPrice}</td>
+									<td>${p.createDate}</td>
+                                    <td ><a style="color:red" onclick="cancelConfirm(${p.reservationNo})">취소하기</a></td>
+                                </tr>
+								</c:forEach>
+						</c:otherwise>
+					</c:choose>
+				</tbody>
+					
+			</table>
+            <br><br>
+            <script>
+
+                function cancelConfirm(reservationNum){
+
+                    let confirmCancel=confirm("취소하시겠습니까?");
+                    if(confirmCancel){
+                        location.href="<%=request.getContextPath()%>/cancel.re?reservationNo="+reservationNum;
+
+                    }else{
+                        return false;
+                    }
+                }
+
+            </script>
+
 
         <div class="paging-area" align="center">
 

@@ -35,17 +35,21 @@ public class SpaceDetailViewController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		
+		HttpSession s =request.getSession();
+		//Member m =(Member)request.getAttribute("");
 		
 		int spaceNo = Integer.parseInt(request.getParameter("spaceNo"));  
 		Space space=new SpaceService().selectOneSpace(spaceNo);
 		ArrayList<Attachment> attachments =new SpaceService().selectSpaceAttachment(spaceNo);
+		
+		
 //		
 //		if(attachments.isEmpty()) {
 //			 Attachment att=new Attachment();
 //			 att.setFilePath("");
 //			attachments.add(att);
 //		}
+		
 //		
 	  
 		if(space==null) {

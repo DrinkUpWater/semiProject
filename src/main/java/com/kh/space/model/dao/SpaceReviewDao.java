@@ -55,7 +55,7 @@ public class SpaceReviewDao {
 						rset.getInt("REVIEW_NO"),
 						rset.getString("CONTENT"),
 						rset.getDate("INSERT_DATE"),
-						rset.getString("USER_NAME"),
+						rset.getString("USER_ID"),
 						rset.getInt("USER_NO")
 				));
 				
