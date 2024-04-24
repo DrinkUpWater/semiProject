@@ -41,9 +41,6 @@ public class NoticeInsertController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		
-
-
-		
 		if(ServletFileUpload.isMultipartContent(request)) {
 			
 			int maxSize = 1024 * 1024 * 10;
@@ -75,7 +72,6 @@ public class NoticeInsertController extends HttpServlet {
 			}
 			
 			int result = new NoticeService().insertNotice(n, nat);
-			System.out.println(result);
 			if(result == 0) {
 				if(nat != null) {
 					new File(savePath + nat.getChangeName()).delete();

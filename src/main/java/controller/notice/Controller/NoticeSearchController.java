@@ -36,11 +36,7 @@ public class NoticeSearchController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String condition = request.getParameter("condition");		
 		String keyword = request.getParameter("keyword");
-		
-//		HashMap<String, String> map = new HashMap<>();
-//		map.put("condition", condition);
-//		map.put("keyword", keyword);
-		
+				
 		int searchCount = new NoticeService().selectSearchCount(condition, keyword);
 		int currentPage = Integer.parseInt(request.getParameter("cpage"));
 		

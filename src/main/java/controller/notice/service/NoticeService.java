@@ -197,24 +197,24 @@ public class NoticeService {
 		return statusCheck;
 	}
 	
+	public int maxNoticeNo() {
+		Connection conn = getConnection();
+		
+		int maxNoticeNo = new NoticeDao().maxNoticeNo(conn);
+		
+		close(conn);
+		
+		return maxNoticeNo;
+	}
 
-//	public int findNextNum(int noticeNo) {
-//		Connection conn = getConnection();
-//		
-//		int nextNum=new NoticeDao().findNextNum(conn,noticeNo);
-//		
-//		close(conn);
-//		return nextNum;
-//	}
-//
-//
-//	public int findpreNum(int noticeNo) {
-//        Connection conn = getConnection();
-//		
-//		int nextNum=new NoticeDao().findpreNum(conn,noticeNo);
-//		
-//		close(conn);
-//		return 0;
-//	}
+	public int minNoticeNo() {
+		Connection conn = getConnection();
+		
+		int minNoticeNo = new NoticeDao().minNoticeNo(conn);
+		
+		close(conn);
+		
+		return minNoticeNo;
+	}
 	
 }

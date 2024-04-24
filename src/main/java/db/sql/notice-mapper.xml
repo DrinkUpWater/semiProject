@@ -24,6 +24,7 @@
 		)
 	WHERE RNUM BETWEEN ? AND ?
 </entry>
+
 <entry key="insertNotice">
 	INSERT INTO NOTICE(
 		NOTICE_NO,
@@ -38,12 +39,14 @@
 		?
 	)
 </entry>
+
 <entry key="increaseCount">
 	UPDATE NOTICE
 	SET COUNT = COUNT + 1
 	WHERE NOTICE_NO = ?
 	AND STATUS = 'Y'
 </entry>
+
 <entry key="selectNotice">
 	SELECT NOTICE_NO,
 		   NOTICE_TITLE,
@@ -55,6 +58,7 @@
 	WHERE NOTICE_NO = ?
 	AND N.STATUS = 'Y'
 </entry>
+
 <entry key="updateNotice">
 	UPDATE NOTICE
 	SET NOTICE_TITLE = ?,
@@ -62,11 +66,13 @@
 		COUNT = 0
 	WHERE NOTICE_NO = ?
 </entry>
+
 <entry key="deleteNotice">
 	UPDATE NOTICE
 	SET STATUS = 'N'
 	WHERE NOTICE_NO = ?
 </entry>
+
 <entry key="updateNoticeAttachment">
 	UPDATE NOTICEATTACHMENT
 	SET ORIGIN_NAME = ?,
@@ -74,6 +80,7 @@
 		FILE_PATH = ?
 	WHERE FILE_NO = ?
 </entry>
+
 <entry key="insertNewNoticeAttachment">
 	INSERT
 	INTO NOTICEATTACHMENT(
@@ -91,6 +98,7 @@
 			   ,?
 			  )
 </entry>
+
 <entry key="insertAttachment">
 		INSERT
 		INTO NOTICEATTACHMENT(
@@ -108,6 +116,7 @@
 				   ,?
 				  )
 </entry>
+
 <entry key="selectNoticeAttachment">
 	SELECT FILE_NO
 		 , ORIGIN_NAME
@@ -116,34 +125,7 @@
 	  FROM NOTICEATTACHMENT
 	 WHERE REF_NNO = ?
 </entry>
-<!--  
-<entry key="selectSearchCount">
-	SELECT COUNT(*)
-	FROM NOTICE N
-	JOIN MEMBER ON (NOTICE_WRITER = USER_NO)
-	WHERE N.STATUS = 'Y'
-	AND ? LIKE '%' || ? || '%'
-</entry>
--->
-<!--
-<entry key="selectSearchList">
-	SELECT *
-		FROM( SELECT ROWNUM RNUM, A.*
-			FROM(SELECT NOTICE_NO,
-					   NOTICE_TITLE,
-					   USER_ID,
-					   COUNT,
-					   CREATE_DATE
-				FROM NOTICE N
-				JOIN MEMBER ON (NOTICE_WRITER = USER_NO)
-				WHERE N.STATUS = 'Y'
-				AND (?) LIKE '%' || ? || '%'
-				ORDER BY NOTICE_NO DESC
-			) A
-		)
-	WHERE RNUM BETWEEN ? AND ?
-</entry>
--->
+
 <entry key="insertReply">
 	INSERT INTO NOTICE_REPLY
 	(
@@ -181,34 +163,22 @@
 	ORDER BY REPLY_NO DESC
 </entry>
 
-<entry key="selectReplyList">
+<entry key="statusCheck">
 	SELECT STATUS
 	FROM NOTICE
 	WHERE NOTICE_NO = ?
 </entry>
 
-
-<!-- 
-<entry key="findNextNum">
-
-	SELECT NOTICE_NO
-		FROM NOTICE
-		WHERE NOTICE_NO > ?
-		ORDER BY NOTICE_NO ASC
-	FETCH FIRST 1 ROW ONLY
-
-</entry>
-
-<entry key="findNextNum">
-
-	SELECT NOTICE_NO
-			LEAD(NOTICE_NO) OVER (ORDER BY NOTICE_NO) AS NEXTNNO
+<entry key="maxNoticeNo">
+	SELECT MAX(NOTICE_NO)
 	FROM NOTICE
-	WHERE NOTICE_NO = ? 
-	ORDER BY NOTICE_NO 
-
+	WHERE STATUS = 'Y'
 </entry>
- -->
-	
+
+<entry key="minNoticeNo">
+	SELECT MIN(NOTICE_NO)
+	FROM NOTICE
+	WHERE STATUS = 'Y'
+</entry>
 
 </properties>

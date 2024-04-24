@@ -57,7 +57,6 @@ public class NoticeUpdateController extends HttpServlet {
 
 			//4. sql문 실행에 필요한 값 추출해서 vo에 저장
 			int noticeNo = Integer.parseInt(multiRequest.getParameter("num"));
-			System.out.println(noticeNo);
 			String noticeTitle = multiRequest.getParameter("title");
 			String noticeContent = multiRequest.getParameter("content");
 			

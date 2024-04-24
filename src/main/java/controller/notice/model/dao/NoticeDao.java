@@ -531,57 +531,56 @@ public class NoticeDao {
 		return statusCheck;
 	}
 
-//	public int findNextNum(Connection conn, int noticeNo) {
-//		PreparedStatement pstmt = null;
-//		ResultSet rset = null;
-//		int nextNum=0;
-//		String sql = prop.getProperty("findNextNum");
-//		try {
-//			pstmt = conn.prepareStatement(sql);
-//			pstmt.setInt(1, noticeNo);
-//			
-//			rset = pstmt.executeQuery();
-//			
-//			if(rset.next()) {
-//				nextNum=rset.getInt("NEXTNNO");
-//			}
-//		} catch (SQLException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}finally {
-//			close(rset);
-//			close(pstmt);
-//			
-//		}
-//	
-//		return nextNum;
-//	}
-//
-//	public int findpreNum(Connection conn, int noticeNo) {
-//		PreparedStatement pstmt = null;
-//		ResultSet rset = null;
-//		int preNum=0;
-//		String sql = prop.getProperty("findPreNum");
-//		try {
-//			pstmt = conn.prepareStatement(sql);
-//			pstmt.setInt(1, noticeNo);
-//			
-//			rset = pstmt.executeQuery();
-//			
-//			if(rset.next()) {
-//				preNum=rset.getInt("NOTICE_NO");
-//			}
-//		} catch (SQLException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}finally {
-//			close(rset);
-//			close(pstmt);
-//			
-//		}
-//	
-//		return preNum;
-//		
-//	}
+	public int maxNoticeNo(Connection conn) {
+		int maxNoticeNo = 0;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("maxNoticeNo");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				maxNoticeNo = rset.getInt("max(notice_no)");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return maxNoticeNo;
+	}
+	
+	public int minNoticeNo(Connection conn) {
+		int minNoticeNo = 0;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("minNoticeNo");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				minNoticeNo = rset.getInt("min(notice_no)");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return minNoticeNo;
+	}
 	
 }

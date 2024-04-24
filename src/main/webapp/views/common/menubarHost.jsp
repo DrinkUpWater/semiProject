@@ -310,7 +310,7 @@
 
         //클릭시 공시사항페이지로
         $(".notice").click(function(){
-            location.href="list.no"
+            location.href="list.no?cpage=1"
         });
 
         //클릭시 내공간 페이지로

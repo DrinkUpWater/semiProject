@@ -134,34 +134,30 @@
                 		<% } %>
                 	<% } %>
                 </tbody>
-            </table>
+            </table>                          
+            <div id="btnList-area">
+                <div class="btnList" align="center">
+                    <%if(currentPage != 1) {%>
+                    <button id="btn1" onclick="location.href='<%=contextPath%>/list.no?cpage=<%=currentPage - 1%>'">&lt;</button>
+                    <%} %>
+                    <%for(int p = startPage; p <= endPage; p++) {%>
+                        <%if(p == currentPage) {%>
+                            <button id="btn2" disabled><%=p %></button>
+                        <%} else {%>
+                            <button id="btn2" onclick="location.href='<%=contextPath%>/list.no?cpage=<%=p %>'"><%=p %></button>
+                        <%} %>
+                    <%} %>
+                    <%if(currentPage != maxPage) {%>
+                        <button id="btn3" onclick="location.href='<%=contextPath%>/list.no?cpage=<%=currentPage + 1%>'">&gt;</button>
+                    <%} %>
 
-            
-                
-                <div id="btnList-area">
-                    <div class="btnList" align="center">
-                        <%if(currentPage != 1) {%>
-                    	<button id="btn1" onclick="location.href='<%=contextPath%>/list.no?cpage=<%=currentPage - 1%>'">&lt;</button>
-                        <%} %>
-                        <%for(int p = startPage; p <= endPage; p++) {%>
-                            <%if(p == currentPage) {%>
-                                <button id="btn2" disabled><%=p %></button>
-                            <%} else {%>
-                                <button id="btn2" onclick="location.href='<%=contextPath%>/list.no?cpage=<%=p %>'"><%=p %></button>
-                            <%} %>
-                        <%} %>
-                        <%if(currentPage != maxPage) {%>
-                            <button id="btn3" onclick="location.href='<%=contextPath%>/list.no?cpage=<%=currentPage + 1%>'">&gt;</button>
-                        <%} %>
-
-                        <!-- 관리자로 로그인 했을 때 뜨는 버튼 -->
-                        <%if(loginUser != null && loginUser.getAdmin().equals("Y")) {%>
-                        	<div id="write-btn"><a href="<%=contextPath %>/enroll.no">글쓰기</a></div>
-                   		<%} %>
-                    </div> 
-                </div>
+                    <!-- 관리자로 로그인 했을 때 뜨는 버튼 -->
+                    <%if(loginUser != null && loginUser.getAdmin().equals("Y")) {%>
+                        <div id="write-btn"><a href="<%=contextPath %>/enroll.no">글쓰기</a></div>
+                    <%} %>
+                </div> 
+            </div>
         </div>
-         
         <form action="search.no" method="get">
             <div id="search-area" align="center" >
             	<input type="hidden" name="cpage" value="1">
@@ -182,8 +178,6 @@
                  location.href="<%=contextPath%>/detail.no?num="+noticeNo;
              })
          })
-
-
     </script>
 </body>
 </html>
