@@ -363,7 +363,7 @@
                 border: none;
             }
 
-            #detail_space_choice {
+            #detail_space_choice ,#detail_myspace {
 
                 border: solid 1px #704DE4;
                 padding: 15px;
@@ -456,6 +456,64 @@
                 border: none;
                 padding: 6px 12px;
                 cursor: pointer;
+        }
+
+        #count_person{
+            display: inline-block;
+            height: 40px;
+            padding: 0 10px;
+            vertical-align: middle;
+            border: 1px solid #dddddd;
+            width: 60%;
+            color: #999999;
+            border-radius: 5px;
+            text-align: center;
+        }
+        #plus{
+            padding: 10px 20px;
+            font-size: 16px;
+            color: white;
+            background-image: linear-gradient(to right, #6a11cb, #2575fc);
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            outline: none;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        #plus:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        #plus:active {
+            transform: translateY(1px);
+            box-shadow: 0 3px 5px rgba(0, 0, 0, 0.12);
+        }
+
+
+
+        #minus{
+            padding: 10px 20px;
+            font-size: 16px;
+            color: white;
+            background-image: linear-gradient(to right, #f53505, rgb(204, 157, 148));
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            outline: none;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        #minus:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        #minus:active {
+            transform: translateY(1px);
+            box-shadow: 0 3px 5px rgba(0, 0, 0, 0.12);
         }
 
           
@@ -616,7 +674,7 @@
                             let geocoder = new kakao.maps.services.Geocoder();
 
                             // 주소로 좌표를 검색합니다
-                            geocoder.addressSearch(<%=space.getSpaceLocation()%>, function(result, status) {
+                            geocoder.addressSearch("<%=space.getSpaceAddress()%>" , function(result, status) {
 
                                 // 정상적으로 검색이 완료됐으면 
                                 if (status === kakao.maps.services.Status.OK) {
@@ -631,7 +689,7 @@
 
                                     // 인포윈도우로 장소에 대한 설명을 표시합니다
                                     let infowindow = new kakao.maps.InfoWindow({
-                                       content: '<div style="width:150px;text-align:center;padding:6px 0;">우리공간</div>'
+                                       content: '<div style="width:150px;text-align:center;padding:6px 0;">내공간</div>'
                                     });
                                     infowindow.open(map, marker);
 
@@ -740,7 +798,7 @@
                                             <div class="d-grid">
                                                 <button type="button" id="qa_enroll" class="btn btn-primary btn-block">QA작성하기</button>
                                             </div>
-                                       >
+                                       
                                     </div>
                                 </div>
                             </div>
@@ -796,13 +854,13 @@
                 <div id="section_2">
 
 
-     			  <% if(spaceKind.equals("spaces")) {%>
+     			  <% if(spaceKind.equals("spaces")&&(loginUser.getUserNo()!=space.getUserNo())) {%>
 
 
                     <!-- 유저가 게스트면-->
                     <div id="detail_space" class="title">
                         <div class="text2"> 세부공간선택</div>
-                        <div id="icon">아이콘 아이콘</div>
+                        <div id="icon"><i class="fa-solid fa-heart-circle-bolt"></i></div>
                     </div>
 
                     <div id="detail_space_choice">
@@ -819,7 +877,9 @@
 
                         <div id="space_detail_comment">
 
-                            <div class="img_div"><img src="<%=request.getContextPath()%>/<%=space.getSpaceMimg() %>" >세부공간이미지</div>
+                            <div class="img_div"><img src="<%=request.getContextPath()%>/<%=space.getSpaceMimg() %>" ></div>
+                            <div>세부공간이미지</div>
+                            <br>
 
                              <table>
                                 <th>연략처:</th>
@@ -1061,7 +1121,6 @@
                         <div id="reservation_checked">예약여부
                             <hr class="line2">
                             <div>예약가능합니다.</div>
-                            <div>예약불가합니다.</div>
                         </div>
 
                         <div id="count" class="title">총 예약인원</div>
@@ -1191,7 +1250,7 @@
                    <% } 
      			    else { %>
                   
-					<div >
+					<div id="detail_myspace" >
 
                         <div id="space_detail_select">
                             <div class="text2"> 공간유형</div>
@@ -1200,8 +1259,9 @@
 
                         <div id="space_detail_comment">
 
-                            <div class="img_div"><img src="<%=request.getContextPath()%>/<%=space.getSpaceMimg()%>">세부공간이미지</div>
-                    
+                            <div class="img_div"><img src="<%=request.getContextPath()%>/<%=space.getSpaceMimg()%>"></div>
+                            <div>세부공간이미지</div>
+                            <br>
                             <table>
                                 <th>연략처:</th>
                                 <td><%=space.getSpaceTel()%></td>
@@ -1248,51 +1308,40 @@
 
                         <div id="space_option_kind">
                             <div class="option_kind">
-                                <i class="sp_icon ico_table"></i>
+                                <i class="fa-solid fa-chair"></i>
                                 <span class>의자/테이블</span>
                             </div>
                             <div class="option_kind">
-                                <i class="sp_icon ico_table"></i>
+                                <i class="fa-solid fa-toolbox"></i>
                                 <span class>장비대여</span>
                             </div>
                             <div class="option_kind">
-                                <i class="sp_icon ico_table"></i>
+                                <i class="fa-solid fa-plug"></i>
                                 <span class>전기</span>
                             </div>
                             <div class="option_kind">
-                                <i class="sp_icon ico_table"></i>
+                                <i class="fa-solid fa-bowl-rice"></i>
                                 <span class>취사시설</span>
                             </div>
                             <div class="option_kind">
-                                <i class="sp_icon ico_table"></i>
+                                <i class="fa-solid fa-burger"></i>
                                 <span class>음식물 반입가능</span>
                             </div>
                             <div class="option_kind">
-                                <i class="sp_icon ico_table"></i>
+                                <i class="fa-solid fa-water"></i>
                                 <span class>온수</span>
                             </div>
                             <div class="option_kind">
-                                <i class="sp_icon ico_table"></i>
+                                <i class="fa-solid fa-restroom"></i>
                                 <span class>내부화장실</span>
                             </div>
                             <div class="option_kind">
-                                <i class="sp_icon ico_table"></i>
+                                <i class="fa-solid fa-bars-progress"></i>
                                 <span class>TV 프로젝터</span>
                             </div>
+                            
                             <div class="option_kind">
-                                <i class="sp_icon ico_table"></i>
-                                <span class>화이트보드</span>
-                            </div>
-                            <div class="option_kind">
-                                <i class="sp_icon ico_table"></i>
-                                <span class>취사시설</span>
-                            </div>
-                            <div class="option_kind">
-                                <i class="sp_icon ico_table"></i>
-                                <span class>취사시설</span>
-                            </div>
-                            <div class="option_kind">
-                                <i class="bi bi-wifi-2"></i>
+                                <i class="fa-solid fa-wifi"></i>
                                 <span class>WI-FI</span>
                             </div>
                         </div>
@@ -1300,11 +1349,24 @@
                         <div align="center">
                             <button type="button" class="button"   onclick="location.href='<%=request.getContextPath()%>/update.sp?spaceNum=<%=space.getSpaceNo()%>'">수정하기</button>
                             <form action="#" method="post" style="display: inline;">
-                                <button type="button" class="button" onclick="location.href='<%=request.getContextPath()%>/delete.sp?spaceNum=<%=space.getSpaceNo()%>'">삭제하기</button>
+                                <button type="button" class="button" onclick="cancelReservation(<%=space.getSpaceNo()%>)">삭제하기</button>
                             </form>
                             <button type="button" class="button"     onclick="location.href='<%=request.getContextPath()%>/main.ho'">호스트 홈</button>
                         
                         </div>
+                        <script>
+
+                             function cancelReservation(spaceNo){
+                                let confirmCheck=confirm("등록취소하시겠습니까?");
+                                if(confirmCheck){
+                                   location.href=`<%=request.getContextPath()%>/delete.sp?spaceNum=`+spaceNo+` `
+                                }
+                                else{
+                                    return false;
+                                }
+                             }
+
+                        </script>
 
                     </div>
 

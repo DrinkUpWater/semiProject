@@ -128,6 +128,12 @@ ORDER BY CREATE_DATE DESC
 
 </entry>
 
+<entry key = "deleteReservation">
+
+	 DELETE FROM RESERVATION 
+	 WHERE RESERVATION_NO  = ?
+
+</entry>
 
 
 </properties>

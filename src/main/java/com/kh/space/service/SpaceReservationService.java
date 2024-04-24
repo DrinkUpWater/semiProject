@@ -60,6 +60,24 @@ public class SpaceReservationService {
 	}
 
 
+	public int deleteReservation(int reservationNo) {
+		Connection conn =getConnection();
+		int result=new SpaceReservationDao().deleteReservation(conn,reservationNo);
+		
+		if(result>0) {
+			commit(conn);
+		}
+		else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		
+		
+		return result;
+	}
+
+
 
 
 }
