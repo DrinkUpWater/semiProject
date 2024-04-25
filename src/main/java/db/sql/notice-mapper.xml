@@ -136,14 +136,14 @@
 	)
 	VALUES
 	(
-		SEQ_RNO.NEXTVAL,
+		SEQ_NRNO.NEXTVAL,
 		?,
 		?,
 		?
 	)
 </entry>
 
-<entry key="selectReplyCount">
+<entry key="selectNoticeReplyCount">
 	SELECT COUNT(*)
 	FROM NOTICE_REPLY NR
 	JOIN NOTICE ON (NOTICE_NO = REF_NNO)

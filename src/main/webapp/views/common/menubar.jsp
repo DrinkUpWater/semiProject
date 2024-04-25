@@ -271,6 +271,9 @@
                     <tr align="center">
                         <th class="notice">공지사항</th>
                     </tr>
+                    <tr align="center">
+                        <th class="general">일반게시판</th>
+                    </tr>
                 </table>
             </div>
 
@@ -302,6 +305,11 @@
         //클릭시 공시사항페이지로
         $(".notice").click(function(){
             location.href="list.no?cpage=1"
+        });
+        
+        //클릭시 일반게시판페이지로
+        $(".general").click(function(){
+            location.href="list.bo?cpage=1"
         });
         
         //클릭시 찜한공간으로

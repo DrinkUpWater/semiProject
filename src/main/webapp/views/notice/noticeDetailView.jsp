@@ -5,7 +5,7 @@
 
 	NoticeAttachment nat = (NoticeAttachment)request.getAttribute("noticeAttachment");
 	
-	int replyCount = (int)request.getAttribute("replyCount");
+	int noticeReplyCount = (int)request.getAttribute("noticeReplyCount");
 	
 	int maxNoticeNo = (int)request.getAttribute("maxNoticeNo");
 	
@@ -170,8 +170,8 @@
 <body>
     <%@ include file="../common/menubar.jsp" %>
 
-    <div id="notice-wrapper">
-        <h2 style="color: #927f69" id="h2">공지사항</h2>
+    <div id="notice-wrapper">	
+    	<h2><span style="color: #927f69; cursor:pointer" onclick="location.href='<%=contextPath %>/list.no?cpage=1'">공지사항</span></h2>    				 
         <div id="main">
             <div id="notice-view">
                 <div id="title-area">
@@ -185,7 +185,7 @@
                 </div>
                 <div id="content-area">
                     <div id="ud-de" align="right">
-                        <%if(loginUser != null && loginUser.getUserId().equals(n.getNoticeWriter())) { %>
+                        <%if((loginUser != null && loginUser.getUserId().equals(n.getNoticeWriter())) || (loginUser != null && loginUser.getAdmin().equals("Y"))) { %>
                             <a href="<%=contextPath%>/updateForm.no?num=<%=n.getNoticeNo() %>" id="a1">수정하기</a>
                             <a href="#" id="cancelButton">삭제하기</a>
                         <%} %>
@@ -320,8 +320,7 @@
                     }
 
                 })
-            }
-            
+            }                       
         </script>
     </div>
 </body>

@@ -106,7 +106,7 @@
     <%@ include file="../common/menubar.jsp" %>
 
     <div id="notice-wrapper" >
-        <h3 style="color: #927f69">공지사항</h3>
+        <h3><span style="color: #927f69; cursor:pointer" onclick="location.href='<%=contextPath %>/list.no?cpage=1'">공지사항</span></h3>
         <div id="table-wrapper">
 
             <table id="table">
@@ -153,7 +153,7 @@
 
                     <!-- 관리자로 로그인 했을 때 뜨는 버튼 -->
                     <%if(loginUser != null && loginUser.getAdmin().equals("Y")) {%>
-                        <div id="write-btn"><a href="<%=contextPath %>/enroll.no">글쓰기</a></div>
+                        <div id="write-btn"><a href="<%=contextPath %>/enrollForm.no">글쓰기</a></div>
                     <%} %>
                 </div> 
             </div>
@@ -175,7 +175,7 @@
          $(function(){
              $("#table > tbody > tr").click(function(){
                  const noticeNo = $(this).children().eq(0).text();
-                 location.href="<%=contextPath%>/detail.no?num="+noticeNo;
+                 location.href="<%=contextPath%>/detail.no?num=" + noticeNo;
              })
          })
     </script>

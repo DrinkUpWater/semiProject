@@ -65,14 +65,14 @@ public class NoticeDetailController extends HttpServlet {
 		}
 		
 		Notice n = new NoticeService().increaseCount(noticeNo);
-		int replyCount = new NoticeService().selectReplyCount(noticeNo);
+		int noticeReplyCount = new NoticeService().selectNoticeReplyCount(noticeNo);
 		
 		if(n != null) {
 			NoticeAttachment nat = new NoticeService().selectNoticeAttachment(noticeNo);
 			
 			request.setAttribute("notice", n);
 			request.setAttribute("noticeAttachment", nat);
-			request.setAttribute("replyCount", replyCount);
+			request.setAttribute("noticeReplyCount", noticeReplyCount);
 			request.setAttribute("maxNoticeNo", maxNoticeNo);
 			request.setAttribute("minNoticeNo", minNoticeNo);
 			

@@ -167,10 +167,10 @@ public class NoticeService {
 		return result;
 	}
 	
-	public int selectReplyCount(int noticeNo){
+	public int selectNoticeReplyCount(int noticeNo){
 		Connection conn = getConnection();
 		
-		int result = new NoticeDao().selectReplyCount(conn, noticeNo);
+		int result = new NoticeDao().selectNoticeReplyCount(conn, noticeNo);
 		
 		close(conn);
 		
