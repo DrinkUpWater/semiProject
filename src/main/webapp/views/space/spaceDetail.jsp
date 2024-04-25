@@ -845,13 +845,13 @@
                                                 <input type="hidden" name="spaceNum" value="<%=space.getSpaceNo()%>"> <!-- Ensure server-side template rendering supports this syntax -->
                                                 <div class="mb-3">
                                                     <label for="review_content" class="form-label">리뷰작성</label>
-                                                    <div>
-                                                        <input type="radio" class="star" value="1">
-                                                        <input type="radio" class="star" value="2">
-                                                        <input type="radio" class="star" value="3">
-                                                        <input type="radio" class="star" value="4">
-                                                        <input type="radio" class="star" value="5">
-                                                     </div>
+                                                    <div class="star-rating">
+                                                        <input type="radio" class="star" name="rating"  value="1">
+                                                        <input type="radio" class="star" name="rating"  value="2">
+                                                        <input type="radio" class="star" name="rating"  value="3">
+                                                        <input type="radio" class="star" name="rating"  value="4">
+                                                        <input type="radio" class="star" name="rating"  value="5">
+                                                      </div>
                                                     <textarea class="form-control" id="reivew_content" name="content" placeholder="입력하세요" rows="3" style="width: 100%;"></textarea>
                                                 </div>
                                                 <div class="d-grid">

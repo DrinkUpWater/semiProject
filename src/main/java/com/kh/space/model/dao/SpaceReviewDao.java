@@ -56,6 +56,7 @@ public class SpaceReviewDao {
 						rset.getString("CONTENT"),
 						rset.getDate("INSERT_DATE"),
 						rset.getString("USER_ID"),
+						rset.getInt("REVIEW_STAR"),
 						rset.getInt("USER_NO")
 				));
 				
@@ -75,7 +76,7 @@ public class SpaceReviewDao {
 		return reviews;
 	}
 
-	public int insertReviews(Connection conn, int userNo, int spaceNum,String content) {
+	public int insertReviews(Connection conn, int userNo, int spaceNum,String content,int reviewStar) {
 		 PreparedStatement pstmt= null;
 		 String sql=pro.getProperty("insertReviews");
 		 int result=0;
@@ -83,8 +84,10 @@ public class SpaceReviewDao {
 		 try {
 			pstmt=conn.prepareStatement(sql);
 			pstmt.setString(1, content);
-			pstmt.setInt(2, spaceNum);
-			pstmt.setInt(3, userNo);
+			pstmt.setInt(2, reviewStar);
+			pstmt.setInt(3, spaceNum);
+			pstmt.setInt(4, userNo);
+		
 		
 			result=pstmt.executeUpdate();
 			
