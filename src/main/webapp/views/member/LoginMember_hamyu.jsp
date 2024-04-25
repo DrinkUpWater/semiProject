@@ -145,7 +145,16 @@
             font-weight: bold;
             text-decoration: none;
         }
-
+        #idSaveCheck{
+            width: 15px;
+            height: 15px;
+            position: relative;
+            top:2px;
+            left: 3px;
+        }
+        #saveId{
+            padding-left: 5px;
+        }
     </style>
 </head>
 
@@ -166,8 +175,10 @@
 
             <form action="login.me" method="post">
                 <div class="member-login">
-                    <input type="text" id="userId" name="userId" placeholder="아이디"><br>
+                    <input type="text" id="userId" name="userId" placeholder="아이디" value="${cookie.saveId.value }"><br>
                     <input type="password"  id="userPwd" name="userPwd" placeholder="비밀번호">
+                    <label for="remember" id="saveId"> 아이디 저장 </label>
+                    <input type="checkbox" id="idSaveCheck" name="saveId" checked><br>
                 </div>
                 <input type="submit" class="userlogin" value="로 그 인" onclick="return loginuser();">
             </form>
