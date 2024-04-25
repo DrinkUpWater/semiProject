@@ -87,7 +87,7 @@ function drawTableList(reviewList,parentTag){
                              <td colspan='3' id='comment_line'><hr></td>
                             `                           
 
-        replyStar.innerHTML                    
+      // replyStar.innerHTML                    
 
 
 
