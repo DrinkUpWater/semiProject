@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.kh.common.NoticeAttachment;
+
 import controller.notice.model.vo.Notice;
 import controller.notice.service.NoticeService;
 
@@ -33,10 +35,38 @@ public class NoticeDetailController extends HttpServlet {
 		
 		int noticeNo = Integer.parseInt(request.getParameter("num"));
 		
+		
+		String statusCheck = new NoticeService().statusCheck(noticeNo);
+		System.out.println(statusCheck);
+		while(statusCheck.equals("N")) {
+			if(statusCheck.equals("Y")){
+				break;
+			}
+			noticeNo +=  1;
+		} 
+		
+//		int nextNo=0;
+//		if(check!=null) {
+//			
+//			if(check.equals("next")) {
+//				 nextNo=new NoticeService().findNextNum(noticeNo);
+//			}
+//			else if(check.equals("pre")){
+//				nextNo=new NoticeService().findpreNum(noticeNo);
+//			}
+//		}
+	
+		
+
 		Notice n = new NoticeService().increaseCount(noticeNo);
+		int replyCount = new NoticeService().selectReplyCount(noticeNo);
 		
 		if(n != null) {
+			NoticeAttachment nat = new NoticeService().selectNoticeAttachment(noticeNo);
+			
 			request.setAttribute("notice", n);
+			request.setAttribute("noticeAttachment", nat);
+			request.setAttribute("replyCount", replyCount);
 			request.getRequestDispatcher("views/notice/noticeDetailView.jsp").forward(request, response);
 		} else {
 			request.setAttribute("errorMsg", "공지사항 조회에 실패하였습니다.");

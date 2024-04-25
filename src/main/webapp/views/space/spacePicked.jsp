@@ -144,7 +144,7 @@
                        
                     </p>
                     <div class="price-info">
-                        <div><b><%=picked.getSpacePrice()%></b><span>원/시간</span></div> <span>최대 <%=picked.getSpaceCapacity()%>인 ○7 ♡18</span>
+                        <div><b><%=picked.getSpacePrice()%></b><span>원/시간</span></div> <span>최대 <%=picked.getSpaceCapacity()%>인 </span>
                     </div>
                 </div>
             </div>

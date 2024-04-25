@@ -78,16 +78,17 @@ public class MemberService {
 		return updateMem;
 	}
 
-	public int deleteMember(String userId) {
+	public int deleteMember(String userId, int userNo) {
 		Connection conn =getConnection();
 		int result = new MemberDao().deleteMember(conn,userId);
-		if(result>0) {
+		int result2 = new MemberDao().deleteSpace(conn,userNo);
+		if(result*result2>0) {
 			commit(conn);
 		}else {
 			rollback(conn);
 		}
 		close(conn);
-		return result;
+		return result*result2;
 	}
 
 	public int pwdCheck(String userId, String checkPwd) {

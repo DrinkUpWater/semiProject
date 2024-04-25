@@ -8,6 +8,7 @@ import static com.kh.common.JDBCTemplate.rollback;
 import java.sql.Connection;
 import java.util.ArrayList;
 
+import com.kh.common.NoticeAttachment;
 import com.kh.common.PageInfo;
 
 import controller.notice.model.dao.NoticeDao;
@@ -35,19 +36,25 @@ public class NoticeService {
 		return list;
 	}
 	
-	public int insertNotice(Notice n) {
+	public int insertNotice(Notice n, NoticeAttachment nat) {
 		Connection conn = getConnection();
 		
-		int result = new NoticeDao().insertNotice(conn, n);
+		int result1 = new NoticeDao().insertNotice(conn, n);
+		int result2 = 1;
 		
-		if(result > 0) {
+		if(nat != null) {
+			result2 = new NoticeDao().insertAttachment(conn, nat);
+			System.out.println(result2);
+		}
+		
+		if(result1 > 0 && result2 > 0) {
 			commit(conn);
 		} else {
 			rollback(conn);
 		}
 		close(conn);
 		
-		return result;
+		return result1 * result2;
 	}
 	
 	public Notice increaseCount(int noticeNo) {
@@ -75,18 +82,27 @@ public class NoticeService {
 		return n;
 	}
 	
-	public int updateNotice(Notice n) {
+	public int updateNotice(Notice n, NoticeAttachment nat) {
 		Connection conn = getConnection();
 		
-		int result = new NoticeDao().updateNotice(conn, n);
+		int result1 = new NoticeDao().updateNotice(conn, n);
+		int result2 = 1;
 		
-		if(result > 0) {
+		if(nat != null) {
+			if(nat.getFileNo() != 0) {
+				result2 = new NoticeDao().updateNoticeAttachment(conn, nat);
+			} else {
+				result2 = new NoticeDao().insertNewNoticeAttachment(conn, nat);
+			}
+		}
+		
+		if(result1 > 0 && result2 > 0) {
 			commit(conn);
 		} else {
 			rollback(conn);
 		}
 		
-		return result;
+		return result1 * result2;
 	}
 	
 	public int deleteNotice(int noticeNo) {
@@ -100,6 +116,41 @@ public class NoticeService {
 		}
 		
 		return result;
+	}
+	
+	public NoticeAttachment selectNoticeAttachment(int noticeNo) {
+		Connection conn = getConnection();
+		NoticeAttachment nat = new NoticeDao().selectNoticeAttachment(conn, noticeNo);
+		
+		close(conn);
+		if(nat != null) {
+			return nat;
+		} else {
+			return null;
+		}
+		
+	}
+	
+	public int selectSearchCount(String condition, String keyword) {
+		Connection conn = getConnection();
+		int searchCount = new NoticeDao().selectSearchCount(conn, condition, keyword);
+		
+		if(searchCount > 0) {
+			close(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		return searchCount;
+	}
+	
+	public ArrayList<Notice> selectSearchList(String condition, String keyword, PageInfo pi){
+		Connection conn = getConnection();
+		ArrayList<Notice> list = new NoticeDao().selectSearchList(conn, condition, keyword, pi);
+		
+		close(conn);
+		
+		return list;
 	}
 	
 	public int insertReply(Reply r) {
@@ -116,6 +167,16 @@ public class NoticeService {
 		return result;
 	}
 	
+	public int selectReplyCount(int noticeNo){
+		Connection conn = getConnection();
+		
+		int result = new NoticeDao().selectReplyCount(conn, noticeNo);
+		
+		close(conn);
+		
+		return result;
+	}
+	
 	public ArrayList<Reply> selectReplyList(int boardNo){
 		Connection conn = getConnection();
 		
@@ -125,5 +186,35 @@ public class NoticeService {
 		
 		return list;
 	}
+
+	public String statusCheck(int noticeNo) {
+		Connection conn = getConnection();
+		
+		String statusCheck = new NoticeDao().statusCheck(conn, noticeNo);
+		
+		close(conn);
+		
+		return statusCheck;
+	}
+	
+
+//	public int findNextNum(int noticeNo) {
+//		Connection conn = getConnection();
+//		
+//		int nextNum=new NoticeDao().findNextNum(conn,noticeNo);
+//		
+//		close(conn);
+//		return nextNum;
+//	}
+//
+//
+//	public int findpreNum(int noticeNo) {
+//        Connection conn = getConnection();
+//		
+//		int nextNum=new NoticeDao().findpreNum(conn,noticeNo);
+//		
+//		close(conn);
+//		return 0;
+//	}
 	
 }
