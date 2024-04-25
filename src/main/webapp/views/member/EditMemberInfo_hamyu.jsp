@@ -267,7 +267,7 @@
                             <!--변경할 비밀번호 -->
                             <tr>
                                 <th class="pwd-color">변경할 비밀번호</th>
-                                <td class="cantPwd" colspan="2" align="right">*사용할 수 없는 비밀번호입니다.</td>
+                                <td class="cantPwd" colspan="2" align="right"></td>
                             </tr>
                             <tr>
                                 <td colspan="3" class="input-pwd">
@@ -282,7 +282,7 @@
                             <tr class="user-pwd-check">
                                 <th class="pwd-color">비밀번호 확인</th>
                                 <td class="cantPwdCheck" align="right">*비밀번호가 일치하지 않습니다</td>
-                                <td class="usealbePwd" align="right">비밀번호 동일합니다</td>
+                                <td class="usealbePwd" align="right"></td>
                             </tr>
                             <tr>
                                 <td colspan="3" class="input-pwd-check">
@@ -417,7 +417,7 @@
                         pwdInput.onkeyup = function(ev){
                             clearTimeout(eventFlage);	
                             const str =ev.target.value;
-                            if(str.trim().length>=5){
+                            if(str.trim().length>=4){
                                 eventFlag = setTimeout(function(){
                                     console.log("전송");  
                                     $.ajax({
@@ -570,14 +570,17 @@
                             cantPwd.style.display = "block";
                             cantPwd.innerHTML = "사용할 수 없는 비밀번호입니다.";
                             cantPwdCheck.style.display = "none";
+                            usealbePwd.style.display="none";
                         }
                         else { //정규식에 합당한 '변경할 비밀번호'가 '현재비밀번호'와 같으면 "중복된 비번입니다"를 보이게하기 (단, 둘다 빈칸이 아닐시에만)
-                            if (oldPwd.value === userPwd.value && (oldPwd.value !== "" && userPwd.value !== "")) {
+                            if (oldPwd.value === userPwd.value && (oldPwd.value !== "" || userPwd.value !== "")) {
                                 cantPwd.style.display = "block";
                                 usealbePwd.style.display="none";
                             }
                             else { //그렇지 않으면 none
                                 cantPwd.style.display = "none";
+                                usealbePwd.innerHTML="비밀번호가 동일합니다."
+                                usealbePwd.style.display="block";
                             }
                         }
 
