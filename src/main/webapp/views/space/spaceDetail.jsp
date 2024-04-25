@@ -628,7 +628,14 @@
                     </div>
                     <div id="space_intro_comment" class="space">
                          <span class="location">[<%=space.getSpaceLocation() %>]</span>
-                         <span><%=space.getSpaceIntroduce() %></span><br>
+                         <span><%=space.getSpaceIntroduce() %></span><br><br>
+
+                         
+                            <% for(String tag:tags){ %>
+                                <span  style="color: #54535a; font-size: 15px;"><%=tag%></span>&nbsp;
+                            <% } %>
+                         
+
                          <span class="information_detail"> 📢오픈 기념 후기 EVENT 진행중!📸<br><br>
                          📢주차는 근처 공영주차장 이용하시면 됩니다. 문의 주시면 지도 안내 드릴게요!<br><br>
                          ⌚영업시간 09~21  &nbsp;&nbsp;&nbsp;&nbsp; ⏳휴무일 :없음
@@ -643,7 +650,7 @@
                     <div id="space_guide_comment" class="space">
                        
                                <% for(String guide:guides){%>
-                                  <tr><td><%=guide%></td></tr><br>
+                                  <tr><td><%=guide%></td></tr><br><br>
                                <% } %>
 
                          
@@ -658,7 +665,7 @@
 
                     <div id="reservation_warn_comment" class="space">
                         <%for(String c:caution){ %>
-                            <tr><td><%=c%></td></tr><br>
+                            <tr><td><%=c%></td></tr><br><br>
                        <% } %>
 
                         
