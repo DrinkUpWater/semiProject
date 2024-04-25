@@ -24,6 +24,7 @@ public class Space {
 	private Date spaceEnrollDate;
 	private String spaceEnrollStatus;
 	private int userNo;
+	private int spaceCount;
 	
 	public Space() {
 		super();
@@ -32,6 +33,41 @@ public class Space {
 	
 	
 	
+	
+
+	public Space(int spaceNo, String spaceName, String spaceKind, String spaceOneIntroduce, String spaceIntroduce,
+			String spaceTag, String spaceInformation, String spaceCaution, String spaceMimg, String spaceImg,
+			String spaceAddress, String spaceDetailAddress, int spacePrice, String spaceLocation, String spaceTel,
+			int spaceCapacity, String spaceReservationStatus, Date spaceEnrollDate, String spaceEnrollStatus,
+			int userNo, int spaceCount) {
+		super();
+		this.spaceNo = spaceNo;
+		this.spaceName = spaceName;
+		this.spaceKind = spaceKind;
+		this.spaceOneIntroduce = spaceOneIntroduce;
+		this.spaceIntroduce = spaceIntroduce;
+		this.spaceTag = spaceTag;
+		this.spaceInformation = spaceInformation;
+		this.spaceCaution = spaceCaution;
+		this.spaceMimg = spaceMimg;
+		this.spaceImg = spaceImg;
+		this.spaceAddress = spaceAddress;
+		this.spaceDetailAddress = spaceDetailAddress;
+		this.spacePrice = spacePrice;
+		this.spaceLocation = spaceLocation;
+		this.spaceTel = spaceTel;
+		this.spaceCapacity = spaceCapacity;
+		this.spaceReservationStatus = spaceReservationStatus;
+		this.spaceEnrollDate = spaceEnrollDate;
+		this.spaceEnrollStatus = spaceEnrollStatus;
+		this.userNo = userNo;
+		this.spaceCount = spaceCount;
+	}
+
+
+
+
+
 
 	public Space(String spaceName, String spaceKind, String spaceOneIntroduce, String spaceIntroduce, String spaceTag,
 			String spaceInformation, String spaceCaution, String spaceMimg, String spaceAddress,
@@ -112,9 +148,28 @@ public class Space {
 	
 	
 	
+	
 
 
-    //공간 리스트 조회 생성자
+    public int getSpaceCount() {
+		return spaceCount;
+	}
+
+
+
+
+
+
+	public void setSpaceCount(int spaceCount) {
+		this.spaceCount = spaceCount;
+	}
+
+
+
+
+
+
+	//공간 리스트 조회 생성자
 	public Space(int spaceNo, String spaceOneIntroduce, String spaceTag, String spaceAddress, int spacePrice,
 			int spaceCapacity) {
 		super();

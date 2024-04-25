@@ -73,6 +73,8 @@ function drawTableList(reviewList,parentTag){
         const replyRow1=document.createElement('tr');
         const replyRow2=document.createElement('tr');
 
+        const replyStar=document.createElement('tr');
+
         replyRow.innerHTML=` <th class='nickName'>`+reply.reviewUserName+`</th>
                              <td class='mb-1'>`+reply.reviewContent+`</td>
                           
@@ -84,6 +86,10 @@ function drawTableList(reviewList,parentTag){
         replyRow2.innerHTML=`
                              <td colspan='3' id='comment_line'><hr></td>
                             `                           
+
+      // replyStar.innerHTML                    
+
+
 
         parentTag.appendChild(replyRow);
         parentTag.appendChild(replyRow1);
@@ -166,6 +172,7 @@ function insertReview(spaceNo){
                 reviewContent.value="";
                 document.querySelector("#review_body").innerHTML="";
                 getReviewList(spaceNo,callbackReview);
+
             },
             error(result){
                 alert(result)
