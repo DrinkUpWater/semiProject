@@ -50,7 +50,7 @@
 				   FROM SPACE S
 				   JOIN PICKED P
 				   ON (S.SPACE_NO=P.SPACE_NO)
-				   WHERE P.USER_NO = ? 
+				   WHERE P.USER_NO = ? AND S.SPACE_ENROLL_STATUS = 'Y'
 				   
 		</entry>
 		
