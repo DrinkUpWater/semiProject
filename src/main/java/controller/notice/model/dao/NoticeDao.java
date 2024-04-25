@@ -81,7 +81,7 @@ public class NoticeDao {
 				list.add(new Notice(
 							rset.getInt("notice_no"),
 							rset.getString("notice_title"),
-							rset.getString("user_id"),
+							rset.getString("masked_user_id"),
 							rset.getInt("count"),
 							rset.getDate("create_date")
 						));
@@ -157,7 +157,7 @@ public class NoticeDao {
 							rset.getInt("notice_no"),
 							rset.getString("notice_title"),
 							rset.getString("notice_content"),
-							rset.getString("user_id"),
+							rset.getString("masked_user_id"),
 							rset.getDate("create_date")
 						);	
 			}
@@ -384,7 +384,10 @@ public class NoticeDao {
 				+ "		FROM( SELECT ROWNUM RNUM, A.*"
 				+ "			FROM(SELECT NOTICE_NO,"
 				+ "					   NOTICE_TITLE,"
-				+ "					   USER_ID,"
+				+ "                    CASE "
+		        + "                       WHEN LENGTH(USER_ID) >= 5 THEN SUBSTR(USER_ID, 1, 4) || RPAD('*', LENGTH(USER_ID) - 4, '*') "
+		        + "                       ELSE USER_ID "
+		        + "                    END AS MASKED_USER_ID, "
 				+ "					   COUNT,"
 				+ "					   CREATE_DATE"
 				+ "				FROM NOTICE N"
@@ -405,7 +408,7 @@ public class NoticeDao {
 				list.add(new Notice(
 							rset.getInt("notice_no"),
 							rset.getString("notice_title"),
-							rset.getString("user_id"),
+							rset.getString("masked_user_id"),
 							rset.getInt("count"),
 							rset.getDate("create_date")
 						));
@@ -432,6 +435,26 @@ public class NoticeDao {
 			pstmt.setString(1, r.getReplyContent());
 			pstmt.setInt(2, r.getRefNoticeNo());
 			pstmt.setInt(3, Integer.parseInt(r.getReplyWriter()));
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	
+	public int deleteReply(Connection conn, int replyNo) {
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("deleteReply");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, replyNo);
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -487,8 +510,9 @@ public class NoticeDao {
 				Reply r = new Reply();
 				r.setReplyNo(rset.getInt("reply_no"));
 				r.setReplyContent(rset.getString("reply_content"));
-				r.setReplyWriter(rset.getString("user_id"));
+				r.setReplyWriter(rset.getString("masked_user_id"));
 				r.setCreateDate(rset.getString("create_date"));
+				r.setRefNoticeNo(rset.getInt("ref_nno"));
 				
 				list.add(r);
 			}

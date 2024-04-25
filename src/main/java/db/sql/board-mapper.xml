@@ -10,15 +10,20 @@
 
 <entry key="selectBoardList">
 	SELECT *
-		FROM( SELECT ROWNUM RNUM, A.*
+		FROM( SELECT ROWNUM RNUM, A.BOARD_NO, A.BOARD_TITLE,
+                     CASE 
+                         WHEN LENGTH(A.USER_ID) >= 5 THEN SUBSTR(A.USER_ID, 1, 4) || RPAD('*', LENGTH(A.USER_ID) - 4, '*')
+                         ELSE A.USER_ID
+                     END AS MASKED_USER_ID,
+                     A.COUNT, A.CREATE_DATE
 			FROM(SELECT BOARD_NO,
 					   BOARD_TITLE,
 					   USER_ID,
 					   COUNT,
 					   CREATE_DATE
-				FROM BOARD B
-				JOIN MEMBER ON (BOARD_WRITER = USER_NO)
-				WHERE B.STATUS = 'Y'
+				FROM BOARD N
+				JOIN MEMBER M ON (N.BOARD_WRITER = M.USER_NO)
+				WHERE N.STATUS = 'Y'
 				ORDER BY BOARD_NO DESC
 			) A
 		)
@@ -51,7 +56,10 @@
 	SELECT BOARD_NO,
 		   BOARD_TITLE,
 		   BOARD_CONTENT,
-		   USER_ID,
+		   CASE
+			   WHEN LENGTH(USER_ID) >= 5 THEN SUBSTR(USER_ID, 1, 4) || RPAD('*', LENGTH(USER_ID) - 4, '*')
+			   ELSE USER_ID
+		   END AS MASKED_USER_ID,
 		   CREATE_DATE
 	FROM BOARD B
 	JOIN MEMBER ON (BOARD_WRITER = USER_NO)
@@ -143,6 +151,12 @@
 	)
 </entry>
 
+<entry key="deleteReply">
+	UPDATE BOARD_REPLY
+	SET STATUS = 'N'
+	WHERE REPLY_NO = ?
+</entry>
+
 <entry key="selectBoardReplyCount">
 	SELECT COUNT(*)
 	FROM BOARD_REPLY BR
@@ -155,7 +169,11 @@
 	SELECT REPLY_NO,
 		   REPLY_CONTENT,
 		   CREATE_DATE,
-		   USER_ID
+		   REF_BNO,
+		   CASE
+			   WHEN LENGTH(USER_ID) >= 5 THEN SUBSTR(USER_ID, 1, 4) || RPAD('*', LENGTH(USER_ID) - 4, '*')
+			   ELSE USER_ID
+		   END AS MASKED_USER_ID
 	FROM BOARD_REPLY R
 	JOIN MEMBER ON (REPLY_WRITER = USER_NO)
 	WHERE R.STATUS = 'Y'
