@@ -227,6 +227,29 @@ public class SpaceReservationDao {
 		return result;
 	}
 
+	public int updateReservationCount(Connection conn, int spaceNo) {
+		PreparedStatement pstmt =null;
+		String sql = pro.getProperty("updateReservationCount");
+		int result=0;
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, spaceNo);
+			
+			result=pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+	    return result;
+		
+		
+		
+		
+		
+	}
+
 	
 
 }

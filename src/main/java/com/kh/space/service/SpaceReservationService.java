@@ -46,8 +46,9 @@ public class SpaceReservationService {
 		Connection conn =getConnection();
 		int result1=new SpaceReservationDao().insertReservation(conn,reservation);
 		int result2=new SpaceReservationDao().insertReservationDate(conn,reservationDate);
+		int result3 =new SpaceReservationDao().updateReservationCount(conn,reservation.getSpaceNo());
 		
-		int result=result1*result2;
+		int result=result1*result2*result3;
 		if(result>0) {
 			commit(conn);
 		}

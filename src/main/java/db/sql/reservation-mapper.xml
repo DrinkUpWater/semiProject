@@ -135,5 +135,11 @@ ORDER BY CREATE_DATE DESC
 
 </entry>
 
+<entry key="updateReservationCount">
+  		UPDATE SPACE SET SPACE_COUNT = SPACE_COUNT +1 
+  		WHERE  SPACE_NO = ?
+ 
+</entry>
+
 
 </properties>
