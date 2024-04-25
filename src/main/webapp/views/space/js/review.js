@@ -179,7 +179,7 @@ function insertReview(spaceNo){
     const reviewContent=document.querySelector("#reivew_content");
     const reviewStar=document.querySelector('input[name="rating"]:checked');
     if(reviewStar==null){
-        alert("리뷰를 등록하세요");
+        alert("별점을 입력하세요");
         return
     }
 

@@ -320,9 +320,15 @@ function insertHostComment(hostButton,hostreply,commentNo){
 
 function insertGuestComment(spaceNo){
    const qaButton= document.querySelector("#qa_enroll");
-   const qaContent=document.querySelector("#content");
 
    qaButton.onclick=function(){
+  
+    const qaContent=document.querySelector("#content");
+    if(qaContent.value==""){
+        alert("내용을 입력해주세요~");
+        return;
+    }
+    
         $.ajax({
             url:"insert.gu",
             method:"POST",

@@ -53,7 +53,7 @@ public class SpaceCommentInsertController extends HttpServlet {
 		   if(result>0)
 			   new Gson().toJson("QA가 등록되었습니다.",response.getWriter());
 		   else
-			   new Gson().toJson("QA가 등록실패",response.getWriter());
+			   new Gson().toJson("내용을 입력하세요",response.getWriter());
 	   }
 	 
 	   
