@@ -1,4 +1,4 @@
-package controller.notice.model.dao;
+package controller.board.model.dao;
 
 import static com.kh.common.JDBCTemplate.close;
 
@@ -11,18 +11,18 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Properties;
 
-import com.kh.common.NoticeAttachment;
+import com.kh.common.BoardAttachment;
 import com.kh.common.PageInfo;
 
-import controller.notice.model.vo.Notice;
-import controller.notice.model.vo.Reply;
-import oracle.net.aso.q;
+import controller.board.model.dao.BoardDao;
+import controller.board.model.vo.Board;
+import controller.board.model.vo.Reply;
 
-public class NoticeDao {
-	private Properties prop = new Properties();
+public class BoardDao {
+private Properties prop = new Properties();
 	
-	public NoticeDao() {
-		String filePath = NoticeDao.class.getResource("/db/sql/notice-mapper.xml").getPath();
+	public BoardDao() {
+		String filePath = BoardDao.class.getResource("/db/sql/board-mapper.xml").getPath();
 		
 		try {
 			prop.loadFromXML(new FileInputStream(filePath));
@@ -57,14 +57,14 @@ public class NoticeDao {
 		return listCount;
 	}
 	
-	public ArrayList<Notice> selectNoticeList(Connection conn, PageInfo pi){
+	public ArrayList<Board> selectBoardList(Connection conn, PageInfo pi){
 		
-		ArrayList<Notice> list = new ArrayList<>();
+		ArrayList<Board> list = new ArrayList<>();
 		
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
-		String sql = prop.getProperty("selectNoticeList");
+		String sql = prop.getProperty("selectBoardList");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -78,9 +78,9 @@ public class NoticeDao {
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
-				list.add(new Notice(
-							rset.getInt("notice_no"),
-							rset.getString("notice_title"),
+				list.add(new Board(
+							rset.getInt("board_no"),
+							rset.getString("board_title"),
 							rset.getString("user_id"),
 							rset.getInt("count"),
 							rset.getDate("create_date")
@@ -96,17 +96,17 @@ public class NoticeDao {
 		return list;
 	}
 	
-	public int insertNotice(Connection conn, Notice n) {
+	public int insertBoard(Connection conn, Board b) {
 		int result = 0;
 		
 		PreparedStatement pstmt = null;
-		String sql = prop.getProperty("insertNotice");
+		String sql = prop.getProperty("insertBoard");
 
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, n.getNoticeTitle());
-			pstmt.setString(2, n.getNoticeContent());
-			pstmt.setInt(3, Integer.parseInt(n.getNoticeWriter()));
+			pstmt.setString(1, b.getBoardTitle());
+			pstmt.setString(2, b.getBoardContent());
+			pstmt.setInt(3, Integer.parseInt(b.getBoardWriter()));
 						
 			result = pstmt.executeUpdate();
 			
@@ -119,7 +119,7 @@ public class NoticeDao {
 		return result;
 	}
 	
-	public int increaseCount(Connection conn, int noticeNo) {
+	public int increaseCount(Connection conn, int boardNo) {
 		int result = 0;
 		
 		PreparedStatement pstmt = null;
@@ -127,7 +127,7 @@ public class NoticeDao {
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, noticeNo);
+			pstmt.setInt(1, boardNo);
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -139,24 +139,24 @@ public class NoticeDao {
 		return result;
 	}
 	
-	public Notice selectNotice(Connection conn, int noticeNo) {
-		Notice n = null;
+	public Board selectBoard(Connection conn, int boardNo) {
+		Board b = null;
 		
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
-		String sql = prop.getProperty("selectNotice");
+		String sql = prop.getProperty("selectBoard");
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, noticeNo);
+			pstmt.setInt(1, boardNo);
 			
 			rset = pstmt.executeQuery();
 			
 			if(rset.next()) {
-				n = new Notice(
-							rset.getInt("notice_no"),
-							rset.getString("notice_title"),
-							rset.getString("notice_content"),
+				b = new Board(
+							rset.getInt("board_no"),
+							rset.getString("board_title"),
+							rset.getString("board_content"),
 							rset.getString("user_id"),
 							rset.getDate("create_date")
 						);	
@@ -169,20 +169,20 @@ public class NoticeDao {
 			close(pstmt);
 		}
 		
-		return n;
+		return b;
 	}
 	
-	public int updateNotice(Connection conn, Notice n) {
+	public int updateBoard(Connection conn, Board b) {
 		int result = 0;
 		
 		PreparedStatement pstmt = null;
-		String sql = prop.getProperty("updateNotice");
+		String sql = prop.getProperty("updateBoard");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, n.getNoticeTitle());
-			pstmt.setString(2, n.getNoticeContent());
-			pstmt.setInt(3, n.getNoticeNo());
+			pstmt.setString(1, b.getBoardTitle());
+			pstmt.setString(2, b.getBoardContent());
+			pstmt.setInt(3, b.getBoardNo());
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -194,15 +194,15 @@ public class NoticeDao {
 		return result;
 	}
 	
-	public int deleteNotice(Connection conn, int noticeNo) {
+	public int deleteBoard(Connection conn, int boardNo) {
 		int result = 0;
 		
 		PreparedStatement pstmt = null;
-		String sql = prop.getProperty("deleteNotice");
+		String sql = prop.getProperty("deleteBoard");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, noticeNo);
+			pstmt.setInt(1, boardNo);
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -214,19 +214,19 @@ public class NoticeDao {
 		return result;
 	}
 	
-	public int updateNoticeAttachment(Connection conn, NoticeAttachment nat) {
+	public int updateBoardAttachment(Connection conn, BoardAttachment bat) {
 		int result = 0;
 		
 		PreparedStatement pstmt = null;
-		String sql = prop.getProperty("updateNoticeAttachment");
+		String sql = prop.getProperty("updateBoardAttachment");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
 			
-			pstmt.setString(1, nat.getOriginName());
-			pstmt.setString(2, nat.getChangeName());
-			pstmt.setString(3, nat.getFilePath());
-			pstmt.setInt(4, nat.getFileNo());
+			pstmt.setString(1, bat.getOriginName());
+			pstmt.setString(2, bat.getChangeName());
+			pstmt.setString(3, bat.getFilePath());
+			pstmt.setInt(4, bat.getFileNo());
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -238,19 +238,19 @@ public class NoticeDao {
 		return result;
 	}
 	
-	public int insertNewNoticeAttachment(Connection conn, NoticeAttachment nat) {
+	public int insertNewBoardAttachment(Connection conn, BoardAttachment bat) {
 		int result = 0;
 		
 		PreparedStatement pstmt = null;
-		String sql = prop.getProperty("insertNewNoticeAttachment");
+		String sql = prop.getProperty("insertNewBoardAttachment");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
 			
-			pstmt.setInt(1, nat.getRefNoticeNo());
-			pstmt.setString(2, nat.getOriginName());
-			pstmt.setString(3, nat.getChangeName());
-			pstmt.setString(4, nat.getFilePath());
+			pstmt.setInt(1, bat.getRefBoardNo());
+			pstmt.setString(2, bat.getOriginName());
+			pstmt.setString(3, bat.getChangeName());
+			pstmt.setString(4, bat.getFilePath());
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -262,7 +262,7 @@ public class NoticeDao {
 		return result;
 	}
 	
-	public int insertAttachment(Connection conn, NoticeAttachment at) {
+	public int insertAttachment(Connection conn, BoardAttachment bat) {
 		int result = 1;
 		
 		PreparedStatement pstmt = null;
@@ -271,9 +271,9 @@ public class NoticeDao {
 		try {
 			pstmt = conn.prepareStatement(sql);
 			
-			pstmt.setString(1, at.getOriginName());
-			pstmt.setString(2, at.getChangeName());
-			pstmt.setString(3, at.getFilePath());
+			pstmt.setString(1, bat.getOriginName());
+			pstmt.setString(2, bat.getChangeName());
+			pstmt.setString(3, bat.getFilePath());
 			
 			result = result * pstmt.executeUpdate();
 			
@@ -286,26 +286,26 @@ public class NoticeDao {
 		return result;
 	}
 	
-	public NoticeAttachment selectNoticeAttachment(Connection conn, int noticeNo) {
+	public BoardAttachment selectBoardAttachment(Connection conn, int boardNo) {
 		
-		NoticeAttachment nat = null;
+		BoardAttachment bat = null;
 		
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String sql = prop.getProperty("selectNoticeAttachment");
+		String sql = prop.getProperty("selectBoardAttachment");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, noticeNo);
+			pstmt.setInt(1, boardNo);
 			
 			rset = pstmt.executeQuery();
 			
 			if(rset.next()) {
-				nat = new NoticeAttachment();
-				nat.setFileNo(rset.getInt("file_no"));
-				nat.setOriginName(rset.getString("origin_name"));
-				nat.setChangeName(rset.getString("change_name"));
-				nat.setFilePath(rset.getString("file_path"));
+				bat = new BoardAttachment();
+				bat.setFileNo(rset.getInt("file_no"));
+				bat.setOriginName(rset.getString("origin_name"));
+				bat.setChangeName(rset.getString("change_name"));
+				bat.setFilePath(rset.getString("file_path"));
 			}
 			
 			
@@ -316,7 +316,7 @@ public class NoticeDao {
 			close(pstmt);
 		}
 		
-		return nat;
+		return bat;
 	}
 	
 	public int selectSearchCount(Connection conn, String condition, String keyword) {
@@ -328,17 +328,17 @@ public class NoticeDao {
 		String searchType = null;
 		
 		if(condition.equals("title")) {
-			searchType = "notice_title";
+			searchType = "board_title";
 		} else if(condition.equals("content")){
-			searchType = "notice_content";
+			searchType = "board_content";
 		} else if(condition.equals("writer")){
 			searchType = "user_id";
 		}
 		
 		String sql = "SELECT COUNT(*) "
-				+	 "FROM NOTICE N "
-				+	 "JOIN MEMBER ON (NOTICE_WRITER = USER_NO) "
-				+	 "WHERE N.STATUS = 'Y' "
+				+	 "FROM BOARD B "
+				+	 "JOIN MEMBER ON (BOARD_WRITER = USER_NO) "
+				+	 "WHERE B.STATUS = 'Y' "
 				+	 "AND " + searchType + " LIKE '%" + keyword + "%'";
 		
 		try {
@@ -362,17 +362,17 @@ public class NoticeDao {
 	
 	// mybatis없이 property객체를 이용해 매개변수를 담은 변수를 notice_mapper에 집어넣을려고 하니
 	// searchType(notice_title)이 sql문에서 따옴표를 포함하여 적용되어 select가 안되서 property객체 안쓰고 sql문 직접 작성함
-	public ArrayList<Notice> selectSearchList(Connection conn, String condition, String keyword, PageInfo pi){
-		ArrayList<Notice> list = new ArrayList<>();
+	public ArrayList<Board> selectSearchList(Connection conn, String condition, String keyword, PageInfo pi){
+		ArrayList<Board> list = new ArrayList<>();
 		
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		String searchType = null;
 		
 		if(condition.equals("title")) {
-			searchType = "notice_title";
+			searchType = "board_title";
 		} else if(condition.equals("content")){
-			searchType = "notice_content";
+			searchType = "board_content";
 		} else if(condition.equals("writer")){
 			searchType = "user_id";
 		}
@@ -382,16 +382,16 @@ public class NoticeDao {
 		
 		String sql = "	SELECT *"
 				+ "		FROM( SELECT ROWNUM RNUM, A.*"
-				+ "			FROM(SELECT NOTICE_NO,"
-				+ "					   NOTICE_TITLE,"
+				+ "			FROM(SELECT BOARD_NO,"
+				+ "					   BOARD_TITLE,"
 				+ "					   USER_ID,"
 				+ "					   COUNT,"
 				+ "					   CREATE_DATE"
-				+ "				FROM NOTICE N"
-				+ "				JOIN MEMBER ON (NOTICE_WRITER = USER_NO)"
-				+ "				WHERE N.STATUS = 'Y'"
+				+ "				FROM BOARD B"
+				+ "				JOIN MEMBER ON (BOARD_WRITER = USER_NO)"
+				+ "				WHERE B.STATUS = 'Y'"
 				+ "				AND " + searchType + " LIKE '%" + keyword + "%' "
-				+ "				ORDER BY NOTICE_NO DESC"
+				+ "				ORDER BY BOARD_NO DESC"
 				+ "			) A"
 				+ "		)"
 				+ "		WHERE RNUM BETWEEN " + startRow + " AND " + endRow;
@@ -402,9 +402,9 @@ public class NoticeDao {
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
-				list.add(new Notice(
-							rset.getInt("notice_no"),
-							rset.getString("notice_title"),
+				list.add(new Board(
+							rset.getInt("board_no"),
+							rset.getString("board_title"),
 							rset.getString("user_id"),
 							rset.getInt("count"),
 							rset.getDate("create_date")
@@ -430,7 +430,7 @@ public class NoticeDao {
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setString(1, r.getReplyContent());
-			pstmt.setInt(2, r.getRefNoticeNo());
+			pstmt.setInt(2, r.getRefBoardNo());
 			pstmt.setInt(3, Integer.parseInt(r.getReplyWriter()));
 			
 			result = pstmt.executeUpdate();
@@ -443,17 +443,17 @@ public class NoticeDao {
 		return result;
 	}
 	
-	public int selectNoticeReplyCount(Connection conn, int noticeNo) {
+	public int selectBoardReplyCount(Connection conn, int boardNo) {
 		int result = 0;
 		
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String sql = prop.getProperty("selectNoticeReplyCount");
+		String sql = prop.getProperty("selectBoardReplyCount");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
 			
-			pstmt.setInt(1, noticeNo);
+			pstmt.setInt(1, boardNo);
 			
 			rset = pstmt.executeQuery();
 			
@@ -470,7 +470,7 @@ public class NoticeDao {
 		return result;
 	}
 	
-	public ArrayList<Reply> selectReplyList(Connection conn, int noticeNo){
+	public ArrayList<Reply> selectReplyList(Connection conn, int boardNo){
 		ArrayList<Reply> list = new ArrayList<>();
 		
 		PreparedStatement pstmt = null;
@@ -479,7 +479,7 @@ public class NoticeDao {
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, noticeNo);
+			pstmt.setInt(1, boardNo);
 			
 			rset = pstmt.executeQuery();
 			
@@ -502,7 +502,7 @@ public class NoticeDao {
 		return list;
 	}
 	
-	public String statusCheck(Connection conn, int noticeNo) {
+	public String statusCheck(Connection conn, int boardNo) {
 		String statusCheck = null;
 		
 		PreparedStatement pstmt = null;
@@ -511,7 +511,7 @@ public class NoticeDao {
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, noticeNo);
+			pstmt.setInt(1, boardNo);
 			
 			rset = pstmt.executeQuery();
 			
@@ -529,12 +529,12 @@ public class NoticeDao {
 		return statusCheck;
 	}
 
-	public int maxNoticeNo(Connection conn) {
-		int maxNoticeNo = 0;
+	public int maxBoardNo(Connection conn) {
+		int maxBoardNo = 0;
 		
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String sql = prop.getProperty("maxNoticeNo");
+		String sql = prop.getProperty("maxBoardNo");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -542,7 +542,7 @@ public class NoticeDao {
 			rset = pstmt.executeQuery();
 			
 			if(rset.next()) {
-				maxNoticeNo = rset.getInt("max(notice_no)");
+				maxBoardNo = rset.getInt("max(board_no)");
 			}
 			
 		} catch (SQLException e) {
@@ -552,15 +552,15 @@ public class NoticeDao {
 			close(pstmt);
 		}
 		
-		return maxNoticeNo;
+		return maxBoardNo;
 	}
 	
-	public int minNoticeNo(Connection conn) {
-		int minNoticeNo = 0;
+	public int minBoardNo(Connection conn) {
+		int minBoardNo = 0;
 		
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String sql = prop.getProperty("minNoticeNo");
+		String sql = prop.getProperty("minBoardNo");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -568,7 +568,7 @@ public class NoticeDao {
 			rset = pstmt.executeQuery();
 			
 			if(rset.next()) {
-				minNoticeNo = rset.getInt("min(notice_no)");
+				minBoardNo = rset.getInt("min(board_no)");
 			}
 			
 		} catch (SQLException e) {
@@ -578,7 +578,6 @@ public class NoticeDao {
 			close(pstmt);
 		}
 		
-		return minNoticeNo;
+		return minBoardNo;
 	}
-	
 }

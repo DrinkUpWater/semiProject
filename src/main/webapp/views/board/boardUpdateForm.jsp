@@ -1,15 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="controller.board.model.vo.Board, com.kh.common.BoardAttachment" %>
+<%
+	Board b = (Board)request.getAttribute("board");
+	BoardAttachment bat = (BoardAttachment)request.getAttribute("bat");
+%>
 
 <!DOCTYPE html>
 <html lang="ko">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>공지사항 작성</title>
+    <title>일반게시판 수정</title>
     <style>
-        #notice-wrapper{
+        #board-wrapper{
             width: 1200px;
             margin: auto;
         }
@@ -66,7 +69,7 @@
         }
         #content-wrapper{
             margin-top: 20px;
-            display: flex;
+            display: flex;      
         }
         #content{
             width: 8%;
@@ -151,11 +154,11 @@
 </head>
 <body>
     <%@ include file="../common/menubar.jsp" %>
-    <div id="notice-wrapper">
+    <div id="board-wrapper">
         <!-- <div id="h1"></div> -->
-        <h3 style="color: #927f69">공지사항 작성</h3>
+        <h3 style="color: #927f69">일반게시판 수정</h3>
 
-       	<form action="<%=contextPath%>/insert.no" id="enroll-form" method="post" enctype="multipart/form-data">
+       	<form action="<%=contextPath%>/update.bo?num=<%=b.getBoardNo() %>" id="update-form" method="post" enctype="multipart/form-data">
 	       	<div id="main">       
                 <div id="name-wrapper">
                     <div id="name">이름</div> 
@@ -175,17 +178,10 @@
 	            <div id="img-wrapper">
 	                <div id="img">이미지</div>
 	                <div id="img-input">
-	               			<!--  
-                            <a href="#" id="content-img" onclick="chooseFile();">
-                                <span class="tooltip-container">
-                                    <div><span data-tooltip="가나다라마바사">@</span></div>
-                                </span>  툴팁하려다가 실패
-                                @
-                            </a>
-                            -->
-                            <!-- <input id="img-content" type="file" name="file" onclick="chooseFile();">  -->
-                            <img id="content-img" name="content-img" onclick="chooseFile();">
-
+	                	<%if(bat != null) {%>
+	                		<input type="hidden" name="originFileNo" value="<%=bat.getFileNo()%>">
+	                	<%} %>
+                    	<img id="content-img" name="content-img" onclick="chooseFile();">
 	                </div>
 	            </div>
 	            
@@ -197,7 +193,7 @@
 				
 	            <div id="regist-area">
 	                <div id="cancle" >
-	                    <a href="<%=contextPath%>/list.no?cpage=1" id="a1">취소</a>
+	                    <a href="<%=contextPath%>/detail.bo?num=<%=b.getBoardNo() %>" id="a1">취소</a>
 	                </div>
 	                <div id="regist" >
 	                    <button type="submit" id="btn">등록</button>
@@ -227,6 +223,5 @@
                     imgInput.click();
         }
     </script>
-
 </body>
 </html>

@@ -1,4 +1,4 @@
-package controller.notice.Controller;
+package controller.board.Controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -12,20 +12,20 @@ import javax.servlet.http.HttpServletResponse;
 import com.kh.common.PageInfo;
 import com.kh.common.Pagination;
 
-import controller.notice.model.vo.Notice;
-import controller.notice.service.NoticeService;
+import controller.board.model.vo.Board;
+import controller.board.service.BoardService;
 
 /**
  * Servlet implementation class BoardSearchController
  */
-@WebServlet("/search.no")
-public class NoticeSearchController extends HttpServlet {
+@WebServlet("/search.bo")
+public class BoardSearchController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public NoticeSearchController() {
+    public BoardSearchController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -37,18 +37,18 @@ public class NoticeSearchController extends HttpServlet {
 		String condition = request.getParameter("condition");		
 		String keyword = request.getParameter("keyword");
 				
-		int searchCount = new NoticeService().selectSearchCount(condition, keyword);
+		int searchCount = new BoardService().selectSearchCount(condition, keyword);
 		int currentPage = Integer.parseInt(request.getParameter("cpage"));
 		
 		PageInfo pi = Pagination.getPageInfo(searchCount, currentPage, 10, 8);
-		ArrayList<Notice> list = new NoticeService().selectSearchList(condition, keyword, pi);
+		ArrayList<Board> list = new BoardService().selectSearchList(condition, keyword, pi);
 		
 		request.setAttribute("list", list);
 		request.setAttribute("pi", pi);
 		request.setAttribute("condition", condition);
 		request.setAttribute("keyword", keyword);
 		
-		request.getRequestDispatcher("views/notice/noticeListView.jsp").forward(request, response);
+		request.getRequestDispatcher("views/board/boardListView.jsp").forward(request, response);
 	}
 
 	/**

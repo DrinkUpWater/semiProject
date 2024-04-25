@@ -1,23 +1,30 @@
-package controller.notice.Controller;
+package controller.board.Controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
+
+import controller.board.model.vo.Reply;
+import controller.board.service.BoardService;
+
 /**
- * Servlet implementation class NoticeEnrollFormController
+ * Servlet implementation class BoardReplyListController
  */
-@WebServlet("/enrollForm.no")
-public class NoticeEnrollFormController extends HttpServlet {
+@WebServlet("/rlist.bo")
+public class BoardReplyListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public NoticeEnrollFormController() {
+    public BoardReplyListController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -26,9 +33,12 @@ public class NoticeEnrollFormController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
+		int boardNo = Integer.parseInt(request.getParameter("boardNo"));
 		
-		request.getRequestDispatcher("views/notice/noticeEnrollForm.jsp").forward(request, response);
+		ArrayList<Reply> list = new BoardService().selectReplyList(boardNo);
+		
+		response.setContentType("application/json; charset=utf-8");
+		new Gson().toJson(list, response.getWriter());
 	}
 
 	/**

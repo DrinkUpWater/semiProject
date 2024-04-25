@@ -1,4 +1,4 @@
-package controller.notice.Controller;
+package controller.board.Controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -7,17 +7,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.kh.member.model.vo.Member;
+
+import controller.board.model.vo.Reply;
+import controller.board.service.BoardService;
+
 /**
- * Servlet implementation class NoticeEnrollFormController
+ * Servlet implementation class BoardReplyInsertController
  */
-@WebServlet("/enrollForm.no")
-public class NoticeEnrollFormController extends HttpServlet {
+@WebServlet("/rinsert.bo")
+public class BoardReplyInsertController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public NoticeEnrollFormController() {
+    public BoardReplyInsertController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -28,7 +33,18 @@ public class NoticeEnrollFormController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		
-		request.getRequestDispatcher("views/notice/noticeEnrollForm.jsp").forward(request, response);
+		String replyContent = request.getParameter("content");
+		int boardNo = Integer.parseInt(request.getParameter("boardNo"));
+		int userNo = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();		
+		
+		Reply r = new Reply();
+		r.setReplyContent(replyContent);
+		r.setRefBoardNo(boardNo);
+		r.setReplyWriter(String.valueOf(userNo));
+		
+		int result = new BoardService().insertReply(r);
+		
+		response.getWriter().print(result);
 	}
 
 	/**
