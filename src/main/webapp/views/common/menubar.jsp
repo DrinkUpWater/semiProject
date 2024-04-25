@@ -269,11 +269,12 @@
                         <th class="picked-list">찜한 공간</th>
                     </tr>
                     <tr align="center">
-                        <th class="notice">공지사항</th>
-                    </tr>
-                    <tr align="center">
                         <th class="general">일반게시판</th>
                     </tr>
+                    <tr align="center">
+                        <th class="notice">공지사항</th>
+                    </tr>
+                    
                 </table>
             </div>
 
