@@ -5,7 +5,11 @@
 
 	NoticeAttachment nat = (NoticeAttachment)request.getAttribute("noticeAttachment");
 	
-	int replyCount = (int)request.getAttribute("replyCount");
+	int noticeReplyCount = (int)request.getAttribute("noticeReplyCount");
+	
+	int maxNoticeNo = (int)request.getAttribute("maxNoticeNo");
+	
+	int minNoticeNo = (int)request.getAttribute("minNoticeNo");
 %>
 
 <!DOCTYPE html>
@@ -46,12 +50,21 @@
             font-weight: 600;
             color: #666;  
         }
+        #ud-de{
+            padding-top: 5px;
+        }
+        #ud-de a{
+            font-size: 14px;
+            font-weight: 600;
+            color: #666;  
+            
+        }
         #title-area span+span:before {
             display: inline-block;
             width: 1px;
             height: 12px;
-            margin: 2px 10px 0;
-            background-color: #ebebeb;
+            margin: 5px 10px 0;
+            background-color: #afafaf;
             vertical-align: top;
             content: "";
         }
@@ -59,14 +72,12 @@
             display: inline-block;
             width: 1px;
             height: 12px;
-            margin: 2px 10px 0;
-            background-color: #ebebeb;
+            margin: 5px 10px 0;
+            background-color: #afafaf;
             vertical-align: top;
             content: ""; 
         }
         #img-content{
-        	/* width: auto;
-        	height: auto; */
         	max-width: 500px;
         	max-height: 500px;
         }
@@ -90,7 +101,6 @@
         }
         #reply-list{
             display: inline-block;
-            /* border: 1px solid red; */
             margin-bottom: 38px;
             width: 100%;
             height: 100%;
@@ -152,9 +162,6 @@
             margin-left: 8px;
             background-color: #fff;
         }
-        #a1, #a2 {
-            
-        }
         #btn4{
             float: right;
         }
@@ -163,8 +170,8 @@
 <body>
     <%@ include file="../common/menubar.jsp" %>
 
-    <div id="notice-wrapper">
-        <h2 style="color: #927f69" id="h2">공지사항</h2>
+    <div id="notice-wrapper">	
+    	<h2><span style="color: #927f69; cursor:pointer" onclick="location.href='<%=contextPath %>/list.no?cpage=1'">공지사항</span></h2>    				 
         <div id="main">
             <div id="notice-view">
                 <div id="title-area">
@@ -177,32 +184,24 @@
                     </div>
                 </div>
                 <div id="content-area">
-                    <div align="right">
-                        <%if(loginUser != null && loginUser.getUserId().equals(n.getNoticeWriter())) { %>
+                    <div id="ud-de" align="right">
+                        <%if((loginUser != null && loginUser.getUserId().equals(n.getNoticeWriter())) || (loginUser != null && loginUser.getAdmin().equals("Y"))) { %>
                             <a href="<%=contextPath%>/updateForm.no?num=<%=n.getNoticeNo() %>" id="a1">수정하기</a>
                             <a href="#" id="cancelButton">삭제하기</a>
                         <%} %>
                     </div>
                     <script>
-                        $(function(){
-
-                            
+                        $(function(){                          
                             document.querySelector("#cancelButton").onclick=function(){
-                                const confirmcheck = confirm("취소하시겠습니까?");
+                                const confirmcheck = confirm("정말 삭제하시겠습니까?");
                                 if(confirmcheck){
                                     location.href="<%=contextPath%>/delete.no?num=<%=n.getNoticeNo()%>";
                                 }
                                 else{
                                     return false;
-                                }
-
-                         
+                                }                     
                             }
-
-
                         })
-
-
 
                     </script>
                     <div id="txt">
@@ -243,9 +242,17 @@
                 <button id="btn1" onclick="location.href='<%=contextPath %>/list.no?cpage=1'">목록보기</button>
                 <!-- <a href="<%=contextPath %>/list.no?cpage=1" id="a1">목록보기</a> -->
                 <!-- 첫번째 게시글이면 이전글이 없어야 하고 마지막(최신) 게시글이면 다음글이 없어야 한다.-->
-                <button id="btn2" onclick="location.href='<%=contextPath %>/detail.no?num=<%=n.getNoticeNo() - 1%>&check=pre'">이전 글</button>
-                <button id="btn3" onclick="location.href='<%=contextPath %>/detail.no?num=<%=n.getNoticeNo() + 1%>&check=next'">다음 글</button>
-	
+				<%if(minNoticeNo == n.getNoticeNo()){ %>
+                <button style="display:none" id="btn2" onclick="location.href='<%=contextPath %>/detail.no?num=<%=n.getNoticeNo() - 1%>&pre=pre'">이전 글</button>
+				<%} else{%>
+				<button id="btn2" onclick="location.href='<%=contextPath %>/detail.no?num=<%=n.getNoticeNo() - 1%>&pre=pre'">이전 글</button>				
+				<%} %>
+				
+				<%if(maxNoticeNo == n.getNoticeNo()){ %>
+                <button style="display:none" id="btn3" onclick="location.href='<%=contextPath %>/detail.no?num=<%=n.getNoticeNo() + 1%>&next=next'">다음 글</button>
+				<%} else{%>
+				<button id="btn3" onclick="location.href='<%=contextPath %>/detail.no?num=<%=n.getNoticeNo() + 1%>&next=next'">다음 글</button>				
+				<%} %>
 
 				<%if(loginUser != null) {%>
                 <span>
@@ -313,8 +320,7 @@
                     }
 
                 })
-            }
-            
+            }                       
         </script>
     </div>
 </body>

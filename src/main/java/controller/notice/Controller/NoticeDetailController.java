@@ -35,38 +35,47 @@ public class NoticeDetailController extends HttpServlet {
 		
 		int noticeNo = Integer.parseInt(request.getParameter("num"));
 		
+		int maxNoticeNo = new NoticeService().maxNoticeNo();
 		
-		String statusCheck = new NoticeService().statusCheck(noticeNo);
-		System.out.println(statusCheck);
-		while(statusCheck.equals("N")) {
-			if(statusCheck.equals("Y")){
-				break;
-			}
-			noticeNo +=  1;
+		int minNoticeNo = new NoticeService().minNoticeNo();
+				
+		String next = request.getParameter("next");
+		String pre = request.getParameter("pre");
+		
+		if(next != null) {
+			String statusCheck = new NoticeService().statusCheck(noticeNo);
+			while(statusCheck.equals("N")) {
+				if(statusCheck.equals("Y")){
+					break;
+				}
+				noticeNo +=  1;
+				statusCheck = new NoticeService().statusCheck(noticeNo);
+			} 
 		} 
 		
-//		int nextNo=0;
-//		if(check!=null) {
-//			
-//			if(check.equals("next")) {
-//				 nextNo=new NoticeService().findNextNum(noticeNo);
-//			}
-//			else if(check.equals("pre")){
-//				nextNo=new NoticeService().findpreNum(noticeNo);
-//			}
-//		}
-	
+		if(pre != null) {
+			String statusCheck = new NoticeService().statusCheck(noticeNo);
+			while(statusCheck.equals("N")) {
+				if(statusCheck.equals("Y")){
+					break;
+				}
+				noticeNo -=  1;
+				statusCheck = new NoticeService().statusCheck(noticeNo);
+			} 
+		}
 		
-
 		Notice n = new NoticeService().increaseCount(noticeNo);
-		int replyCount = new NoticeService().selectReplyCount(noticeNo);
+		int noticeReplyCount = new NoticeService().selectNoticeReplyCount(noticeNo);
 		
 		if(n != null) {
 			NoticeAttachment nat = new NoticeService().selectNoticeAttachment(noticeNo);
 			
 			request.setAttribute("notice", n);
 			request.setAttribute("noticeAttachment", nat);
-			request.setAttribute("replyCount", replyCount);
+			request.setAttribute("noticeReplyCount", noticeReplyCount);
+			request.setAttribute("maxNoticeNo", maxNoticeNo);
+			request.setAttribute("minNoticeNo", minNoticeNo);
+			
 			request.getRequestDispatcher("views/notice/noticeDetailView.jsp").forward(request, response);
 		} else {
 			request.setAttribute("errorMsg", "공지사항 조회에 실패하였습니다.");
