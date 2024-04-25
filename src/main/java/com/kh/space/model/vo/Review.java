@@ -8,6 +8,7 @@ public class Review {
 	private String content;
 	private Date insertDate;
 	private String userName;
+	private int reviewStar;
 	private int spaceNo;
 	private int userNo;
 	
@@ -15,18 +16,19 @@ public class Review {
 	public Review() {
 		super();
 	}
-
-
-	public Review(int reviewNo, String content, Date insertDate, String userName, int spaceNo, int userNo) {
+	
+	public Review(int reviewNo, String content, Date insertDate, String userName,int reviewStar,int userNo) {
 		super();
 		this.reviewNo = reviewNo;
 		this.content = content;
 		this.insertDate = insertDate;
 		this.userName = userName;
-		this.spaceNo = spaceNo;
-		this.userNo = userNo;
+		this.reviewStar=reviewStar;
+		this.userNo=userNo;
 	}
 
+
+	
 
 	public Review(int reviewNo, String content, Date insertDate, String userName) {
 		super();
@@ -43,6 +45,22 @@ public class Review {
 		this.userName = userName;
 		this.userNo=userNo;
 	}
+
+
+	
+
+	public int getReviewStar() {
+		return reviewStar;
+	}
+
+
+    public void setReviewStar(int reviewStar) {
+		this.reviewStar = reviewStar;
+	}
+
+
+
+
 
 
 

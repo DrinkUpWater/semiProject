@@ -121,7 +121,7 @@
 
         <link rel="stylesheet" href="<%=request.getContextPath()%>/views/space/css/review.css"/>
         <link rel="stylesheet" href="<%=request.getContextPath()%>/views/space/css/qa.css"/>
-
+        <link rel="stylesheet" href="<%=request.getContextPath()%>/views/space/css/reviewStar.css"/>
 
         <script src='<%=request.getContextPath()%>/views/space/js/comment.js'></script>
         <script src="<%=request.getContextPath()%>/views/space/js/calenderClick.js"></script>
@@ -698,7 +698,7 @@
 
                                     // 인포윈도우로 장소에 대한 설명을 표시합니다
                                     let infowindow = new kakao.maps.InfoWindow({
-                                       content: '<div style="width:150px;text-align:center;padding:6px 0;">내공간</div>'
+                                       content: '<div style="width:150px;text-align:center;padding:6px 0;"><%=space.getSpaceName()%></div>'
                                     });
                                     infowindow.open(map, marker);
 
@@ -845,6 +845,13 @@
                                                 <input type="hidden" name="spaceNum" value="<%=space.getSpaceNo()%>"> <!-- Ensure server-side template rendering supports this syntax -->
                                                 <div class="mb-3">
                                                     <label for="review_content" class="form-label">리뷰작성</label>
+                                                    <div class="star-rating">
+                                                        <input type="radio" class="star" name="rating"  value="1">
+                                                        <input type="radio" class="star" name="rating"  value="2">
+                                                        <input type="radio" class="star" name="rating"  value="3">
+                                                        <input type="radio" class="star" name="rating"  value="4">
+                                                        <input type="radio" class="star" name="rating"  value="5">
+                                                      </div>
                                                     <textarea class="form-control" id="reivew_content" name="content" placeholder="입력하세요" rows="3" style="width: 100%;"></textarea>
                                                 </div>
                                                 <div class="d-grid">
@@ -1109,7 +1116,7 @@
 
                                 <!-- Modal Header -->
                                 <div class="modal-header">
-                                    <h4 class="modal-title">결재하기</h4>
+                                    <h4 class="modal-title">결제하기</h4>
                                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                                 </div>
 
@@ -1122,25 +1129,25 @@
                                      
                                          <table>
                                             <tr>
-                                                <th>사용자이름</th>
+                                                <th>사용자이름:</th>
                                                 <td><%=( member.getUserId()!=null)? member.getUserName():"none" %></td>
                                             </tr>
                                             <tr>
-                                                <th>예약날짜</th>
+                                                <th>예약날짜:</th>
                                                 <td id="reservationDateDiv"></td> 
                                             </tr>
                                             <tr>
-                                                <th>예약시간</th>
+                                                <th>예약시간:</th>
                                                 <td id="reservationTimeDiv"></td>  
                                                
                                             </tr>
                                             <tr>
-                                                <th>예약인원</th>
+                                                <th>예약인원:</th>
                                                 <td id="personalCountDiv"></td>  
                             
                                             </tr>
                                             <tr>
-                                                <th>결재금액</th>
+                                                <th>결제금액:</th>
                                                 <td id="paymentDiv"></td>  
                                             </tr>
                                            
@@ -1148,7 +1155,7 @@
 
                                         <br>
                                         <button id="edit-pwd-btn" type="submit" class="btn btn-sm btn-secondary">
-                                            결재하기
+                                            결제하기
                                         </button>
 
                                         <div id ="AddTime" ></div>

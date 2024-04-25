@@ -177,11 +177,11 @@
             cursor: pointer;
             scale: 0.98;
         }
-        input::-webkit-outer-spin-button,
+        /* input::-webkit-outer-spin-button,
 		input::-webkit-inner-spin-button {
 		  -webkit-appearance: none;
 		  margin: 0;
-		}
+		} */
 
     </style>
 </head>
@@ -266,7 +266,51 @@
                     <td colspan="3"><input id="input-intro2" class="input-text input-host3" name="spaceIntroduce" type="text" maxlength="500" placeholder="게스트들에게 필요한 공간 정보를 상세하게 소개해주세요." required></td>
                 </tr>
                 <tr><td colspan="3"></td></tr>
-
+				
+				<tr>
+                    <th>전화번호<span class="red-color">*</span></th>
+                    <td colspan="1" align="right"><th>수용 인원<span class="red-color">*</span></th></td>
+                </tr>
+                <tr>
+                    <td colspan="2" ><input id="input-tel" style="padding-right: 50px;" class="input-text" type="text" name="spaceTel" value="${loginUser.phone}" placeholder="'-' 없이 입력해주세요." required></td>
+                    <td  class="body80"><input class="input-text" name="spaceCapacity" type="number" placeholder="최대 인원" min="1" required></td>
+                </tr>
+                <tr><td></td></tr>
+                
+                <tr>
+                    <th>가격(1인 1시간 가격)<span class="red-color">*</span></th>
+                </tr>
+                <tr>
+                    <td colspan="3"><input id="input-price" class="input-text" name="spacePrice" type="number" placeholder="숫자만 입력해주세요. ex) 1000" step="100" required></td>
+                </tr>
+                <tr><td colspan="3"></td></tr>
+                
+                <tr>
+                    <th>주소<span class="red-color">*</span></th>
+                    <td colspan="2" align="right"></td>
+                </tr>
+                <tr>
+                    <td colspan="2" ><input id="spaceAddress" class="input-text" type="text" name="spaceAddress" placeholder="실제 서비스되는 공간의 주소를 입력해주세요." required readonly></td>
+                    <td ><button type="button" onclick="searchAddr()">주소 검색</button></td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="body80"><input class="input-text" name="spaceDetailAddress" type="text" placeholder="상세주소" required></td>
+                    
+                </tr>
+                <tr><td colspan="3"></td></tr>
+                
+                <tr>
+                    <th>위치 정보</th>
+                    <td colspan="2" align="right"><span class="textCount4">0</span>/20자</td>
+                </tr>
+                <tr>
+                    <td colspan="3"><input id="input-shortinfo" class="input-text input-host4" name="spaceLocation" type="text" maxlength="20" placeholder="ex) 동대문역사문화공원역 도보 1분 거리"></td>
+                </tr>
+                <tr>
+                    <th></th>
+                </tr>
+                
+	
                 <!-- 공간 태그 -->
                 <tr>
                     <th>공간 태그<span class="red-color">*</span></th>
@@ -311,6 +355,8 @@
                 </tr>
                 <tr><td colspan="3"></td></tr>
                 <tr>
+                
+                
 
                 <!-- 대표 이미지 .. -->
                     <th>대표 이미지<span class="red-color">*</span></th>
@@ -345,44 +391,9 @@
                     </td>
                 </tr>
                 <tr><td colspan="3"></td></tr>
-                <tr>
-                    <th>주소<span class="red-color">*</span></th>
-                    <td colspan="2" align="right"></td>
-                </tr>
-                <tr>
-                    <td colspan="2" ><input id="spaceAddress" class="input-text" type="text" name="spaceAddress" placeholder="실제 서비스되는 공간의 주소를 입력해주세요." required readonly></td>
-                    <td ><button type="button" onclick="searchAddr()">주소 검색</button></td>
-                </tr>
-                <tr>
-                    <td colspan="2" class="body80"><input class="input-text" name="spaceDetailAddress" type="text" placeholder="상세주소" required></td>
-                    
-                </tr>
-                <tr><td colspan="3"></td></tr>
-                <tr>
-                    <th>가격(1인 1시간 가격)<span class="red-color">*</span></th>
-                </tr>
-                <tr>
-                    <td colspan="3"><input id="input-price" class="input-text" name="spacePrice" type="number" placeholder="숫자만 입력해주세요. ex) 1000" required></td>
-                </tr>
-                <tr><td colspan="3"></td></tr>
-                <tr>
-                    <th>위치 정보</th>
-                    <td colspan="2" align="right"><span class="textCount4">0</span>/20자</td>
-                </tr>
-                <tr>
-                    <td colspan="3"><input id="input-shortinfo" class="input-text input-host4" name="spaceLocation" type="text" maxlength="20" placeholder="ex) 동대문역사문화공원역 도보 1분 거리"></td>
-                </tr>
-                <tr>
-                    <th></th>
-                </tr>
-                <tr>
-                    <th>전화번호<span class="red-color">*</span></th>
-                    <td colspan="1" align="right"><th>수용 인원<span class="red-color">*</span></th></td>
-                </tr>
-                <tr>
-                    <td colspan="2" ><input id="input-tel" style="padding-right: 50px;" class="input-text" type="text" name="spaceTel" value="${loginUser.phone}" placeholder="'-' 없이 입력해주세요." required></td>
-                    <td  class="body80"><input class="input-text" name="spaceCapacity" type="number" placeholder="최대 인원" required></td>
-                </tr>
+                
+                
+                
             </table>
 
             <div style="display: none;">

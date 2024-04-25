@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="com.kh.space.model.vo.Space, com.kh.common.PageInfo" %>
+<%@ page import="com.kh.space.model.vo.Space, com.kh.common.PageInfo, java.util.ArrayList" %>
+<%
+	ArrayList<Space> spList = (ArrayList<Space>)request.getAttribute("spList");
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -56,10 +59,7 @@
             align-items: center;
         }
         .option2 div {
-            border: 2px solid #704DE4;
-            width: 30%;
-            height: 36px;
-            border-radius: 20px;
+            
             display: flex;
             justify-content: center;
             align-items: center;
@@ -172,6 +172,9 @@
        		display: flex;
        		justify-content: space-between;
         }
+        .map-marker{
+        	width: 100%;
+        }
 
     </style>
 </head>
@@ -182,7 +185,7 @@
             <input id="keyword" type="search" name="search">
             <i id="search-btn" class="fa-solid fa-magnifying-glass"></i>
         </div>
-        <form action="mainP.sp" method="get">
+      
             <div class="search-option">  
                 <section class="option1">
                     <select id="place-Info" class="place-Info" >
@@ -214,13 +217,76 @@
                     </select>
                 </section>
                 <div class="option2">
-                    
-                    <div id="map-info">지도</div>
+                    <div id="map-info"><button id="map-btn" type="button" class="btn btn-outline-primary btn-lg" data-toggle="modal" data-target="#myModal">지도</button></div>
                 </div>
                 
             </div>
-            
-        </form>
+            <!-- The Modal -->
+			<div class="modal" id="myModal">
+			  <div class="modal-dialog modal-xl">
+			    <div class="modal-content">
+			
+			      <!-- Modal Header -->
+			      <div class="modal-header">
+			        <h4 class="modal-title">지도</h4>
+			        <button type="button" class="close" data-dismiss="modal">&times;</button>
+			      </div>
+			<%-- <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=${api}&libraries=services,clusterer,drawing"></script> --%>
+			      <!-- Modal body -->
+			      <div class="modal-body" >
+			       <div id="map" style="width:100%;height:500px;"></div>
+			      </div>
+			
+			      <!-- Modal footer -->
+			      <div class="modal-footer">
+			        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+			      </div>
+			
+			    </div>
+			  </div>
+			</div>
+            <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=${api}&libraries=services,clusterer,drawing"></script>
+					<script>
+						$('#map-btn').click(function(){
+							var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+							    mapOption = { 
+							        center: new kakao.maps.LatLng(37.497952, 127.027619), // 지도의 중심좌표
+							        level: 3 // 지도의 확대 레벨
+							    };
+							
+							var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+							
+							var geocoder = new daum.maps.services.Geocoder();
+							
+							let listData = new Array();
+							let listSpName = new Array();
+							<% for (Space sp : spList) { %>
+								listData.push('<%=sp.getSpaceAddress()%>');
+								listSpName.push('<%=sp.getSpaceName()%>');
+							<%}%>
+							
+							listData.forEach(function(addr, index) {
+							    geocoder.addressSearch(addr, function(result, status) {
+							        if (status === daum.maps.services.Status.OK) {
+							            var coords = new daum.maps.LatLng(result[0].y, result[0].x);
+	
+							            var marker = new daum.maps.Marker({
+							                map: map,
+							                position: coords
+							            });
+							            var infowindow = new daum.maps.InfoWindow({
+							                content: '<div style="width:150px;text-align:center;">' + listSpName[index] + '</div>',
+							                disableAutoPan: true
+							            });
+							            infowindow.open(map, marker);
+							        } 
+							    });
+							});
+							
+							setTimeout(function(){ map.relayout(); }, 100);
+						})
+		  			</script>
+      
         <br>
         <div class="option3">
             <div>

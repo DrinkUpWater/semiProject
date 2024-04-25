@@ -588,6 +588,7 @@
                         if (!isValidPassword(userPwd.value)) { //새로운 비밀번호가 정규식에 합당하는지 체크
                             cantPwd.style.display = "block";    //정규식 합당하지 못했다면 '*비밀번호 사용할 수 없음' 을 띄움
                             cantPwdCheck.style.display = "none";  //하나만 띄우기(여러차례 조건으로 인해 아래도 같이 띄워지면 지저분해보였음)
+                            usealbePwd.style.display="none";
                         }
                         else {  
                             cantPwd.style.display = "none";  //정규식에 합당하면 '*비밀번호 사용할 수 없음' 가림

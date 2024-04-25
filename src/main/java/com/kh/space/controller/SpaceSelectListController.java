@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.kh.common.API;
 import com.kh.common.PageInfo;
 import com.kh.space.model.vo.Space;
 import com.kh.space.service.SpaceService;
@@ -62,8 +63,12 @@ public class SpaceSelectListController extends HttpServlet {
 		
 		ArrayList<Space> list = new SpaceService().selectSpaceList(pi);
 		
+		ArrayList<Space> spList = new SpaceService().selectSpaceList();
+		request.setAttribute("spList", spList);
+		
 		request.setAttribute("pi", pi);
 		request.setAttribute("list", list);
+		request.setAttribute("api", API.getAPI());
 		request.getRequestDispatcher("views/common/mainPage.jsp").forward(request, response);
 	}
 
