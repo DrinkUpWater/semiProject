@@ -39,6 +39,8 @@ function callbackData(result){
             userNo:r.userNo
         })
     }
+    
+    document.querySelector("#QA_Count").innerHTML="("+list.length+"개)"
     drawTableList( list,replyBody)
     console.log("callback: "+list)
 }

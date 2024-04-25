@@ -37,6 +37,7 @@ function callbackReview(result){
             reviewStar:r.reviewStar
         })
     }
+    document.querySelector("#review_count").innerHTML="("+list.length+"개)"
     drawTableList( list,replyBody)
     console.log("callback: "+list)
 }
