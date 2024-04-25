@@ -12,6 +12,7 @@
 		   String []guides=null;
            String []caution=null;
 		   Member member=null;
+           boolean adminCheck=false;
 		   int userNo=-1;
 		   
 		   
@@ -22,6 +23,10 @@
            member=(Member)(s.getAttribute("loginUser"));
            if(member!=null){
                 userNo=member.getUserNo();
+                if(member.getUserId().equals("admin")){
+                    adminCheck=true;
+                }
+
 		    }
             else{
                 member=new Member();
@@ -1273,34 +1278,67 @@
 
                         <div align="center">
                             <button type="button" class="button"   onclick="location.href='<%=request.getContextPath()%>/updateForm.sp?spaceNum=<%=space.getSpaceNo()%>'">수정하기</button>
-                            <form action="#" method="post" style="display: inline;">
+                           
+                             <form action="#" method="post" style="display: inline;">
                                 <button type="button" class="button" onclick="cancelReservation(<%=space.getSpaceNo()%>)">삭제하기</button>
                             </form>
+
                             <button type="button" class="button"     onclick="location.href='<%=request.getContextPath()%>/main.ho'">호스트 홈</button>
                         
                         </div>
-                        <script>
-
-                             function cancelReservation(spaceNo){
-                                let confirmCheck=confirm("등록취소하시겠습니까?");
-                                if(confirmCheck){
-                                   location.href=`<%=request.getContextPath()%>/delete.sp?spaceNum=`+spaceNo+` `
-                                }
-                                else{
-                                    return false;
-                                }
-                             }
-
-                        </script>
-
+                     
                     </div>
 
+                    <script>
 
-                
+                        function cancelReservation(spaceNo){
+                           let confirmCheck=confirm("등록취소하시겠습니까?");
+                           if(confirmCheck){
+                              location.href=`<%=request.getContextPath()%>/delete.sp?spaceNum=`+spaceNo+` `
+                           }
+                           else{
+                               return false;
+                           }
+                        }
+    
+                    </script>
 
-                 </div>
+
+                  </div>
                  
                  <%} %>
+
+                 <% if((adminCheck==true)&&(spaceKind.equals("spaces")&&(member.getUserNo()!=space.getUserNo()))) {%>
+                    <div align="center">
+                        <div>관리자 모드</div>
+                        <button type="button" class="button"   onclick="location.href='<%=request.getContextPath()%>/updateForm.sp?spaceNum=<%=space.getSpaceNo()%>'">수정하기</button>
+                    
+                        <form action="#" method="post" style="display: inline;">
+                            <button type="button" class="button" onclick="cancelReservation(<%=space.getSpaceNo()%>)">삭제하기</button>
+                        </form>
+
+                        <button type="button" class="button"     onclick="location.href='<%=request.getContextPath()%>/main.ho'">호스트 홈</button>
+                    
+                    </div>
+
+                    <script>
+
+                        function cancelReservation(spaceNo){
+                           let confirmCheck=confirm("등록취소하시겠습니까?");
+                           if(confirmCheck){
+                              location.href=`<%=request.getContextPath()%>/delete.sp?spaceNum=`+spaceNo+` `
+                           }
+                           else{
+                               return false;
+                           }
+                        }
+    
+                    </script>
+    
+                 <% } %>
+
+               
+
 
             </nav>
 
