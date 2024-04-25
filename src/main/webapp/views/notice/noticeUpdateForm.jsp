@@ -69,8 +69,7 @@
         }
         #content-wrapper{
             margin-top: 20px;
-            display: flex;
-            
+            display: flex;      
         }
         #content{
             width: 8%;

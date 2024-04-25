@@ -1,26 +1,184 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
+
+<entry key="selectListCount">
+	SELECT COUNT(*) AS COUNT
+	FROM BOARD
+	WHERE STATUS = 'Y'
+</entry>
+
+<entry key="selectBoardList">
+	SELECT *
+		FROM( SELECT ROWNUM RNUM, A.*
+			FROM(SELECT BOARD_NO,
+					   BOARD_TITLE,
+					   USER_ID,
+					   COUNT,
+					   CREATE_DATE
+				FROM BOARD B
+				JOIN MEMBER ON (BOARD_WRITER = USER_NO)
+				WHERE B.STATUS = 'Y'
+				ORDER BY BOARD_NO DESC
+			) A
+		)
+	WHERE RNUM BETWEEN ? AND ?
+</entry>
+
 <entry key="insertBoard">
 	INSERT INTO BOARD(
 		BOARD_NO,
 		BOARD_TITLE,
 		BOARD_CONTENT,
-		BOARD_WRITER,
-		COUNT,
-		CREATE_DATE,
-		STATUS
+		BOARD_WRITER
 	)
 	VALUES(
-		SEQ_UNO.NEXTVAL,
-		?,
-		?,
-		?,
+		SEQ_BNO.NEXTVAL,
 		?,
 		?,
 		?
 	)
-</entry>	
+</entry>
 
-	
+<entry key="increaseCount">
+	UPDATE BOARD
+	SET COUNT = COUNT + 1
+	WHERE BOARD_NO = ?
+	AND STATUS = 'Y'
+</entry>
+
+<entry key="selectBoard">
+	SELECT BOARD_NO,
+		   BOARD_TITLE,
+		   BOARD_CONTENT,
+		   USER_ID,
+		   CREATE_DATE
+	FROM BOARD B
+	JOIN MEMBER ON (BOARD_WRITER = USER_NO)
+	WHERE BOARD_NO = ?
+	AND B.STATUS = 'Y'
+</entry>
+
+<entry key="updateBoard">
+	UPDATE BOARD
+	SET BOARD_TITLE = ?,
+		BOARD_CONTENT =?,
+		COUNT = 0
+	WHERE BOARD_NO = ?
+</entry>
+
+<entry key="deleteBoard">
+	UPDATE BOARD
+	SET STATUS = 'N'
+	WHERE BOARD_NO = ?
+</entry>
+
+<entry key="updateBoardAttachment">
+	UPDATE BOARDATTACHMENT
+	SET ORIGIN_NAME = ?,
+		CHANGE_NAME = ?,
+		FILE_PATH = ?
+	WHERE FILE_NO = ?
+</entry>
+
+<entry key="insertNewBoardAttachment">
+	INSERT
+	INTO BOARDATTACHMENT(
+			    FILE_NO,
+			    REF_BNO,
+			    ORIGIN_NAME,
+			    CHANGE_NAME,
+			    FILE_PATH,
+			  )
+		VALUES(
+			    SEQ_BATNO.NEXTVAL
+			   ,?
+			   ,?
+			   ,?
+			   ,?
+			  )
+</entry>
+
+<entry key="insertAttachment">
+		INSERT
+		INTO BOARDATTACHMENT(
+				    FILE_NO
+				   ,REF_BNO
+				   ,ORIGIN_NAME
+				   ,CHANGE_NAME
+				   ,FILE_PATH
+				  )
+			VALUES(
+				    SEQ_BATNO.NEXTVAL
+				   ,SEQ_BNO.CURRVAL
+				   ,?
+				   ,?
+				   ,?
+				  )
+</entry>
+
+<entry key="selectBoardAttachment">
+	SELECT FILE_NO
+		 , ORIGIN_NAME
+		 , CHANGE_NAME
+		 , FILE_PATH
+	  FROM BOARDATTACHMENT
+	 WHERE REF_BNO = ?
+</entry>
+
+<entry key="insertReply">
+	INSERT INTO BOARD_REPLY
+	(
+		REPLY_NO,
+		REPLY_CONTENT,
+		REF_BNO,
+		REPLY_WRITER
+	)
+	VALUES
+	(
+		SEQ_BRNO.NEXTVAL,
+		?,
+		?,
+		?
+	)
+</entry>
+
+<entry key="selectBoardReplyCount">
+	SELECT COUNT(*)
+	FROM BOARD_REPLY BR
+	JOIN BOARD ON (BOARD_NO = REF_BNO)
+	WHERE BR.STATUS = 'Y'
+	AND REF_BNO = ?
+</entry>
+
+<entry key="selectReplyList">
+	SELECT REPLY_NO,
+		   REPLY_CONTENT,
+		   CREATE_DATE,
+		   USER_ID
+	FROM BOARD_REPLY R
+	JOIN MEMBER ON (REPLY_WRITER = USER_NO)
+	WHERE R.STATUS = 'Y'
+	AND REF_BNO = ?
+	ORDER BY REPLY_NO DESC
+</entry>
+
+<entry key="statusCheck">
+	SELECT STATUS
+	FROM BOARD
+	WHERE BOARD_NO = ?
+</entry>
+
+<entry key="maxBoardNo">
+	SELECT MAX(BOARD_NO)
+	FROM BOARD
+	WHERE STATUS = 'Y'
+</entry>
+
+<entry key="minBoardNo">
+	SELECT MIN(BOARD_NO)
+	FROM BOARD
+	WHERE STATUS = 'Y'
+</entry>
+
 </properties>
