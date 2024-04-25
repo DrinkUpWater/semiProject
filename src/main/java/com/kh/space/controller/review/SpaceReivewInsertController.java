@@ -51,7 +51,7 @@ public class SpaceReivewInsertController extends HttpServlet {
 		else {
 			
 			
-			if(reviewStars.equals("")) {
+			if(reviewStars.equals("")||content.equals("")) {
 				new Gson().toJson("리뷰를 입력하세요",response.getWriter());
 				return;
 			}

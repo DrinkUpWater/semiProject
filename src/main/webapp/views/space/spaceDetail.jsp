@@ -1116,7 +1116,7 @@
 
                                 <!-- Modal Header -->
                                 <div class="modal-header">
-                                    <h4 class="modal-title">결재하기</h4>
+                                    <h4 class="modal-title">결제하기</h4>
                                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                                 </div>
 
@@ -1147,7 +1147,7 @@
                             
                                             </tr>
                                             <tr>
-                                                <th>결재금액:</th>
+                                                <th>결제금액:</th>
                                                 <td id="paymentDiv"></td>  
                                             </tr>
                                            
@@ -1155,7 +1155,7 @@
 
                                         <br>
                                         <button id="edit-pwd-btn" type="submit" class="btn btn-sm btn-secondary">
-                                            결재하기
+                                            결제하기
                                         </button>
 
                                         <div id ="AddTime" ></div>
