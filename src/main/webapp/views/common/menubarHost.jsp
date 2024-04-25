@@ -277,12 +277,13 @@
                     <tr align="center">
                         <th>정산</th>
                     </tr>
-                    <tr align="center" class="notice">
-                        <th>공지사항</th>
-                    </tr>
                     <tr align="center" class="general">
                         <th>일반게시판</th>
                     </tr>
+                    <tr align="center" class="notice">
+                        <th>공지사항</th>
+                    </tr>
+                    
                 </table>
             </div>
 
