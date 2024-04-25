@@ -124,6 +124,7 @@
             padding : 0 10px;
             padding-top: 10px;
             border-top: 1px solid rgb(180, 180, 180);
+            
         }
         /* .space-info p span {
             text-overflow: ellipsis;
@@ -166,6 +167,10 @@
       	    text-align: center;
       	    padding-bottom: 4px;
       	    font-weight : 500;
+        }
+        .title-area{
+       		display: flex;
+       		justify-content: space-between;
         }
 
     </style>
@@ -242,10 +247,11 @@
                         <img src="<%=contextPath%>${sp.spaceMimg}" alt="썸네일" width="100%" height="100%">
                     </div>
                     <div class="space-info">
-                        <div style="margin-bottom: 5px;">
+                        <div class="title-area" style="margin-bottom: 5px;">
                             <b>
                                 ${sp.spaceName}
                             </b>
+                            <span><i class="fa-regular fa-thumbs-up"></i> ${sp.spaceCount }</span>
                         </div>
                         <div>
                             <p>
@@ -344,10 +350,11 @@
 			               '        <img src="<%=contextPath%>' + sp.spaceMimg + '" alt="썸네일" width="100%" height="100%">\n' +
 			               '    </div>\n' +
 			               '    <div class="space-info">\n' +
-			               '        <div style="margin-bottom: 5px;">\n' +
+			               '        <div class="title-area" style="margin-bottom: 5px;">\n' +
 			               '            <b>\n' +
 			               '                ' + sp.spaceName + '\n' +
 			               '            </b>\n' +
+			               '            <span><i class="fa-regular fa-thumbs-up"></i>' + ' ' +  sp.spaceCount + '</span>\n' +
 			               '        </div>\n' +
 			               '        <div>\n' +
 			               '            <p>\n' +
