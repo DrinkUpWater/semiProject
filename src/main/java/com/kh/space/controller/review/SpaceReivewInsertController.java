@@ -41,6 +41,7 @@ public class SpaceReivewInsertController extends HttpServlet {
 		Member m = (Member) session.getAttribute("loginUser");
 		int spaceNum = Integer.parseInt(request.getParameter("spaceNum"));
 		String content=request.getParameter("content");
+		String reviewStars=request.getParameter("reviewStar");
 	
 		if (m == null) {
 			new Gson().toJson("로그인하세요",response.getWriter());
@@ -49,8 +50,16 @@ public class SpaceReivewInsertController extends HttpServlet {
 
 		else {
 			
+			
+			if(reviewStars.equals("")) {
+				new Gson().toJson("리뷰를 입력하세요",response.getWriter());
+				return;
+			}
+			 int reviewStar=Integer.parseInt(reviewStars);
+			 System.out.println(reviewStar);
+		    
 
-			int result = new SpaceReviewService().insertReviews(m.getUserNo() ,spaceNum,content);
+			int result = new SpaceReviewService().insertReviews(m.getUserNo() ,spaceNum,content,reviewStar);
 			if(result<0) {
 				new Gson().toJson("리뷰등록실패",response.getWriter());
 			}

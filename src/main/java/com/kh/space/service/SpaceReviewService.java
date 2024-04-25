@@ -19,9 +19,9 @@ public class SpaceReviewService {
 		return reviews ;
 	}
 
-	public int insertReviews(int userNo, int spaceNum,String content) {
+	public int insertReviews(int userNo, int spaceNum,String content,int reveiwStar) {
 	    Connection conn =getConnection();
-	    int result =new SpaceReviewDao().insertReviews(conn,userNo,spaceNum,content);
+	    int result =new SpaceReviewDao().insertReviews(conn,userNo,spaceNum,content,reveiwStar);
 	    if(result>0) {
 	    	commit(conn);
 	    } else {

@@ -52,7 +52,6 @@ public class mySpaceDetailViewController extends HttpServlet {
 			
 		}else {
 			request.setAttribute("api", API.getAPI());
-			System.out.println(API.getAPI());
 			request.setAttribute("space", space);
 			request.setAttribute("spaceKind", "mySpace");
 			request.setAttribute("attachments", attachments);

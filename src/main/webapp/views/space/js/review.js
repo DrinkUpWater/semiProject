@@ -33,7 +33,8 @@ function callbackReview(result){
             reviewContent:r.content,
             reviewInsertDate:r.insertDate,
             reviewUserName:r.userName,
-            reviewUserNo:r.userNo
+            reviewUserNo:r.userNo,
+            reviewStar:r.reviewStar
         })
     }
     drawTableList( list,replyBody)
@@ -75,10 +76,23 @@ function drawTableList(reviewList,parentTag){
 
         const replyStar=document.createElement('tr');
 
+        // <input type="radio" class="star" value="1">
+
+         let str='';
+         for(let i=0; i<reply.reviewStar; i++){
+           str+='★ ';
+         }
+
+
         replyRow.innerHTML=` <th class='nickName'>`+reply.reviewUserName+`</th>
                              <td class='mb-1'>`+reply.reviewContent+`</td>
                           
                              `
+          
+        replyStar.innerHTML=` <th class='clear'></th>
+                              <td class='mb-1 starColor'>`+ str+`</td>
+                            `
+
         replyRow1.innerHTML=`
                              <th class='clear'></th>
                              <td class='mb-1 time'>`+reply.reviewInsertDate+`</td> 
@@ -87,11 +101,12 @@ function drawTableList(reviewList,parentTag){
                              <td colspan='3' id='comment_line'><hr></td>
                             `                           
 
-      // replyStar.innerHTML                    
+                   
 
 
 
         parentTag.appendChild(replyRow);
+        parentTag.appendChild(replyStar);
         parentTag.appendChild(replyRow1);
         parentTag.appendChild(replyRow2);
 
@@ -157,14 +172,23 @@ function deleteButton(buttonTag,reviewNo){
 function insertReview(spaceNo){
 
    const reviewButton= document.querySelector("#reivew_enroll");
-   const reviewContent=document.querySelector("#reivew_content");
+   
+   
 
    reviewButton.onclick=function(){
+    const reviewContent=document.querySelector("#reivew_content");
+    const reviewStar=document.querySelector('input[name="rating"]:checked');
+    if(reviewStar==null){
+        alert("리뷰를 등록하세요");
+        return
+    }
+
         $.ajax({
             url:"insert.re",
             method:"POST",
             data:{
                 spaceNum:spaceNo,
+                reviewStar:reviewStar.value,
                 content:reviewContent.value
             },
             success(result){
