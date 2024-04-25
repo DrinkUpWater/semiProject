@@ -101,6 +101,10 @@
         .space-info>b {
             margin-bottom: 15px;
         }
+        .title-area{
+       		display: flex;
+       		justify-content: space-between;
+        }
 
 </style>
 
@@ -122,9 +126,13 @@
                     <img src="<%=request.getContextPath()%>/<%=space.getSpaceMimg()%>" alt="썸네일" width="100%" height="100%">
                 </div>
                 <div class="space-info">
-                    <b>
-                        <%=space.getSpaceName() %>
-                    </b>
+                    <div class="title-area" style="margin-bottom: 5px;">
+                        <b>
+                            <%=space.getSpaceName() %>
+                        </b>
+                        <span><i class="fa-regular fa-thumbs-up"></i> <%=space.getSpaceCount()%></span>
+                    </div>
+                <div>
                     <p>
                         <span><%=space.getSpaceAddress() %><span><br>
                         
@@ -139,10 +147,10 @@
                          		
                          <%} %>
                        
-                       
                     </p>
+                </div>
                     <div class="price-info">
-                        <div><b><%=space.getSpacePrice()%></b><span>원/시간</span></div> <span>최대 <%=space.getSpaceCapacity()%>인 ○7 ♡18</span>
+                        <div><b><%=space.getSpacePrice()%></b><span>원/시간</span></div> <span>최대 <%=space.getSpaceCapacity()%>인</span>
                     </div>
                 </div>
             </div>
