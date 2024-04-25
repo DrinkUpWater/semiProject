@@ -10,14 +10,19 @@
 
 <entry key="selectNoticeList">
 	SELECT *
-		FROM( SELECT ROWNUM RNUM, A.*
+		FROM( SELECT ROWNUM RNUM, A.NOTICE_NO, A.NOTICE_TITLE,
+                     CASE 
+                         WHEN LENGTH(A.USER_ID) >= 5 THEN SUBSTR(A.USER_ID, 1, 4) || RPAD('*', LENGTH(A.USER_ID) - 4, '*')
+                         ELSE A.USER_ID
+                     END AS MASKED_USER_ID,
+                     A.COUNT, A.CREATE_DATE
 			FROM(SELECT NOTICE_NO,
 					   NOTICE_TITLE,
 					   USER_ID,
 					   COUNT,
 					   CREATE_DATE
 				FROM NOTICE N
-				JOIN MEMBER ON (NOTICE_WRITER = USER_NO)
+				JOIN MEMBER M ON (N.NOTICE_WRITER = M.USER_NO)
 				WHERE N.STATUS = 'Y'
 				ORDER BY NOTICE_NO DESC
 			) A
@@ -51,7 +56,10 @@
 	SELECT NOTICE_NO,
 		   NOTICE_TITLE,
 		   NOTICE_CONTENT,
-		   USER_ID,
+		   CASE
+			   WHEN LENGTH(USER_ID) >= 5 THEN SUBSTR(USER_ID, 1, 4) || RPAD('*', LENGTH(USER_ID) - 4, '*')
+			   ELSE USER_ID
+		   END AS MASKED_USER_ID,
 		   CREATE_DATE
 	FROM NOTICE N
 	JOIN MEMBER ON (NOTICE_WRITER = USER_NO)
@@ -143,6 +151,12 @@
 	)
 </entry>
 
+<entry key="deleteReply">
+	UPDATE NOTICE_REPLY
+	SET STATUS = 'N'
+	WHERE REPLY_NO = ?
+</entry>
+
 <entry key="selectNoticeReplyCount">
 	SELECT COUNT(*)
 	FROM NOTICE_REPLY NR
@@ -155,7 +169,11 @@
 	SELECT REPLY_NO,
 		   REPLY_CONTENT,
 		   CREATE_DATE,
-		   USER_ID
+		   REF_NNO,
+		   CASE
+			   WHEN LENGTH(USER_ID) >= 5 THEN SUBSTR(USER_ID, 1, 4) || RPAD('*', LENGTH(USER_ID) - 4, '*')
+			   ELSE USER_ID
+		   END AS MASKED_USER_ID
 	FROM NOTICE_REPLY R
 	JOIN MEMBER ON (REPLY_WRITER = USER_NO)
 	WHERE R.STATUS = 'Y'
