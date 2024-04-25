@@ -198,7 +198,8 @@ public class SpacePickedDao {
 						rest.getString("SPACE_MIMG"),
 						rest.getString("SPACE_ADDRESS"),
 						rest.getInt("SPACE_PRICE"),
-						rest.getInt("SPACE_CAPACITY")
+						rest.getInt("SPACE_CAPACITY"),
+						rest.getInt("SPACE_COUNT")
 						
 				));
 			}

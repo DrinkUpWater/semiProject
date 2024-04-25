@@ -46,7 +46,8 @@
 				   SPACE_ADDRESS,
 				   SPACE_PRICE,
 				   SPACE_MIMG,
-				   SPACE_CAPACITY
+				   SPACE_CAPACITY,
+				   SPACE_COUNT
 				   FROM SPACE S
 				   JOIN PICKED P
 				   ON (S.SPACE_NO=P.SPACE_NO)
