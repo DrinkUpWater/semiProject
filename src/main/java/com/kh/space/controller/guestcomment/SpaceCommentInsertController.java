@@ -38,15 +38,20 @@ public class SpaceCommentInsertController extends HttpServlet {
 	   HttpSession session=request.getSession();
 		
 	   Member member=(Member)session.getAttribute("loginUser");
+	   String content=request.getParameter("content");
 	   if(member==null) {
 		   new Gson().toJson("로그인을 먼저 해주세요",response.getWriter());
 	   } 
 	   else {
 		   
+		   if(content.equals("")) {
+			   new Gson().toJson("내용을 입력하세요",response.getWriter());
+			   return;
+		   }
+		   
 		  // System.out.println(member);
 		   int spaceNum=Integer.parseInt(request.getParameter("spaceNum"));
 		   //System.out.println(spaceNum);
-		   String content=request.getParameter("content");
 		   int userNo=member.getUserNo();
 		   int result=new SpaceCommentService().insertComment(spaceNum,content,userNo);
 		   

@@ -324,10 +324,10 @@ function insertGuestComment(spaceNo){
    qaButton.onclick=function(){
   
     const qaContent=document.querySelector("#content");
-    if(qaContent.value==""){
-        alert("내용을 입력해주세요~");
-        return;
-    }
+    // if(qaContent.value==""){
+    //     alert("내용을 입력해주세요~");
+    //     return;
+    // }
     
         $.ajax({
             url:"insert.gu",
