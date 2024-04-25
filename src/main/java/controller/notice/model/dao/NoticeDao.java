@@ -513,6 +513,7 @@ public class NoticeDao {
 				r.setReplyWriter(rset.getString("masked_user_id"));
 				r.setCreateDate(rset.getString("create_date"));
 				r.setRefNoticeNo(rset.getInt("ref_nno"));
+
 				
 				list.add(r);
 			}
