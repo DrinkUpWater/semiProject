@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ page import="com.kh.space.model.vo.Space, com.kh.common.PageInfo, java.util.ArrayList" %>
 <%
-	ArrayList<Space> list = (ArrayList<Space>)request.getAttribute("list");
+	ArrayList<Space> spList = (ArrayList<Space>)request.getAttribute("spList");
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -251,7 +251,7 @@
 							var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 							    mapOption = { 
 							        center: new kakao.maps.LatLng(37.497952, 127.027619), // 지도의 중심좌표
-							        level: 4 // 지도의 확대 레벨
+							        level: 3 // 지도의 확대 레벨
 							    };
 							
 							var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
@@ -260,7 +260,7 @@
 							
 							let listData = new Array();
 							let listSpName = new Array();
-							<% for (Space sp : list) { %>
+							<% for (Space sp : spList) { %>
 								listData.push('<%=sp.getSpaceAddress()%>');
 								listSpName.push('<%=sp.getSpaceName()%>');
 							<%}%>
