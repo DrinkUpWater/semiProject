@@ -3,6 +3,7 @@ package com.kh.member.controller;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -34,7 +35,8 @@ public class MemberLoginController extends HttpServlet {
 		String userId = request.getParameter("userId");
 		String userPwd = request.getParameter("userPwd");
 		Member loginUser = new MemberService().loginMember(userId, userPwd);
-
+		String saveId =request.getParameter("saveId");
+		System.out.println(saveId);
 		if (loginUser == null) {
 
 			request.getSession().setAttribute("alertMsg", "로그인에 실패하였습니다.");
@@ -43,7 +45,11 @@ public class MemberLoginController extends HttpServlet {
 
 			
 		}else {
-			
+			Cookie ck =new Cookie("saveId",loginUser.getUserId());
+			if(saveId == null) {
+				ck.setMaxAge(0);
+			}
+			response.addCookie(ck);
 			request.getSession().setAttribute("loginUser", loginUser);
 
 			response.sendRedirect(request.getContextPath()); //request.getContextPath()

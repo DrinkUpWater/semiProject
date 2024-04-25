@@ -195,8 +195,8 @@
                 </label>
                 <input type="file" name="file" id="image-change" class="btn-image"  onchange="loadImg(this)">
             </div>
-        </div>
-        <script>
+        </div> -->
+        <!-- <script>
             $.ajax({
                 url : "profile.me",
                 data :
