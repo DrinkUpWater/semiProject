@@ -251,7 +251,7 @@
                             <b>
                                 ${sp.spaceName}
                             </b>
-                            <span><i class="fa-regular fa-thumbs-up"></i> 1</span>
+                            <span><i class="fa-regular fa-thumbs-up"></i> ${sp.spaceCount }</span>
                         </div>
                         <div>
                             <p>
@@ -350,10 +350,11 @@
 			               '        <img src="<%=contextPath%>' + sp.spaceMimg + '" alt="썸네일" width="100%" height="100%">\n' +
 			               '    </div>\n' +
 			               '    <div class="space-info">\n' +
-			               '        <div style="margin-bottom: 5px;">\n' +
+			               '        <div class="title-area" style="margin-bottom: 5px;">\n' +
 			               '            <b>\n' +
 			               '                ' + sp.spaceName + '\n' +
 			               '            </b>\n' +
+			               '            <span><i class="fa-regular fa-thumbs-up"></i>' + ' ' +  sp.spaceCount + '</span>\n' +
 			               '        </div>\n' +
 			               '        <div>\n' +
 			               '            <p>\n' +

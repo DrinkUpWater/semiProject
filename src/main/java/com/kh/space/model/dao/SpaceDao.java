@@ -445,6 +445,7 @@ public class SpaceDao {
 				sp.setSpaceAddress(rset.getString("SPACE_ADDRESS"));
 				sp.setSpacePrice(rset.getInt("SPACE_PRICE"));	
 				sp.setSpaceCapacity(rset.getInt("SPACE_CAPACITY"));
+				sp.setSpaceCount(rset.getInt("SPACE_COUNT"));
 				
 				list.add(sp);
 			}
@@ -620,7 +621,7 @@ public class SpaceDao {
 				sp.setSpaceAddress(rset.getString("SPACE_ADDRESS"));
 				sp.setSpacePrice(rset.getInt("SPACE_PRICE"));	
 				sp.setSpaceCapacity(rset.getInt("SPACE_CAPACITY"));
-				
+				sp.setSpaceCount(rset.getInt("SPACE_COUNT"));
 				list.add(sp);
 			}
 			
@@ -684,6 +685,7 @@ public class SpaceDao {
 				sp.setSpaceAddress(rset.getString("SPACE_ADDRESS"));
 				sp.setSpacePrice(rset.getInt("SPACE_PRICE"));	
 				sp.setSpaceCapacity(rset.getInt("SPACE_CAPACITY"));
+				sp.setSpaceCount(rset.getInt("SPACE_COUNT"));
 				
 				list.add(sp);
 			}

@@ -228,7 +228,8 @@
 					       SPACE_MIMG, 
 					       SPACE_ADDRESS, 
 						   SPACE_PRICE, 
-						   SPACE_CAPACITY 
+						   SPACE_CAPACITY,
+						   SPACE_COUNT
 				    FROM SPACE  
 				    WHERE SPACE_ENROLL_STATUS = 'Y'  
 				    ORDER BY SPACE_NO DESC) A )
@@ -288,7 +289,8 @@
 						   SPACE_MIMG, 
 						   SPACE_ADDRESS, 
 						   SPACE_PRICE, 
-						   SPACE_CAPACITY 
+						   SPACE_CAPACITY, 
+						   SPACE_COUNT 
 					FROM SPACE  
 					WHERE SPACE_ENROLL_STATUS = 'Y'  
 							AND (SPACE_NAME LIKE '%'||?||'%'
