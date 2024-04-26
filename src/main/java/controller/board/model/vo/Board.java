@@ -11,6 +11,7 @@ public class Board {
 	private Date createDate;
 	private String status;
 	private String img;
+	private int writerNo;
 	
 	public Board() {
 		super();
@@ -38,13 +39,14 @@ public class Board {
 		this.createDate = createDate;
 	}
 
-	public Board(int boardNo, String boardTitle, String boardContent, String boardWriter, Date createDate) {
+	public Board(int boardNo, String boardTitle, String boardContent, String boardWriter, Date createDate, int writerNo) {
 		super();
 		this.boardNo = boardNo;
 		this.boardTitle = boardTitle;
 		this.boardContent = boardContent;
 		this.boardWriter = boardWriter;
 		this.createDate = createDate;
+		this.writerNo = writerNo;
 	}
 
 	public Board(String boardTitle, String boardContent) {
@@ -115,6 +117,16 @@ public class Board {
 
 	public void setImg(String img) {
 		this.img = img;
+	}
+	
+	
+
+	public int getWriterNo() {
+		return writerNo;
+	}
+
+	public void setWriterNo(int writerNo) {
+		this.writerNo = writerNo;
 	}
 
 	@Override
