@@ -191,7 +191,7 @@
                 </div>
                 <div id="content-area">
                     <div id="ud-de" align="right">                  	
-                        <%if((loginUser != null && loginUser.getUserId().equals(b.getBoardWriter())) || (loginUser != null && loginUser.getAdmin().equals("Y"))){ %>
+                        <%if((loginUser != null && ((int)loginUser.getUserNo() == (b.getWriterNo()))) || (loginUser != null && loginUser.getAdmin().equals("Y"))){ %>
                             <a href="<%=contextPath%>/updateForm.bo?num=<%=b.getBoardNo() %>" id="a1">수정하기</a>
                             <a href="#" id="cancelButton">삭제하기</a>
                         <%} %>

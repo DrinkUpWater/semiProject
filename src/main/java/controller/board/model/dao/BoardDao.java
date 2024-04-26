@@ -158,7 +158,8 @@ private Properties prop = new Properties();
 							rset.getString("board_title"),
 							rset.getString("board_content"),
 							rset.getString("masked_user_id"),
-							rset.getDate("create_date")
+							rset.getDate("create_date"),
+							rset.getInt("user_no")							
 						);	
 			}
 			
