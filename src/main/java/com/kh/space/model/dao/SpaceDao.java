@@ -821,7 +821,6 @@ public class SpaceDao {
 		int result = 0;
 		
 		String sql = pro.getProperty("updateSpace");
-		System.out.println(sp);
 		try {
 			pstmt = conn.prepareStatement(sql);
 			

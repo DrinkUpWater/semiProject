@@ -36,7 +36,6 @@ public class MemberLoginController extends HttpServlet {
 		String userPwd = request.getParameter("userPwd");
 		Member loginUser = new MemberService().loginMember(userId, userPwd);
 		String saveId =request.getParameter("saveId");
-		System.out.println(saveId);
 		if (loginUser == null) {
 
 			request.getSession().setAttribute("alertMsg", "로그인에 실패하였습니다.");
