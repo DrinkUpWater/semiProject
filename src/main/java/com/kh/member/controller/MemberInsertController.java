@@ -40,7 +40,7 @@ public class MemberInsertController extends HttpServlet {
 		String phone =request.getParameter("phone");
 		String birth =request.getParameter("birth");
 		String email = request.getParameter("email") + "@" + request.getParameter("select-email");
-		String userHost = request.getParameter("userHost");
+		String userHost = "G";
 		
 
 		
