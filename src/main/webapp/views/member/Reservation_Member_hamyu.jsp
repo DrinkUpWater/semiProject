@@ -273,7 +273,7 @@ int maxPage = pi.getMaxPage();
 									<td>${p.userName }</td>
 									<td>${p.totalPrice}</td>
 									<td>${p.createDate}</td>
-                                    <td ><a style="color:red" onclick="cancelConfirm(${p.reservationNo})">취소하기</a></td>
+                                    <td ><a style="color:red" onclick="cancelConfirm(${p.reservationNo},${p.spaceNo})">취소하기</a></td>
                                 </tr>
 								</c:forEach>
 						</c:otherwise>
@@ -284,11 +284,12 @@ int maxPage = pi.getMaxPage();
             <br><br>
             <script>
 
-                function cancelConfirm(reservationNum){
+                function cancelConfirm(reservationNum,spaceNo){
 
                     let confirmCancel=confirm("취소하시겠습니까?");
                     if(confirmCancel){
-                        location.href="<%=request.getContextPath()%>/cancel.re?reservationNo="+reservationNum;
+                        location.href="<%=request.getContextPath()%>/cancel.re?reservationNo="+reservationNum+"&spaceNo="+spaceNo;
+                  
 
                     }else{
                         return false;

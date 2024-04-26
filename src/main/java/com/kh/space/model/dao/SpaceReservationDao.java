@@ -129,6 +129,10 @@ public class SpaceReservationDao {
 					formattedDate = newSdf.format(reservationDate);
 				}
 				
+				
+				
+				
+				
 				list.add(new ReservationInfo(
 						rset.getInt("RESERVATION_NO"),
 						rset.getInt("HEADCOUNT"),
@@ -140,10 +144,11 @@ public class SpaceReservationDao {
 						formattedDate,
 						rset.getDate("CREATE_DATE"),
 						rset.getString("SPACE_NAME"),		
-						rset.getString("SPACE_MIMG")			
+						rset.getString("SPACE_MIMG"),
+						rset.getInt("SPACE_NO")
 						));
 
-
+				
 			}
 		} catch (SQLException e) {
 			
@@ -243,6 +248,28 @@ public class SpaceReservationDao {
 	    return result;
 		
 		
+		
+		
+		
+	}
+
+	public int updateDeteleteReservationCount(Connection conn, int spaceNo) {
+		
+		PreparedStatement pstmt =null;
+		String sql = pro.getProperty("updateDeleteReservationCount");
+		int result=0;
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, spaceNo);
+			
+			result=pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+	    return result;
 		
 		
 		

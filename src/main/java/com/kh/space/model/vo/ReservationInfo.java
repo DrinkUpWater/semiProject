@@ -14,6 +14,7 @@ public class ReservationInfo {
 	private Date createDate;   //예약날짜
 	private String spaceName;  //공간이름
 	private String spaceMimg; //썸네일이미지
+	private int spaceNo;
 	
 	public ReservationInfo() {
 		super();
@@ -136,6 +137,31 @@ public class ReservationInfo {
 		this.createDate = createDate;
 		this.spaceName = spaceName;
 		this.spaceMimg = spaceMimg;
+	}
+	
+
+	
+	public ReservationInfo(int reservationNo, int headCount, String userName, int totalPrice, int time1, int time2,
+		String reservationDate, Date createDate, String spaceName, String spaceMimg, int spaceNo) {
+	super();
+	this.reservationNo = reservationNo;
+	this.headCount = headCount;
+	this.userName = userName;
+	this.totalPrice = totalPrice;
+	this.time1 = time1;
+	this.time2 = time2;
+	this.reservationDate = reservationDate;
+	this.createDate = createDate;
+	this.spaceName = spaceName;
+	this.spaceMimg = spaceMimg;
+	this.spaceNo = spaceNo;
+}
+	public int getSpaceNo() {
+		return spaceNo;
+	}
+
+	public void setSpaceNo(int spaceNo) {
+		this.spaceNo = spaceNo;
 	}
 
 	public int getReservationNo() {
