@@ -33,8 +33,9 @@ public class MemberReservationCancel extends HttpServlet {
 	   
 		HttpSession s = request.getSession();
 		int reservationNo=Integer.parseInt(request.getParameter("reservationNo"));
+		int spaceNo=Integer.parseInt(request.getParameter("spaceNo"));
+		int result=new SpaceReservationService().deleteReservation(reservationNo,spaceNo);
 		
-		int result=new SpaceReservationService().deleteReservation(reservationNo);
 		
 		if(result>0) {
 			s.setAttribute("alertMsg", "예약취소되었습니다.");

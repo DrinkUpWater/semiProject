@@ -61,10 +61,12 @@ public class SpaceReservationService {
 	}
 
 
-	public int deleteReservation(int reservationNo) {
+	public int deleteReservation(int reservationNo,int spaceNo) {
 		Connection conn =getConnection();
-		int result=new SpaceReservationDao().deleteReservation(conn,reservationNo);
+		int result1=new SpaceReservationDao().deleteReservation(conn,reservationNo);
+		int result2=new SpaceReservationDao().updateDeteleteReservationCount(conn,spaceNo);
 		
+		int result=result1*result2;
 		if(result>0) {
 			commit(conn);
 		}
