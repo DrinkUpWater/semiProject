@@ -274,9 +274,6 @@
                     <tr align="center">
                         <th class="myspaces">내 공간</th>
                     </tr>
-                    <tr align="center">
-                        <th>정산</th>
-                    </tr>
                     <tr align="center" class="general">
                         <th>일반게시판</th>
                     </tr>
