@@ -154,6 +154,7 @@
             padding-top: 20px;
             box-sizing: border-box;
             margin-bottom: 20px;
+            padding-bottom: 20px;
         }
         #btn1, #btn2, #btn3, #btn4{
             display: inline-block;
@@ -350,6 +351,6 @@
                 })
             }                       
         </script>
-    </div>
+    </div>0
 </body>
 </html>

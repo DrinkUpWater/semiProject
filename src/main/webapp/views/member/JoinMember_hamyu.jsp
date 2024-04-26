@@ -172,10 +172,10 @@
 
             .btn-area {
                 display: flex;
-                margin-top: 30px;
+                margin-top: 55px;
                 height: 60px;
                 justify-content: space-between;
-                padding: 0px 50px;
+                padding: 1px 53px;
 
             }
 
@@ -390,12 +390,12 @@
                             <option value="yahoo.com">yahoo.com</option>
                         </select>
                         
-                        <!-- 사용자 선택 -->
+                        <!-- 사용자 선택
                         <div class="userhost-area">
                             <h4 class="userhost-header"><span class ="star">* </span>사용자 선택</h4>
                             <label class="host-label"><input type="radio" name="userHost" value="H"><b class="bb">호스트</b></label>
                             <label class="host-label"><input type="radio" name="userHost" value="G"><b class="bb">게스트</b></label>
-                        </div>
+                        </div> -->
                         <div class="btn-area">
                             <input type="submit" class="join-btn" value="가입하기" onclick="return joinUser();"></input>
                             <a href="#" onclick="history.back();" type="button" class="cancle">가입취소</a>
