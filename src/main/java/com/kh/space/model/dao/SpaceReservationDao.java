@@ -122,11 +122,9 @@ public class SpaceReservationDao {
 			
 			rset=pstmt.executeQuery();
 			while(rset.next()) {
-				System.out.println(rset.getString("RESERVATION_DATE"));
 				String formattedDate=null;
 				if(rset.getDate("RESERVATION_DATE") !=null) {
 					Date reservationDate = rset.getDate("RESERVATION_DATE");
-					System.out.println(reservationDate);
 					SimpleDateFormat newSdf = new SimpleDateFormat("yyyy년 MM월 dd일 (E)");
 					formattedDate = newSdf.format(reservationDate);
 				}

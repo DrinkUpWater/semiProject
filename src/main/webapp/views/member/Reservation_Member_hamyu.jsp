@@ -30,7 +30,8 @@ int maxPage = pi.getMaxPage();
 <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> -->
 
-<title>Document</title>
+<link rel="icon" type="image/png" sizes="16x16" href="<%=request.getContextPath()%>/resources/teo/favicon-16x16.png">
+    <title>KH ROOMMOAH</title>
 <style>
     #wrapper {
         width: 1200px;

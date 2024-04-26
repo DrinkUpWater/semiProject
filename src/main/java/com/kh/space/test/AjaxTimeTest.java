@@ -52,7 +52,6 @@ public class AjaxTimeTest extends HttpServlet {
 			list.add(17);
 			list.add(18);
 		}
-		System.out.println(date);
 	
 	
 		

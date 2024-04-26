@@ -12,7 +12,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="icon" type="image/png" sizes="16x16" href="<%=request.getContextPath()%>/resources/teo/favicon-16x16.png">
+    <title>KH ROOMMOAH</title>
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 	<script>
 	function searchAddr(){
@@ -183,11 +184,11 @@
             cursor: pointer;
             scale: 0.98;
         }
-        input::-webkit-outer-spin-button,
+        /* input::-webkit-outer-spin-button,
 		input::-webkit-inner-spin-button {
 		  -webkit-appearance: none;
 		  margin: 0;
-		}
+		} */
 
     </style>
 </head>
@@ -358,13 +359,7 @@
                     
                 </tr>
                 <tr><td colspan="3"></td></tr>
-                <tr>
-                    <th>가격(1인 1시간 가격)<span class="red-color">*</span></th>
-                </tr>
-                <tr>
-                    <td colspan="3"><input id="input-price" class="input-text" name="spacePrice" type="number" value="${sp.spacePrice }" placeholder="숫자만 입력해주세요." required></td>
-                </tr>
-                <tr><td colspan="3"></td></tr>
+                
                 <tr>
                     <th>위치 정보</th>
                     <td colspan="2" align="right"><span class="textCount4">0</span>/20자</td>
@@ -376,12 +371,19 @@
                     <th></th>
                 </tr>
                 <tr>
+                    <th>가격(1인 1시간 가격)<span class="red-color">*</span></th>
+                </tr>
+                <tr>
+                    <td colspan="3"><input id="input-price" class="input-text" name="spacePrice" type="number" value="${sp.spacePrice }" placeholder="숫자만 입력해주세요." min="0" step="100" required></td>
+                </tr>
+                <tr><td colspan="3"></td></tr>
+                <tr>
                     <th>전화번호<span class="red-color">*</span></th>
                     <td colspan="1" align="right"><th>수용 인원<span class="red-color">*</span></th></td>
                 </tr>
                 <tr>
                     <td colspan="2" ><input id="input-tel" style="padding-right: 50px;" class="input-text" type="text" name="spaceTel" value="${loginUser.phone}" placeholder="'-' 없이 입력해주세요." required></td>
-                    <td  class="body80"><input class="input-text" name="spaceCapacity" type="number" value="${sp.spaceCapacity }" placeholder="최대 인원" required></td>
+                    <td  class="body80"><input class="input-text" name="spaceCapacity" type="number" value="${sp.spaceCapacity }" placeholder="최대 인원" min="1" required></td>
                 </tr>
             </table>
 
@@ -397,7 +399,7 @@
             <br><br>
             <div class="last-btns">
                 <button class="back-btn" type="button" onclick="history.back()">취&nbsp&nbsp&nbsp&nbsp소</button>
-                <button class="save-btn" type="submit">수&nbsp&nbsp&nbsp&nbsp정</button>
+                <button class="save-btn" type="button" onclick="clickSubmit()">수&nbsp&nbsp&nbsp&nbsp정</button>
             </div>
         </form>
     </div>
@@ -631,6 +633,17 @@
                 $('.caution-btn').click();
             }
         });
+        
+        function clickSubmit() {
+            let myform = document.querySelector("form");
+            if(myform.requestSubmit) {
+                myform.requestSubmit();
+            } else {
+                myform.submit();
+            }
+        }
+        
+        
     </script>
 
 </body>

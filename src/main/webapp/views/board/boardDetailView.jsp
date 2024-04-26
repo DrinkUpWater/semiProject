@@ -17,7 +17,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>일반게시판 상세페이지</title>
+    <link rel="icon" type="image/png" sizes="16x16" href="<%=request.getContextPath()%>/resources/teo/favicon-16x16.png">
+    <title>KH ROOMMOAH</title>
     <style>
         #board-wrapper{
             width: 1200px;
@@ -191,7 +192,7 @@
                 </div>
                 <div id="content-area">
                     <div id="ud-de" align="right">                  	
-                        <%if((loginUser != null && loginUser.getUserId().equals(b.getBoardWriter())) || (loginUser != null && loginUser.getAdmin().equals("Y"))){ %>
+                        <%if((loginUser != null && ((int)loginUser.getUserNo() == (b.getWriterNo()))) || (loginUser != null && loginUser.getAdmin().equals("Y"))){ %>
                             <a href="<%=contextPath%>/updateForm.bo?num=<%=b.getBoardNo() %>" id="a1">수정하기</a>
                             <a href="#" id="cancelButton">삭제하기</a>
                         <%} %>

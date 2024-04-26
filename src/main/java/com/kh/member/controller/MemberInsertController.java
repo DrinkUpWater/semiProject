@@ -45,7 +45,6 @@ public class MemberInsertController extends HttpServlet {
 
 		
 		Member m = new Member(userId,userPwd,userName,nickName,gender,phone,birth,email,userHost);
-		System.out.println(m);
 		int result = new MemberService().insertMember(m);
 		
 		if (result > 0) {

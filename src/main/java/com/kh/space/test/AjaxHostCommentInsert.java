@@ -30,7 +30,6 @@ public class AjaxHostCommentInsert extends HttpServlet {
 		String spaceNum=request.getParameter("spaceNum");
 		int commentNum= Integer.parseInt(request.getParameter("commentNum"));      
 		String hostReply=request.getParameter("hostReply");
-		System.out.println(spaceNum+commentNum+hostReply);
 		
 		HostComment hostComment=new HostComment(hostReply,commentNum);
 		
