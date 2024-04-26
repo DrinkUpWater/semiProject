@@ -137,7 +137,13 @@
                         <span><%=space.getSpaceAddress() %><span><br>
                         
                        	<%  
-                       		String []tags=space.getSpaceTag().split(",");
+                      		   String []tags=null;
+		             		   if(space.getSpaceTag()!=null){
+		             			 tags=space.getSpaceTag().split(" ");
+		             		   }else{
+	             			  tags=new String[1];
+	             			  tags[0]=" ";
+             		   }
                        	
                         %>
                         
