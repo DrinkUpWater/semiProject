@@ -185,7 +185,7 @@ public class Space {
 
 
 	public Space(int spaceNo, String spaceName, String spaceTag, String spaceMimg, String spaceAddress,
-			int spacePrice, int spaceCapacity) {
+			int spacePrice, int spaceCapacity,int spaceCount) {
 		super();
 		this.spaceNo = spaceNo;
 		this.spaceName = spaceName;
@@ -194,6 +194,7 @@ public class Space {
 		this.spaceAddress = spaceAddress;
 		this.spacePrice = spacePrice;
 		this.spaceCapacity = spaceCapacity;
+		this.spaceCount=spaceCount;
 	}
 
 

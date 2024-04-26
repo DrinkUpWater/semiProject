@@ -126,6 +126,12 @@
             font-size: 14px;
             color: #666;
         }
+        .rlist-delete{
+        	font-size: 14px;
+        	color: #666;
+        	float: right;
+        	cursor: pointer;	        	
+        }
         #reply-input{
             border: 1px solid;
             padding: 0  0 30px 0;
@@ -138,8 +144,8 @@
             border: 0;
             padding: 20px;
             font-size: 14px;
-            opacity: 0.8;
-            font-weight: 50;
+            opacity: 0.98;
+            font-weight: 300;
             box-sizing: border-box;
             resize: none;
         }
@@ -226,16 +232,33 @@
                <!--  댓글달린 수 -->
                 댓글 <span id="reply-count"></span>
             </div>
-            <div id="reply-area">
+            <div id="reply-area">           	
                 <div id="reply-list">
                     <!-- <div>
                         <div>댓글제목</div>
                         <div>댓글내용</div>
                         <div>2024.04.18</div>
-                    </div> -->
+                    </div> -->                   
                 </div>
+             	<script>
+	                function deleteReply(replyNo, refNoticeNo){
+
+	                        const confirmcheck = confirm("정말 삭제하시겠습니까?");
+	                        if(confirmcheck){
+	                        	location.href="<%=contextPath%>/drlist.no?num=" + replyNo + "&refNum=" + refNoticeNo;	                       	 	
+	                        }
+	                        else{
+	                            return false;
+	                        }                     
+	                }
+                </script>
+
                 <div id="reply-input">
-                    <textarea name="" id="reply-content" cols="80" rows="20" placeholder="댓글을 입력하시려면 네이버 로그인 해주세요"></textarea>
+                	<%if(loginUser != null){ %>
+                	<textarea name="" id="reply-content" cols="80" rows="20" placeholder="내용을 입력해주세요"></textarea>               	               	
+                	<%} else {%>
+                    <textarea name="" id="reply-content" readonly cols="80" rows="20" placeholder="댓글을 입력하시려면 로그인 해주세요"></textarea> 
+                	<%} %>
                 </div>
             </div>
             <div id="btn-area">
@@ -283,9 +306,12 @@
                         for(let reply of res){
                             str += ("<div class='rlist-area'>" +
                                     "<span class='rlist-writer'>" + reply.replyWriter + "</span>" +
-                                    "<span class='rlist-createDate'>" + reply.createDate + "</span>" +					
-                                    "<div class='rlist-content'>" + reply.replyContent + "</div>" +
-                                    "</div>")
+                                    "<span class='rlist-createDate'>" + reply.createDate + "</span>" +
+                                    <%if((loginUser != null && loginUser.getAdmin().equals("Y"))) {%>
+                                    "<span><button class='rlist-delete' style='text-decoration-line: none;' onclick='deleteReply(" + reply.replyNo+ "," + reply.refNoticeNo  + ")'>" + "삭제" + "</button></span>" +
+                                    <%} %>
+                                    "<div class='rlist-content'>" + reply.replyContent + "</div>" +                            
+                                    "</div>") 
                         }
                         document.querySelector("#reply-area > #reply-list").innerHTML = str;
                         setReplyCount(res.length)
@@ -294,7 +320,8 @@
                     }
                 })
             }
-      
+             
+
             function setReplyCount(count){
                 const rCount = document.querySelector("#reply-count");
                 rCount.innerHTML = count;

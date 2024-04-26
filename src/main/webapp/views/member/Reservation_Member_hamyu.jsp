@@ -156,17 +156,14 @@ int maxPage = pi.getMaxPage();
         width: 100%;
 
     }
-    .paging-area>button{
-         text-decoration: none;
-        border: 1px solid gray;
-        display: inline-block;
-        width: 35px;
-        height: 35px;
-        font-size: 15px;
-        line-height: 35px;
-        color: black;
-        margin-top: 10px;
-        margin-left: 10px;
+    .paging-area button{
+        	background-color : white;
+        	border: 1px solid rgb(180, 180, 180);
+        	width: 30px;
+        	height: 30px;
+      	    text-align: center;
+      	    padding-bottom: 4px;
+      	    font-weight : 500;
         }
 </style>
 </head>
@@ -301,26 +298,27 @@ int maxPage = pi.getMaxPage();
 
 
         <div class="paging-area" align="center">
-
-            <%
-              if (currentPage != 1) {
-            %>
-            <button
-                onclick="location.href='reservation.me?cpage=<%=currentPage - 1%>'">&lt;</button>
-            <%} %>
-            
-            <% for(int p=startPage; p<=endPage; p++){ %>
-                <%if (p==currentPage) { %>
-                    <button disabled><%=p %></button>
-                <%}else{ %>
-                    <button onclick="location.href='reservation.me?cpage=<%=p%>'"><%=p%></button>
-                <% } %>
-            <% } %>
-
-            <%if(currentPage != maxPage){ %>
-            <button
-                onclick="location.href='<%=contextPath%>/reservation.me?cpage=<%=currentPage + 1%>'">&gt;</button>
-            <%} %>
+			<% if(pi.getListCount() !=0){ %> 
+	            <%
+	              if (currentPage != 1) {
+	            %>
+	            <button
+	                onclick="location.href='reservation.me?cpage=<%=currentPage - 1%>'">&lt;</button>
+	            <%} %>
+	            
+	            <% for(int p=startPage; p<=endPage; p++){ %>
+	                <%if (p==currentPage) { %>
+	                    <button disabled><%=p %></button>
+	                <%}else{ %>
+	                    <button onclick="location.href='reservation.me?cpage=<%=p%>'"><%=p%></button>
+	                <% } %>
+	            <% } %>
+	
+	            <%if(currentPage != maxPage){ %>
+	            <button
+	                onclick="location.href='<%=contextPath%>/reservation.me?cpage=<%=currentPage + 1%>'">&gt;</button>
+	            <%} %>
+	          <%} %>
         </div>
         <hr>
 

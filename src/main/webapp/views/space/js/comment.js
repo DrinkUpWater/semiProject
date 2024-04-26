@@ -39,6 +39,8 @@ function callbackData(result){
             userNo:r.userNo
         })
     }
+    
+    document.querySelector("#QA_Count").innerHTML="("+list.length+"개)"
     drawTableList( list,replyBody)
     console.log("callback: "+list)
 }
@@ -320,9 +322,15 @@ function insertHostComment(hostButton,hostreply,commentNo){
 
 function insertGuestComment(spaceNo){
    const qaButton= document.querySelector("#qa_enroll");
-   const qaContent=document.querySelector("#content");
 
    qaButton.onclick=function(){
+  
+    const qaContent=document.querySelector("#content");
+    // if(qaContent.value==""){
+    //     alert("내용을 입력해주세요~");
+    //     return;
+    // }
+    
         $.ajax({
             url:"insert.gu",
             method:"POST",

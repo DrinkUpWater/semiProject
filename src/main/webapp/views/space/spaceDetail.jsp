@@ -121,7 +121,8 @@
 
         <link rel="stylesheet" href="<%=request.getContextPath()%>/views/space/css/review.css"/>
         <link rel="stylesheet" href="<%=request.getContextPath()%>/views/space/css/qa.css"/>
-
+        <link rel="stylesheet" href="<%=request.getContextPath()%>/views/space/css/reviewStar.css"/>
+        <link rel="stylesheet" href="<%=request.getContextPath()%>/views/space/css/etc.css"/>
 
         <script src='<%=request.getContextPath()%>/views/space/js/comment.js'></script>
         <script src="<%=request.getContextPath()%>/views/space/js/calenderClick.js"></script>
@@ -568,8 +569,9 @@
 
                 <div id="section_1">
 
-                    <!--찜하기-->
-
+                   
+                    <span class="distance_option"><%=space.getSpaceLocation() %></span>
+                     <!--찜하기-->
                     <div id="space_id" name="space_name" class="title">
                         <div class="text"><%=space.getSpaceName() %> </div> 
                         <div id="picked_divs">찜하기<i class='fa-regular fa-heart'></i></div>
@@ -583,7 +585,6 @@
 
                     <div id="space_comment" class="space">
 
-                     
 
                              <div class="img_div" >
                                 <% for (Attachment at: attachment) { %>
@@ -626,8 +627,19 @@
                         <hr class="line2" style="background:rgb(235, 229, 229) ">
                     </div>
                     <div id="space_intro_comment" class="space">
-                         <%=space.getSpaceIntroduce() %><br>
-                      
+                         <span class="location">[<%=space.getSpaceLocation() %>]</span>
+                         <span><%=space.getSpaceIntroduce() %></span><br><br>
+
+                         
+                            <% for(String tag:tags){ %>
+                                <span  style="color: #54535a; font-size: 15px;"><%=tag%></span>&nbsp;
+                            <% } %>
+                         
+
+                         <span class="information_detail"> 📢오픈 기념 후기 EVENT 진행중!📸<br><br>
+                         📢주차는 근처 공영주차장 이용하시면 됩니다. 문의 주시면 지도 안내 드릴게요!<br><br>
+                         ⌚영업시간 09~21  &nbsp;&nbsp;&nbsp;&nbsp; ⏳휴무일 :없음
+                         </span>
                     </div>
 
                     <div id="space_guide" name="space_guide" class="title">
@@ -638,7 +650,7 @@
                     <div id="space_guide_comment" class="space">
                        
                                <% for(String guide:guides){%>
-                                  <tr><td><%=guide%></td></tr><br>
+                                  <tr><td><%=guide%></td></tr><br><br>
                                <% } %>
 
                          
@@ -653,7 +665,7 @@
 
                     <div id="reservation_warn_comment" class="space">
                         <%for(String c:caution){ %>
-                            <tr><td><%=c%></td></tr><br>
+                            <tr><td><%=c%></td></tr><br><br>
                        <% } %>
 
                         
@@ -663,6 +675,20 @@
                     <div id="space_road" class="title">
                         <div class="text">길찾기</div>
                         <hr class="line2" style="background:rgb(235, 229, 229) ">
+                        <div id="inner">
+                            <div id="sp_location">
+                                <%=space.getSpaceName()%><br>
+                                <%=space.getSpaceAddress()%>
+                            </div>
+
+                            <div class="lo">
+                                <a href="https://map.kakao.com/link/search/<%=space.getSpaceAddress()%>" class="btn btn_rounded btn_way" target="_blank">
+                                    <span class="btn_inner way">
+                                    <i class="fa-solid fa-arrow-trend-up"></i>
+                                    길찾기</span>
+                                </a>
+                            </div>
+                         </div>
                     </div>
 
                     <div id="space_road_comment" class="space">
@@ -698,7 +724,7 @@
 
                                     // 인포윈도우로 장소에 대한 설명을 표시합니다
                                     let infowindow = new kakao.maps.InfoWindow({
-                                       content: '<div style="width:150px;text-align:center;padding:6px 0;">내공간</div>'
+                                       content: '<div style="width:150px;text-align:center;padding:6px 0;"><%=space.getSpaceName()%></div>'
                                     });
                                     infowindow.open(map, marker);
 
@@ -712,7 +738,7 @@
 
 
                     <div id="space_qa" name="space_qa" class="title">
-                        <div class="text">Q&A</div>
+                        <div class="text">Q&A &nbsp;<span id="QA_Count" style="font-size:25px; color:rgb(159, 8, 159)"></span></div>
                         <hr>
                     </div>
 
@@ -816,7 +842,7 @@
 
 
                         <div id="space_review_title" name="space_qa" class="title">
-                            <div class="text">리뷰</div>
+                            <div class="text">리뷰 &nbsp; <span id="review_count" style="font-size: 25px; color:rgb(159, 8, 159)"></span></div>
                             <hr>
                         </div>
                       
@@ -845,6 +871,13 @@
                                                 <input type="hidden" name="spaceNum" value="<%=space.getSpaceNo()%>"> <!-- Ensure server-side template rendering supports this syntax -->
                                                 <div class="mb-3">
                                                     <label for="review_content" class="form-label">리뷰작성</label>
+                                                    <div class="star-rating">
+                                                        <input type="radio" class="star" name="rating"  value="1">
+                                                        <input type="radio" class="star" name="rating"  value="2">
+                                                        <input type="radio" class="star" name="rating"  value="3">
+                                                        <input type="radio" class="star" name="rating"  value="4">
+                                                        <input type="radio" class="star" name="rating"  value="5">
+                                                      </div>
                                                     <textarea class="form-control" id="reivew_content" name="content" placeholder="입력하세요" rows="3" style="width: 100%;"></textarea>
                                                 </div>
                                                 <div class="d-grid">
@@ -1109,7 +1142,7 @@
 
                                 <!-- Modal Header -->
                                 <div class="modal-header">
-                                    <h4 class="modal-title">결재하기</h4>
+                                    <h4 class="modal-title">결제하기</h4>
                                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                                 </div>
 
@@ -1122,25 +1155,25 @@
                                      
                                          <table>
                                             <tr>
-                                                <th>사용자이름</th>
+                                                <th>사용자이름:</th>
                                                 <td><%=( member.getUserId()!=null)? member.getUserName():"none" %></td>
                                             </tr>
                                             <tr>
-                                                <th>예약날짜</th>
+                                                <th>예약날짜:</th>
                                                 <td id="reservationDateDiv"></td> 
                                             </tr>
                                             <tr>
-                                                <th>예약시간</th>
+                                                <th>예약시간:</th>
                                                 <td id="reservationTimeDiv"></td>  
                                                
                                             </tr>
                                             <tr>
-                                                <th>예약인원</th>
+                                                <th>예약인원:</th>
                                                 <td id="personalCountDiv"></td>  
                             
                                             </tr>
                                             <tr>
-                                                <th>결재금액</th>
+                                                <th>결제금액:</th>
                                                 <td id="paymentDiv"></td>  
                                             </tr>
                                            
@@ -1148,7 +1181,7 @@
 
                                         <br>
                                         <button id="edit-pwd-btn" type="submit" class="btn btn-sm btn-secondary">
-                                            결재하기
+                                            결제하기
                                         </button>
 
                                         <div id ="AddTime" ></div>

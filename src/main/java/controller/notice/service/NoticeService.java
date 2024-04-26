@@ -167,6 +167,21 @@ public class NoticeService {
 		return result;
 	}
 	
+	public int deleteReply(int replyNo) {
+		Connection conn = getConnection();
+		
+		int result = new NoticeDao().deleteReply(conn, replyNo);
+		
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result;		
+	}
+	
 	public int selectNoticeReplyCount(int noticeNo){
 		Connection conn = getConnection();
 		

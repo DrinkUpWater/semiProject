@@ -101,6 +101,10 @@
         .space-info>b {
             margin-bottom: 15px;
         }
+        .title-area{
+       		display: flex;
+       		justify-content: space-between;
+        }
 </style>
 
 <%    
@@ -124,25 +128,30 @@
                     <img src="<%=request.getContextPath()%>/<%=picked.getSpaceMimg()%>" alt="썸네일" width="100%" height="100%">
                 </div>
                 <div class="space-info">
-                    <b>
-                        <%=picked.getSpaceName() %>
-                    </b>
-                    <p>
-                        <span><%=picked.getSpaceAddress() %><span><br>
+                    <div class="title-area" style="margin-bottom: 5px;">
+                        <b>
+                            <%=picked.getSpaceName() %>
+                        </b>
+                        <span><i class="fa-regular fa-thumbs-up"></i> <%=picked.getSpaceCount() %></span>
+                    </div>
+                    <div>
+                        <p>
+                            <span><%=picked.getSpaceAddress() %><span><br>
+                            
+                            <%  
+                                String []tags=picked.getSpaceTag().split(" ");
+                            
+                            %>
+                            
+                            <% for(String tag:tags){ %>
+                                    
+                                    <span><a href="#"><%=tag%></a><span> &nbsp;
+                                    
+                            <%} %>
                         
-                       	<%  
-                       		String []tags=picked.getSpaceTag().split(" ");
-                       	
-                        %>
                         
-                         <% for(String tag:tags){ %>
-                         		
-                         	     <span><a href="#"><%=tag%></a><span> &nbsp;
-                         		
-                         <%} %>
-                       
-                       
-                    </p>
+                        </p>
+                  </div>
                     <div class="price-info">
                         <div><b><%=picked.getSpacePrice()%></b><span>원/시간</span></div> <span>최대 <%=picked.getSpaceCapacity()%>인 </span>
                     </div>

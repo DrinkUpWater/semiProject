@@ -15,6 +15,7 @@ import controller.board.model.dao.BoardDao;
 import controller.board.model.vo.Board;
 import controller.board.model.vo.Reply;
 
+
 public class BoardService {
 	public int selectListCount() {
 		Connection conn = getConnection();
@@ -164,6 +165,22 @@ public class BoardService {
 		close(conn);
 		
 		return result;
+	}
+	
+	public int deleteReply(int replyNo) {
+		Connection conn = getConnection();
+
+		int result = new BoardDao().deleteReply(conn, replyNo);
+		
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result;	
+		
 	}
 	
 	public int selectBoardReplyCount(int boardNo){
