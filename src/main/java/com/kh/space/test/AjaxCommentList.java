@@ -47,7 +47,6 @@ public class AjaxCommentList extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
        request.setCharacterEncoding("utf-8");
        String spaceNo=request.getParameter("spaceNum");
-       System.out.println(spaceNo);
        
        
        
