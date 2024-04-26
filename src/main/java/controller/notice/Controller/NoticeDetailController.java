@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.kh.common.NoticeAttachment;
 
 import controller.notice.model.vo.Notice;
+import controller.notice.model.vo.Reply;
 import controller.notice.service.NoticeService;
 
 /**

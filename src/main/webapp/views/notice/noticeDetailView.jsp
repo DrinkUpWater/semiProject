@@ -307,7 +307,7 @@
                             str += ("<div class='rlist-area'>" +
                                     "<span class='rlist-writer'>" + reply.replyWriter + "</span>" +
                                     "<span class='rlist-createDate'>" + reply.createDate + "</span>" +
-                                    <%if((loginUser != null && loginUser.getUserId().equals(n.getNoticeWriter())) || (loginUser != null && loginUser.getAdmin().equals("Y"))) {%>
+                                    <%if((loginUser != null && loginUser.getAdmin().equals("Y"))) {%>
                                     "<span><button class='rlist-delete' style='text-decoration-line: none;' onclick='deleteReply(" + reply.replyNo+ "," + reply.refNoticeNo  + ")'>" + "삭제" + "</button></span>" +
                                     <%} %>
                                     "<div class='rlist-content'>" + reply.replyContent + "</div>" +                            

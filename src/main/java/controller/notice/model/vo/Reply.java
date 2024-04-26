@@ -23,6 +23,17 @@ public class Reply {
 		this.status = status;
 	}
 	
+	
+
+	public Reply(int replyNo, String replyContent, int refNoticeNo, String replyWriter, String createDate) {
+		super();
+		this.replyNo = replyNo;
+		this.replyContent = replyContent;
+		this.refNoticeNo = refNoticeNo;
+		this.replyWriter = replyWriter;
+		this.createDate = createDate;
+	}
+
 	public Reply(int replyNo, String replyContent, String replyWriter, String createDate) {
 		super();
 		this.replyNo = replyNo;
@@ -85,6 +96,9 @@ public class Reply {
 	public void setStatus(String status) {
 		this.status = status;
 	}
+	
+	
+
 
 	@Override
 	public String toString() {
