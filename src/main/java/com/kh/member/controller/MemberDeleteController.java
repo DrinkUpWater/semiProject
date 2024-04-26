@@ -35,13 +35,14 @@ public class MemberDeleteController extends HttpServlet {
 		int userNo =Integer.parseInt(request.getParameter("userNo"));
 		int result = new MemberService().deleteMember(userId,userNo);
 		HttpSession session = request.getSession();
+		System.out.println(result);
 		if(result>0) {
 			session.setAttribute("alertMsg", "회원이 성공적으로 탈퇴되셨습니다. 이용해주셔서 감사합니다.");
 			session.removeAttribute("loginUser");
 			response.sendRedirect(request.getContextPath());
 		}else {
 			session.setAttribute("alert", "회원탈퇴에 실패했습니다.");
-			request.getRequestDispatcher("views/member/Reservation_Member_hamyu.jsp").forward(request, response);;
+			request.getRequestDispatcher("views/member/SecessionMember_hamyu.jsp").forward(request, response);
 		}
 	}
 

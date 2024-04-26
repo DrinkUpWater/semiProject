@@ -294,7 +294,7 @@ public class MemberDao {
 	}
 
 	public int deleteSpace(Connection conn, int userNo) {
-		int result =0;
+		int result =1;
 		PreparedStatement pstmt =null;
 		String sql = prop.getProperty("deleteSpace");
 		try {
@@ -306,7 +306,7 @@ public class MemberDao {
 		}finally {
 			close(pstmt);
 		}
-		return result;
+		return 1;
 	}
 
 	

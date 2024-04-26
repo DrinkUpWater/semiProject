@@ -81,7 +81,9 @@ public class MemberService {
 	public int deleteMember(String userId, int userNo) {
 		Connection conn =getConnection();
 		int result = new MemberDao().deleteMember(conn,userId);
+		System.out.println(result);
 		int result2 = new MemberDao().deleteSpace(conn,userNo);
+		System.out.println(result2);
 		if(result*result2>0) {
 			commit(conn);
 		}else {
